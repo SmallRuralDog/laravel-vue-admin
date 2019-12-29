@@ -55,7 +55,7 @@ class Administrator extends Model implements AuthenticatableContract
             return Storage::disk(config('admin.upload.disk'))->url($avatar);
         }
 
-        $default = config('admin.default_avatar') ?: '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg';
+        $default = config('admin.default_avatar') ?: 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar';
 
         return admin_asset($default);
     }

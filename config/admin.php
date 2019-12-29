@@ -13,7 +13,7 @@ return [
     */
     'name' => 'Laravel-admin',
 
-    'login-desc' => 'iView Admin Pro 企业级中台前端/设计解决方案',
+    'loginDesc' => 'iView Admin Pro 企业级中台前端/设计解决方案',
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
+    'loginLogo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
+    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo-dark.ab519d9f.png',
 
     'copyright' => 'Copyright © 2019 广西米米资产管理有限公司',
 
@@ -39,7 +40,7 @@ return [
 | '<img src="http://logo-url" alt="Admin logo">'.
 |
 */
-'logo-mini' => '<b>La</b>',
+'logo-mini' => 'https://file.iviewui.com/admin-pro-dist/img/logo-small.4a34a883.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -255,7 +256,7 @@ return [
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
+    'default_avatar' => 'https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar',
 
     /*
     |--------------------------------------------------------------------------

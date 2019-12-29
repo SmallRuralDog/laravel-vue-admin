@@ -57,3 +57,16 @@ if (!function_exists('admin_toastr')) {
         session()->flash('toastr', $toastr);
     }
 }
+
+if (!function_exists('admin_asset')) {
+
+    /**
+     * @param $path
+     *
+     * @return string
+     */
+    function admin_asset($path)
+    {
+        return (config('admin.https') || config('admin.secure')) ? secure_asset($path) : asset($path);
+    }
+}

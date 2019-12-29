@@ -41,6 +41,7 @@ Vue.prototype.$http = axios;
 
 
 Vue.component('login', require('./components/Login').default);
+Vue.component('content-layout', require('./components/layout/Content').default);
 
 new window.Vue(
     {

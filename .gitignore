@@ -21,4 +21,4 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-
+fonts/
