@@ -1,0 +1,14 @@
+body {
+    background-color: #f7f7f7;
+    font-size: 14px;
+}
+
+.mb-15{
+    margin-bottom: 15px;
+}
+.page-account {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: auto;
+}
