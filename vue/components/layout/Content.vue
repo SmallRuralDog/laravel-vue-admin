@@ -14,12 +14,12 @@
                             <Icon type="ios-navigate" size="16"></Icon>
                             <span>{{menu.title}}</span>
                         </template>
-                        <MenuItem :name="sub_menu.id" v-for="sub_menu in menu.children" :key="sub_menu.id">
+                        <MenuItem :name="sub_menu.id" v-for="sub_menu in menu.children" :key="sub_menu.id" :to="sub_menu.url">
                             <Icon v-if="false" type="ios-navigate"></Icon>
                             <span>{{sub_menu.title}}</span>
                         </MenuItem>
                     </Submenu>
-                    <MenuItem :name="menu.id" v-else>
+                    <MenuItem :name="menu.id" v-else :to="menu.url">
                         <Icon type="ios-navigate" size="16"></Icon>
                         <span>{{menu.title}}</span>
                     </MenuItem>
@@ -29,7 +29,7 @@
         <Layout>
             <Header :style="{padding: 0}" class="layout-header-bar">
                 <div class="layout-header-l">
-                    <div class="layout-header-trigger hover" @click="collapsedSide">
+                    <div class="layout-header-trigger hover" @click="collapsedSide" v-if="false">
                         <Icon type="md-menu menu-icon" size="25" :class="{'rotate-icon':isCollapsed}"/>
                     </div>
                     <div class="layout-header-breadcrumb">

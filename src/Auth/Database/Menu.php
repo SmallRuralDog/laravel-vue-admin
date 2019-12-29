@@ -2,11 +2,11 @@
 
 namespace SmallRuralDog\Admin\Auth\Database;
 
-use SmallRuralDog\Admin\Traits\AdminBuilder;
-use SmallRuralDog\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use SmallRuralDog\Admin\Traits\AdminBuilder;
+use SmallRuralDog\Admin\Traits\ModelTree;
 
 /**
  * Class Menu.
@@ -20,6 +20,8 @@ class Menu extends Model
     use AdminBuilder, ModelTree {
         ModelTree::boot as treeBoot;
     }
+
+    protected $appends = ['url'];
 
     /**
      * The attributes that are mass assignable.
@@ -66,7 +68,7 @@ class Menu extends Model
         $connection = config('admin.database.connection') ?: config('database.default');
         $orderColumn = DB::connection($connection)->getQueryGrammar()->wrap($this->orderColumn);
 
-        $byOrder = 'ROOT ASC,'.$orderColumn;
+        $byOrder = 'ROOT ASC,' . $orderColumn;
 
         $query = static::query();
 
@@ -74,7 +76,7 @@ class Menu extends Model
             $query->with('roles');
         }
 
-        return $query->selectRaw('*, '.$orderColumn.' ROOT')->orderByRaw($byOrder)->get()->toArray();
+        return $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
     }
 
     /**
@@ -84,7 +86,7 @@ class Menu extends Model
      */
     public function withPermission()
     {
-        return (bool) config('admin.menu_bind_permission');
+        return (bool)config('admin.menu_bind_permission');
     }
 
     /**
@@ -99,5 +101,10 @@ class Menu extends Model
         static::deleting(function ($model) {
             $model->roles()->detach();
         });
+    }
+
+    public function getUrlAttribute()
+    {
+        return admin_url($this->uri);
     }
 }

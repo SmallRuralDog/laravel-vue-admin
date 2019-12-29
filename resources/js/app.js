@@ -64970,7 +64970,7 @@ var render = function() {
                               "MenuItem",
                               {
                                 key: sub_menu.id,
-                                attrs: { name: sub_menu.id }
+                                attrs: { name: sub_menu.id, to: sub_menu.url }
                               },
                               [
                                 false
@@ -64987,7 +64987,7 @@ var render = function() {
                       )
                     : _c(
                         "MenuItem",
-                        { attrs: { name: menu.id } },
+                        { attrs: { name: menu.id, to: menu.url } },
                         [
                           _c("Icon", {
                             attrs: { type: "ios-navigate", size: "16" }
@@ -65014,20 +65014,9 @@ var render = function() {
             { staticClass: "layout-header-bar", style: { padding: 0 } },
             [
               _c("div", { staticClass: "layout-header-l" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "layout-header-trigger hover",
-                    on: { click: _vm.collapsedSide }
-                  },
-                  [
-                    _c("Icon", {
-                      class: { "rotate-icon": _vm.isCollapsed },
-                      attrs: { type: "md-menu menu-icon", size: "25" }
-                    })
-                  ],
-                  1
-                ),
+                false
+                  ? undefined
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",
