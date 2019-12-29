@@ -8,9 +8,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use SmallRuralDog\Admin\Layout\Content;
+use SmallRuralDog\Admin\Layout\Row;
 
 class AdminController extends Controller
 {
+
+    use HasResourceActions;
+
+    public function index(Content $content)
+    {
+        return $content
+            ->showPageHeader($this->showPageHeader())
+            ->title($this->title())
+            ->description($this->description['index'] ?? trans('admin.list'))
+            /*->row(function (Row $row) {
+                $row->column(6, "456789");
+                $row->column(6, "456789");
+                $row->column(6, "456789");
+                $row->column(6, "456789");
+            })*/
+            ->body($this->grid());
+    }
 
     protected function validatorData(Request $request, $rules, $message = [])
     {

@@ -71,7 +71,7 @@ class Admin
         ];
         app('router')->group($attributes, function ($router) {
             /* @var Route $router */
-            $router->namespace('\Encore\Admin\Controllers')->group(function ($router) {
+            $router->namespace('\SmallRuralDog\Admin\Controllers')->group(function ($router) {
                 /* @var Router $router */
                 $router->resource('auth/users', 'UserController')->names('admin.auth.users');
                 $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');

@@ -6,9 +6,21 @@ body {
     background-color: #f7f7f7;
     font-size: 14px;
 }
+.ml-2 {
+    margin-left: 2px;
+}
+
+.ml-5 {
+    margin-left: 5px;
+}
 
 .mb-15 {
     margin-bottom: 15px;
+}
+
+
+.hover {
+    cursor: pointer;
 }
 
 .page-account {
@@ -42,6 +54,10 @@ body {
 .side-dark {
     background: #191a23;
     box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+}
+
+.ivu-table-wrapper, .ivu-table, .ivu-table-header, .ivu-table th {
+    overflow: unset;
 }
 
 .ivu-menu {

@@ -77,7 +77,6 @@
                     </div>
                     <slot></slot>
                 </div>
-
             </Content>
         </Layout>
     </Layout>
@@ -213,11 +212,11 @@
     }
 
     .layout-content-main {
-        margin: 24px;
+        margin: 15px;
 
         .layout-page-header {
-            margin: -24px -24px 0;
-            padding: 16px 32px 0 32px;
+            margin: -15px -15px 0;
+            padding: 15px 15px 0 15px;
             background: #fff;
             border-bottom: 1px solid #e8eaec;
 

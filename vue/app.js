@@ -42,6 +42,9 @@ Vue.prototype.$http = axios;
 
 Vue.component('login', require('./components/Login').default);
 Vue.component('content-layout', require('./components/layout/Content').default);
+Vue.component('row-layout', require('./components/layout/Row').default);
+Vue.component('column-layout', require('./components/layout/Column').default);
+Vue.component('table-grid', require('./components/grid/Table').default);
 
 new window.Vue(
     {

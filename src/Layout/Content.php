@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Layout;
 
+use Closure;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use SmallRuralDog\Admin\Facades\Admin;
@@ -17,6 +18,8 @@ class Content implements Renderable
 
     protected $breadcrumb = [];
 
+    protected $rows = [];
+
     public function showPageHeader($val)
     {
         $this->showPageHeader = $val;
@@ -29,10 +32,33 @@ class Content implements Renderable
         return $this;
     }
 
+
     public function description($description = '')
     {
         $this->description = $description;
         return $this;
+    }
+
+    public function body($content)
+    {
+        return $this->row($content);
+    }
+
+    public function row($content)
+    {
+        if ($content instanceof Closure) {
+            $row = new Row();
+            call_user_func($content, $row);
+            $this->addRow($row);
+        } else {
+            $this->addRow(new Row($content));
+        }
+        return $this;
+    }
+
+    protected function addRow(Row $row)
+    {
+        $this->rows[] = $row;
     }
 
     public function breadcrumb(...$breadcrumb)
@@ -70,16 +96,22 @@ class Content implements Renderable
         ];
     }
 
+    public function build()
+    {
+        $contents = collect($this->rows)->map(function (Row $row) {
+            return $row->build();
+        });
+        return $contents->join('');
+    }
+
     public function render()
     {
-
-
         $data = [
             'showPageHeader' => $this->showPageHeader,
             'title' => $this->title,
             'description' => $this->description,
-            'menu'=>Admin::menu(),
-            'breadcrumb'  => $this->breadcrumb,
+            'menu' => Admin::menu(),
+            'breadcrumb' => $this->breadcrumb,
             'logo' => config('admin.logo'),
             'logoMini' => config('admin.logo-mini'),
             'user' => $this->getUserData(),
@@ -87,6 +119,6 @@ class Content implements Renderable
         ];
 
 
-        return view('admin::content', ['data' => $data])->render();
+        return view('admin::content', ['data' => $data, 'content' => $this->build()])->render();
     }
 }
