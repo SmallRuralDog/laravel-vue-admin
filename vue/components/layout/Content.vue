@@ -7,19 +7,23 @@
                 <img :src="page_data.logo" v-if="!isCollapsed">
                 <img :src="page_data.logoMini" v-else>
             </div>
-            <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-                <MenuItem name="1-1">
-                    <Icon type="ios-navigate"></Icon>
-                    <span>Option 1</span>
-                </MenuItem>
-                <MenuItem name="1-2">
-                    <Icon type="ios-search"></Icon>
-                    <span>Option 2</span>
-                </MenuItem>
-                <MenuItem name="1-3">
-                    <Icon type="ios-settings"></Icon>
-                    <span>Option 3</span>
-                </MenuItem>
+            <Menu :active-name="1" theme="dark" width="auto" :class="menuitemClasses" accordion>
+                <template v-for="menu in page_data.menu">
+                    <Submenu :name="menu.id" v-if="menu.children && menu.children.length>0" :key="menu.id">
+                        <template slot="title">
+                            <Icon type="ios-navigate" size="16"></Icon>
+                            <span>{{menu.title}}</span>
+                        </template>
+                        <MenuItem :name="sub_menu.id" v-for="sub_menu in menu.children" :key="sub_menu.id">
+                            <Icon v-if="false" type="ios-navigate"></Icon>
+                            <span>{{sub_menu.title}}</span>
+                        </MenuItem>
+                    </Submenu>
+                    <MenuItem :name="menu.id" v-else>
+                        <Icon type="ios-navigate" size="16"></Icon>
+                        <span>{{menu.title}}</span>
+                    </MenuItem>
+                </template>
             </Menu>
         </Sider>
         <Layout>
@@ -156,10 +160,12 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                .menu-icon{
-                    transition-duration:0.5s;
+
+                .menu-icon {
+                    transition-duration: 0.5s;
                 }
-                .rotate-icon{
+
+                .rotate-icon {
                     transform: rotate(90deg);
                 }
             }

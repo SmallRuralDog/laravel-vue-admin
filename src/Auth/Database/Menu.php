@@ -2,8 +2,8 @@
 
 namespace SmallRuralDog\Admin\Auth\Database;
 
-use Encore\Admin\Traits\AdminBuilder;
-use Encore\Admin\Traits\ModelTree;
+use SmallRuralDog\Admin\Traits\AdminBuilder;
+use SmallRuralDog\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;

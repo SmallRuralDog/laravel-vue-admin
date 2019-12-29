@@ -6,10 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ Admin::title() }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    @yield('head-js')
 </head>
 <body>
 <div id="app">@yield('content')</div>
+@yield('js')
 <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

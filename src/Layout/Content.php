@@ -78,6 +78,7 @@ class Content implements Renderable
             'showPageHeader' => $this->showPageHeader,
             'title' => $this->title,
             'description' => $this->description,
+            'menu'=>Admin::menu(),
             'breadcrumb'  => $this->breadcrumb,
             'logo' => config('admin.logo'),
             'logoMini' => config('admin.logo-mini'),

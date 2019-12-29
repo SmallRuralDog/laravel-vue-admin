@@ -2049,6 +2049,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     page_data: Object
@@ -2095,7 +2099,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "#app, body, html {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  z-index: 13;\n}\n.content-side .content-side-logo {\n  height: 54px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.content-side .content-side-logo img {\n  width: 80%;\n  vertical-align: middle;\n}\n\n.side-dark {\n  background: #191a23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n\n.ivu-menu {\n  display: block;\n  margin: 0;\n  padding: 0;\n  outline: none;\n  list-style: none;\n  color: #515a6e;\n  font-size: 14px;\n  position: relative;\n  z-index: 900;\n}\n\n.ivu-menu-horizontal {\n  height: 60px;\n  line-height: 60px;\n}\n\n.ivu-menu-horizontal.ivu-menu-light:after {\n  content: \"\";\n  display: block;\n  width: 100%;\n  height: 1px;\n  background: #dcdee2;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n\n.ivu-menu-vertical.ivu-menu-light:after {\n  content: \"\";\n  display: block;\n  width: 1px;\n  height: 100%;\n  background: #dcdee2;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  z-index: 1;\n}\n\n.ivu-menu-light {\n  background: #fff;\n}\n\n.ivu-menu-dark {\n  background: #191a23;\n}\n\n.ivu-menu-primary {\n  background: #2d8cf0;\n}\n\n.ivu-menu-item {\n  display: block;\n  outline: none;\n  list-style: none;\n  font-size: 14px;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\n\na.ivu-menu-item,\na.ivu-menu-item:active,\na.ivu-menu-item:hover {\n  color: inherit;\n}\n\n.ivu-menu-item > i {\n  margin-right: 6px;\n}\n\n.ivu-menu-submenu-title > i,\n.ivu-menu-submenu-title span > i {\n  margin-right: 8px;\n}\n\n.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-horizontal .ivu-menu-submenu {\n  float: left;\n  padding: 0 20px;\n  position: relative;\n  cursor: pointer;\n  z-index: 3;\n  transition: all 0.2s ease-in-out;\n}\n\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu {\n  height: inherit;\n  line-height: inherit;\n  border-bottom: 2px solid transparent;\n  color: #515a6e;\n}\n\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item-active,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item:hover,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu-active,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu:hover {\n  color: #2d8cf0;\n  border-bottom: 2px solid #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item-active,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item:hover,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu-active,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu:hover,\n.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu {\n  color: #fff;\n}\n\n.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown {\n  min-width: 100%;\n  width: auto;\n  max-height: none;\n}\n\n.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item {\n  height: auto;\n  border-bottom: 0;\n  float: none;\n}\n\n.ivu-menu-item-group {\n  line-height: normal;\n}\n\n.ivu-menu-item-group-title {\n  height: 30px;\n  line-height: 30px;\n  padding-left: 8px;\n  font-size: 12px;\n  color: #999;\n}\n\n.ivu-menu-item-group > ul {\n  padding: 0 !important;\n  list-style: none !important;\n}\n\n.ivu-menu-vertical .ivu-menu-item,\n.ivu-menu-vertical .ivu-menu-submenu-title {\n  padding: 14px 24px;\n  position: relative;\n  cursor: pointer;\n  z-index: 1;\n  transition: all 0.2s ease-in-out;\n}\n\n.ivu-menu-vertical .ivu-menu-item:hover,\n.ivu-menu-vertical .ivu-menu-submenu-title:hover {\n  color: #2d8cf0;\n}\n\n.ivu-menu-vertical .ivu-menu-submenu-title-icon {\n  position: absolute;\n  top: 50%;\n  right: 24px;\n  transform: translateY(-50%);\n}\n\n.ivu-menu-submenu-title-icon {\n  transition: transform 0.2s ease-in-out;\n}\n\n.ivu-menu-horizontal .ivu-menu-opened > * > .ivu-menu-submenu-title-icon {\n  transform: rotate(180deg);\n}\n\n.ivu-menu-vertical .ivu-menu-opened > * > .ivu-menu-submenu-title-icon {\n  transform: translateY(-50%) rotate(180deg);\n}\n\n.ivu-menu-vertical .ivu-menu-submenu-nested {\n  padding-left: 20px;\n}\n\n.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item {\n  padding-left: 43px;\n}\n\n.ivu-menu-vertical .ivu-menu-item-group-title {\n  height: 48px;\n  line-height: 48px;\n  font-size: 14px;\n  padding-left: 28px;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-group-title {\n  color: rgba(255, 255, 255, 0.36);\n}\n\n.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {\n  color: #2d8cf0;\n  background: #f0faff;\n  z-index: 2;\n}\n\n.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {\n  content: \"\";\n  display: block;\n  width: 2px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  background: #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover {\n  background: #101117;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover {\n  color: #fff;\n  background: #191a23;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {\n  color: #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item:hover {\n  color: #fff;\n  background: transparent !important;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {\n  border-right: none;\n  color: #fff;\n  background: #2d8cf0 !important;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-child-item-active > .ivu-menu-submenu-title {\n  color: #fff;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened {\n  background: #101117;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {\n  background: #191a23;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-has-parent-submenu .ivu-menu-submenu-title {\n  background: transparent;\n}", ""]);
+exports.push([module.i, "#app, body, html {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  z-index: 13;\n}\n.content-side .content-side-logo {\n  height: 54px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n\n.side-dark {\n  background: #191a23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n\n.ivu-menu {\n  display: block;\n  margin: 0;\n  padding: 0;\n  outline: none;\n  list-style: none;\n  color: #515a6e;\n  font-size: 14px;\n  position: relative;\n  z-index: 900;\n}\n\n.ivu-menu-horizontal {\n  height: 60px;\n  line-height: 60px;\n}\n\n.ivu-menu-horizontal.ivu-menu-light:after {\n  content: \"\";\n  display: block;\n  width: 100%;\n  height: 1px;\n  background: #dcdee2;\n  position: absolute;\n  bottom: 0;\n  left: 0;\n}\n\n.ivu-menu-vertical.ivu-menu-light:after {\n  content: \"\";\n  display: block;\n  width: 1px;\n  height: 100%;\n  background: #dcdee2;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  z-index: 1;\n}\n\n.ivu-menu-light {\n  background: #fff;\n}\n\n.ivu-menu-dark {\n  background: #191a23;\n}\n\n.ivu-menu-primary {\n  background: #2d8cf0;\n}\n\n.ivu-menu-item {\n  display: block;\n  outline: none;\n  list-style: none;\n  font-size: 14px;\n  position: relative;\n  z-index: 1;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\n\na.ivu-menu-item,\na.ivu-menu-item:active,\na.ivu-menu-item:hover {\n  color: inherit;\n}\n\n.ivu-menu-item > i {\n  margin-right: 6px;\n}\n\n.ivu-menu-submenu-title > i,\n.ivu-menu-submenu-title span > i {\n  margin-right: 8px;\n}\n\n.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-horizontal .ivu-menu-submenu {\n  float: left;\n  padding: 0 20px;\n  position: relative;\n  cursor: pointer;\n  z-index: 3;\n  transition: all 0.2s ease-in-out;\n}\n\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu {\n  height: inherit;\n  line-height: inherit;\n  border-bottom: 2px solid transparent;\n  color: #515a6e;\n}\n\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item-active,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item:hover,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu-active,\n.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu:hover {\n  color: #2d8cf0;\n  border-bottom: 2px solid #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item-active,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item:hover,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu-active,\n.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu:hover,\n.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item,\n.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu {\n  color: #fff;\n}\n\n.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown {\n  min-width: 100%;\n  width: auto;\n  max-height: none;\n}\n\n.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item {\n  height: auto;\n  border-bottom: 0;\n  float: none;\n}\n\n.ivu-menu-item-group {\n  line-height: normal;\n}\n\n.ivu-menu-item-group-title {\n  height: 30px;\n  line-height: 30px;\n  padding-left: 8px;\n  font-size: 12px;\n  color: #999;\n}\n\n.ivu-menu-item-group > ul {\n  padding: 0 !important;\n  list-style: none !important;\n}\n\n.ivu-menu-vertical .ivu-menu-item,\n.ivu-menu-vertical .ivu-menu-submenu-title {\n  padding: 14px 24px;\n  position: relative;\n  cursor: pointer;\n  z-index: 1;\n  transition: all 0.2s ease-in-out;\n}\n\n.ivu-menu-vertical .ivu-menu-item:hover,\n.ivu-menu-vertical .ivu-menu-submenu-title:hover {\n  color: #2d8cf0;\n}\n\n.ivu-menu-vertical .ivu-menu-submenu-title-icon {\n  position: absolute;\n  top: 50%;\n  right: 24px;\n  transform: translateY(-50%);\n}\n\n.ivu-menu-submenu-title-icon {\n  transition: transform 0.2s ease-in-out;\n}\n\n.ivu-menu-horizontal .ivu-menu-opened > * > .ivu-menu-submenu-title-icon {\n  transform: rotate(180deg);\n}\n\n.ivu-menu-vertical .ivu-menu-opened > * > .ivu-menu-submenu-title-icon {\n  transform: translateY(-50%) rotate(180deg);\n}\n\n.ivu-menu-vertical .ivu-menu-submenu-nested {\n  padding-left: 20px;\n}\n\n.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item {\n  padding-left: 43px;\n}\n\n.ivu-menu-vertical .ivu-menu-item-group-title {\n  height: 48px;\n  line-height: 48px;\n  font-size: 14px;\n  padding-left: 28px;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-group-title {\n  color: rgba(255, 255, 255, 0.36);\n}\n\n.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {\n  color: #2d8cf0;\n  background: #f0faff;\n  z-index: 2;\n}\n\n.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {\n  content: \"\";\n  display: block;\n  width: 2px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  background: #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title {\n  color: rgba(255, 255, 255, 0.7);\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover {\n  background: #101117;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover {\n  color: #fff;\n  background: #191a23;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu) {\n  color: #2d8cf0;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item:hover {\n  color: #fff;\n  background: transparent !important;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active,\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {\n  border-right: none;\n  color: #fff;\n  background: #2d8cf0 !important;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-child-item-active > .ivu-menu-submenu-title {\n  color: #fff;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened {\n  background: #101117;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title {\n  background: #191a23;\n}\n\n.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-has-parent-submenu .ivu-menu-submenu-title {\n  background: transparent;\n}", ""]);
 
 // exports
 
@@ -64933,43 +64937,70 @@ var render = function() {
             "Menu",
             {
               class: _vm.menuitemClasses,
-              attrs: { "active-name": "1-2", theme: "dark", width: "auto" }
+              attrs: {
+                "active-name": 1,
+                theme: "dark",
+                width: "auto",
+                accordion: ""
+              }
             },
             [
-              _c(
-                "MenuItem",
-                { attrs: { name: "1-1" } },
-                [
-                  _c("Icon", { attrs: { type: "ios-navigate" } }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Option 1")])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "MenuItem",
-                { attrs: { name: "1-2" } },
-                [
-                  _c("Icon", { attrs: { type: "ios-search" } }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Option 2")])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "MenuItem",
-                { attrs: { name: "1-3" } },
-                [
-                  _c("Icon", { attrs: { type: "ios-settings" } }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Option 3")])
-                ],
-                1
-              )
+              _vm._l(_vm.page_data.menu, function(menu) {
+                return [
+                  menu.children && menu.children.length > 0
+                    ? _c(
+                        "Submenu",
+                        { key: menu.id, attrs: { name: menu.id } },
+                        [
+                          _c(
+                            "template",
+                            { slot: "title" },
+                            [
+                              _c("Icon", {
+                                attrs: { type: "ios-navigate", size: "16" }
+                              }),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(menu.title))])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(menu.children, function(sub_menu) {
+                            return _c(
+                              "MenuItem",
+                              {
+                                key: sub_menu.id,
+                                attrs: { name: sub_menu.id }
+                              },
+                              [
+                                false
+                                  ? undefined
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("span", [_vm._v(_vm._s(sub_menu.title))])
+                              ],
+                              1
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    : _c(
+                        "MenuItem",
+                        { attrs: { name: menu.id } },
+                        [
+                          _c("Icon", {
+                            attrs: { type: "ios-navigate", size: "16" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v(_vm._s(menu.title))])
+                        ],
+                        1
+                      )
+                ]
+              })
             ],
-            1
+            2
           )
         ],
         1

@@ -5,10 +5,13 @@ namespace SmallRuralDog\Admin;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SmallRuralDog\Admin\Auth\Database\Menu;
 use SmallRuralDog\Admin\Controllers\AuthController;
 
 class Admin
 {
+
+    protected $menu = [];
     public static $metaTitle;
 
     public static function setTitle($title)
@@ -25,6 +28,22 @@ class Admin
     {
         return self::$metaTitle ? self::$metaTitle : config('admin.title');
     }
+
+
+    public function menu()
+    {
+        if (!empty($this->menu)) {
+            return $this->menu;
+        }
+
+        $menuClass = config('admin.database.menu_model');
+
+        /** @var Menu $menuModel */
+        $menuModel = new $menuClass();
+
+        return $this->menu = $menuModel->toTree();
+    }
+
 
     public function user()
     {
