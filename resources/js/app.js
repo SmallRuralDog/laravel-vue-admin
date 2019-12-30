@@ -2215,6 +2215,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     page_data: Object
@@ -84236,6 +84237,7 @@ var render = function() {
                     collapse: _vm.isCollapsed,
                     "background-color": "#1d1e23",
                     "text-color": "#fff",
+                    "collapse-transition": false,
                     "unique-opened": ""
                   }
                 },

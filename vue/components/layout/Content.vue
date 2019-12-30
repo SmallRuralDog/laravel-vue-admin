@@ -11,6 +11,7 @@
           :collapse="isCollapsed"
           background-color="#1d1e23"
           text-color="#fff"
+          :collapse-transition="false"
           unique-opened
         >
           <template v-for="menu in page_data.menu">
