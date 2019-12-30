@@ -1,7 +1,7 @@
 <template>
-    <Col :span="span">
+    <el-col :span="span">
         <slot></slot>
-    </Col>
+    </el-col>
 </template>
 
 <script>

@@ -1,1 +1,1 @@
-<table-grid :column_config='@json($columnConfig)'></table-grid>
+<table-grid :column_attributes='@json($columnAttributes)' :attributes='@json($attributes)'></table-grid>

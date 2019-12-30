@@ -106,11 +106,14 @@ class Content implements Renderable
 
     public function render()
     {
+
+
         $data = [
             'showPageHeader' => $this->showPageHeader,
             'title' => $this->title,
             'description' => $this->description,
             'menu' => Admin::menu(),
+            'url_current' => url()->current(),
             'breadcrumb' => $this->breadcrumb,
             'logo' => config('admin.logo'),
             'logoMini' => config('admin.logo-mini'),

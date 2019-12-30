@@ -23,6 +23,8 @@ class Menu extends Model
 
     protected $appends = ['url'];
 
+    protected $hidden = ['created_at','updated_at'];
+
     /**
      * The attributes that are mass assignable.
      *

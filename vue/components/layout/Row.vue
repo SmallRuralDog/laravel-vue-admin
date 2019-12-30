@@ -1,7 +1,7 @@
 <template>
-    <Row>
+    <el-row>
         <slot></slot>
-    </Row>
+    </el-row>
 </template>
 
 <script>

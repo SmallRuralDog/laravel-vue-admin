@@ -1,13 +1,19 @@
 window.Vue = require('vue');
-
 window._ = require('lodash');
 import axios from 'axios'
-import ViewUI from 'view-design';
+
+import {LoadingBar, Message, Notice} from 'view-design'
 import 'view-design/dist/styles/iview.css';
+
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import './styles/admin.scss';
 
-window.Vue.use(ViewUI);
+window.Vue.use(ElementUI);
 
+Vue.prototype.$Loading = LoadingBar;
+Vue.prototype.$Message = Message;
 
 axios.interceptors.response.use(
     ({data}) => {
@@ -15,7 +21,7 @@ axios.interceptors.response.use(
         // 对响应数据做点什么
         switch (data.code) {
             case 400:
-                ViewUI.Message.error({
+                Message.error({
                     content: data.message,
                     duration: 3
                 });
@@ -29,7 +35,7 @@ axios.interceptors.response.use(
     ({response}) => {
         console.log(response)
         // 对响应错误做点什么
-        ViewUI.Notice.error({
+        Notice.error({
             title: '请求错误',
             desc: response.data.message
         });

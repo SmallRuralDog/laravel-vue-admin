@@ -3,11 +3,13 @@
 namespace SmallRuralDog\Admin\Grid;
 
 use SmallRuralDog\Admin\Grid;
-use SmallRuralDog\Admin\Grid\Column\ColumnConfig;
+use SmallRuralDog\Admin\Grid\Column\Attributes;
+
 
 class Column
 {
-    use Column\HasConfig;
+    use Grid\Column\TraitAttributes;
+
     /**
      * @var Grid
      */
@@ -17,11 +19,10 @@ class Column
 
     protected $label;
 
-    protected $config;
 
     public function __construct($name, $label)
     {
-        $this->config = new ColumnConfig();
+        $this->attributes = new Attributes();
 
         $this->name = $name;
         $this->label = $this->formatLabel($label);
@@ -30,8 +31,8 @@ class Column
 
     protected function initAttributes()
     {
-        $this->config->key = $this->name;
-        $this->config->title = $this->label;
+        $this->attributes->prop = $this->name;
+        $this->attributes->label = $this->label;
         $name = str_replace('.', '-', $this->name);
     }
 
@@ -50,8 +51,8 @@ class Column
     }
 
 
-    public function getConfig()
+    public function getAttributes()
     {
-        return $this->config;
+        return $this->attributes;
     }
 }

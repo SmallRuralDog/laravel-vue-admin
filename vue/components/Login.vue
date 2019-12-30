@@ -8,25 +8,25 @@
                 <div class="page-account-top-desc">{{page_data.desc}}</div>
             </div>
             <div class="login-form">
-                <Form ref="formValidate" :model="form" :rules="ruleValidate">
-                    <FormItem prop="username">
-                        <Input autofocus v-model="form.username" prefix="ios-contact-outline" size="large"
+                <el-form ref="formValidate" :model="form" :rules="ruleValidate">
+                    <el-form-item prop="username">
+                        <el-input autofocus v-model="form.username" prefix-icon="el-icon-user"
                                placeholder="请输入用户名"/>
-                    </FormItem>
-                    <FormItem prop="password">
-                        <Input v-model="form.password" type="password" prefix="ios-lock-outline" size="large" password
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input v-model="form.password" type="password" prefix-icon="el-icon-lock" show-password
                                placeholder="请输入密码"/>
-                    </FormItem>
+                    </el-form-item>
                     <div class="page-account-auto-login">
-                        <Checkbox v-model="form.remember" size="large">自动登录</Checkbox>
+                        <el-checkbox v-model="form.remember" size="large">自动登录</el-checkbox>
                         <a @click="onForgetPassword">忘记密码</a>
                     </div>
-                    <FormItem>
-                        <Button :loading="loading" @click="handleSubmit('formValidate')" type="primary" size="large"
+                    <el-form-item>
+                        <el-button :loading="loading" @click="handleSubmit('formValidate')" type="primary" style="width: 100%;"
                                 long>登陆
-                        </Button>
-                    </FormItem>
-                </Form>
+                        </el-button>
+                    </el-form-item>
+                </el-form>
             </div>
         </div>
         <footer class="global-footer i-copyright">

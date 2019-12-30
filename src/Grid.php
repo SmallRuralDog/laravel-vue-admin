@@ -7,14 +7,21 @@ namespace SmallRuralDog\Admin;
 use Closure;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Grid\Column;
+use SmallRuralDog\Admin\Grid\Table\Attributes;
+use SmallRuralDog\Admin\Grid\Table\TraitAttributes;
 
 class Grid
 {
+    use TraitAttributes;
+
     protected $model;
-    protected $columns;
+    /**
+     * @var Column[]
+     */
+    protected $columns = [];
     protected $rows;
     protected $rowsCallback;
-    public $columnConfig = [];
+    public $columnAttributes = [];
     protected $builder;
     protected $builded = false;
     protected $variables = [];
@@ -29,6 +36,7 @@ class Grid
 
     public function __construct(Eloquent $model, Closure $builder = null)
     {
+        $this->attributes = new Attributes();
         //$this->model = new Model($model, $this);
         //$this->keyName = $model->getKeyName();
         //$this->builder = $builder;
@@ -62,14 +70,17 @@ class Grid
      */
     public function columns($columns)
     {
-        $this->columnConfig = collect($columns)->map(function (Column $column) {
-            return $column->getConfig();
+        $this->columnAttributes = collect($columns)->map(function (Column $column) {
+            return $column->getAttributes();
         })->toArray();
     }
 
     public function render()
     {
-        $viewData['columnConfig'] = $this->columnConfig;
+
+
+        $viewData['columnAttributes'] = $this->columnAttributes;
+        $viewData['attributes'] = (array)$this->attributes;
 
         return view($this->view, $viewData)->render();
     }

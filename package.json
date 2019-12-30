@@ -13,6 +13,7 @@
         "@chenfengyuan/vue-qrcode": "^1.0.1",
         "axios": "^0.19.0",
         "babel-plugin-component": "^1.1.1",
+        "babel-plugin-import": "^1.13.0",
         "cross-env": "^5.1",
         "laravel-mix": "^4.1.4",
         "lodash": "^4.17.15",
@@ -26,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "element-ui": "^2.13.0",
         "view-design": "^4.0.2",
         "vue": "^2.6.10",
         "vue-dplayer": "0.0.10",

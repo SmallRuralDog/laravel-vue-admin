@@ -1,52 +1,67 @@
 <template>
-    <Card :bordered="false" dis-hover>
-        <div>
-            <Table :columns="columns" :data="tableData"></Table>
-        </div>
-        <div class="table-page">
-            <Page :total="100"/>
-        </div>
-    </Card>
+  <el-card shadow="never">
+    <div>
+      <el-table
+        :data="tableData"
+        :stripe="attributes.stripe"
+        :border="attributes.border"
+        :size="attributes.size"
+        :fit="attributes.fit"
+        :show-header="attributes.showHeader"
+        :highlight-current-row="attributes.highlightCurrentRow"
+      >
+        <el-table-column
+          v-for="column in columns"
+          :key="column.prop"
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+          :sortable="column.sortable"
+          :help="column.help"
+        >
+          <template slot="header" slot-scope="scope">
+            <span>{{scope.column.label}}</span>
+            <el-tooltip
+              v-if="columns[scope.$index].help"
+              :content="columns[scope.$index].help"
+            >
+              <i class="el-icon-question hover"></i>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div class="table-page">
+      <el-pagination :total="100" />
+    </div>
+  </el-card>
 </template>
 
 <script>
-    export default {
-        props: {
-            column_config: Array
-        },
-        data() {
-            return {
-                tableData: []
-            }
-        },
-        mounted() {
-
-        },
-        computed: {
-            columns() {
-                return this.column_config.map(config => {
-                    /*config.renderHeader = (h, {column, index}) => {
-                        return h('span', [
-                            h('span', column.title),
-                            h('Tooltip', {
-                                props: {
-                                    content: "123456",
-                                    placement: "top"
-                                },
-                            }, [h('Icon', {props: {type: 'md-help-circle'},class:"hover ml-2"})]),
-                        ])
-                    };*/
-                    config.sortable = true;
-                    return config;
-                });
-            }
-        }
+export default {
+  props: {
+    column_attributes: Array,
+    attributes: Object
+  },
+  data() {
+    return {
+      tableData: []
+    };
+  },
+  mounted() {},
+  computed: {
+    columns() {
+      return this.column_attributes.map(attributes => {
+        return attributes;
+      });
     }
+  }
+};
 </script>
 
 <style>
-    .table-page {
-        padding: 16px 0 0 0;
-        text-align: center;
-    }
+.table-page {
+  padding: 16px 0 0 0;
+  text-align: center;
+}
 </style>
