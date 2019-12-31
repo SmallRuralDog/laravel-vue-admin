@@ -1,1 +1,9 @@
-<table-grid :column_attributes='@json($columnAttributes)' :attributes='@json($attributes)'></table-grid>
+<table-grid
+    :key_name='@json($keyName)'
+    :column_attributes='@json($columnAttributes)'
+    :attributes='@json($attributes)'
+    :data_url='@json($dataUrl)'
+    :page_sizes='@json($pageSizes)'
+    :per_page='@json($perPage)'
+    :page_background='@json($pageBackground)'
+></table-grid>

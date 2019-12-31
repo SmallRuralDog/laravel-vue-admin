@@ -10,6 +10,30 @@ trait TraitAttributes
      */
     protected $attributes;
 
+
+    /**
+     * Table 的高度，默认为自动高度。如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
+     * @param string|int $height
+     * @return $this
+     */
+    public function setHeight($height)
+    {
+        $this->attributes->height = $height;
+        return $this;
+    }
+
+
+    /**
+     * Table 的最大高度。合法的值为数字或者单位为 px 的高度。
+     * @param string|int $maxHeight
+     * @return $this
+     */
+    public function setMaxHeight($maxHeight)
+    {
+        $this->attributes->maxHeight = $maxHeight;
+        return $this;
+    }
+
     /**
      * 是否为斑马纹 table
      * @param bool $stripe
@@ -80,5 +104,27 @@ trait TraitAttributes
         return $this;
     }
 
+    /**
+     * 空数据时显示的文本内容
+     * @param string $emptyText
+     * @return $this
+     */
+    public function setEmptyText($emptyText)
+    {
+        $this->attributes->emptyText = $emptyText;
+        return $this;
+    }
+
+    /**
+     * tooltip effect 属性
+     * dark/light
+     * @param string $tooltipEffect
+     * @return $this
+     */
+    public function setTooltipEffect($tooltipEffect)
+    {
+        $this->attributes->tooltipEffect = $tooltipEffect;
+        return $this;
+    }
 
 }

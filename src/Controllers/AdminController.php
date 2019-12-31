@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Controllers;
 
 
@@ -9,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use SmallRuralDog\Admin\Layout\Content;
-use SmallRuralDog\Admin\Layout\Row;
 
 class AdminController extends Controller
 {
@@ -18,17 +16,18 @@ class AdminController extends Controller
 
     public function index(Content $content)
     {
-        return $content
+
+        return $this->isAjax() ? $this->grid()->data() : $content
             ->showPageHeader($this->showPageHeader())
             ->title($this->title())
             ->description($this->description['index'] ?? trans('admin.list'))
-            /*->row(function (Row $row) {
-                $row->column(6, "456789");
-                $row->column(6, "456789");
-                $row->column(6, "456789");
-                $row->column(6, "456789");
-            })*/
             ->body($this->grid());
+    }
+
+    protected function isAjax()
+    {
+        $request = request();
+        return $request->isJson() || $request->ajax() || $request->isXmlHttpRequest();
     }
 
     protected function validatorData(Request $request, $rules, $message = [])

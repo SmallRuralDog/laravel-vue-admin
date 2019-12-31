@@ -10,6 +10,10 @@
 </head>
 <body>
 <div id="app">@yield('content')</div>
+<script>
+    Admin = {};
+    Admin.token = "{{csrf_token()}}";
+</script>
 @yield('js')
 <script src="{{asset('js/app.js')}}"></script>
 </body>

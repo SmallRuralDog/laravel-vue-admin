@@ -4,6 +4,10 @@ namespace SmallRuralDog\Admin\Grid\Table;
 class Attributes
 {
 
+    public $height;
+
+    public $maxHeight;
+
     /**
      * @var bool
      */
@@ -35,6 +39,9 @@ class Attributes
     public $highlightCurrentRow;
 
 
+    public $emptyText;
 
+
+    public $tooltipEffect;
 
 }

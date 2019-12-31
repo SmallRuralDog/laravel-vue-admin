@@ -18,13 +18,15 @@ class Column
     protected $name;
 
     protected $label;
+    protected $columnKey;
 
 
-    public function __construct($name, $label)
+    public function __construct($name, $label, $columnKey = null)
     {
         $this->attributes = new Attributes();
 
         $this->name = $name;
+        $this->columnKey = $columnKey;
         $this->label = $this->formatLabel($label);
         $this->initAttributes();
     }
@@ -33,6 +35,10 @@ class Column
     {
         $this->attributes->prop = $this->name;
         $this->attributes->label = $this->label;
+        if (empty($this->columnKey)) {
+            $this->columnKey = $this->name;
+        }
+        $this->attributes->columnKey = $this->columnKey;
         $name = str_replace('.', '-', $this->name);
     }
 

@@ -13,6 +13,28 @@ trait TraitAttributes
     protected $attributes;
 
     /**
+     * 对应列的类型
+     * @param $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->attributes->type = $type;
+        return $this;
+    }
+
+    /**
+     * column 的 key
+     * @param string $columnKey
+     * @return $this
+     */
+    public function setColumnKey($columnKey)
+    {
+        $this->attributes->columnKey = $columnKey;
+        return $this;
+    }
+
+    /**
      * 显示的标题
      * @param string $label
      * @return TraitAttributes
@@ -130,7 +152,8 @@ trait TraitAttributes
      * @param string $help
      * @return $this
      */
-    public function setHelp(string $help){
+    public function setHelp(string $help)
+    {
         $this->attributes->help = $help;
         return $this;
     }
@@ -138,11 +161,12 @@ trait TraitAttributes
     /**
      * 对应列是否可以排序，如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件
      * true, false, 'custom'
-     * @param bool $sortable
+     * @param string $sortable
      * @return $this
      */
-    public function setSortable(bool $sortable=true){
-        $this->attributes->sortable = $sortable;
+    public function setSortable($sortable = 'custom')
+    {
+        $this->attributes->sortable = $sortable == 'custom';
         return $this;
     }
 }

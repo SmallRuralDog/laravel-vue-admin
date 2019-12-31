@@ -2028,6 +2028,34 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2069,15 +2097,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
+    key_name: String,
     column_attributes: Array,
-    attributes: Object
+    attributes: Object,
+    data_url: String,
+    page_sizes: Array,
+    per_page: Number,
+    page_background: Boolean
   },
   data: function data() {
     return {
-      tableData: []
+      loading: false,
+      page: 1,
+      sort: {},
+      tableData: [],
+      pageData: {
+        pageSize: this.per_page,
+        total: 0,
+        currentPage: 1,
+        lastPage: 1
+      }
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    //获取数据
+    getData: function getData() {
+      var _this = this;
+
+      this.loading = true;
+      this.$http.get(this.data_url, {
+        params: _objectSpread({
+          page: this.page,
+          per_page: this.pageData.pageSize
+        }, this.sort)
+      }).then(function (_ref) {
+        var data = _ref.data,
+            current_page = _ref.current_page,
+            per_page = _ref.per_page,
+            total = _ref.total,
+            last_page = _ref.last_page;
+        _this.tableData = data;
+        _this.pageData.pageSize = per_page;
+        _this.pageData.currentPage = current_page;
+        _this.pageData.total = total;
+        _this.pageData.lastPage = last_page;
+      })["finally"](function () {
+        _this.loading = false;
+      });
+    },
+    //当表格的排序条件发生变化的时候会触发该事件
+    onTableSortChange: function onTableSortChange(_ref2) {
+      var column = _ref2.column,
+          prop = _ref2.prop,
+          order = _ref2.order;
+
+      if (order) {
+        this.sort.sort_prop = column.columnKey;
+        this.sort.sort_order = order == "ascending" ? "asc" : "desc";
+      } else {
+        this.sort = {};
+      }
+
+      this.getData();
+    },
+    //当选择项发生变化时会触发该事件
+    onTableselectionChange: function onTableselectionChange(selection) {
+      console.log(selection);
+    },
+    //每页大小改变时
+    onPageSizeChange: function onPageSizeChange(per_page) {
+      this.page = 1;
+      this.pageData.pageSize = per_page;
+      this.getData();
+    },
+    //页码改变时
+    onPageCurrentChange: function onPageCurrentChange(page) {
+      this.page = page;
+      this.getData();
+    }
+  },
   computed: {
     columns: function columns() {
       return this.column_attributes.map(function (attributes) {
@@ -4196,7 +4297,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.table-page {\n  padding: 16px 0 0 0;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.table-page {\r\n  padding: 16px 0;\r\n  text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -84089,78 +84190,121 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("el-card", { attrs: { shadow: "never" } }, [
-    _c(
-      "div",
-      [
-        _c(
-          "el-table",
-          {
-            attrs: {
-              data: _vm.tableData,
-              stripe: _vm.attributes.stripe,
-              border: _vm.attributes.border,
-              size: _vm.attributes.size,
-              fit: _vm.attributes.fit,
-              "show-header": _vm.attributes.showHeader,
-              "highlight-current-row": _vm.attributes.highlightCurrentRow
-            }
-          },
-          _vm._l(_vm.columns, function(column) {
-            return _c("el-table-column", {
-              key: column.prop,
+  return _c(
+    "el-card",
+    { attrs: { shadow: "never", "body-style": { padding: 0 } } },
+    [
+      _c(
+        "div",
+        [
+          _c(
+            "el-table",
+            {
+              directives: [
+                {
+                  name: "loading",
+                  rawName: "v-loading",
+                  value: _vm.loading,
+                  expression: "loading"
+                }
+              ],
               attrs: {
-                prop: column.prop,
-                label: column.label,
-                width: column.width,
-                sortable: column.sortable,
-                help: column.help
+                data: _vm.tableData,
+                height: _vm.attributes.height,
+                "max-height": _vm.attributes.maxHeight,
+                stripe: _vm.attributes.stripe,
+                border: _vm.attributes.border,
+                size: _vm.attributes.size,
+                fit: _vm.attributes.fit,
+                "show-header": _vm.attributes.showHeader,
+                "highlight-current-row": _vm.attributes.highlightCurrentRow,
+                "empty-text": _vm.attributes.emptyText,
+                "tooltip-effect": _vm.attributes.tooltipEffect
               },
-              scopedSlots: _vm._u(
-                [
-                  {
-                    key: "header",
-                    fn: function(scope) {
-                      return [
-                        _c("span", [_vm._v(_vm._s(scope.column.label))]),
-                        _vm._v(" "),
-                        _vm.columns[scope.$index].help
-                          ? _c(
-                              "el-tooltip",
-                              {
-                                attrs: {
-                                  content: _vm.columns[scope.$index].help
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "el-icon-question hover"
-                                })
-                              ]
-                            )
-                          : _vm._e()
-                      ]
+              on: {
+                "sort-change": _vm.onTableSortChange,
+                "selection-change": _vm.onTableselectionChange
+              }
+            },
+            _vm._l(_vm.columns, function(column) {
+              return _c("el-table-column", {
+                key: column.prop,
+                attrs: {
+                  type: column.type,
+                  "column-key": column.columnKey,
+                  prop: column.prop,
+                  label: column.label,
+                  width: column.width,
+                  sortable: column.sortable,
+                  help: column.help,
+                  align: column.align,
+                  "header-align": column.headerAlign
+                },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "header",
+                      fn: function(scope) {
+                        return [
+                          _c("span", [_vm._v(_vm._s(scope.column.label))]),
+                          _vm._v(" "),
+                          _vm.columns[scope.$index].help
+                            ? _c(
+                                "el-tooltip",
+                                {
+                                  attrs: {
+                                    placement: "top",
+                                    content: _vm.columns[scope.$index].help
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "el-icon-question hover"
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      }
                     }
-                  }
-                ],
-                null,
-                true
-              )
-            })
-          }),
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "table-page" },
-      [_c("el-pagination", { attrs: { total: 100 } })],
-      1
-    )
-  ])
+                  ],
+                  null,
+                  true
+                )
+              })
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.pageData.lastPage > 1
+        ? _c(
+            "div",
+            { staticClass: "table-page" },
+            [
+              _c("el-pagination", {
+                attrs: {
+                  layout: "prev, pager, next, jumper,->,total, sizes",
+                  "hide-on-single-page": "",
+                  total: _vm.pageData.total,
+                  "page-size": _vm.pageData.pageSize,
+                  "current-page": _vm.pageData.currentPage,
+                  "page-sizes": _vm.page_sizes,
+                  background: _vm.page_background
+                },
+                on: {
+                  "size-change": _vm.onPageSizeChange,
+                  "current-change": _vm.onPageCurrentChange
+                }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -96714,10 +96858,16 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.Vue.use(element_ui__WEBPACK_IMPORTED_MODULE_5___default.a);
 Vue.prototype.$Loading = view_design_src_components_loading_bar__WEBPACK_IMPORTED_MODULE_2__["default"];
 Vue.prototype.$Message = view_design_src_components_message__WEBPACK_IMPORTED_MODULE_1__["default"];
+axios__WEBPACK_IMPORTED_MODULE_3___default.a.interceptors.request.use(function (config) {
+  config.headers['X-Requested-With'] = 'XMLHttpRequest';
+  return config;
+}, function (error) {
+  Promise.reject(error);
+});
 axios__WEBPACK_IMPORTED_MODULE_3___default.a.interceptors.response.use(function (_ref) {
   var data = _ref.data;
-  console.log(data); // 对响应数据做点什么
 
+  // 对响应数据做点什么
   switch (data.code) {
     case 400:
       view_design_src_components_message__WEBPACK_IMPORTED_MODULE_1__["default"].error({
@@ -97192,7 +97342,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\homestead\laravel-vue-admin\packages\SmallRuralDog\Admin\vue\app.js */"./vue/app.js");
+module.exports = __webpack_require__(/*! E:\PHP\laravel-packages\packages\smallruraldog\laravel-vue-admin\vue\app.js */"./vue/app.js");
 
 
 /***/ })

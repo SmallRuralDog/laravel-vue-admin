@@ -1,27 +1,39 @@
 <template>
-  <el-card shadow="never">
+  <el-card shadow="never" :body-style="{padding:0}">
     <div>
       <el-table
+        v-loading="loading"
         :data="tableData"
+        :height="attributes.height"
+        :max-height="attributes.maxHeight"
         :stripe="attributes.stripe"
         :border="attributes.border"
         :size="attributes.size"
         :fit="attributes.fit"
         :show-header="attributes.showHeader"
         :highlight-current-row="attributes.highlightCurrentRow"
+        :empty-text="attributes.emptyText"
+        :tooltip-effect="attributes.tooltipEffect"
+        @sort-change="onTableSortChange"
+        @selection-change="onTableselectionChange"
       >
         <el-table-column
           v-for="column in columns"
+          :type="column.type"
           :key="column.prop"
+          :column-key="column.columnKey"
           :prop="column.prop"
           :label="column.label"
           :width="column.width"
           :sortable="column.sortable"
           :help="column.help"
+          :align="column.align"
+          :header-align="column.headerAlign"
         >
           <template slot="header" slot-scope="scope">
             <span>{{scope.column.label}}</span>
             <el-tooltip
+              placement="top"
               v-if="columns[scope.$index].help"
               :content="columns[scope.$index].help"
             >
@@ -31,8 +43,18 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="table-page">
-      <el-pagination :total="100" />
+    <div class="table-page" v-if="pageData.lastPage>1">
+      <el-pagination
+        layout="prev, pager, next, jumper,->,total, sizes"
+        hide-on-single-page
+        :total="pageData.total"
+        :page-size="pageData.pageSize"
+        :current-page="pageData.currentPage"
+        :page-sizes="page_sizes"
+        :background="page_background"
+        @size-change="onPageSizeChange"
+        @current-change="onPageCurrentChange"
+      />
     </div>
   </el-card>
 </template>
@@ -40,15 +62,80 @@
 <script>
 export default {
   props: {
+    key_name: String,
     column_attributes: Array,
-    attributes: Object
+    attributes: Object,
+    data_url: String,
+    page_sizes: Array,
+    per_page: Number,
+    page_background: Boolean
   },
   data() {
     return {
-      tableData: []
+      loading: false,
+      page: 1,
+      sort: {},
+      tableData: [],
+      pageData: {
+        pageSize: this.per_page,
+        total: 0,
+        currentPage: 1,
+        lastPage: 1
+      }
     };
   },
-  mounted() {},
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    //获取数据
+    getData() {
+      this.loading = true;
+      this.$http
+        .get(this.data_url, {
+          params: {
+            page: this.page,
+            per_page: this.pageData.pageSize,
+            ...this.sort
+          }
+        })
+        .then(({ data, current_page, per_page, total, last_page }) => {
+          this.tableData = data;
+          this.pageData.pageSize = per_page;
+          this.pageData.currentPage = current_page;
+          this.pageData.total = total;
+          this.pageData.lastPage = last_page;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    //当表格的排序条件发生变化的时候会触发该事件
+    onTableSortChange({ column, prop, order }) {
+      if (order) {
+        this.sort.sort_prop = column.columnKey;
+        this.sort.sort_order = order == "ascending" ? "asc" : "desc";
+      } else {
+        this.sort = {};
+      }
+      this.getData();
+    },
+    //当选择项发生变化时会触发该事件
+    onTableselectionChange(selection) {
+      console.log(selection);
+    },
+    //每页大小改变时
+    onPageSizeChange(per_page) {
+      this.page = 1;
+      this.pageData.pageSize = per_page;
+      this.getData();
+    },
+    //页码改变时
+    onPageCurrentChange(page) {
+      this.page = page;
+      this.getData();
+    }
+  },
   computed: {
     columns() {
       return this.column_attributes.map(attributes => {
@@ -61,7 +148,7 @@ export default {
 
 <style>
 .table-page {
-  padding: 16px 0 0 0;
+  padding: 16px 0;
   text-align: center;
 }
 </style>

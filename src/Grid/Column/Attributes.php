@@ -4,6 +4,10 @@ namespace SmallRuralDog\Admin\Grid\Column;
 
 class Attributes
 {
+
+    public $type;
+
+    public $columnKey;
     /**
      * @var string
      */

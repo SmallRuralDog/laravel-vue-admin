@@ -215,3 +215,4 @@ class AuthController extends AdminController
         return Admin::guard();
     }
 }
+

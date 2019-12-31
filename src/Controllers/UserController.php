@@ -24,9 +24,12 @@ class UserController extends AdminController
 
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
-        $grid->setStripe(true)->setBorder(false);
-        $idColumn = $grid->column('id',"ID")->setWidth("100")->setSortable(true);
+        $grid->setStripe(true)->setBorder(false)->setHeight(500)->setEmptyText("暂无用户")->setPerPage(10);
+
+
+        $idColumn = $grid->column('id', "ID")->setWidth("100")->setSortable(true);
         $nameColumn = $grid->column('name', '用户昵称')->setHelp("表头帮助说明");
+
         $grid->columns([
             $idColumn,
             $nameColumn,
