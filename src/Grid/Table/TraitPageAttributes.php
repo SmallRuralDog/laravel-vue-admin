@@ -14,7 +14,7 @@ trait TraitPageAttributes
     /**
      * 每页显示个数选择器的选项设置
      * @param array $sizes
-     * @return TraitPageAttributes
+     * @return $this
      */
     public function setPageSizes($sizes)
     {
@@ -26,7 +26,7 @@ trait TraitPageAttributes
     /**
      * 每页显示条目个数
      * @param int $perPage
-     * @return TraitPageAttributes
+     * @return $this
      */
     public function setPerPage($perPage)
     {
@@ -38,7 +38,7 @@ trait TraitPageAttributes
     /**
      * 是否为分页按钮添加背景色
      * @param bool $pageBackground
-     * @return TraitPageAttributes
+     * @return $this
      */
     public function setPageBackground(bool $pageBackground)
     {

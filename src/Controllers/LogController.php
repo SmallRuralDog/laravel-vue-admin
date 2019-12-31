@@ -30,9 +30,9 @@ class LogController extends AdminController
 
         $grid->selection();
 
-        $grid->defaultSort('id','desc');
+        $grid->defaultSort('id', 'desc');
 
-        $grid->setStripe(true)->setBorder(false)->setEmptyText("暂无日志")->setPageBackground(true);
+        $grid->setStripe(true)->setBorder(false)->setEmptyText("暂无日志")->setPageBackground(true)->setSize('small');
         $idColumn = $grid->column('id', "ID")->setWidth("100");
         $nameColumn = $grid->column('user.name', 'User', 'user_id')->setHelp("操作用户")->setSortable();
 

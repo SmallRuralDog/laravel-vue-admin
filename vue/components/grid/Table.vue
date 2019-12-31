@@ -1,63 +1,72 @@
 <template>
-  <el-card shadow="never" :body-style="{padding:0}">
-    <div>
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        :default-sort="default_sort_get"
-        :height="attributes.height"
-        :max-height="attributes.maxHeight"
-        :stripe="attributes.stripe"
-        :border="attributes.border"
-        :size="attributes.size"
-        :fit="attributes.fit"
-        :show-header="attributes.showHeader"
-        :highlight-current-row="attributes.highlightCurrentRow"
-        :empty-text="attributes.emptyText"
-        :tooltip-effect="attributes.tooltipEffect"
-        @sort-change="onTableSortChange"
-        @selection-change="onTableselectionChange"
-      >
-        <el-table-column
-          v-for="column in columns"
-          :type="column.type"
-          :key="column.prop"
-          :column-key="column.columnKey"
-          :prop="column.prop"
-          :label="column.label"
-          :width="column.width"
-          :sortable="column.sortable"
-          :help="column.help"
-          :align="column.align"
-          :header-align="column.headerAlign"
+  <div class="grid-container">
+    <div class="grid-top-container">
+      <div class="grid-top-container-left">
+          <el-button type="primary">新建</el-button>
+      </div>
+      <div class="grid-top-container-right"></div>
+    </div>
+    <el-card shadow="never" :body-style="{padding:0}">
+      <div>
+        <el-table
+          v-loading="loading"
+          :data="tableData"
+          :default-sort="default_sort_get"
+          :height="attributes.height"
+          :max-height="attributes.maxHeight"
+          :stripe="attributes.stripe"
+          :border="attributes.border"
+          :size="attributes.size"
+          :fit="attributes.fit"
+          :show-header="attributes.showHeader"
+          :highlight-current-row="attributes.highlightCurrentRow"
+          :empty-text="attributes.emptyText"
+          :tooltip-effect="attributes.tooltipEffect"
+          @sort-change="onTableSortChange"
+          @selection-change="onTableselectionChange"
         >
-          <template slot="header" slot-scope="scope">
-            <span>{{scope.column.label}}</span>
-            <el-tooltip
-              placement="top"
-              v-if="columns[scope.$index].help"
-              :content="columns[scope.$index].help"
-            >
-              <i class="el-icon-question hover"></i>
-            </el-tooltip>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div class="table-page" v-if="pageData.lastPage>1">
-      <el-pagination
-        layout="prev, pager, next, jumper,->,total, sizes"
-        hide-on-single-page
-        :total="pageData.total"
-        :page-size="pageData.pageSize"
-        :current-page="pageData.currentPage"
-        :page-sizes="page_sizes"
-        :background="page_background"
-        @size-change="onPageSizeChange"
-        @current-change="onPageCurrentChange"
-      />
-    </div>
-  </el-card>
+          <el-table-column
+            v-for="column in columns"
+            :type="column.type"
+            :key="column.prop"
+            :column-key="column.columnKey"
+            :prop="column.prop"
+            :label="column.label"
+            :width="column.width"
+            :sortable="column.sortable"
+            :help="column.help"
+            :align="column.align"
+            :fixed="column.fixed"
+            :header-align="column.headerAlign"
+          >
+            <template slot="header" slot-scope="scope">
+              <span>{{scope.column.label}}</span>
+              <el-tooltip
+                placement="top"
+                v-if="columns[scope.$index].help"
+                :content="columns[scope.$index].help"
+              >
+                <i class="el-icon-question hover"></i>
+              </el-tooltip>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="table-page" v-if="pageData.lastPage>1">
+        <el-pagination
+          layout="prev, pager, next, jumper,->,total, sizes"
+          hide-on-single-page
+          :total="pageData.total"
+          :page-size="pageData.pageSize"
+          :current-page="pageData.currentPage"
+          :page-sizes="page_sizes"
+          :background="page_background"
+          @size-change="onPageSizeChange"
+          @current-change="onPageCurrentChange"
+        />
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script>
@@ -154,9 +163,13 @@ export default {
 };
 </script>
 
-<style>
-.table-page {
-  padding: 16px 0;
-  text-align: center;
+<style lang="scss">
+.grid-container {
+  .table-page {
+    padding: 16px 0;
+  }
+  .grid-top-container {
+    padding: 16px 0px;
+  }
 }
 </style>

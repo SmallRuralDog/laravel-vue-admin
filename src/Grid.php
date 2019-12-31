@@ -127,6 +127,9 @@ class Grid
 
     public function render()
     {
+        $viewData['routers'] = [
+
+        ];
         $viewData['keyName'] = $this->keyName;
         $viewData['defaultSort'] = $this->defaultSort;
         $viewData['columnAttributes'] = $this->columnAttributes;

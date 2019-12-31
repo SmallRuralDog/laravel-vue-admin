@@ -39,7 +39,7 @@ trait TraitAttributes
      * @param bool $stripe
      * @return $this
      */
-    public function setStripe(bool $stripe)
+    public function setStripe($stripe = true)
     {
         $this->attributes->stripe = $stripe;
         return $this;
@@ -50,7 +50,7 @@ trait TraitAttributes
      * @param bool $border
      * @return $this
      */
-    public function setBorder(bool $border)
+    public function setBorder($border = true)
     {
         $this->attributes->border = $border;
         return $this;
@@ -86,7 +86,7 @@ trait TraitAttributes
      * @param bool $showHeader
      * @return $this
      */
-    public function setShowHeader(bool $showHeader)
+    public function setShowHeader($showHeader = true)
     {
         $this->attributes->showHeader = $showHeader;
         return $this;
@@ -98,7 +98,7 @@ trait TraitAttributes
      * @param bool $highlightCurrentRow
      * @return $this
      */
-    public function setHighlightCurrentRow(bool $highlightCurrentRow)
+    public function setHighlightCurrentRow($highlightCurrentRow = true)
     {
         $this->attributes->highlightCurrentRow = $highlightCurrentRow;
         return $this;
