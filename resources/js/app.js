@@ -2095,9 +2095,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     key_name: String,
+    default_sort: Object,
     column_attributes: Array,
     attributes: Object,
     data_url: String,
@@ -2184,6 +2186,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.column_attributes.map(function (attributes) {
         return attributes;
       });
+    },
+    default_sort_get: function default_sort_get() {
+      return {
+        prop: this.default_sort.prop,
+        order: this.default_sort.order == "asc" ? "ascending" : "descending"
+      };
     }
   }
 });
@@ -4238,7 +4246,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: width 0.2s;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.2s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 44px;\n  line-height: 44px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 44px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.2s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n}\n.layout-header-bar .layout-header-r {\n  height: 44px;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  display: inline-block;\n  width: 44px;\n  height: 44px;\n  text-align: center;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.el-main {\n  padding: 0;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}", ""]);
+exports.push([module.i, ".ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: width 0.2s;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.2s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 44px;\n  line-height: 44px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 44px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.2s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n}\n.layout-header-bar .layout-header-r {\n  height: 44px;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  display: inline-block;\n  width: 44px;\n  height: 44px;\n  text-align: center;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.el-main {\n  padding: 0;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}", ""]);
 
 // exports
 
@@ -84210,6 +84218,7 @@ var render = function() {
               ],
               attrs: {
                 data: _vm.tableData,
+                "default-sort": _vm.default_sort_get,
                 height: _vm.attributes.height,
                 "max-height": _vm.attributes.maxHeight,
                 stripe: _vm.attributes.stripe,
@@ -97342,7 +97351,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\PHP\laravel-packages\packages\smallruraldog\laravel-vue-admin\vue\app.js */"./vue/app.js");
+module.exports = __webpack_require__(/*! E:\homestead\laravel-vue-admin\packages\SmallRuralDog\Admin\vue\app.js */"./vue/app.js");
 
 
 /***/ })

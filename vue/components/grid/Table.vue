@@ -4,6 +4,7 @@
       <el-table
         v-loading="loading"
         :data="tableData"
+        :default-sort="default_sort_get"
         :height="attributes.height"
         :max-height="attributes.maxHeight"
         :stripe="attributes.stripe"
@@ -63,6 +64,7 @@
 export default {
   props: {
     key_name: String,
+    default_sort: Object,
     column_attributes: Array,
     attributes: Object,
     data_url: String,
@@ -141,6 +143,12 @@ export default {
       return this.column_attributes.map(attributes => {
         return attributes;
       });
+    },
+    default_sort_get() {
+      return {
+        prop: this.default_sort.prop,
+        order: this.default_sort.order == "asc" ? "ascending" : "descending"
+      };
     }
   }
 };

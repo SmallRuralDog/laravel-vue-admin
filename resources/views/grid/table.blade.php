@@ -1,5 +1,6 @@
 <table-grid
     :key_name='@json($keyName)'
+    :default_sort='@json($defaultSort)'
     :column_attributes='@json($columnAttributes)'
     :attributes='@json($attributes)'
     :data_url='@json($dataUrl)'

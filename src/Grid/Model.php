@@ -130,6 +130,11 @@ class Model
         $sort_order = request('sort_order', null);
         if ($sort_prop && in_array($sort_order, ['asc', 'desc'])) {
             $this->model = $this->model->orderBy($sort_prop, $sort_order);
+        } else {
+
+            $defaultSort = $this->grid->getDefaultSort();
+
+            $this->model = $this->model->orderBy($defaultSort['field'], $defaultSort['order']);
         }
     }
 

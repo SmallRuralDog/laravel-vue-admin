@@ -10,11 +10,12 @@ use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
 use SmallRuralDog\Admin\Grid\Table\TraitAttributes;
+use SmallRuralDog\Admin\Grid\Table\TraitDefaultSort;
 use SmallRuralDog\Admin\Grid\Table\TraitPageAttributes;
 
 class Grid
 {
-    use TraitAttributes, TraitPageAttributes;
+    use TraitAttributes, TraitPageAttributes, TraitDefaultSort;
 
     /**
      * @var Model
@@ -30,7 +31,6 @@ class Grid
     protected $view = 'admin::grid.table';
     protected $keyName = 'id';
     protected $selection = false;
-
     protected $dataUrl;
 
 
@@ -40,9 +40,14 @@ class Grid
         $this->dataUrl = request()->getUri();
         $this->model = new Model($model, $this);
         $this->keyName = $model->getKeyName();
-        //$this->builder = $builder;
+        $this->defaultSort = [
+            'prop' => $model->getKeyName(),
+            'order' => 'desc',
+            'field' => $model->getKeyName()
+        ];
 
     }
+
 
     /**
      * @return array
@@ -78,7 +83,7 @@ class Grid
 
     /**
      * Grid添加字段
-     * @param $name 对应列内容的字段名
+     * @param string $name 对应列内容的字段名
      * @param string $label 显示的标题
      * @param string $columnKey 排序查询等数据操作字段名称
      * @return Column
@@ -123,6 +128,7 @@ class Grid
     public function render()
     {
         $viewData['keyName'] = $this->keyName;
+        $viewData['defaultSort'] = $this->defaultSort;
         $viewData['columnAttributes'] = $this->columnAttributes;
         $viewData['attributes'] = (array)$this->attributes;
         $viewData['dataUrl'] = $this->dataUrl;
