@@ -104,17 +104,26 @@ class Model
         return $this->model;
     }
 
+    /**
+     * 设置每页大小
+     */
     protected function setPaginate()
     {
         $this->perPage = (int)request('per_page', 10);
     }
 
+    /**
+     * 设置预加载
+     */
     protected function setWith()
     {
         $with = $this->grid->getWiths();
         $this->model = $this->model->with($with);
     }
 
+    /**
+     * 设置排序
+     */
     protected function setSort()
     {
         $sort_prop = request('sort_prop', null);
@@ -124,6 +133,10 @@ class Model
         }
     }
 
+    /**
+     * @param bool $toArray
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function buildData($toArray = false)
     {
         if (empty($this->data)) {
@@ -133,6 +146,9 @@ class Model
         return $this->data;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function get()
     {
         $this->setWith();
