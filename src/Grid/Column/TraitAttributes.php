@@ -169,4 +169,40 @@ trait TraitAttributes
         $this->attributes->sortable = $sortable == 'custom';
         return $this;
     }
+
+
+    /**
+     * 暂不支持
+     * 数据过滤的选项，数组格式，数组中的元素需要有 text 和 value 属性。
+     * @param array $filters
+     * @return $this
+     */
+    public function setFilters(array $filters)
+    {
+        $this->attributes->filters = $filters;
+        return $this;
+    }
+
+    /**
+     * 过滤弹出框的定位 与 Tooltip 的 placement 属性相同
+     * @param $filterPlacement
+     * @return $this
+     */
+    public function setFilterPlacement($filterPlacement)
+    {
+        $this->attributes->filterPlacement = $filterPlacement;
+        return $this;
+    }
+
+
+    /**
+     * 数据过滤的选项是否多选
+     * @param bool $filterMultiple
+     * @return $this
+     */
+    public function setFilterMultiple(bool $filterMultiple)
+    {
+        $this->attributes->filterMultiple = $filterMultiple;
+        return $this;
+    }
 }

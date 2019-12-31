@@ -65,4 +65,13 @@ class Attributes
      * @var boolean
      */
     public $sortable;
+
+    public $filters = [];
+    public $filterPlacement;
+    public $filterMultiple = true;
+
+
+
+
+
 }
