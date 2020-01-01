@@ -20,7 +20,6 @@ class UserController extends AdminController
     {
         return trans('admin.administrator');
     }
-
     protected function grid()
     {
         $userModel = config('admin.database.users_model');
