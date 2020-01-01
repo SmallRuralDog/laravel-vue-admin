@@ -72,6 +72,12 @@ class Attributes
 
 
 
+    public $displayComponentAttrs;
+
+
+
+
+
 
 
 }

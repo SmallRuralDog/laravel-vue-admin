@@ -1,17 +1,25 @@
 <template>
   <div>
     <template v-if="_.isArray(value)">
-      <template v-for="item in value">{{item}}</template>
+      <template v-for="(item,key) in value">
+        <Value :value="item" :column_attr="columnAttr" :key="key" />
+      </template>
     </template>
-    <template v-else>{{value}}</template>
+    <template v-else>
+      <Value :value="value" :column_attr="columnAttr" />
+    </template>
   </div>
 </template>
 <script>
 import { getArrayValue } from "../../utils";
+import Value from "./value/Index";
 export default {
   props: {
     scope: Object,
     columns: Array
+  },
+  components: {
+    Value
   },
   data() {
     return {};

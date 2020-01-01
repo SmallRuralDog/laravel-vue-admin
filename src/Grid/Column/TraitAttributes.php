@@ -4,6 +4,9 @@
 namespace SmallRuralDog\Admin\Grid\Column;
 
 
+use SmallRuralDog\Admin\Components\Link;
+use SmallRuralDog\Admin\Components\Tag;
+
 trait TraitAttributes
 {
     /**
@@ -203,6 +206,17 @@ trait TraitAttributes
     public function setFilterMultiple(bool $filterMultiple)
     {
         $this->attributes->filterMultiple = $filterMultiple;
+        return $this;
+    }
+
+
+    /**
+     * @param Tag|Link $displayComponentAttrs
+     * @return $this
+     */
+    protected function setDisplayComponentAttrs($displayComponentAttrs)
+    {
+        $this->attributes->displayComponentAttrs = $displayComponentAttrs;
         return $this;
     }
 }

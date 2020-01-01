@@ -56,6 +56,12 @@ class Column
         $this->grid = $grid;
     }
 
+    public function displayComponent($component)
+    {
+        $this->setDisplayComponentAttrs($component);
+
+        return $this;
+    }
 
     public function getAttributes()
     {
