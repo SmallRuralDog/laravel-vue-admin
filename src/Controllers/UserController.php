@@ -23,7 +23,6 @@ class UserController extends AdminController
 
     protected function grid()
     {
-
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
         $grid->defaultSort('id', 'asc')->with(['roles:id,name', 'roles.permissions', 'roles.menus'])->selection();
