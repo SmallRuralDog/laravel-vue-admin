@@ -1,8 +1,11 @@
 window.Vue = require('vue');
-window._ = require('lodash');
 import axios from 'axios'
-
-import { LoadingBar, Message, Notice } from 'view-design'
+import lodash from 'lodash'
+import {
+    LoadingBar,
+    Message,
+    Notice
+} from 'view-design'
 import 'view-design/dist/styles/iview.css';
 
 
@@ -23,7 +26,9 @@ axios.interceptors.request.use(config => {
     Promise.reject(error)
 })
 axios.interceptors.response.use(
-    ({ data }) => {
+    ({
+        data
+    }) => {
         // 对响应数据做点什么
         switch (data.code) {
             case 400:
@@ -38,7 +43,9 @@ axios.interceptors.response.use(
         }
         return data.data;
     },
-    ({ response }) => {
+    ({
+        response
+    }) => {
         console.log(response)
         // 对响应错误做点什么
         Notice.error({
@@ -50,6 +57,9 @@ axios.interceptors.response.use(
 );
 
 Vue.prototype.$http = axios;
+Vue.prototype._ = lodash;
+window._ = lodash;
+
 
 
 Vue.component('login', require('./components/Login').default);
@@ -58,8 +68,6 @@ Vue.component('row-layout', require('./components/layout/Row').default);
 Vue.component('column-layout', require('./components/layout/Column').default);
 Vue.component('table-grid', require('./components/grid/Table').default);
 
-new window.Vue(
-    {
-        el: '#app',
-    }
-);
+new window.Vue({
+    el: '#app',
+});

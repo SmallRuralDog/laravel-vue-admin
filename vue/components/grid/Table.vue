@@ -2,7 +2,7 @@
   <div class="grid-container">
     <div class="grid-top-container">
       <div class="grid-top-container-left">
-          <el-button type="primary">新建</el-button>
+        <el-button type="primary">新建</el-button>
       </div>
       <div class="grid-top-container-right"></div>
     </div>
@@ -25,31 +25,43 @@
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
-          <el-table-column
-            v-for="column in columns"
-            :type="column.type"
-            :key="column.prop"
-            :column-key="column.columnKey"
-            :prop="column.prop"
-            :label="column.label"
-            :width="column.width"
-            :sortable="column.sortable"
-            :help="column.help"
-            :align="column.align"
-            :fixed="column.fixed"
-            :header-align="column.headerAlign"
-          >
-            <template slot="header" slot-scope="scope">
-              <span>{{scope.column.label}}</span>
-              <el-tooltip
-                placement="top"
-                v-if="columns[scope.$index].help"
-                :content="columns[scope.$index].help"
-              >
-                <i class="el-icon-question hover"></i>
-              </el-tooltip>
-            </template>
-          </el-table-column>
+          <template v-for="column in columns">
+            <el-table-column
+              v-if="column.type=='selection'"
+              :type="column.type"
+              :width="column.width"
+              :align="column.align"
+              :key="column.prop"
+            ></el-table-column>
+            <el-table-column
+              v-else
+              :type="column.type"
+              :key="column.prop"
+              :column-key="column.columnKey"
+              :prop="column.prop"
+              :label="column.label"
+              :width="column.width"
+              :sortable="column.sortable"
+              :help="column.help"
+              :align="column.align"
+              :fixed="column.fixed"
+              :header-align="column.headerAlign"
+            >
+              <template slot="header" slot-scope="scope">
+                <span>{{scope.column.label}}</span>
+                <el-tooltip
+                  placement="top"
+                  v-if="columns[scope.$index].help"
+                  :content="columns[scope.$index].help"
+                >
+                  <i class="el-icon-question hover"></i>
+                </el-tooltip>
+              </template>
+              <template slot-scope="scope">
+                <ColumnDisplay :scope="scope" :columns="columns" />
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
       </div>
       <div class="table-page" v-if="pageData.lastPage>1">
@@ -70,7 +82,11 @@
 </template>
 
 <script>
+import ColumnDisplay from "./ColumnDisplay";
 export default {
+  components: {
+    ColumnDisplay
+  },
   props: {
     key_name: String,
     default_sort: Object,

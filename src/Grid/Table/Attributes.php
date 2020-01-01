@@ -11,17 +11,17 @@ class Attributes
     /**
      * @var bool
      */
-    public $stripe;
+    public $stripe=true;
 
     /**
      * @var bool
      */
-    public $border;
+    public $border=false;
 
     /**
      * @var string
      */
-    public $size;
+    public $size="small";
 
     /**
      * @var bool
