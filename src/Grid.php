@@ -138,7 +138,7 @@ class Grid
         $this->initActions();
 
         $viewData['routers'] = [
-
+            'resource' => url(request()->getPathInfo())
         ];
         $viewData['keyName'] = $this->keyName;
         $viewData['defaultSort'] = $this->defaultSort;

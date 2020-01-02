@@ -2,11 +2,17 @@
   <div class="grid-container">
     <div class="grid-top-container">
       <div class="grid-top-container-left">
-
+        <BatchActions :routers='routers' :key_name='key_name' :rows="selectionRows" v-if="selectionRows.length>0" />
         <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
       </div>
       <div class="grid-top-container-right">
-        <el-button :loading="loading" @click="getData" type="primary" size="medium" icon="el-icon-refresh"></el-button>
+        <el-button
+          :loading="loading"
+          @click="getData"
+          type="primary"
+          size="medium"
+          icon="el-icon-refresh"
+        ></el-button>
       </div>
     </div>
     <el-card shadow="never" :body-style="{padding:0}">
@@ -93,10 +99,12 @@
 <script>
 import ColumnDisplay from "./ColumnDisplay";
 import Actions from "./Actions/Index";
+import BatchActions from "./BatchActions/Index";
 export default {
   components: {
     ColumnDisplay,
-    Actions
+    Actions,
+    BatchActions
   },
   props: {
     key_name: String,
@@ -107,7 +115,7 @@ export default {
     page_sizes: Array,
     per_page: Number,
     page_background: Boolean,
-    routers: Array,
+    routers: Object,
     actions: Object
   },
   data() {
@@ -121,7 +129,8 @@ export default {
         total: 0,
         currentPage: 1,
         lastPage: 1
-      }
+      },
+      selectionRows: []
     };
   },
   mounted() {
@@ -167,7 +176,7 @@ export default {
     },
     //当选择项发生变化时会触发该事件
     onTableselectionChange(selection) {
-      console.log(selection);
+      this.selectionRows = selection;
     },
     //每页大小改变时
     onPageSizeChange(per_page) {
