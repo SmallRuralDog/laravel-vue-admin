@@ -91,4 +91,29 @@ class Admin
             $router->put('auth/setting', $authController . '@putSetting');
         });
     }
+
+
+    public function response($data, $message = '', $code = 200, $headers = [])
+    {
+        return \Response::json([
+            'code' => $code,
+            'message' => $message,
+            'data' => $data
+        ], 200, $headers);
+    }
+
+    public function responseMessage($message = '', $code = 200)
+    {
+        return $this->response([], $message, $code);
+    }
+
+    public function responseError($message = '', $code = 400)
+    {
+        return $this->response([], $message, $code);
+    }
+
+    public function responseRedirect($url = '', $message = '', $code = 301)
+    {
+        return $this->response($url, $message, $code);
+    }
 }

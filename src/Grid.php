@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
+use SmallRuralDog\Admin\Grid\Table\TraitActions;
 use SmallRuralDog\Admin\Grid\Table\TraitAttributes;
 use SmallRuralDog\Admin\Grid\Table\TraitDefaultSort;
 use SmallRuralDog\Admin\Grid\Table\TraitPageAttributes;
 
 class Grid
 {
-    use TraitAttributes, TraitPageAttributes, TraitDefaultSort;
+    use TraitAttributes, TraitPageAttributes, TraitDefaultSort, TraitActions;
 
     /**
      * @var Model
@@ -125,8 +126,17 @@ class Grid
     }
 
 
+    /**
+     * view
+     * @return array|string
+     * @throws \Throwable
+     */
     public function render()
     {
+
+
+        $this->initActions();
+
         $viewData['routers'] = [
 
         ];
@@ -138,10 +148,15 @@ class Grid
         $viewData['pageSizes'] = $this->pageSizes;
         $viewData['perPage'] = $this->perPage;
         $viewData['pageBackground'] = $this->pageBackground;
+        $viewData['actions'] = $this->actions;
 
         return view($this->view, $viewData)->render();
     }
 
+    /**
+     * data
+     * @return array
+     */
     public function data()
     {
         $data = $this->model->buildData();

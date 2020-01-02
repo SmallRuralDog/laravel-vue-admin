@@ -25,11 +25,12 @@ class UserController extends AdminController
     {
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
-
         $grid->setPageBackground();
 
         $grid->defaultSort('id', 'asc')->with(['roles:id,name', 'roles.permissions', 'roles.menus'])->selection();
         $grid->setStripe(true)->setEmptyText("暂无用户")->setPerPage(10);
+
+
         $column = $grid->column('id', "ID")->setWidth(80);
         $nameColumn = $grid->column('name', '用户昵称');
         $column->setLabelClassName('ClassName ClassName');

@@ -2,7 +2,7 @@
   <div class="grid-container">
     <div class="grid-top-container">
       <div class="grid-top-container-left">
-        <el-button type="primary">新建</el-button>
+        <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
       </div>
       <div class="grid-top-container-right"></div>
     </div>
@@ -62,6 +62,12 @@
               </template>
             </el-table-column>
           </template>
+          <el-table-column v-if="!actions.hide">
+            <template slot="header">操作</template>
+            <template slot-scope="scope">
+              <Actions :data="actions.data" :scope="scope" :key_name="key_name" />
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="table-page" v-if="pageData.lastPage>1">
@@ -83,9 +89,11 @@
 
 <script>
 import ColumnDisplay from "./ColumnDisplay";
+import Actions from "./Actions/Index";
 export default {
   components: {
-    ColumnDisplay
+    ColumnDisplay,
+    Actions
   },
   props: {
     key_name: String,
@@ -95,7 +103,9 @@ export default {
     data_url: String,
     page_sizes: Array,
     per_page: Number,
-    page_background: Boolean
+    page_background: Boolean,
+    routers: Array,
+    actions: Object
   },
   data() {
     return {
@@ -113,6 +123,9 @@ export default {
   },
   mounted() {
     this.getData();
+    this.$bus.on("tableReload", () => {
+      this.getData();
+    });
   },
   methods: {
     //获取数据
@@ -126,13 +139,15 @@ export default {
             ...this.sort
           }
         })
-        .then(({ data, current_page, per_page, total, last_page }) => {
-          this.tableData = data;
-          this.pageData.pageSize = per_page;
-          this.pageData.currentPage = current_page;
-          this.pageData.total = total;
-          this.pageData.lastPage = last_page;
-        })
+        .then(
+          ({ data: { data, current_page, per_page, total, last_page } }) => {
+            this.tableData = data;
+            this.pageData.pageSize = per_page;
+            this.pageData.currentPage = current_page;
+            this.pageData.total = total;
+            this.pageData.lastPage = last_page;
+          }
+        )
         .finally(() => {
           this.loading = false;
         });

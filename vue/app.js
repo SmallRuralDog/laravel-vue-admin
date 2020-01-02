@@ -1,4 +1,5 @@
 window.Vue = require('vue');
+import VueBus from 'vue-bus';
 import axios from 'axios'
 import lodash from 'lodash'
 import {
@@ -40,8 +41,14 @@ axios.interceptors.response.use(
             case 301:
                 window.location.replace(data.data)
                 break;
+            case 200:
+                data.message && Message.success({
+                    content: data.message,
+                    duration: 3
+                });
+                break;
         }
-        return data.data;
+        return data
     },
     ({
         response
@@ -59,7 +66,7 @@ axios.interceptors.response.use(
 Vue.prototype.$http = axios;
 Vue.prototype._ = lodash;
 window._ = lodash;
-
+Vue.use(VueBus);
 
 
 Vue.component('login', require('./components/Login').default);

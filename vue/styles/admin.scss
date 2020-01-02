@@ -16,7 +16,9 @@ body {
 .ml-5 {
     margin-left: 5px;
 }
-
+.ml-10{
+    margin-left: 10px;
+}
 .mb-15 {
     margin-bottom: 15px;
 }
@@ -63,4 +65,7 @@ body {
 }
 .el-card{
     border: none;
+}
+.el-popconfirm__main{
+    margin: 10px 0;
 }

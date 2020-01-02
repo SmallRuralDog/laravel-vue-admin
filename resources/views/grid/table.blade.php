@@ -7,4 +7,6 @@
     :page_sizes='@json($pageSizes)'
     :per_page='@json($perPage)'
     :page_background='@json($pageBackground)'
+    :routers='@json($routers)'
+    :actions='@json($actions)'
 ></table-grid>
