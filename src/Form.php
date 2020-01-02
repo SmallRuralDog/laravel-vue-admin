@@ -4,9 +4,10 @@
 namespace SmallRuralDog\Admin;
 
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 
-class Form
+class Form implements Renderable
 {
     /**
      * @var Model
@@ -47,6 +48,8 @@ class Form
 
     public function render()
     {
-        return view('admin::form.base-form')->render();
+        $viewData = [];
+
+        return view('admin::form.base-form', $viewData)->render();
     }
 }

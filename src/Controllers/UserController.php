@@ -52,6 +52,8 @@ class UserController extends AdminController
 
     protected function form()
     {
+
+
         $userModel = config('admin.database.users_model');
         $form = new Form(new $userModel());
         return $form;

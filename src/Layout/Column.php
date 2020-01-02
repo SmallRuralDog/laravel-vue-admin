@@ -5,7 +5,6 @@ namespace SmallRuralDog\Admin\Layout;
 
 
 use Illuminate\Contracts\Support\Renderable;
-use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
 class Column implements Buildable
@@ -28,7 +27,6 @@ class Column implements Buildable
     public function append($content)
     {
         $this->contents[] = $content;
-
         return $this;
     }
 
@@ -36,7 +34,7 @@ class Column implements Buildable
     {
 
         $content = collect($this->contents)->map(function ($content) {
-            if ($content instanceof Renderable || $content instanceof Grid || $content instanceof Form) {
+            if ($content instanceof Renderable || $content instanceof Grid) {
                 return $content->render();
             } else {
                 return (string)$content;

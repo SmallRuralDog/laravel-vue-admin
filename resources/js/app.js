@@ -84981,6 +84981,7 @@ var render = function() {
         [
           _c(
             "el-form",
+            { attrs: { size: "medium" } },
             [
               _c("el-form-item", { attrs: { label: "123" } }),
               _vm._v(" "),
