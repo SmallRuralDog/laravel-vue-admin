@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form
 {
+    /**
+     * @var Model
+     */
     protected $model;
 
     /**
@@ -19,7 +22,10 @@ class Form
         $this->model = $model;
     }
 
-    public function model(): Model
+    /**
+     * @return Model
+     */
+    public function model()
     {
         return $this->model;
     }
@@ -36,5 +42,11 @@ class Form
         } catch (\Exception $exception) {
             return \Admin::responseError($exception->getMessage() ?: trans('admin.delete_failed'));
         }
+    }
+
+
+    public function render()
+    {
+        return view('admin::form.base-form')->render();
     }
 }

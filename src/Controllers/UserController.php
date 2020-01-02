@@ -4,9 +4,11 @@
 namespace SmallRuralDog\Admin\Controllers;
 
 
+use SmallRuralDog\Admin\Auth\Database\AdminTablesSeeder;
 use SmallRuralDog\Admin\Components\Avatar;
 use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Tag;
+use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
 class UserController extends AdminController
@@ -21,6 +23,7 @@ class UserController extends AdminController
     {
         return trans('admin.administrator');
     }
+
     protected function grid()
     {
         $userModel = config('admin.database.users_model');
@@ -40,11 +43,17 @@ class UserController extends AdminController
             $grid->column('username', trans('admin.username'))->displayComponent(Link::make()),
             $nameColumn,
             $grid->column('roles.name', trans('admin.roles'))->displayComponent(Tag::make()->setEffect('dark')),
-            $grid->column('roles.menus.title', trans('admin.roles'))->displayComponent(Tag::make()->setType()->setSize("mini")->setStyle(['margin-right'=>'5px'])),
+            $grid->column('roles.menus.title', trans('admin.roles'))->displayComponent(Tag::make()->setType()->setSize("mini")->setStyle(['margin-right' => '5px'])),
             $grid->column('created_at', trans('admin.created_at')),
             $grid->column('updated_at', trans('admin.updated_at'))
         ]);
         return $grid;
     }
 
+    protected function form()
+    {
+        $userModel = config('admin.database.users_model');
+        $form = new Form(new $userModel());
+        return $form;
+    }
 }

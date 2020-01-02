@@ -24,6 +24,14 @@ class AdminController extends Controller
             ->body($this->grid());
     }
 
+    public function create(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description['create'] ?? trans('admin.create'))
+            ->body($this->form());
+    }
+
     protected function isAjax()
     {
         $request = request();

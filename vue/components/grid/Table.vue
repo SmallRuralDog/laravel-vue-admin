@@ -2,8 +2,15 @@
   <div class="grid-container">
     <div class="grid-top-container">
       <div class="grid-top-container-left">
-        <BatchActions :routers='routers' :key_name='key_name' :rows="selectionRows" v-if="selectionRows.length>0" />
-        <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
+        <BatchActions
+          :routers="routers"
+          :key_name="key_name"
+          :rows="selectionRows"
+          v-if="selectionRows.length>0"
+        />
+        <a :href="routers.resource+'/create'">
+          <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
+        </a>
       </div>
       <div class="grid-top-container-right">
         <el-button

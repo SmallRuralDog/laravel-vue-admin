@@ -5,7 +5,7 @@
   <el-popconfirm
     v-else-if="action.type=='delete'"
     placement="top"
-    title="确定要删除吗？"
+    title="确定要删除这条数据吗？"
     @onConfirm="onDelete"
   >
     <el-button

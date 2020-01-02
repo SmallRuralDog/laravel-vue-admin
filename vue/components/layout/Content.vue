@@ -247,6 +247,7 @@ $header-bar-height:44px;
   .layout-page-header {
     margin: -15px -15px 0;
     padding: 15px 15px 0 15px;
+    margin-bottom: 15px;
     background: #fff;
     border-bottom: 1px solid #e8eaec;
 
