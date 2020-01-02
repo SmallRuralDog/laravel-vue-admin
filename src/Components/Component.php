@@ -9,6 +9,8 @@ class Component
     public $className;
     public $style;
 
+    public $componentValue;
+
     /**
      * @param mixed $className
      * @return $this
@@ -29,6 +31,14 @@ class Component
         return $this;
     }
 
-
+    /**
+     * @param $value
+     * @return $this
+     */
+    public function setComponentValue($value)
+    {
+        $this->componentValue = $value;
+        return $this;
+    }
 
 }

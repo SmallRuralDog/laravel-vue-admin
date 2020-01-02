@@ -1,1 +1,287 @@
 # 模型表格
+
+使用[Elememt 的 Table](https://element.eleme.cn/#/zh-CN/component/table)实现，用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。
+
+## 使用示例
+
+```php
+use SmallRuralDog\Admin\Grid;
+
+$userModel = config('admin.database.users_model');
+$grid = new Grid(new $userModel());
+$idColumn = $grid->column('id', "ID")->setWidth("100")->setSortable();
+$nameColumn = $grid->column('name', '用户昵称');
+$grid->columns([
+    $idColumn,
+    $nameColumn
+]);
+return $grid;
+```
+
+## 属性设置
+
+表格的相关属性
+
+### 高度
+
+Table 的高度，默认为自动高度。如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
+
+```php
+$grid->setHeight('500px');
+$grid->setHeight(500);
+```
+
+### 最大高度
+
+Table 的最大高度。合法的值为数字或者单位为 px 的高度。
+
+```php
+$grid->setMaxHeight('500px');
+$grid->setMaxHeight(500);
+```
+
+### 斑马纹
+
+是否为斑马纹 table
+
+```php
+$grid->setStripe();
+$grid->setStripe(true);
+$grid->setStripe(false);
+```
+
+### 纵向边框
+
+是否带有纵向边框
+
+```php
+ $grid->setBorder();
+ $grid->setBorder(true);
+ $grid->setBorder(false);
+```
+
+### 尺寸
+
+Table 的尺寸
+
+可选择 `medium` `small` `mini`
+
+```php
+$grid->setSize('medium');
+$grid->setSize('small');
+$grid->setSize('mini');
+```
+
+### 宽度是否自撑开
+
+列的宽度是否自撑开
+
+```php
+$grid->setFit();
+$grid->setFit(true);
+$grid->setFit(false);
+```
+
+### 显示表头
+
+是否显示表头
+
+```php
+$grid->setShowHeader();
+$grid->setShowHeader(true);
+$grid->setShowHeader(false);
+```
+
+### 高亮当前行
+
+是否要高亮当前行
+
+```php
+$grid->setHighlightCurrentRow();
+$grid->setHighlightCurrentRow(false);
+```
+
+### 空数据
+
+空数据时显示的文本内容，只支持纯文本
+
+```php
+$grid->setEmptyText("暂无数据");
+```
+
+### TooltipEffect
+
+tooltip effect 属性 。dark/light
+
+```php
+$grid->setTooltipEffect('dark');
+$grid->setTooltipEffect('light');
+```
+
+## 其他设置
+
+### 多选
+
+Table 多选
+
+```php
+$grid->selection();
+```
+
+### 预加载
+
+更多使用请查看 [Laravel 预加载](https://learnku.com/docs/laravel/6.x/eloquent-relationships/5177#eager-loading)
+
+```php
+$grid->with(['roles:id,name', 'roles.permissions', 'roles.menus']);
+```
+
+### 默认排序
+
+当前模型的默认排序，不设置为`模型key desc`
+
+```php
+$grid->defaultSort('id', 'asc');
+```
+
+### 分页
+
+设置 Table 的分页属性，默认`[10, 20, 30, 40, 50, 100]`
+
+#### 每页大小组
+
+```php
+$grid->setPageSizes([10, 20, 30, 40, 50, 100]);
+```
+
+#### 每页大小
+
+默认 20
+
+```php
+$grid->setPerPage(20);
+```
+
+#### 背景色
+
+是否为分页按钮添加背景色，默认`false`
+
+```php
+$grid->setPageBackground();
+```
+
+## 字段显示
+
+Table 的数据列
+
+### 创建列
+
+共有三个参数
+
+- `prop` 对应列内容的字段名 支持 `.`来获取关联模型字段，需要设置`with`,如`user.name`
+- `label` 显示的标题
+- `column-key` 数据操作字段名，如排序。默认为`prop`的值
+
+返回`Column`实例
+
+```php
+//基本使用
+$column = $grid->column('prop', 'label','column-key');
+//属性设置
+$column = $grid->column('prop', 'label','column-key')->setWidth("100");
+```
+
+### 列属性
+
+Column 相关属性设置，更多可查看 [Elment Table-column Attributes](https://element.eleme.cn/#/zh-CN/component/table)
+
+#### 宽度
+
+对应列的宽度
+
+```php
+$column->setWidth("100");
+```
+
+#### 最小宽度
+
+对应列的最小宽度，与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列
+
+```php
+$column->setMinWidth("300");
+```
+
+#### 固定
+
+列是否固定在左侧或者右侧，true 表示固定在左侧
+
+可选择 `true` `left` `right`
+
+```php
+$column->setFixed(true);
+$column->setFixed('left');
+$column->setFixed('right');
+```
+
+#### 排序
+
+对应列是否可以排序
+
+```php
+$column->setSortable();
+```
+
+#### 内容过长
+
+当内容过长被隐藏时显示 tooltip
+
+```php
+$column->setShowOverflowTooltip();
+```
+
+#### 对齐方式
+
+可选 `left` `center` `right`
+
+```php
+$column->setAlign('left');
+$column->setAlign('center');
+$column->setAlign('right');
+```
+
+#### 表头对齐方式
+
+表头对齐方式，若不设置该项，则使用表格的对齐方式
+
+可选 `left` `center` `right`
+
+```php
+$column->setHeaderAlign('left');
+$column->setHeaderAlign('center');
+$column->setHeaderAlign('right');
+```
+
+#### className
+
+列的 className
+
+```php
+$column->setClassName('ClassName ClassName-2');
+```
+
+#### LabelClassName
+
+当前列标题的自定义类名
+
+```php
+$column->setLabelClassName('ClassName ClassName');
+```
+
+### 列显示
+
+列的显示模式，默认显示纯文本形式
+使用示例
+
+```php
+$column->displayComponent(Tag::make()->setSize("mini")->setType("info"));
+```

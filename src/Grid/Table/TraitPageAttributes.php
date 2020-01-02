@@ -40,7 +40,7 @@ trait TraitPageAttributes
      * @param bool $pageBackground
      * @return $this
      */
-    public function setPageBackground(bool $pageBackground)
+    public function setPageBackground(bool $pageBackground = true)
     {
         $this->pageBackground = $pageBackground;
 

@@ -2,14 +2,17 @@
   <span v-if="disPlayType=='default'">{{value}}</span>
   <Tag v-else-if="disPlayType=='tag'" :value="value" :attrs="attrs" />
   <Link v-else-if="disPlayType=='link'" :value="value" :attrs="attrs" />
+  <Avatar v-else-if="disPlayType=='avatar'" :value="value" :attrs="attrs" />
 </template>
 <script>
 import Tag from "./Tag";
 import Link from "./Link";
+import Avatar from "./Avatar";
 export default {
   components: {
     Tag,
-    Link
+    Link,
+    Avatar
   },
   props: {
     value: {

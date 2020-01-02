@@ -3,6 +3,7 @@
     :effect="attrs.effect"
     :style="attrs.style"
     :type="type"
+    :class='attrs.className'
     :underline="attrs.underline"
     :disabled="attrs.disabled"
     :href="attrs.href!==null?attrs.href:value"

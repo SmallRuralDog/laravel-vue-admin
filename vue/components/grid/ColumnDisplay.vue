@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="display-column">
     <template v-if="_.isArray(value)">
       <template v-for="(item,key) in value">
         <Value :value="item" :column_attr="columnAttr" :key="key" />
@@ -12,7 +12,7 @@
 </template>
 <script>
 import { getArrayValue } from "../../utils";
-import Value from "./value/Index";
+import Value from "../widgets/Index";
 export default {
   props: {
     scope: Object,
@@ -25,7 +25,7 @@ export default {
     return {};
   },
   mounted() {
-    //console.log(this.columnKeyPath);
+    //console.log(this.columnKey);
   },
   computed: {
     value() {
@@ -34,7 +34,6 @@ export default {
         let data = this.row[this.columnKeyPath[0]];
         let allData = getArrayValue(data, this.columnKeyPath, 0);
         allData = this._.flattenDeep(allData);
-
         return allData;
       } catch (error) {
         console.error("获取数组数据失败:" + error);
@@ -57,7 +56,7 @@ export default {
       return this.scope.$index;
     },
     columnKey() {
-      return this.scope.column.columnKey;
+      return this.scope.column.property;
     },
     columnKeyPath() {
       return this._.split(this.columnKey, ".");
@@ -66,3 +65,8 @@ export default {
   filters: {}
 };
 </script>
+<style lang="scss">
+.display-column{
+  line-height: 1;
+}
+</style>

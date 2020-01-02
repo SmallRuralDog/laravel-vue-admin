@@ -8,6 +8,7 @@
     :size="attrs.size"
     :effect='attrs.effect'
     :style="attrs.style"
+    :class='attrs.className'
   >{{value}}</el-tag>
 </template>
 <script>

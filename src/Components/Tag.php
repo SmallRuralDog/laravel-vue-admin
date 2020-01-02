@@ -12,12 +12,17 @@ class Tag extends Component
     public $disableTransitions = false;
     public $hit = false;
     public $color;
-    public $size;
+    public $size = "mini";
     public $effect = "light";
 
-    static public function make()
+    public function __construct($value = null)
     {
-        return new Tag();
+        $this->setComponentValue($value);
+    }
+
+    static public function make($value = null)
+    {
+        return new Tag($value);
     }
 
 
@@ -44,7 +49,7 @@ class Tag extends Component
      * @param bool $closable
      * @return $this
      */
-    public function setClosable(bool $closable = false)
+    public function setClosable(bool $closable = true)
     {
         $this->closable = $closable;
         return $this;
@@ -55,7 +60,7 @@ class Tag extends Component
      * @param bool $disableTransitions
      * @return $this
      */
-    public function setDisableTransitions(bool $disableTransitions = false)
+    public function setDisableTransitions(bool $disableTransitions = true)
     {
         $this->disableTransitions = $disableTransitions;
         return $this;
@@ -66,7 +71,7 @@ class Tag extends Component
      * @param bool $hit
      * @return $this
      */
-    public function setHit(bool $hit = false)
+    public function setHit(bool $hit = true)
     {
         $this->hit = $hit;
         return $this;

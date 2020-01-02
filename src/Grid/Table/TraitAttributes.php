@@ -74,7 +74,7 @@ trait TraitAttributes
      * @param bool $fit
      * @return $this
      */
-    public function setFit(bool $fit)
+    public function setFit(bool $fit=true)
     {
         $this->attributes->fit = $fit;
         return $this;

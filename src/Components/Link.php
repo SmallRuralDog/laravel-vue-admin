@@ -13,9 +13,15 @@ class Link extends Component
     public $href;
     public $icon;
 
-    static public function make()
+    public function __construct($value = null)
     {
-        return new Link();
+        $this->setComponentValue($value);
+    }
+
+
+    static public function make($value = null)
+    {
+        return new Link($value);
     }
 
     /**
@@ -38,9 +44,9 @@ class Link extends Component
 
     /**
      * @param bool $underline
-     * @return Link
+     * @return $this
      */
-    public function setUnderline($underline)
+    public function setUnderline($underline = true)
     {
         $this->underline = $underline;
         return $this;
@@ -48,9 +54,9 @@ class Link extends Component
 
     /**
      * @param bool $disabled
-     * @return Link
+     * @return $this
      */
-    public function setDisabled(bool $disabled): Link
+    public function setDisabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -58,7 +64,7 @@ class Link extends Component
 
     /**
      * @param string $href
-     * @return Link
+     * @return $this
      */
     public function setHref($href)
     {
@@ -68,7 +74,7 @@ class Link extends Component
 
     /**
      * @param string $icon
-     * @return Link
+     * @return $this
      */
     public function setIcon($icon)
     {
