@@ -2342,6 +2342,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4747,7 +4750,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 16px 0;\n}\n.grid-container .grid-top-container {\n  padding: 16px 0px;\n}", ""]);
+exports.push([module.i, ".grid-container .table-page {\n  padding: 16px 0;\n}\n.grid-container .grid-top-container {\n  padding: 16px 0px;\n  display: flex;\n  justify-content: space-between;\n}", ""]);
 
 // exports
 
@@ -85024,7 +85027,22 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "grid-top-container-right" })
+        _c(
+          "div",
+          { staticClass: "grid-top-container-right" },
+          [
+            _c("el-button", {
+              attrs: {
+                loading: _vm.loading,
+                type: "primary",
+                size: "medium",
+                icon: "el-icon-refresh"
+              },
+              on: { click: _vm.getData }
+            })
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(

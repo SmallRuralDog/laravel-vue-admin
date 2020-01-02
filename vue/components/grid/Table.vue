@@ -2,9 +2,12 @@
   <div class="grid-container">
     <div class="grid-top-container">
       <div class="grid-top-container-left">
+
         <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
       </div>
-      <div class="grid-top-container-right"></div>
+      <div class="grid-top-container-right">
+        <el-button :loading="loading" @click="getData" type="primary" size="medium" icon="el-icon-refresh"></el-button>
+      </div>
     </div>
     <el-card shadow="never" :body-style="{padding:0}">
       <div>
@@ -201,6 +204,8 @@ export default {
   }
   .grid-top-container {
     padding: 16px 0px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
