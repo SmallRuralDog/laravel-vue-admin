@@ -68,6 +68,7 @@ class AdminTablesSeeder extends Seeder
 
         Role::first()->permissions()->save(Permission::first());
 
+
         // add default menus.
         Menu::truncate();
         Menu::insert([
