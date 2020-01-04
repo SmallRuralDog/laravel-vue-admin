@@ -67,7 +67,7 @@ class UserController extends AdminController
             $form->item('avatar', '头像')->displayComponent(RadioGroup::make(null, [Radio::make(1, "启动"), Radio::make(0, "禁用")])),
             $form->item('password', '密码')->displayComponent(Input::make()->password()->setShowPassword()),
             $form->item('c_password', '确认密码')->displayComponent(Input::make()->password()->setShowPassword()),
-            $form->item('roles', '角色')->setHelp("123456")->displayComponent(CheckboxGroup::make(null, [Checkbox::make(1, "开启审核"), Checkbox::make(123, "热门")])),
+            $form->item('roles', '角色')->setHelp("最多选择一个")->displayComponent(CheckboxGroup::make(null, [Checkbox::make(1, "开启审核"), Checkbox::make(123, "热门")])->setMax(1)),
             $form->item('ps', '权限'),
         ]);
 

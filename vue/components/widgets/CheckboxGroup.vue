@@ -1,5 +1,14 @@
 <template>
-  <el-checkbox-group v-model="vm" @change="onChange">
+  <el-checkbox-group
+    v-model="vm"
+    :size="attrs.size"
+    :disabled="attrs.disabled"
+    :min="attrs.min"
+    :max="attrs.max"
+    :text-color="attrs.textColor"
+    :fill="attrs.fill"
+    @change="onChange"
+  >
     <el-checkbox
       v-for="(checkbox,index) in attrs.options"
       :key="index"

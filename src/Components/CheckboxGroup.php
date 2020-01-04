@@ -35,6 +35,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 多选框组尺寸，仅对按钮形式的 Checkbox 或带有边框的 Checkbox 有效
      * @param string $size
      * @return $this
      */
@@ -45,6 +46,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 是否禁用
      * @param bool $disabled
      * @return $this
      */
@@ -55,6 +57,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 可被勾选的 checkbox 的最小数量
      * @param int $min
      * @return $this
      */
@@ -65,6 +68,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 可被勾选的 checkbox 的最大数量
      * @param int $max
      * @return $this
      */
@@ -75,6 +79,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 按钮形式的 Checkbox 激活时的文本颜色
      * @param string $textColor
      * @return $this
      */
@@ -85,6 +90,7 @@ class CheckboxGroup extends Component
     }
 
     /**
+     * 按钮形式的 Checkbox 激活时的填充色和边框色
      * @param string $fill
      * @return $this
      */

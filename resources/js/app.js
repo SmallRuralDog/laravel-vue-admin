@@ -2938,6 +2938,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
@@ -86337,6 +86346,14 @@ var render = function() {
   return _c(
     "el-checkbox-group",
     {
+      attrs: {
+        size: _vm.attrs.size,
+        disabled: _vm.attrs.disabled,
+        min: _vm.attrs.min,
+        max: _vm.attrs.max,
+        "text-color": _vm.attrs.textColor,
+        fill: _vm.attrs.fill
+      },
       on: { change: _vm.onChange },
       model: {
         value: _vm.vm,
