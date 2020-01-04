@@ -109,4 +109,5 @@ class Menu extends Model
     {
         return admin_url($this->uri);
     }
+
 }

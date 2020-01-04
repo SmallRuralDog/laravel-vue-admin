@@ -113,7 +113,7 @@ class Content implements Renderable
             'title' => $this->title,
             'description' => $this->description,
             'menu' => Admin::menu(),
-            'url_current' => url()->current(),
+            'url_current' => get_class(request()->route()->getController()),
             'breadcrumb' => $this->breadcrumb,
             'logo' => config('admin.logo'),
             'logoMini' => config('admin.logo-mini'),

@@ -41,6 +41,18 @@ export default {
   methods: {
     onHandle() {
       console.log(this.action, this.scope);
+      switch (this.action.type) {
+        case "edit":
+          this.onEdit();
+          break;
+
+        default:
+          break;
+      }
+    },
+    onEdit() {
+      const editUrl = this.action.resource + "/" + this.keyVauel + "/edit";
+      window.location.href = editUrl;
     },
     onDelete() {
       const deleteUrl = this.action.resource + "/" + this.keyVauel;

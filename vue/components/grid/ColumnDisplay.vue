@@ -12,7 +12,7 @@
 </template>
 <script>
 import { getArrayValue } from "../../utils";
-import Value from "../widgets/Index";
+import Value from "../widgets/Column";
 export default {
   props: {
     scope: Object,

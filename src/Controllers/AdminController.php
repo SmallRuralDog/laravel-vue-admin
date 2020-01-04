@@ -32,6 +32,15 @@ class AdminController extends Controller
             ->body($this->form());
     }
 
+    public function edit($id, Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description['edit'] ?? trans('admin.edit'))
+            ->body($this->form()->edit($id));
+    }
+
+
     protected function isAjax()
     {
         $request = request();

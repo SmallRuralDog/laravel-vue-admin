@@ -4,8 +4,8 @@
 namespace SmallRuralDog\Admin\Controllers;
 
 
-use SmallRuralDog\Admin\Auth\Database\AdminTablesSeeder;
 use SmallRuralDog\Admin\Components\Avatar;
+use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
@@ -56,6 +56,17 @@ class UserController extends AdminController
 
         $userModel = config('admin.database.users_model');
         $form = new Form(new $userModel());
+        $form->setSize('small');
+        $form->items([
+            $form->item('username', '用户名')->setRequired()->displayComponent(Input::make()->setPlaceholder("123456789")->setPrefixIcon('el-icon-eleme')),
+            $form->item('name', '名称')->displayComponent(Input::make()),
+            $form->item('avatar', '头像'),
+            $form->item('password', '密码')->displayComponent(Input::make()->password()->setShowPassword()),
+            $form->item('c_password', '确认密码')->displayComponent(Input::make()->password()->setShowPassword()),
+            $form->item('roles', '角色'),
+            $form->item('ps', '权限'),
+        ]);
+
         return $form;
     }
 }

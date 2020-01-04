@@ -6,7 +6,7 @@ namespace SmallRuralDog\Admin\Components;
 
 class Link extends Component
 {
-    public $name = "link";
+    public $name = "Link";
     public $type;
     public $underline;
     public $disabled = false;

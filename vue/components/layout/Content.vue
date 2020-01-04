@@ -16,7 +16,7 @@
         >
           <template v-for="menu in page_data.menu">
             <el-submenu
-              :index="menu.url"
+              :index="menu.controller"
               v-if="menu.children && menu.children.length>0"
               :key="menu.id"
             >
@@ -25,14 +25,14 @@
                 <span>{{menu.title}}</span>
               </template>
               <a :href="sub_menu.url" v-for="sub_menu in menu.children" :key="sub_menu.id">
-                <el-menu-item :index="sub_menu.url">
+                <el-menu-item :index="sub_menu.controller">
                   <i v-show="isCollapsed" class="el-icon-setting"></i>
                   <span slot="title">{{sub_menu.title}}</span>
                 </el-menu-item>
               </a>
             </el-submenu>
             <a :href="menu.url" v-else :key="menu.id">
-              <el-menu-item :index="menu.url">
+              <el-menu-item :index="menu.controller">
                 <i class="el-icon-setting" size="16"></i>
                 <span slot="title">{{menu.title}}</span>
               </el-menu-item>
