@@ -6,6 +6,7 @@ namespace SmallRuralDog\Admin\Components;
 
 class Component
 {
+    public $componentName = "";
     public $className;
     public $style;
 
