@@ -1,13 +1,15 @@
 <template>
   <div v-if="attrs">
-    <component :is="attrs.name" :attrs="attrs" @change="onChange" />
+    <component :is="attrs.componentName" :attrs="attrs" @change="onChange" />
   </div>
 </template>
 <script>
 import Input from "../widgets/Input";
+import RadioGroup from "../widgets/RadioGroup";
 export default {
   components: {
-    Input
+    Input,
+    RadioGroup
   },
   props: {
     attrs: Object
@@ -21,6 +23,8 @@ export default {
   },
   methods: {
     onChange(value) {
+      console.log(value);
+
       this.$emit("change", value);
     }
   }

@@ -7,6 +7,8 @@ namespace SmallRuralDog\Admin\Controllers;
 use SmallRuralDog\Admin\Components\Avatar;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Components\Link;
+use SmallRuralDog\Admin\Components\Radio;
+use SmallRuralDog\Admin\Components\RadioGroup;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
@@ -60,7 +62,7 @@ class UserController extends AdminController
         $form->items([
             $form->item('username', '用户名')->setRequired()->displayComponent(Input::make()->setPlaceholder("123456789")->setPrefixIcon('el-icon-eleme')),
             $form->item('name', '名称')->displayComponent(Input::make()),
-            $form->item('avatar', '头像'),
+            $form->item('avatar', '头像')->displayComponent(RadioGroup::make(null, [Radio::make(1, "启动"), Radio::make(0, "禁用")])),
             $form->item('password', '密码')->displayComponent(Input::make()->password()->setShowPassword()),
             $form->item('c_password', '确认密码')->displayComponent(Input::make()->password()->setShowPassword()),
             $form->item('roles', '角色'),

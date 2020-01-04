@@ -7,7 +7,7 @@ namespace SmallRuralDog\Admin\Components;
 class Input extends Component
 {
 
-    public $name = "Input";
+    public $componentName = "Input";
 
     public $type = "text";
     public $maxlength;
@@ -34,10 +34,7 @@ class Input extends Component
     public $tabindex;
     public $validateEvent = true;
 
-    public function __construct($value = null)
-    {
-        $this->setComponentValue($value);
-    }
+
 
     static public function make($value = null)
     {

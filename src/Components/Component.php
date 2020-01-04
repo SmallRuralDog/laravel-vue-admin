@@ -11,6 +11,11 @@ class Component
 
     public $componentValue;
 
+    public function __construct($value = null)
+    {
+        $this->setComponentValue($value);
+    }
+
     /**
      * @param mixed $className
      * @return $this

@@ -18,7 +18,7 @@ class AdminTablesSeeder extends Seeder
         Administrator::create([
             'username' => 'admin',
             'password' => bcrypt('admin'),
-            'name'     => 'Administrator',
+            'name' => 'Administrator',
         ]);
 
         // create a role.
@@ -35,34 +35,34 @@ class AdminTablesSeeder extends Seeder
         Permission::truncate();
         Permission::insert([
             [
-                'name'        => 'All permission',
-                'slug'        => '*',
+                'name' => 'All permission',
+                'slug' => '*',
                 'http_method' => '',
-                'http_path'   => '*',
+                'http_path' => '*',
             ],
             [
-                'name'        => 'Dashboard',
-                'slug'        => 'dashboard',
+                'name' => 'Dashboard',
+                'slug' => 'dashboard',
                 'http_method' => 'GET',
-                'http_path'   => '/',
+                'http_path' => '/',
             ],
             [
-                'name'        => 'Login',
-                'slug'        => 'auth.login',
+                'name' => 'Login',
+                'slug' => 'auth.login',
                 'http_method' => '',
-                'http_path'   => "/auth/login\r\n/auth/logout",
+                'http_path' => "/auth/login\r\n/auth/logout",
             ],
             [
-                'name'        => 'User setting',
-                'slug'        => 'auth.setting',
+                'name' => 'User setting',
+                'slug' => 'auth.setting',
                 'http_method' => 'GET,PUT',
-                'http_path'   => '/auth/setting',
+                'http_path' => '/auth/setting',
             ],
             [
-                'name'        => 'Auth management',
-                'slug'        => 'auth.management',
+                'name' => 'Auth management',
+                'slug' => 'auth.management',
                 'http_method' => '',
-                'http_path'   => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
+                'http_path' => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
             ],
         ]);
 
@@ -74,52 +74,59 @@ class AdminTablesSeeder extends Seeder
         Menu::insert([
             [
                 'parent_id' => 0,
-                'order'     => 1,
-                'title'     => 'Dashboard',
-                'icon'      => 'fa-bar-chart',
-                'uri'       => '/',
+                'order' => 1,
+                'title' => 'Dashboard',
+                'icon' => 'fa-bar-chart',
+                'uri' => '/',
+                'controller' => 'Dashboard'
             ],
             [
                 'parent_id' => 0,
-                'order'     => 2,
-                'title'     => 'Admin',
-                'icon'      => 'fa-tasks',
-                'uri'       => '',
+                'order' => 2,
+                'title' => 'Admin',
+                'icon' => 'fa-tasks',
+                'uri' => 'admin',
+                'controller' => 'Admin'
             ],
             [
                 'parent_id' => 2,
-                'order'     => 3,
-                'title'     => 'Users',
-                'icon'      => 'fa-users',
-                'uri'       => 'auth/users',
+                'order' => 3,
+                'title' => 'Users',
+                'icon' => 'fa-users',
+                'uri' => 'auth/users',
+                'controller' => 'SmallRuralDog\Admin\Controllers\UserController'
             ],
             [
                 'parent_id' => 2,
-                'order'     => 4,
-                'title'     => 'Roles',
-                'icon'      => 'fa-user',
-                'uri'       => 'auth/roles',
+                'order' => 4,
+                'title' => 'Roles',
+                'icon' => 'fa-user',
+                'uri' => 'auth/roles',
+                'controller' => 'SmallRuralDog\Admin\Controllers\RolesController'
             ],
             [
                 'parent_id' => 2,
-                'order'     => 5,
-                'title'     => 'Permission',
-                'icon'      => 'fa-ban',
-                'uri'       => 'auth/permissions',
+                'order' => 5,
+                'title' => 'Permission',
+                'icon' => 'fa-ban',
+                'uri' => 'auth/permissions',
+                'controller' => 'SmallRuralDog\Admin\Controllers\PermissionController'
             ],
             [
                 'parent_id' => 2,
-                'order'     => 6,
-                'title'     => 'Menu',
-                'icon'      => 'fa-bars',
-                'uri'       => 'auth/menu',
+                'order' => 6,
+                'title' => 'Menu',
+                'icon' => 'fa-bars',
+                'uri' => 'auth/menu',
+                'controller' => 'SmallRuralDog\Admin\Controllers\MenuController'
             ],
             [
                 'parent_id' => 2,
-                'order'     => 7,
-                'title'     => 'Operation log',
-                'icon'      => 'fa-history',
-                'uri'       => 'auth/logs',
+                'order' => 7,
+                'title' => 'Operation log',
+                'icon' => 'fa-history',
+                'uri' => 'auth/logs',
+                'controller' => 'SmallRuralDog\Admin\Controllers\LogController'
             ],
         ]);
 

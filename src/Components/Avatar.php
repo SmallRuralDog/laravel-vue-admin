@@ -6,7 +6,7 @@ namespace SmallRuralDog\Admin\Components;
 
 class Avatar extends Component
 {
-    public $name = "Avatar";
+    public $componentName = "Avatar";
     /**
      * @var string
      */

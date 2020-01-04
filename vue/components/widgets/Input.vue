@@ -25,18 +25,21 @@
     :label="attrs.label"
     :tabindex="attrs.tabindex"
     :validate-event="attrs.validateEvent"
-    v-model="value"
+    v-model="vm"
     @input="onChange"
   ></el-input>
 </template>
 <script>
 export default {
   props: {
-    attrs: Object
+    attrs: Object,
+    value: {
+      default: null
+    }
   },
   data() {
     return {
-      value: ""
+      vm: ""
     };
   },
   methods: {

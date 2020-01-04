@@ -6,7 +6,7 @@ namespace SmallRuralDog\Admin\Components;
 
 class Tag extends Component
 {
-    public $name = "Tag";
+    public $componentName = "Tag";
     public $type;
     public $closable = false;
     public $disableTransitions = false;

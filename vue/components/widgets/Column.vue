@@ -1,6 +1,6 @@
 <template>
-  <span v-if="disPlayType=='default'">{{value}}</span>
-  <component v-else :is='disPlayType' :value="value" :attrs="attrs"/>
+  <span v-if="componentName=='default'">{{value}}</span>
+  <component v-else :is='componentName' :value="value" :attrs="attrs"/>
 </template>
 <script>
 import Tag from "./Tag";
@@ -22,9 +22,9 @@ export default {
     attrs() {
       return this.column_attr.displayComponentAttrs;
     },
-    disPlayType() {
+    componentName() {
       try {
-        return this.attrs.name;
+        return this.attrs.componentName;
       } catch (error) {
         return "default";
       }
