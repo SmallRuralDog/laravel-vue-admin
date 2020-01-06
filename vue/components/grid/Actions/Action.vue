@@ -45,7 +45,11 @@ export default {
         case "edit":
           this.onEdit();
           break;
-
+        case "delete":
+          this.$confirm("确定要删除这条数据吗？", "删除确认").then(() => {
+            this.onDelete();
+          });
+          break;
         default:
           break;
       }

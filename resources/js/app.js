@@ -2170,11 +2170,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onHandle: function onHandle() {
+      var _this = this;
+
       console.log(this.action, this.scope);
 
       switch (this.action.type) {
         case "edit":
           this.onEdit();
+          break;
+
+        case "delete":
+          this.$confirm("确定要删除这条数据吗？", "删除确认").then(function () {
+            _this.onDelete();
+          });
           break;
 
         default:
@@ -2186,15 +2194,15 @@ __webpack_require__.r(__webpack_exports__);
       window.location.href = editUrl;
     },
     onDelete: function onDelete() {
-      var _this = this;
+      var _this2 = this;
 
       var deleteUrl = this.action.resource + "/" + this.keyVauel;
       this.delete_loading = true;
       this.$http["delete"](deleteUrl).then(function (_ref) {
         var code = _ref.code;
-        code === 200 && _this.$bus.emit("tableReload");
+        code === 200 && _this2.$bus.emit("tableReload");
       })["finally"](function () {
-        _this.delete_loading = false;
+        _this2.delete_loading = false;
       });
     }
   },

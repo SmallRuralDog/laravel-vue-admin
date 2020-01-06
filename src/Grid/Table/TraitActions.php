@@ -46,9 +46,9 @@ trait TraitActions
         return $this;
     }
 
-    public function actionShowMore()
+    public function actionShowMore($actionShowMore=true)
     {
-        $this->showMore = true;
+        $this->showMore = $actionShowMore;
         return $this;
     }
 
