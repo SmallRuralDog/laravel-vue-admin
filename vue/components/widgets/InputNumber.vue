@@ -1,5 +1,7 @@
 <template>
   <el-input-number
+    :style="attrs.style"
+    :class="attrs.className"
     v-model="vm"
     :min="attrs.min"
     :max="attrs.max"

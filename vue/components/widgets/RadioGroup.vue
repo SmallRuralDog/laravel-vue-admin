@@ -1,6 +1,8 @@
 <template>
-  <el-radio-group v-model="vm" @change="onChange">
+  <el-radio-group v-model="vm" @change="onChange" :style="attrs.style" :class="attrs.className">
     <el-radio
+      :style="radio.style"
+      :class="radio.className"
       v-for="(radio,index) in attrs.options"
       :key="index"
       :label="radio.label"

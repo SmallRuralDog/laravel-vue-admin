@@ -1,5 +1,7 @@
 <template>
   <el-checkbox
+    :style="attrs.style"
+    :class="attrs.className"
     :label="attrs.label"
     :disabled="attrs.disabled"
     :border="attrs.border"

@@ -1,5 +1,7 @@
 <template>
   <el-checkbox-group
+    :style="attrs.style"
+    :class="attrs.className"
     v-model="vm"
     :size="attrs.size"
     :disabled="attrs.disabled"
@@ -10,6 +12,8 @@
     @change="onChange"
   >
     <el-checkbox
+      :style="checkbox.style"
+      :class="checkbox.className"
       v-for="(checkbox,index) in attrs.options"
       :key="index"
       :label="checkbox.label"

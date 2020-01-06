@@ -4,19 +4,8 @@
   </div>
 </template>
 <script>
-import Input from "../widgets/Input";
-import RadioGroup from "../widgets/RadioGroup";
-import Checkbox from "../widgets/Checkbox";
-import CheckboxGroup from "../widgets/CheckboxGroup";
-import InputNumber from "../widgets/InputNumber";
+
 export default {
-  components: {
-    Input,
-    RadioGroup,
-    Checkbox,
-    CheckboxGroup,
-    InputNumber
-  },
   props: {
     attrs: Object
   },

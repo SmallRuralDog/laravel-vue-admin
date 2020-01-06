@@ -43,7 +43,7 @@ class Action
      * @param bool $moreAction
      * @return $this
      */
-    public function setMoreAction(bool $moreAction = true)
+    public function moreAction(bool $moreAction = true)
     {
         $this->moreAction = $moreAction;
         return $this;

@@ -1,7 +1,8 @@
 <template>
   <el-input
-    :type="attrs.type"
+    :style="attrs.style"
     :class="attrs.className"
+    :type="attrs.type"
     :maxlength="attrs.maxlength"
     :minlength="attrs.minlength"
     :show-word-limit="attrs.showWordLimit"

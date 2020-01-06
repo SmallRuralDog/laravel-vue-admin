@@ -1,14 +1,14 @@
 <template>
   <el-tag
+    :style="attrs.style"
+    :class="attrs.className"
     :type="type"
     :closable="attrs.closable"
     :disable-transitions="attrs.disableTransitions"
     :hit="attrs.hit"
     :color="color"
     :size="attrs.size"
-    :effect='attrs.effect'
-    :style="attrs.style"
-    :class='attrs.className'
+    :effect="attrs.effect"
   >{{value}}</el-tag>
 </template>
 <script>
@@ -19,9 +19,7 @@ export default {
       default: null
     }
   },
-  mounted() {
-   
-  },
+  mounted() {},
   computed: {
     type() {
       try {
