@@ -33,6 +33,9 @@ class Select extends Component
     protected $popperAppendToBody = true;
     protected $automaticDropdown = false;
 
+    /**
+     * @var SelectOption[]
+     */
     protected $options = [];
 
     static public function make($value = null)
@@ -279,6 +282,10 @@ class Select extends Component
         return $this;
     }
 
+    /**
+     * @param SelectOption[] $options
+     * @return $this
+     */
     public function options(array $options)
     {
         $this->options = $options;

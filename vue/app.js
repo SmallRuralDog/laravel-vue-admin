@@ -83,6 +83,8 @@ Vue.component('Checkbox', require('./components/widgets/Checkbox').default);
 Vue.component('CheckboxGroup', require('./components/widgets/CheckboxGroup').default);
 Vue.component('InputNumber', require('./components/widgets/InputNumber').default);
 Vue.component('Select', require('./components/widgets/Select').default);
+Vue.component('Cascader', require('./components/widgets/Cascader').default);
+
 Vue.component('Avatar', require('./components/widgets/Avatar').default);
 Vue.component('Tag', require('./components/widgets/Tag').default);
 Vue.component('Link', require('./components/widgets/Link').default);

@@ -27,6 +27,7 @@ class AdminController extends Controller
     public function create(Content $content)
     {
         return $content
+            ->showPageHeader($this->showPageHeader())
             ->title($this->title())
             ->description($this->description['create'] ?? trans('admin.create'))
             ->body($this->form());
@@ -35,6 +36,7 @@ class AdminController extends Controller
     public function edit($id, Content $content)
     {
         return $content
+            ->showPageHeader($this->showPageHeader())
             ->title($this->title())
             ->description($this->description['edit'] ?? trans('admin.edit'))
             ->body($this->form()->edit($id));
