@@ -170,11 +170,11 @@ $grid->perPage(20);
 $grid->pageBackground();
 ```
 
-## 字段显示
+## 表格字段
 
 Table 的数据列
 
-### 创建列
+### 创建
 
 共有三个参数
 
@@ -191,7 +191,7 @@ $column = $grid->column('prop', 'label','column-key');
 $column = $grid->column('prop', 'label','column-key')->width("100");
 ```
 
-### 列属性
+### 属性
 
 Column 相关属性设置，更多可查看 [Elment Table-column Attributes](https://element.eleme.cn/#/zh-CN/component/table)
 
@@ -261,7 +261,22 @@ $column->headerAlign('center');
 $column->headerAlign('right');
 ```
 
-#### className
+### 帮助内容
+会在列名称右边显示一个问号图标，鼠标放上去会显示设置的内容
+```php
+$column->help('帮助内容');
+```
+
+
+### 显示组件
+
+列的显示模式，默认显示纯文本形式
+使用示例
+
+```php
+$column->displayComponent(Tag::make()->size("mini")->type("info"));
+```
+### className
 
 列的 className
 
@@ -269,19 +284,10 @@ $column->headerAlign('right');
 $column->className('ClassName ClassName-2');
 ```
 
-#### LabelClassName
+### LabelClassName
 
 当前列标题的自定义类名
 
 ```php
 $column->labelClassName('ClassName ClassName');
-```
-
-### 列显示
-
-列的显示模式，默认显示纯文本形式
-使用示例
-
-```php
-$column->displayComponent(Tag::make()->size("mini")->type("info"));
 ```
