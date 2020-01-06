@@ -5,13 +5,13 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use SmallRuralDog\Admin\Components\Avatar;
-use SmallRuralDog\Admin\Components\CSwitch;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Radio;
 use SmallRuralDog\Admin\Components\RadioGroup;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
+use SmallRuralDog\Admin\Components\Slider;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
@@ -79,7 +79,7 @@ class UserController extends AdminController
             $form->item('permissions', '权限')->displayComponent(Select::make()->clearable()->block()->multiple()->options($permissionModel::all()->map(function ($role) {
                 return SelectOption::make($role->id, $role->name);
             })->toArray())),
-            $form->item('status','状态')->displayComponent(CSwitch::make())
+            $form->item('status', '状态')->displayComponent(Slider::make(15))
         ]);
 
         return $form;
