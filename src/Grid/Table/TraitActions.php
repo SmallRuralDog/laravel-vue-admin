@@ -46,7 +46,7 @@ trait TraitActions
         return $this;
     }
 
-    public function setActionShowMore()
+    public function actionShowMore()
     {
         $this->showMore = true;
         return $this;
@@ -57,13 +57,13 @@ trait TraitActions
     {
         $actions = collect($this->actions);
         if (!$this->hideViewAction) {
-            $actions->add(Action::make('view', '查看')->setMoreAction($this->showMore));
+            $actions->add(Action::make('view', '查看')->moreAction($this->showMore));
         }
         if (!$this->hideEditAction) {
-            $actions->add(Action::make('edit', '编辑')->setMoreAction($this->showMore));
+            $actions->add(Action::make('edit', '编辑')->moreAction($this->showMore));
         }
         if (!$this->hideDeleteAction) {
-            $actions->add(Action::make('delete', '删除')->setMoreAction($this->showMore));
+            $actions->add(Action::make('delete', '删除')->moreAction($this->showMore));
         }
         foreach ($this->addActions as $addAction) {
             $actions->add($addAction);

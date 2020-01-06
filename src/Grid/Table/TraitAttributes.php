@@ -16,7 +16,7 @@ trait TraitAttributes
      * @param string|int $height
      * @return $this
      */
-    public function setHeight($height)
+    public function height($height)
     {
         $this->attributes->height = $height;
         return $this;
@@ -28,7 +28,7 @@ trait TraitAttributes
      * @param string|int $maxHeight
      * @return $this
      */
-    public function setMaxHeight($maxHeight)
+    public function maxHeight($maxHeight)
     {
         $this->attributes->maxHeight = $maxHeight;
         return $this;
@@ -39,7 +39,7 @@ trait TraitAttributes
      * @param bool $stripe
      * @return $this
      */
-    public function setStripe($stripe = true)
+    public function stripe($stripe = true)
     {
         $this->attributes->stripe = $stripe;
         return $this;
@@ -50,7 +50,7 @@ trait TraitAttributes
      * @param bool $border
      * @return $this
      */
-    public function setBorder($border = true)
+    public function border($border = true)
     {
         $this->attributes->border = $border;
         return $this;
@@ -62,7 +62,7 @@ trait TraitAttributes
      * @param string $size
      * @return $this
      */
-    public function setSize(string $size)
+    public function size(string $size)
     {
         $this->attributes->size = $size;
         return $this;
@@ -74,7 +74,7 @@ trait TraitAttributes
      * @param bool $fit
      * @return $this
      */
-    public function setFit(bool $fit=true)
+    public function fit(bool $fit=true)
     {
         $this->attributes->fit = $fit;
         return $this;
@@ -86,7 +86,7 @@ trait TraitAttributes
      * @param bool $showHeader
      * @return $this
      */
-    public function setShowHeader($showHeader = true)
+    public function showHeader($showHeader = true)
     {
         $this->attributes->showHeader = $showHeader;
         return $this;
@@ -98,7 +98,7 @@ trait TraitAttributes
      * @param bool $highlightCurrentRow
      * @return $this
      */
-    public function setHighlightCurrentRow($highlightCurrentRow = true)
+    public function highlightCurrentRow($highlightCurrentRow = true)
     {
         $this->attributes->highlightCurrentRow = $highlightCurrentRow;
         return $this;
@@ -109,7 +109,7 @@ trait TraitAttributes
      * @param string $emptyText
      * @return $this
      */
-    public function setEmptyText($emptyText)
+    public function emptyText($emptyText)
     {
         $this->attributes->emptyText = $emptyText;
         return $this;
@@ -121,7 +121,7 @@ trait TraitAttributes
      * @param string $tooltipEffect
      * @return $this
      */
-    public function setTooltipEffect($tooltipEffect)
+    public function tooltipEffect($tooltipEffect)
     {
         $this->attributes->tooltipEffect = $tooltipEffect;
         return $this;

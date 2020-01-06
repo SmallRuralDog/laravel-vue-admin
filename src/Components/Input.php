@@ -7,32 +7,32 @@ namespace SmallRuralDog\Admin\Components;
 class Input extends Component
 {
 
-    public $componentName = "Input";
+    protected $componentName = "Input";
 
-    public $type = "text";
-    public $maxlength;
-    public $minlength;
-    public $showWordLimit = false;
-    public $placeholder;
-    public $clearable = false;
-    public $showPassword = false;
-    public $disabled = false;
-    public $size;
-    public $prefixIcon;
-    public $suffixIcon;
-    public $rows = 2;
-    public $autosize = false;
-    public $autocomplete = "off";
-    public $readonly = false;
-    public $max;
-    public $min;
-    public $step;
-    public $resize;
-    public $autofocus = false;
-    public $form;
-    public $label;
-    public $tabindex;
-    public $validateEvent = true;
+    protected $type = "text";
+    protected $maxlength;
+    protected $minlength;
+    protected $showWordLimit = false;
+    protected $placeholder;
+    protected $clearable = false;
+    protected $showPassword = false;
+    protected $disabled = false;
+    protected $size;
+    protected $prefixIcon;
+    protected $suffixIcon;
+    protected $rows = 2;
+    protected $autosize = false;
+    protected $autocomplete = "off";
+    protected $readonly = false;
+    protected $max;
+    protected $min;
+    protected $step;
+    protected $resize;
+    protected $autofocus = false;
+    protected $form;
+    protected $label;
+    protected $tabindex;
+    protected $validateEvent = true;
 
 
 
@@ -66,7 +66,7 @@ class Input extends Component
      * @param string $type
      * @return $this
      */
-    public function setType($type)
+    public function type($type)
     {
         $this->type = $type;
         return $this;
@@ -77,7 +77,7 @@ class Input extends Component
      * @param string $maxlength
      * @return $this
      */
-    public function setMaxlength($maxlength)
+    public function maxlength($maxlength)
     {
         $this->maxlength = $maxlength;
         return $this;
@@ -88,7 +88,7 @@ class Input extends Component
      * @param string $minlength
      * @return $this
      */
-    public function setMinlength($minlength)
+    public function minlength($minlength)
     {
         $this->minlength = $minlength;
         return $this;
@@ -96,10 +96,11 @@ class Input extends Component
 
     /**
      * 是否显示输入字数统计，只在 type = "text" 或 type = "textarea" 时有效
+     * 必须设置maxlength才会生效
      * @param bool $showWordLimit
      * @return $this
      */
-    public function setShowWordLimit(bool $showWordLimit = true)
+    public function showWordLimit(bool $showWordLimit = true)
     {
         $this->showWordLimit = $showWordLimit;
         return $this;
@@ -110,7 +111,7 @@ class Input extends Component
      * @param string $placeholder
      * @return $this
      */
-    public function setPlaceholder($placeholder)
+    public function placeholder($placeholder)
     {
         $this->placeholder = $placeholder;
         return $this;
@@ -121,7 +122,7 @@ class Input extends Component
      * @param bool $clearable
      * @return $this
      */
-    public function setClearable(bool $clearable = true)
+    public function clearable(bool $clearable = true)
     {
         $this->clearable = $clearable;
         return $this;
@@ -132,7 +133,7 @@ class Input extends Component
      * @param bool $showPassword
      * @return $this
      */
-    public function setShowPassword(bool $showPassword = true)
+    public function showPassword(bool $showPassword = true)
     {
         $this->showPassword = $showPassword;
         return $this;
@@ -143,7 +144,7 @@ class Input extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled = true)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -155,7 +156,7 @@ class Input extends Component
      * @param string $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->size = $size;
         return $this;
@@ -166,7 +167,7 @@ class Input extends Component
      * @param string $prefixIcon
      * @return $this
      */
-    public function setPrefixIcon($prefixIcon)
+    public function prefixIcon($prefixIcon)
     {
         $this->prefixIcon = $prefixIcon;
         return $this;
@@ -177,7 +178,7 @@ class Input extends Component
      * @param string $suffixIcon
      * @return $this
      */
-    public function setSuffixIcon($suffixIcon)
+    public function suffixIcon($suffixIcon)
     {
         $this->suffixIcon = $suffixIcon;
         return $this;
@@ -188,7 +189,7 @@ class Input extends Component
      * @param int $rows
      * @return $this
      */
-    public function setRows(int $rows)
+    public function rows(int $rows)
     {
         $this->rows = $rows;
         return $this;
@@ -199,7 +200,7 @@ class Input extends Component
      * @param bool $autosize
      * @return $this
      */
-    public function setAutosize(bool $autosize)
+    public function autosize(bool $autosize)
     {
         $this->autosize = $autosize;
         return $this;
@@ -210,7 +211,7 @@ class Input extends Component
      * @param string $autocomplete
      * @return $this
      */
-    public function setAutocomplete(string $autocomplete)
+    public function autocomplete(string $autocomplete)
     {
         $this->autocomplete = $autocomplete;
         return $this;
@@ -221,7 +222,7 @@ class Input extends Component
      * @param bool $readonly
      * @return $this
      */
-    public function setReadonly(bool $readonly = true)
+    public function readonly(bool $readonly = true)
     {
         $this->readonly = $readonly;
         return $this;
@@ -232,7 +233,7 @@ class Input extends Component
      * @param string $max
      * @return $this
      */
-    public function setMax($max)
+    public function max($max)
     {
         $this->max = $max;
         return $this;
@@ -243,7 +244,7 @@ class Input extends Component
      * @param string $min
      * @return $this
      */
-    public function setMin($min)
+    public function min($min)
     {
         $this->min = $min;
         return $this;
@@ -254,7 +255,7 @@ class Input extends Component
      * @param string $step
      * @return $this
      */
-    public function setStep($step)
+    public function step($step)
     {
         $this->step = $step;
         return $this;
@@ -265,7 +266,7 @@ class Input extends Component
      * @param string $resize
      * @return $this
      */
-    public function setResize($resize)
+    public function resize($resize)
     {
         $this->resize = $resize;
         return $this;
@@ -276,7 +277,7 @@ class Input extends Component
      * @param bool $autofocus
      * @return $this
      */
-    public function setAutofocus(bool $autofocus = true)
+    public function autofocus(bool $autofocus = true)
     {
         $this->autofocus = $autofocus;
         return $this;
@@ -287,7 +288,7 @@ class Input extends Component
      * @param string $form
      * @return $this
      */
-    public function setForm($form)
+    public function form($form)
     {
         $this->form = $form;
         return $this;
@@ -298,7 +299,7 @@ class Input extends Component
      * @param string $label
      * @return $this
      */
-    public function setLabel($label)
+    public function label($label)
     {
         $this->label = $label;
         return $this;
@@ -309,7 +310,7 @@ class Input extends Component
      * @param string $tabindex
      * @return $this
      */
-    public function setTabindex($tabindex)
+    public function tabindex($tabindex)
     {
         $this->tabindex = $tabindex;
         return $this;
@@ -320,7 +321,7 @@ class Input extends Component
      * @param bool $validateEvent
      * @return $this
      */
-    public function setValidateEvent(bool $validateEvent = true)
+    public function validateEvent(bool $validateEvent = true)
     {
         $this->validateEvent = $validateEvent;
         return $this;

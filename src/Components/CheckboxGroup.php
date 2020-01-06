@@ -6,13 +6,13 @@ namespace SmallRuralDog\Admin\Components;
 
 class CheckboxGroup extends Component
 {
-    public $componentName = "CheckboxGroup";
+    protected $componentName = "CheckboxGroup";
 
     /**
      * @var string
      */
-    public $size;
-    public $disabled = false;
+    protected $size;
+    protected $disabled = false;
     /**
      * @var int
      */
@@ -20,18 +20,18 @@ class CheckboxGroup extends Component
     /**
      * @var int
      */
-    public $max;
-    public $textColor = "#ffffff";
-    public $fill = "#409EFF";
+    protected $max;
+    protected $textColor = "#ffffff";
+    protected $fill = "#409EFF";
 
     /**
      * @var Checkbox[]
      */
-    public $options = [];
+    protected $options = [];
 
     static public function make($value = null, $options = [])
     {
-        return (new CheckboxGroup($value))->setOptions($options);
+        return (new CheckboxGroup($value))->options($options);
     }
 
     /**
@@ -39,7 +39,7 @@ class CheckboxGroup extends Component
      * @param string $size
      * @return $this
      */
-    public function setSize(string $size)
+    public function size(string $size)
     {
         $this->size = $size;
         return $this;
@@ -50,7 +50,7 @@ class CheckboxGroup extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled)
+    public function disabled(bool $disabled)
     {
         $this->disabled = $disabled;
         return $this;
@@ -61,7 +61,7 @@ class CheckboxGroup extends Component
      * @param int $min
      * @return $this
      */
-    public function setMin(int $min)
+    public function min(int $min)
     {
         $this->min = $min;
         return $this;
@@ -72,7 +72,7 @@ class CheckboxGroup extends Component
      * @param int $max
      * @return $this
      */
-    public function setMax(int $max)
+    public function max(int $max)
     {
         $this->max = $max;
         return $this;
@@ -83,7 +83,7 @@ class CheckboxGroup extends Component
      * @param string $textColor
      * @return $this
      */
-    public function setTextColor(string $textColor)
+    public function textColor(string $textColor)
     {
         $this->textColor = $textColor;
         return $this;
@@ -94,7 +94,7 @@ class CheckboxGroup extends Component
      * @param string $fill
      * @return $this
      */
-    public function setFill(string $fill)
+    public function fill(string $fill)
     {
         $this->fill = $fill;
         return $this;
@@ -104,7 +104,7 @@ class CheckboxGroup extends Component
      * @param Checkbox[] $options
      * @return $this
      */
-    public function setOptions(array $options)
+    public function options(array $options)
     {
         $this->options = $options;
         return $this;

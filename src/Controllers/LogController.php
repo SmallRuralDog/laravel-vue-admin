@@ -28,26 +28,23 @@ class LogController extends AdminController
 
         $grid = new Grid(new OperationLog());
         $grid->with(['user']);
-        $grid->selection(false)
-            ->setPerPage(10)
+        $grid->selection()
+            ->perPage(10)
             ->defaultSort('id', 'desc')
-            ->selection()
-            ->setStripe(true)
-            ->setBorder(false)
-            ->setEmptyText("暂无日志")
-            ->setPageBackground(true)
-            //->setActionShowMore()
-            ->setSize('small');
-        $idColumn = $grid->column('id', "ID")->setWidth("100");
-        $nameColumn = $grid->column('user.name', 'User', 'user_id')->setHelp("操作用户")->setSortable();
+            ->stripe()
+            ->emptyText("暂无日志")
+            ->pageBackground(true)
+            ->size('small');
+        $idColumn = $grid->column('id', "ID")->width("100");
+        $nameColumn = $grid->column('user.name', 'User', 'user_id')->help("操作用户")->sortable();
         $grid->columns([
             $idColumn,
-            $grid->column('user.avatar', 'Avatar', 'user_id')->displayComponent(Avatar::make())->setWidth(80),
+            $grid->column('user.avatar', 'Avatar', 'user_id')->displayComponent(Avatar::make()->size('small'))->width(80),
             $nameColumn,
-            $grid->column('method')->setWidth(100)->setAlign('center'),
-            $grid->column('path')->setHelp('操作URL')->setSortable(),
+            $grid->column('method')->width(100)->align('center'),
+            $grid->column('path')->help('操作URL')->sortable(),
             $grid->column('ip'),
-            $grid->column('created_at', "创建时间")->setSortable()
+            $grid->column('created_at', "创建时间")->sortable()
         ]);
         return $grid;
     }

@@ -6,29 +6,29 @@ namespace SmallRuralDog\Admin\Components;
 
 class Radio extends Component
 {
-    public $componentName = "Radio";
+    protected $componentName = "Radio";
 
     /**
      * @var string
      */
-    public $label;
-    public $disabled = false;
-    public $border = false;
+    protected $label;
+    protected $disabled = false;
+    protected $border = false;
     /**
      * @var string
      */
-    public $size;
+    protected $size;
     /**
      * 原生 name 属性
      * @var string
      */
-    public $name;
+    protected $name;
 
-    public $title;
+    protected $title;
 
     static public function make($value, $title)
     {
-        return (new Radio($value))->setLabel($value)->setTitle($title);
+        return (new Radio($value))->label($value)->title($title);
     }
 
     /**
@@ -36,7 +36,7 @@ class Radio extends Component
      * @param string $label
      * @return $this
      */
-    public function setLabel(string $label)
+    public function label(string $label)
     {
         $this->label = $label;
         return $this;
@@ -47,7 +47,7 @@ class Radio extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled)
+    public function disabled(bool $disabled)
     {
         $this->disabled = $disabled;
         return $this;
@@ -58,7 +58,7 @@ class Radio extends Component
      * @param bool $border
      * @return $this
      */
-    public function setBorder(bool $border = true)
+    public function border(bool $border = true)
     {
         $this->border = $border;
         return $this;
@@ -69,7 +69,7 @@ class Radio extends Component
      * @param string $size
      * @return $this
      */
-    public function setSize(string $size)
+    public function size(string $size)
     {
         $this->size = $size;
         return $this;
@@ -80,13 +80,13 @@ class Radio extends Component
      * @param string $name
      * @return $this
      */
-    public function setName(string $name)
+    public function name(string $name)
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setTitle(string $title)
+    public function title(string $title)
     {
         $this->title = $title;
         return $this;

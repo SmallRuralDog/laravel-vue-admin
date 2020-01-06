@@ -75,6 +75,7 @@ Vue.component('row-layout', require('./components/layout/Row').default);
 Vue.component('column-layout', require('./components/layout/Column').default);
 Vue.component('table-grid', require('./components/grid/Table').default);
 Vue.component('base-form', require('./components/form/BaseForm').default);
+//Vue.component('InputNumber', require('./components/widgets/InputNumber').default);
 
 new window.Vue({
     el: '#app',

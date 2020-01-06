@@ -58,7 +58,8 @@ class Column
 
     public function displayComponent($component)
     {
-        $this->setDisplayComponentAttrs($component);
+
+        $this->displayComponentAttrs($component);
 
         return $this;
     }

@@ -6,12 +6,12 @@ namespace SmallRuralDog\Admin\Components;
 
 class RadioGroup extends Component
 {
-    public $componentName = "RadioGroup";
+    protected $componentName = "RadioGroup";
 
-    public $size;
-    public $disabled = false;
-    public $textColor = "#ffffff";
-    public $fill = "#409EFF";
+    protected $size;
+    protected $disabled = false;
+    protected $textColor = "#ffffff";
+    protected $fill = "#409EFF";
 
     /**
      * @var Radio[]
@@ -25,14 +25,14 @@ class RadioGroup extends Component
      */
     static public function make($value = null, $options = [])
     {
-        return (new RadioGroup($value))->setOptions($options);
+        return (new RadioGroup($value))->options($options);
     }
 
     /**
      * @param string $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->size = $size;
         return $this;
@@ -42,7 +42,7 @@ class RadioGroup extends Component
      * @param bool $disabled
      * @return RadioGroup
      */
-    public function setDisabled(bool $disabled = true)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -52,7 +52,7 @@ class RadioGroup extends Component
      * @param string $textColor
      * @return RadioGroup
      */
-    public function setTextColor(string $textColor)
+    public function textColor(string $textColor)
     {
         $this->textColor = $textColor;
         return $this;
@@ -62,7 +62,7 @@ class RadioGroup extends Component
      * @param string $fill
      * @return RadioGroup
      */
-    public function setFill(string $fill)
+    public function fill(string $fill)
     {
         $this->fill = $fill;
         return $this;
@@ -72,14 +72,14 @@ class RadioGroup extends Component
      * @param Radio[] $options
      * @return RadioGroup
      */
-    protected function setOptions(array $options)
+    protected function options(array $options)
     {
         $this->options = $options;
         return $this;
     }
 
 
-    public function setBorder()
+    public function border()
     {
         collect($this->options)->each(function (Radio $radio) {
             $radio->setBorder();

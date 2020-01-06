@@ -94,7 +94,7 @@ class FormItem
      * @param mixed $labelWidth
      * @return $this
      */
-    public function setLabelWidth($labelWidth)
+    public function labelWidth($labelWidth)
     {
         $this->labelWidth = $labelWidth;
         return $this;
@@ -105,7 +105,7 @@ class FormItem
      * @param bool $required
      * @return $this
      */
-    public function setRequired(bool $required = true)
+    public function required(bool $required = true)
     {
         $this->required = $required;
         return $this;
@@ -116,7 +116,7 @@ class FormItem
      * @param mixed $rules
      * @return $this
      */
-    public function setRules($rules)
+    public function rules($rules)
     {
         $this->rules = $rules;
         return $this;
@@ -127,7 +127,7 @@ class FormItem
      * @param string $error
      * @return $this
      */
-    public function setError($error)
+    public function error($error)
     {
         $this->error = $error;
         return $this;
@@ -138,7 +138,7 @@ class FormItem
      * @param bool $showMessage
      * @return $this
      */
-    public function setShowMessage(bool $showMessage = true)
+    public function showMessage(bool $showMessage = true)
     {
         $this->showMessage = $showMessage;
         return $this;
@@ -149,7 +149,7 @@ class FormItem
      * @param bool $inlineMessage
      * @return $this
      */
-    public function setInlineMessage($inlineMessage = true)
+    public function inlineMessage($inlineMessage = true)
     {
         $this->inlineMessage = $inlineMessage;
         return $this;
@@ -161,7 +161,7 @@ class FormItem
      * @param mixed $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->size = $size;
         return $this;
@@ -172,7 +172,7 @@ class FormItem
      * @param $help
      * @return $this
      */
-    public function setHelp($help)
+    public function help($help)
     {
         $this->help = $help;
         return $this;

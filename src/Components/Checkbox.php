@@ -6,18 +6,17 @@ namespace SmallRuralDog\Admin\Components;
 
 class Checkbox extends Component
 {
-    public $componentName = "Checkbox";
-
-    public $label;
-    public $trueLabel;
-    public $falseLabel;
-    public $disabled = false;
-    public $border = false;
-    public $size;
-    public $name;
-    public $checked = false;
-    public $indeterminate = false;
-    public $title;
+    protected $componentName = "Checkbox";
+    protected $label;
+    protected $trueLabel;
+    protected $falseLabel;
+    protected $disabled = false;
+    protected $border = false;
+    protected $size;
+    protected $name;
+    protected $checked = false;
+    protected $indeterminate = false;
+    protected $title;
 
 
     /**
@@ -30,7 +29,7 @@ class Checkbox extends Component
 
         $title = $title ?: $label;
 
-        return (new Checkbox($label))->setLabel($label)->setTitle($title);
+        return (new Checkbox($label))->label($label)->title($title);
     }
 
     /**
@@ -38,7 +37,7 @@ class Checkbox extends Component
      * @param string|int|bool $label
      * @return $this
      */
-    public function setLabel($label)
+    public function label($label)
     {
         $this->label = $label;
         return $this;
@@ -49,7 +48,7 @@ class Checkbox extends Component
      * @param string|int $trueLabel
      * @return $this
      */
-    public function setTrueLabel($trueLabel)
+    public function trueLabel($trueLabel)
     {
         $this->trueLabel = $trueLabel;
         return $this;
@@ -60,7 +59,7 @@ class Checkbox extends Component
      * @param string|int $falseLabel
      * @return $this
      */
-    public function setFalseLabel($falseLabel)
+    public function falseLabel($falseLabel)
     {
         $this->falseLabel = $falseLabel;
         return $this;
@@ -71,7 +70,7 @@ class Checkbox extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled = true)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -82,7 +81,7 @@ class Checkbox extends Component
      * @param bool $border
      * @return $this
      */
-    public function setBorder(bool $border = true)
+    public function border(bool $border = true)
     {
         $this->border = $border;
         return $this;
@@ -93,7 +92,7 @@ class Checkbox extends Component
      * @param string $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->size = $size;
         return $this;
@@ -104,7 +103,7 @@ class Checkbox extends Component
      * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function name($name)
     {
         $this->name = $name;
         return $this;
@@ -115,7 +114,7 @@ class Checkbox extends Component
      * @param bool $checked
      * @return $this
      */
-    public function setChecked(bool $checked = true)
+    public function checked(bool $checked = true)
     {
         $this->checked = $checked;
         return $this;
@@ -126,13 +125,13 @@ class Checkbox extends Component
      * @param bool $indeterminate
      * @return $this
      */
-    public function setIndeterminate(bool $indeterminate = true)
+    public function indeterminate(bool $indeterminate = true)
     {
         $this->indeterminate = $indeterminate;
         return $this;
     }
 
-    public function setTitle(string $title)
+    public function title(string $title)
     {
         $this->title = $title;
         return $this;

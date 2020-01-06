@@ -6,20 +6,20 @@ namespace SmallRuralDog\Admin\Components;
 
 class Tag extends Component
 {
-    public $componentName = "Tag";
-    public $type;
-    public $closable = false;
-    public $disableTransitions = false;
-    public $hit = false;
-    public $color;
-    public $size = "mini";
-    public $effect = "light";
+    protected $componentName = "Tag";
+    protected $type;
+    protected $closable = false;
+    protected $disableTransitions = false;
+    protected $hit = false;
+    protected $color;
+    protected $size = "mini";
+    private $effect = "light";
 
-    public function __construct($value = null)
-    {
-        $this->setComponentValue($value);
-    }
 
+    /**
+     * @param  $value
+     * @return Tag
+     */
     static public function make($value = null)
     {
         return new Tag($value);
@@ -32,7 +32,7 @@ class Tag extends Component
      * @param bool $random
      * @return $this
      */
-    public function setType($type = null, $random = true)
+    public function type($type = null, $random = true)
     {
         $type = empty($type) ? ['success', 'info', 'warning', 'danger'] : $type;
 
@@ -49,7 +49,7 @@ class Tag extends Component
      * @param bool $closable
      * @return $this
      */
-    public function setClosable(bool $closable = true)
+    public function closable(bool $closable = true)
     {
         $this->closable = $closable;
         return $this;
@@ -60,7 +60,7 @@ class Tag extends Component
      * @param bool $disableTransitions
      * @return $this
      */
-    public function setDisableTransitions(bool $disableTransitions = true)
+    public function disableTransitions(bool $disableTransitions = true)
     {
         $this->disableTransitions = $disableTransitions;
         return $this;
@@ -71,7 +71,7 @@ class Tag extends Component
      * @param bool $hit
      * @return $this
      */
-    public function setHit(bool $hit = true)
+    public function hit(bool $hit = true)
     {
         $this->hit = $hit;
         return $this;
@@ -83,7 +83,7 @@ class Tag extends Component
      * @param bool $random
      * @return $this
      */
-    public function setColor($color, $random = true)
+    public function color($color, $random = true)
     {
         $this->color = [
             'data' => $color,
@@ -97,7 +97,7 @@ class Tag extends Component
      * @param string $size
      * @return $this
      */
-    public function setSize(string $size)
+    public function size(string $size)
     {
         $this->size = $size;
         return $this;
@@ -108,7 +108,7 @@ class Tag extends Component
      * @param string $effect
      * @return $this
      */
-    public function setEffect(string $effect)
+    public function effect(string $effect)
     {
         $this->effect = $effect;
         return $this;

@@ -1,21 +1,25 @@
 <template>
   <div class="grid-actions">
     <template v-for="item in list">
-      <Action :key="item.type" :scope="scope" :action="item" :key_name="key_name" />
+      <span :key="item.type">
+        <Action :scope="scope" :action="item" :key_name="key_name" />
+      </span>
     </template>
     <template v-if="moreList.length>0">
-      <el-dropdown>
-        <el-button type="text" size="mini" icon="el-icon-more"></el-button>
-        <el-dropdown-menu slot="dropdown">
-          <Action
-            :key="item.type"
-            v-for="item in moreList"
-            :scope="scope"
-            :action="item"
-            :key_name="key_name"
-          />
-        </el-dropdown-menu>
-      </el-dropdown>
+      <span>
+        <el-dropdown>
+          <el-button type="text" size="mini" icon="el-icon-more"></el-button>
+          <el-dropdown-menu slot="dropdown">
+            <Action
+              :key="item.type"
+              v-for="item in moreList"
+              :scope="scope"
+              :action="item"
+              :key_name="key_name"
+            />
+          </el-dropdown-menu>
+        </el-dropdown>
+      </span>
     </template>
   </div>
 </template>
@@ -52,8 +56,8 @@ export default {
   .el-button + .el-button {
     margin-left: 0;
   }
-  .action-button {
-    padding: 0 5px;
+  span + span{
+    margin-left: 10px;
   }
 }
 </style>

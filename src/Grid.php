@@ -114,9 +114,9 @@ class Grid
     {
         if ($this->selection) {
             $column = $this->addColumn($this->model->getModel()->getKey());
-            $column->setType("selection");
-            $column->setAlign("center");
-            $column->setWidth(50);
+            $column->type("selection");
+            $column->align("center");
+            $column->width(50);
             $columns = collect($columns)->prepend($column)->all();
         }
 

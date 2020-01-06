@@ -6,40 +6,37 @@ namespace SmallRuralDog\Admin\Components;
 
 class Avatar extends Component
 {
-    public $componentName = "Avatar";
+    protected $componentName = "Avatar";
     /**
      * @var string
      */
-    public $icon;
+    protected $icon;
     /**
      * @var string|int
      */
-    public $size = "large";
+    protected $size = "large";
     /**
      * @var string
      */
-    public $shape = "circle";
+    protected $shape = "circle";
     /**
      * @var string
      */
-    public $src;
+    protected $src;
     /**
      * @var string
      */
-    public $srcSet;
+    protected $srcSet;
     /**
      * @var string
      */
-    public $alt;
+    protected $alt;
     /**
      * @var string
      */
-    public $fit = "cover";
+    protected $fit = "cover";
 
-    public function __construct($value = null)
-    {
-        $this->setComponentValue($value);
-    }
+
 
 
     static public function make($value = null)
@@ -53,7 +50,7 @@ class Avatar extends Component
      * @param string $icon
      * @return $this
      */
-    public function setIcon(string $icon)
+    public function icon(string $icon)
     {
         $this->icon = $icon;
         return $this;
@@ -64,7 +61,7 @@ class Avatar extends Component
      * @param int|string $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->size = $size;
         return $this;
@@ -75,7 +72,7 @@ class Avatar extends Component
      * @param string $shape
      * @return $this
      */
-    public function setShape(string $shape)
+    public function shape(string $shape)
     {
         $this->shape = $shape;
         return $this;
@@ -86,7 +83,7 @@ class Avatar extends Component
      * @param string $src
      * @return $this
      */
-    public function setSrc(string $src)
+    public function src(string $src)
     {
         $this->src = $src;
         return $this;
@@ -97,7 +94,7 @@ class Avatar extends Component
      * @param string $srcSet
      * @return $this
      */
-    public function setSrcSet(string $srcSet)
+    public function srcSet(string $srcSet)
     {
         $this->srcSet = $srcSet;
         return $this;
@@ -108,7 +105,7 @@ class Avatar extends Component
      * @param string $alt
      * @return $this
      */
-    public function setAlt(string $alt)
+    public function alt(string $alt)
     {
         $this->alt = $alt;
         return $this;
@@ -120,7 +117,7 @@ class Avatar extends Component
      * @param string $fit
      * @return $this
      */
-    public function setFit(string $fit)
+    public function fit(string $fit)
     {
         $this->fit = $fit;
         return $this;

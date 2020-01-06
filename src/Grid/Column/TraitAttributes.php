@@ -20,7 +20,7 @@ trait TraitAttributes
      * @param $type
      * @return $this
      */
-    public function setType($type)
+    public function type($type)
     {
         $this->attributes->type = $type;
         return $this;
@@ -31,7 +31,7 @@ trait TraitAttributes
      * @param string $columnKey
      * @return $this
      */
-    public function setColumnKey($columnKey)
+    public function columnKey($columnKey)
     {
         $this->attributes->columnKey = $columnKey;
         return $this;
@@ -42,7 +42,7 @@ trait TraitAttributes
      * @param string $label
      * @return $this
      */
-    private function setLabel(string $label)
+    private function label(string $label)
     {
         $this->attributes->label = $label;
 
@@ -54,7 +54,7 @@ trait TraitAttributes
      * @param string $prop
      * @return $this
      */
-    public function setProp(string $prop)
+    public function prop(string $prop)
     {
         $this->attributes->prop = $prop;
 
@@ -66,7 +66,7 @@ trait TraitAttributes
      * @param string $width
      * @return $this
      */
-    public function setWidth(string $width)
+    public function width(string $width)
     {
         $this->attributes->width = $width;
         return $this;
@@ -77,7 +77,7 @@ trait TraitAttributes
      * @param string $minWidth
      * @return $this
      */
-    public function setMinWidth(string $minWidth)
+    public function minWidth(string $minWidth)
     {
         $this->attributes->minWidth = $minWidth;
         return $this;
@@ -89,7 +89,7 @@ trait TraitAttributes
      * @param bool|string $fixed
      * @return $this
      */
-    public function setFixed($fixed = true)
+    public function fixed($fixed = true)
     {
         $this->attributes->fixed = $fixed;
         return $this;
@@ -100,7 +100,7 @@ trait TraitAttributes
      * @param bool $showOverflowTooltip
      * @return $this
      */
-    public function setShowOverflowTooltip($showOverflowTooltip = true)
+    public function showOverflowTooltip($showOverflowTooltip = true)
     {
         $this->attributes->showOverflowTooltip = $showOverflowTooltip;
         return $this;
@@ -111,7 +111,7 @@ trait TraitAttributes
      * @param string $align
      * @return $this
      */
-    public function setAlign(string $align)
+    public function align(string $align)
     {
         $this->attributes->align = $align;
         return $this;
@@ -122,7 +122,7 @@ trait TraitAttributes
      * @param string $headerAlign
      * @return $this
      */
-    public function setHeaderAlign($headerAlign)
+    public function headerAlign($headerAlign)
     {
         $this->attributes->headerAlign = $headerAlign;
         return $this;
@@ -133,7 +133,7 @@ trait TraitAttributes
      * @param string $className
      * @return $this
      */
-    public function setClassName($className)
+    public function className($className)
     {
         $this->attributes->className = $className;
         return $this;
@@ -144,7 +144,7 @@ trait TraitAttributes
      * @param string $labelClassName
      * @return $this
      */
-    public function setLabelClassName($labelClassName)
+    public function labelClassName($labelClassName)
     {
         $this->attributes->labelClassName = $labelClassName;
         return $this;
@@ -155,7 +155,7 @@ trait TraitAttributes
      * @param string $help
      * @return $this
      */
-    public function setHelp($help)
+    public function help($help)
     {
         $this->attributes->help = $help;
         return $this;
@@ -167,7 +167,7 @@ trait TraitAttributes
      * @param string $sortable
      * @return $this
      */
-    public function setSortable($sortable = 'custom')
+    public function sortable($sortable = 'custom')
     {
         $this->attributes->sortable = $sortable == 'custom';
         return $this;
@@ -180,7 +180,7 @@ trait TraitAttributes
      * @param array $filters
      * @return $this
      */
-    public function setFilters(array $filters)
+    public function filters(array $filters)
     {
         $this->attributes->filters = $filters;
         return $this;
@@ -191,7 +191,7 @@ trait TraitAttributes
      * @param $filterPlacement
      * @return $this
      */
-    public function setFilterPlacement($filterPlacement)
+    public function filterPlacement($filterPlacement)
     {
         $this->attributes->filterPlacement = $filterPlacement;
         return $this;
@@ -203,7 +203,7 @@ trait TraitAttributes
      * @param bool $filterMultiple
      * @return $this
      */
-    public function setFilterMultiple(bool $filterMultiple)
+    public function filterMultiple(bool $filterMultiple)
     {
         $this->attributes->filterMultiple = $filterMultiple;
         return $this;
@@ -214,7 +214,7 @@ trait TraitAttributes
      * @param Tag|Link $displayComponentAttrs
      * @return $this
      */
-    protected function setDisplayComponentAttrs($displayComponentAttrs)
+    private function displayComponentAttrs($displayComponentAttrs)
     {
         $this->attributes->displayComponentAttrs = $displayComponentAttrs;
         return $this;

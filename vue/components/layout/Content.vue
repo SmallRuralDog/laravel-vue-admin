@@ -16,6 +16,8 @@
         >
           <template v-for="menu in page_data.menu">
             <el-submenu
+              :show-timeout="1"
+              :hide-timeout="1"
               :index="menu.controller"
               v-if="menu.children && menu.children.length>0"
               :key="menu.id"
@@ -122,7 +124,7 @@ export default {
 </script>
 
 <style lang="scss" >
-$header-bar-height:44px;
+$header-bar-height: 44px;
 .ivu-layout-sider {
   min-height: 100vh;
 

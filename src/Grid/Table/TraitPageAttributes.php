@@ -16,7 +16,7 @@ trait TraitPageAttributes
      * @param array $sizes
      * @return $this
      */
-    public function setPageSizes($sizes)
+    public function pageSizes($sizes)
     {
         $this->pageSizes = $sizes;
 
@@ -28,7 +28,7 @@ trait TraitPageAttributes
      * @param int $perPage
      * @return $this
      */
-    public function setPerPage($perPage)
+    public function perPage($perPage)
     {
         $this->perPage = $perPage;
 
@@ -40,7 +40,7 @@ trait TraitPageAttributes
      * @param bool $pageBackground
      * @return $this
      */
-    public function setPageBackground(bool $pageBackground = true)
+    public function pageBackground(bool $pageBackground = true)
     {
         $this->pageBackground = $pageBackground;
 

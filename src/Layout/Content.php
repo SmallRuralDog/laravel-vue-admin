@@ -107,7 +107,6 @@ class Content implements Renderable
     public function render()
     {
 
-
         $data = [
             'showPageHeader' => $this->showPageHeader,
             'title' => $this->title,

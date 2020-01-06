@@ -4,24 +4,24 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class Component
+class Component implements \JsonSerializable
 {
-    public $componentName = "";
-    public $className;
-    public $style;
+    protected $componentName = "";
+    protected $className;
+    protected $style;
 
-    public $componentValue;
+    protected $componentValue;
 
     public function __construct($value = null)
     {
-        $this->setComponentValue($value);
+        $this->componentValue($value);
     }
 
     /**
      * @param mixed $className
      * @return $this
      */
-    public function setClassName($className)
+    public function className($className)
     {
         $this->className = $className;
         return $this;
@@ -31,7 +31,7 @@ class Component
      * @param mixed $style
      * @return $this
      */
-    public function setStyle($style)
+    public function style($style)
     {
         $this->style = $style;
         return $this;
@@ -41,10 +41,21 @@ class Component
      * @param $value
      * @return $this
      */
-    public function setComponentValue($value)
+    public function componentValue($value)
     {
         $this->componentValue = $value;
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        foreach ($this as $key => $val) {
+            $data[$key] = $val;
+        }
+        return $data;
+    }
 }

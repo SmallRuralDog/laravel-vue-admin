@@ -6,17 +6,14 @@ namespace SmallRuralDog\Admin\Components;
 
 class Link extends Component
 {
-    public $componentName = "Link";
-    public $type;
-    public $underline;
-    public $disabled = false;
-    public $href;
-    public $icon;
+    protected $componentName = "Link";
+    protected $type;
+    protected $underline;
+    protected $disabled = false;
+    protected $href;
+    protected $icon;
 
-    public function __construct($value = null)
-    {
-        $this->setComponentValue($value);
-    }
+
 
 
     static public function make($value = null)
@@ -30,7 +27,7 @@ class Link extends Component
      * @param bool $random
      * @return $this
      */
-    public function setType($type = null, $random = true)
+    public function type($type = null, $random = true)
     {
         $type = empty($type) ? ['primary', 'success', 'info', 'warning', 'danger'] : $type;
 
@@ -46,7 +43,7 @@ class Link extends Component
      * @param bool $underline
      * @return $this
      */
-    public function setUnderline($underline = true)
+    public function underline($underline = true)
     {
         $this->underline = $underline;
         return $this;
@@ -56,7 +53,7 @@ class Link extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled = true)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -66,7 +63,7 @@ class Link extends Component
      * @param string $href
      * @return $this
      */
-    public function setHref($href)
+    public function href($href)
     {
         $this->href = $href;
         return $this;
@@ -76,7 +73,7 @@ class Link extends Component
      * @param string $icon
      * @return $this
      */
-    public function setIcon($icon)
+    public function icon($icon)
     {
         $this->icon = $icon;
         return $this;

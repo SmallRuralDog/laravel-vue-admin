@@ -9,7 +9,7 @@ use SmallRuralDog\Admin\Grid;
 
 $userModel = config('admin.database.users_model');
 $grid = new Grid(new $userModel());
-$idColumn = $grid->column('id', "ID")->setWidth("100")->setSortable();
+$idColumn = $grid->column('id', "ID")->width("100")->sortable();
 $nameColumn = $grid->column('name', '用户昵称');
 $grid->columns([
     $idColumn,
@@ -27,8 +27,8 @@ return $grid;
 Table 的高度，默认为自动高度。如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
 
 ```php
-$grid->setHeight('500px');
-$grid->setHeight(500);
+$grid->height('500px');
+$grid->height(500);
 ```
 
 ### 最大高度
@@ -36,8 +36,8 @@ $grid->setHeight(500);
 Table 的最大高度。合法的值为数字或者单位为 px 的高度。
 
 ```php
-$grid->setMaxHeight('500px');
-$grid->setMaxHeight(500);
+$grid->maxHeight('500px');
+$grid->maxHeight(500);
 ```
 
 ### 斑马纹
@@ -45,9 +45,9 @@ $grid->setMaxHeight(500);
 是否为斑马纹 table
 
 ```php
-$grid->setStripe();
-$grid->setStripe(true);
-$grid->setStripe(false);
+$grid->stripe();
+$grid->stripe(true);
+$grid->stripe(false);
 ```
 
 ### 纵向边框
@@ -55,9 +55,9 @@ $grid->setStripe(false);
 是否带有纵向边框
 
 ```php
- $grid->setBorder();
- $grid->setBorder(true);
- $grid->setBorder(false);
+ $grid->border();
+ $grid->border(true);
+ $grid->border(false);
 ```
 
 ### 尺寸
@@ -67,9 +67,9 @@ Table 的尺寸
 可选择 `medium` `small` `mini`
 
 ```php
-$grid->setSize('medium');
-$grid->setSize('small');
-$grid->setSize('mini');
+$grid->size('medium');
+$grid->size('small');
+$grid->size('mini');
 ```
 
 ### 宽度是否自撑开
@@ -77,9 +77,9 @@ $grid->setSize('mini');
 列的宽度是否自撑开
 
 ```php
-$grid->setFit();
-$grid->setFit(true);
-$grid->setFit(false);
+$grid->fit();
+$grid->fit(true);
+$grid->fit(false);
 ```
 
 ### 显示表头
@@ -87,9 +87,9 @@ $grid->setFit(false);
 是否显示表头
 
 ```php
-$grid->setShowHeader();
-$grid->setShowHeader(true);
-$grid->setShowHeader(false);
+$grid->showHeader();
+$grid->showHeader(true);
+$grid->showHeader(false);
 ```
 
 ### 高亮当前行
@@ -97,8 +97,8 @@ $grid->setShowHeader(false);
 是否要高亮当前行
 
 ```php
-$grid->setHighlightCurrentRow();
-$grid->setHighlightCurrentRow(false);
+$grid->highlightCurrentRow();
+$grid->highlightCurrentRow(false);
 ```
 
 ### 空数据
@@ -106,7 +106,7 @@ $grid->setHighlightCurrentRow(false);
 空数据时显示的文本内容，只支持纯文本
 
 ```php
-$grid->setEmptyText("暂无数据");
+$grid->emptyText("暂无数据");
 ```
 
 ### TooltipEffect
@@ -114,8 +114,8 @@ $grid->setEmptyText("暂无数据");
 tooltip effect 属性 。dark/light
 
 ```php
-$grid->setTooltipEffect('dark');
-$grid->setTooltipEffect('light');
+$grid->tooltipEffect('dark');
+$grid->tooltipEffect('light');
 ```
 
 ## 其他设置
@@ -151,7 +151,7 @@ $grid->defaultSort('id', 'asc');
 #### 每页大小组
 
 ```php
-$grid->setPageSizes([10, 20, 30, 40, 50, 100]);
+$grid->pageSizes([10, 20, 30, 40, 50, 100]);
 ```
 
 #### 每页大小
@@ -159,7 +159,7 @@ $grid->setPageSizes([10, 20, 30, 40, 50, 100]);
 默认 20
 
 ```php
-$grid->setPerPage(20);
+$grid->perPage(20);
 ```
 
 #### 背景色
@@ -167,7 +167,7 @@ $grid->setPerPage(20);
 是否为分页按钮添加背景色，默认`false`
 
 ```php
-$grid->setPageBackground();
+$grid->pageBackground();
 ```
 
 ## 字段显示
@@ -188,7 +188,7 @@ Table 的数据列
 //基本使用
 $column = $grid->column('prop', 'label','column-key');
 //属性设置
-$column = $grid->column('prop', 'label','column-key')->setWidth("100");
+$column = $grid->column('prop', 'label','column-key')->width("100");
 ```
 
 ### 列属性
@@ -200,7 +200,7 @@ Column 相关属性设置，更多可查看 [Elment Table-column Attributes](htt
 对应列的宽度
 
 ```php
-$column->setWidth("100");
+$column->width("100");
 ```
 
 #### 最小宽度
@@ -208,7 +208,7 @@ $column->setWidth("100");
 对应列的最小宽度，与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列
 
 ```php
-$column->setMinWidth("300");
+$column->minWidth("300");
 ```
 
 #### 固定
@@ -218,9 +218,9 @@ $column->setMinWidth("300");
 可选择 `true` `left` `right`
 
 ```php
-$column->setFixed(true);
-$column->setFixed('left');
-$column->setFixed('right');
+$column->fixed(true);
+$column->fixed('left');
+$column->fixed('right');
 ```
 
 #### 排序
@@ -228,7 +228,7 @@ $column->setFixed('right');
 对应列是否可以排序
 
 ```php
-$column->setSortable();
+$column->sortable();
 ```
 
 #### 内容过长
@@ -236,7 +236,7 @@ $column->setSortable();
 当内容过长被隐藏时显示 tooltip
 
 ```php
-$column->setShowOverflowTooltip();
+$column->showOverflowTooltip();
 ```
 
 #### 对齐方式
@@ -244,9 +244,9 @@ $column->setShowOverflowTooltip();
 可选 `left` `center` `right`
 
 ```php
-$column->setAlign('left');
-$column->setAlign('center');
-$column->setAlign('right');
+$column->align('left');
+$column->align('center');
+$column->align('right');
 ```
 
 #### 表头对齐方式
@@ -256,9 +256,9 @@ $column->setAlign('right');
 可选 `left` `center` `right`
 
 ```php
-$column->setHeaderAlign('left');
-$column->setHeaderAlign('center');
-$column->setHeaderAlign('right');
+$column->headerAlign('left');
+$column->headerAlign('center');
+$column->headerAlign('right');
 ```
 
 #### className
@@ -266,7 +266,7 @@ $column->setHeaderAlign('right');
 列的 className
 
 ```php
-$column->setClassName('ClassName ClassName-2');
+$column->className('ClassName ClassName-2');
 ```
 
 #### LabelClassName
@@ -274,7 +274,7 @@ $column->setClassName('ClassName ClassName-2');
 当前列标题的自定义类名
 
 ```php
-$column->setLabelClassName('ClassName ClassName');
+$column->labelClassName('ClassName ClassName');
 ```
 
 ### 列显示
@@ -283,5 +283,5 @@ $column->setLabelClassName('ClassName ClassName');
 使用示例
 
 ```php
-$column->displayComponent(Tag::make()->setSize("mini")->setType("info"));
+$column->displayComponent(Tag::make()->size("mini")->type("info"));
 ```

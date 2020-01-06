@@ -9,14 +9,14 @@ trait TraitFormAttrs
     /**
      * @var FormAttrs
      */
-    private $attrs;
+    public $attrs;
 
     /**
      * 表单验证规则
      * @param array $rules
      * @return $this
      */
-    public function setRules($rules)
+    public function rules($rules)
     {
         $this->attrs->rules = $rules;
         return $this;
@@ -27,7 +27,7 @@ trait TraitFormAttrs
      * @param bool $inline
      * @return $this
      */
-    public function setInline(bool $inline = true)
+    public function inline(bool $inline = true)
     {
         $this->attrs->inline = $inline;
         return $this;
@@ -39,7 +39,7 @@ trait TraitFormAttrs
      * @param string $labelPosition
      * @return $this
      */
-    public function setLabelPosition(string $labelPosition)
+    public function labelPosition(string $labelPosition)
     {
         $this->attrs->labelPosition = $labelPosition;
         return $this;
@@ -50,7 +50,7 @@ trait TraitFormAttrs
      * @param string $labelWidth
      * @return $this
      */
-    public function setLabelWidth(string $labelWidth)
+    public function labelWidth(string $labelWidth)
     {
         $this->attrs->labelWidth = $labelWidth;
         return $this;
@@ -61,7 +61,7 @@ trait TraitFormAttrs
      * @param string $labelSuffix
      * @return $this
      */
-    public function setLabelSuffix(string $labelSuffix)
+    public function labelSuffix(string $labelSuffix)
     {
         $this->attrs->labelSuffix = $labelSuffix;
         return $this;
@@ -72,7 +72,7 @@ trait TraitFormAttrs
      * @param bool $hideRequiredAsterisk
      * @return $this
      */
-    public function setHideRequiredAsterisk(bool $hideRequiredAsterisk = true)
+    public function hideRequiredAsterisk(bool $hideRequiredAsterisk = true)
     {
         $this->attrs->hideRequiredAsterisk = $hideRequiredAsterisk;
         return $this;
@@ -83,7 +83,7 @@ trait TraitFormAttrs
      * @param bool $showMessage
      * @return $this
      */
-    public function setShowMessage(bool $showMessage = true)
+    public function showMessage(bool $showMessage = true)
     {
         $this->attrs->showMessage = $showMessage;
         return $this;
@@ -95,7 +95,7 @@ trait TraitFormAttrs
      * @param bool $inlineMessage
      * @return $this
      */
-    public function setInlineMessage(bool $inlineMessage = true)
+    public function inlineMessage(bool $inlineMessage = true)
     {
         $this->attrs->inlineMessage = $inlineMessage;
         return $this;
@@ -106,7 +106,7 @@ trait TraitFormAttrs
      * @param bool $statusIcon
      * @return $this
      */
-    public function setStatusIcon(bool $statusIcon = true)
+    public function statusIcon(bool $statusIcon = true)
     {
         $this->attrs->statusIcon = $statusIcon;
         return $this;
@@ -117,7 +117,7 @@ trait TraitFormAttrs
      * @param bool $validateOnRuleChange
      * @return $this
      */
-    public function setValidateOnRuleChange(bool $validateOnRuleChange = true)
+    public function validateOnRuleChange(bool $validateOnRuleChange = true)
     {
         $this->attrs->validateOnRuleChange = $validateOnRuleChange;
         return $this;
@@ -128,7 +128,7 @@ trait TraitFormAttrs
      * @param mixed $size
      * @return $this
      */
-    public function setSize($size)
+    public function size($size)
     {
         $this->attrs->size = $size;
         return $this;
@@ -139,7 +139,7 @@ trait TraitFormAttrs
      * @param bool $disabled
      * @return $this
      */
-    public function setDisabled(bool $disabled = true)
+    public function disabled(bool $disabled = true)
     {
         $this->attrs->disabled = $disabled;
         return $this;
