@@ -95,15 +95,16 @@ class Grid
     }
 
     /**
-     * @param string $column
+     * @param string $name
      * @param string $label
      * @param $columnKey
      * @return Column
      */
-    protected function addColumn($column = '', $label = '', $columnKey = null)
+    protected function addColumn($name = '', $label = '', $columnKey = null)
     {
-        $column = new Column($column, $label, $columnKey);
+        $column = new Column($name, $label, $columnKey);
         $column->setGrid($this);
+        $this->columns[] = $column;
         return $column;
     }
 
@@ -125,6 +126,10 @@ class Grid
         })->toArray();
     }
 
+    public function getColumns()
+    {
+        return $this->columns;
+    }
 
     /**
      * view

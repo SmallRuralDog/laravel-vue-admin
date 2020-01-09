@@ -2072,14 +2072,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     ItemDiaplsy: _ItemDiaplsy__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
+    action: String,
+    data_url: String,
+    mode: String,
     attrs: Object,
-    form_items: Array
+    form_items: Array,
+    default_values: Object
+  },
+  computed: {
+    isEdit: function isEdit() {
+      return this.mode == "edit";
+    }
+  },
+  data: function data() {
+    return {
+      loading: false,
+      formData: {}
+    };
+  },
+  mounted: function mounted() {
+    this.formData = this.default_values;
+    this.isEdit && this.getEditData();
+  },
+  methods: {
+    getEditData: function getEditData() {
+      var _this = this;
+
+      this.loading = true;
+      this.$http.get(this.data_url).then(function (_ref) {
+        var data = _ref.data;
+        _this.formData = data;
+      })["finally"](function () {
+        _this.loading = false;
+      });
+    },
+    submitForm: function submitForm(formName) {
+      var _this2 = this;
+
+      this.$refs[formName].validate(function (valid) {
+        if (valid) {
+          _this2.loading = true;
+
+          if (_this2.isEdit) {
+            _this2.$http.put(_this2.action, _this2.formData).then(function (_ref2) {
+              var data = _ref2.data;
+            })["finally"](function () {
+              _this2.loading = false;
+            });
+          } else {
+            _this2.$http.post(_this2.action, _this2.formData).then(function (_ref3) {
+              var data = _ref3.data;
+            })["finally"](function () {
+              _this2.loading = false;
+            });
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    resetForm: function resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
 });
 
@@ -2101,6 +2170,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
+    value: {
+      "default": null
+    },
     attrs: Object
   },
   data: function data() {
@@ -2110,6 +2182,8 @@ __webpack_require__.r(__webpack_exports__);
     prop: "value",
     event: "change"
   },
+  mounted: function mounted() {},
+  watch: {},
   methods: {
     onChange: function onChange(value) {
       console.log(value);
@@ -3156,16 +3230,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": null
-    }
-  },
+  props: ['attrs', 'value'],
   data: function data() {
-    return {
-      vm: ""
-    };
+    return {};
+  },
+  model: {
+    prop: "value",
+    event: "change"
   },
   methods: {
     onChange: function onChange(value) {
@@ -3384,7 +3455,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      vm: "",
       options: this.attrs.options
     };
   },
@@ -5491,7 +5561,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".display-column {\n  line-height: 1;\n}", ""]);
+exports.push([module.i, ".display-column {\n  line-height: 1;\n}\n.display-column .el-tag + .el-tag {\n  margin-left: 5px;\n}", ""]);
 
 // exports
 
@@ -85625,7 +85695,11 @@ var render = function() {
           _c(
             "el-form",
             {
+              ref: "ruleForm",
+              class: _vm.attrs.className,
+              style: _vm.attrs.style,
               attrs: {
+                model: _vm.formData,
                 rules: _vm.attrs.rules,
                 inline: _vm.attrs.inline,
                 "label-position": _vm.attrs.labelPosition,
@@ -85660,7 +85734,16 @@ var render = function() {
                       }
                     },
                     [
-                      _c("ItemDiaplsy", { attrs: { attrs: item.component } }),
+                      _c("ItemDiaplsy", {
+                        attrs: { attrs: item.component },
+                        model: {
+                          value: _vm.formData[item.prop],
+                          callback: function($$v) {
+                            _vm.$set(_vm.formData, item.prop, $$v)
+                          },
+                          expression: "formData[item.prop]"
+                        }
+                      }),
                       _vm._v(" "),
                       item.help
                         ? _c("div", {
@@ -85680,14 +85763,29 @@ var render = function() {
                 [
                   _c(
                     "el-button",
-                    { staticClass: "submit-btn", attrs: { type: "primary" } },
-                    [_vm._v("提交")]
+                    {
+                      staticClass: "submit-btn",
+                      attrs: { loading: _vm.loading, type: "primary" },
+                      on: {
+                        click: function($event) {
+                          return _vm.submitForm("ruleForm")
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.isEdit ? "立即修改" : "立即创建"))]
                   ),
                   _vm._v(" "),
                   _c(
                     "el-button",
-                    { staticClass: "submit-btn", attrs: { type: "warning" } },
-                    [_vm._v("清空")]
+                    {
+                      staticClass: "submit-btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.resetForm("ruleForm")
+                        }
+                      }
+                    },
+                    [_vm._v("取消")]
                   )
                 ],
                 1
@@ -85730,7 +85828,7 @@ var render = function() {
         [
           _c(_vm.attrs.componentName, {
             tag: "component",
-            attrs: { attrs: _vm.attrs },
+            attrs: { value: _vm.value, attrs: _vm.attrs },
             on: { change: _vm.onChange }
           })
         ],
@@ -86905,16 +87003,10 @@ var render = function() {
       form: _vm.attrs.form,
       label: _vm.attrs.label,
       tabindex: _vm.attrs.tabindex,
-      "validate-event": _vm.attrs.validateEvent
+      "validate-event": _vm.attrs.validateEvent,
+      value: _vm.value
     },
-    on: { input: _vm.onChange },
-    model: {
-      value: _vm.vm,
-      callback: function($$v) {
-        _vm.vm = $$v
-      },
-      expression: "vm"
-    }
+    on: { input: _vm.onChange }
   })
 }
 var staticRenderFns = []
@@ -87089,6 +87181,7 @@ var render = function() {
       class: _vm.attrs.className,
       style: _vm.attrs.style,
       attrs: {
+        value: _vm.value,
         multiple: _vm.attrs.multiple,
         disabled: _vm.attrs.disabled,
         size: _vm.attrs.size,
@@ -87111,14 +87204,7 @@ var render = function() {
         "popper-append-to-body": _vm.attrs.popperAppendToBody,
         "automatic-dropdown": _vm.attrs.automaticDropdown
       },
-      on: { change: _vm.onChange },
-      model: {
-        value: _vm.vm,
-        callback: function($$v) {
-          _vm.vm = $$v
-        },
-        expression: "vm"
-      }
+      on: { change: _vm.onChange }
     },
     _vm._l(_vm.options, function(item, index) {
       return _c("el-option", {

@@ -68,6 +68,7 @@ class Select extends Component
     public function multiple($multiple = true)
     {
         $this->multiple = $multiple;
+        if (!$this->componentValue) $this->componentValue([]);
         return $this;
     }
 

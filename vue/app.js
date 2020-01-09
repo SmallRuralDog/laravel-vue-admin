@@ -21,11 +21,11 @@ Vue.prototype.$Message = Message;
 
 
 axios.interceptors.request.use(config => {
-    config.headers['X-Requested-With'] = 'XMLHttpRequest'
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
     return config
 }, error => {
     Promise.reject(error)
-})
+});
 axios.interceptors.response.use(
     ({
         data
@@ -89,6 +89,7 @@ Vue.component('Slider', require('./components/widgets/Slider').default);
 
 Vue.component('Avatar', require('./components/widgets/Avatar').default);
 Vue.component('Tag', require('./components/widgets/Tag').default);
+
 Vue.component('Link', require('./components/widgets/Link').default);
 
 new window.Vue({

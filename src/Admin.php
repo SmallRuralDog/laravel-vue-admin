@@ -92,6 +92,14 @@ class Admin
         });
     }
 
+    public function validatorData(array $all, $rules, $message = [])
+    {
+        $validator = \Validator::make($all, $rules, $message);
+        if ($validator->fails()) {
+            abort(400, $validator->errors()->first());
+        }
+        return $validator;
+    }
 
     public function response($data, $message = '', $code = 200, $headers = [])
     {

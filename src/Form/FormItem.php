@@ -2,7 +2,6 @@
 
 namespace SmallRuralDog\Admin\Form;
 
-use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Form;
 
@@ -10,6 +9,7 @@ class FormItem
 {
     protected $prop;
     protected $label;
+    protected $field;
     protected $labelWidth;
     protected $required = false;
     protected $rules;
@@ -19,13 +19,17 @@ class FormItem
     protected $size;
     protected $help;
 
+
+    protected $defaultValue;
+
     /**
      * @var Form
      */
     protected $form;
 
 
-    protected $serveRule;
+    protected $serveRules;
+    protected $serveRulesMessage;
 
     protected $component;
 
@@ -34,10 +38,14 @@ class FormItem
      * @param $prop
      * @param $label
      */
-    public function __construct($prop, $label)
+    public function __construct($prop, $label, $field)
     {
         $this->prop = $prop;
         $this->label = $this->formatLabel($label);
+        $this->field = $field;
+        if (empty($this->field)) {
+            $this->field = $this->prop;
+        }
         $this->component = Input::make();
     }
 
@@ -50,9 +58,13 @@ class FormItem
         return __(str_replace(['.', '_'], ' ', $label));
     }
 
-    public function displayComponent(Component $component)
+    public function displayComponent($component)
     {
-        $this->component = $component;
+        if ($component instanceof \Closure) {
+            $this->component = call_user_func($component);
+        } else {
+            $this->component = $component;
+        }
         return $this;
     }
 
@@ -61,14 +73,45 @@ class FormItem
         $this->form = $form;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProp()
+    {
+        return $this->prop;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
 
     /**
      * 后端验证规则
-     * @param string|array $serveRule
+     * @param string|array $serveRules
+     * @param $serveRulesMessage
+     * @return $this
      */
-    public function serveRule($serveRule)
+    public function serveRules($serveRules, $serveRulesMessage = [])
     {
-        $this->serveRule = $serveRule;
+        $this->serveRules = $serveRules;
+        $this->serveRulesMessage = $serveRulesMessage;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue ? $this->defaultValue : $this->component->getComponentValue();
     }
 
 
@@ -88,6 +131,20 @@ class FormItem
             'component' => $this->component
         ];
     }
+
+    public function getServeRole()
+    {
+        return $this->serveRules;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServeRulesMessage()
+    {
+        return $this->serveRulesMessage;
+    }
+
 
     /**
      * 表单域标签的的宽度，例如 '50px'。支持 auto

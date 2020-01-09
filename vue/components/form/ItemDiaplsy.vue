@@ -1,12 +1,14 @@
 <template>
   <div v-if="attrs">
-    <component :is="attrs.componentName" :attrs="attrs" @change="onChange" />
+    <component :value="value" :is="attrs.componentName" :attrs="attrs" @change="onChange" />
   </div>
 </template>
 <script>
-
 export default {
   props: {
+    value: {
+      default: null
+    },
     attrs: Object
   },
   data() {
@@ -16,10 +18,15 @@ export default {
     prop: "value",
     event: "change"
   },
+  mounted() {
+  },
+  watch: {
+
+  },
   methods: {
     onChange(value) {
       console.log(value);
-
+      
       this.$emit("change", value);
     }
   }

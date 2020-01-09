@@ -66,7 +66,10 @@ export default {
 };
 </script>
 <style lang="scss">
-.display-column{
+.display-column {
   line-height: 1;
+  .el-tag + .el-tag {
+    margin-left: 5px;
+  }
 }
 </style>

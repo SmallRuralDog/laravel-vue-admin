@@ -48,6 +48,16 @@ class Component implements \JsonSerializable
     }
 
     /**
+     * @return mixed
+     */
+    public function getComponentValue()
+    {
+        return $this->componentValue;
+    }
+
+
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()

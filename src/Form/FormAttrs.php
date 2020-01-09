@@ -5,6 +5,8 @@ namespace SmallRuralDog\Admin\Form;
 
 class FormAttrs
 {
+    public $className;
+    public $style;
 
     public $rules;
     public $inline = false;

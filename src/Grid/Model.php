@@ -140,26 +140,50 @@ class Model
 
     /**
      * @param bool $toArray
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return array
      */
     public function buildData($toArray = false)
     {
         if (empty($this->data)) {
             $collection = $this->get();
         }
+
+
         $this->data = $collection;
         return $this->data;
     }
 
+    protected function displayData($data)
+    {
+        $columcs = $this->grid->getColumns();
+
+        $data = collect($data)->map(function ($row) use ($columcs) {
+            collect($columcs)->each(function (Column $column) use ($row) {
+                $value = $row[$column->getName()];
+                $row[$column->getName()] = $column->customValueUsing($row, $value);
+            });
+            return $row;
+        })->toArray();
+
+
+        return $data;
+    }
+
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return array
      */
     public function get()
     {
         $this->setWith();
         $this->setSort();
         $this->setPaginate();
-        return $this->model->paginate($this->perPage);
+        $data = $this->model->paginate($this->perPage);
 
+        return [
+            'current_page' => $data->currentPage(),
+            'last_page' => $data->lastPage(),
+            'total' => $data->total(),
+            'data' => $this->displayData($data->items())
+        ];
     }
 }

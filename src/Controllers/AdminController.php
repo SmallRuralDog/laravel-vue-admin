@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function edit($id, Content $content)
     {
-        return $content
+        return  $this->isAjax() ? $this->form()->editData($id) : $content
             ->showPageHeader($this->showPageHeader())
             ->title($this->title())
             ->description($this->description['edit'] ?? trans('admin.edit'))

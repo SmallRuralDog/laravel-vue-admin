@@ -1,6 +1,6 @@
 <template>
   <el-select
-    v-model="vm"
+    :value="value"
     :style="attrs.style"
     :class="attrs.className"
     :multiple="attrs.multiple"
@@ -45,7 +45,6 @@ export default {
   },
   data() {
     return {
-      vm: "",
       options: this.attrs.options
     };
   },

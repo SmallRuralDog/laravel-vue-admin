@@ -2,6 +2,10 @@
   <div class="form-page">
     <el-card shadow="never">
       <el-form
+        ref="ruleForm"
+        :model="formData"
+        :class="attrs.className"
+        :style="attrs.style"
         :rules="attrs.rules"
         :inline="attrs.inline"
         :label-position="attrs.labelPosition"
@@ -28,14 +32,19 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy :attrs="item.component" />
-            <div v-if='item.help' class="form-item-help" v-html="item.help"></div>
+            <ItemDiaplsy v-model="formData[item.prop]" :attrs="item.component" />
+            <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
           </el-form-item>
         </template>
 
         <div class="form-bottom-actions">
-          <el-button class="submit-btn" type="primary">提交</el-button>
-          <el-button class="submit-btn" type="warning">清空</el-button>
+          <el-button
+            :loading="loading"
+            class="submit-btn"
+            type="primary"
+            @click="submitForm('ruleForm')"
+          >{{isEdit?'立即修改':'立即创建'}}</el-button>
+          <el-button class="submit-btn" @click="resetForm('ruleForm')">取消</el-button>
         </div>
       </el-form>
     </el-card>
@@ -48,8 +57,67 @@ export default {
     ItemDiaplsy
   },
   props: {
+    action: String,
+    data_url: String,
+    mode: String,
     attrs: Object,
-    form_items: Array
+    form_items: Array,
+    default_values:Object
+  },
+  computed: {
+    isEdit() {
+      return this.mode == "edit";
+    }
+  },
+  data() {
+    return {
+      loading: false,
+      formData: {}
+    };
+  },
+  mounted() {
+    this.formData = this.default_values;
+    this.isEdit && this.getEditData();
+  },
+  methods: {
+    getEditData() {
+      this.loading = true;
+      this.$http
+        .get(this.data_url)
+        .then(({ data }) => {
+          this.formData = data;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          if (this.isEdit) {
+            this.$http
+              .put(this.action, this.formData)
+              .then(({ data }) => {})
+              .finally(() => {
+                this.loading = false;
+              });
+          } else {
+            this.$http
+              .post(this.action, this.formData)
+              .then(({ data }) => {})
+              .finally(() => {
+                this.loading = false;
+              });
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
 };
 </script>
@@ -61,7 +129,7 @@ export default {
       width: 180px;
     }
   }
-  .form-item-help{
+  .form-item-help {
     color: #999;
   }
 }

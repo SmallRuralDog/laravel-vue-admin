@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Grid;
 
+use Closure;
 use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\Grid\Column\Attributes;
 
@@ -14,11 +15,18 @@ class Column
      * @var Grid
      */
     protected $grid;
-
     protected $name;
 
     protected $label;
     protected $columnKey;
+
+    private $coulumnData;
+
+
+    /**
+     * @var Closure
+     */
+    protected $displayCallbacks;
 
 
     public function __construct($name, $label, $columnKey = null)
@@ -56,11 +64,32 @@ class Column
         $this->grid = $grid;
     }
 
+    /**
+     * 自定义值
+     *
+     * @param Closure $callback
+     *
+     * @return $this
+     */
+    public function customValue(Closure $callback)
+    {
+        $this->displayCallbacks = $callback;
+
+        return $this;
+    }
+
+    public function customValueUsing($row, $value)
+    {
+        return $this->displayCallbacks ? call_user_func($this->displayCallbacks, $row, $value) : $value;
+    }
+
     public function displayComponent($component)
     {
-
-        $this->displayComponentAttrs($component);
-
+        if ($component instanceof Closure) {
+            $this->displayComponentAttrs(call_user_func($component));
+        } else {
+            $this->displayComponentAttrs($component);
+        }
         return $this;
     }
 
@@ -68,4 +97,39 @@ class Column
     {
         return $this->attributes;
     }
+
+    /**
+     * @return Grid
+     */
+    public function getGrid(): Grid
+    {
+        return $this->grid;
+    }
+
+    /**
+     * @return array|string|null
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+
+    /**
+     * @return null
+     */
+    public function getColumnKey()
+    {
+        return $this->columnKey;
+    }
+
+
 }

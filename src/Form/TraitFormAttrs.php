@@ -11,6 +11,18 @@ trait TraitFormAttrs
      */
     public $attrs;
 
+    public function className($className)
+    {
+        $this->attrs->className = $className;
+        return $this;
+    }
+
+    public function style($style)
+    {
+        $this->attrs->style = $style;
+        return $this;
+    }
+
     /**
      * 表单验证规则
      * @param array $rules
