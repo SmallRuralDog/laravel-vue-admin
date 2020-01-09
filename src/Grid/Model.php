@@ -159,8 +159,13 @@ class Model
 
         $data = collect($data)->map(function ($row) use ($columcs) {
             collect($columcs)->each(function (Column $column) use ($row) {
-                $value = $row[$column->getName()];
-                $row[$column->getName()] = $column->customValueUsing($row, $value);
+                $keys = explode(".", $column->getName());
+                $keys = array_filter($keys);
+                $keys = array_unique($keys);
+                if (count($keys) > 0) {
+                    $value = $row[$keys[0]];
+                    $row[$keys[0]] = $column->customValueUsing($row, $value);
+                }
             });
             return $row;
         })->toArray();

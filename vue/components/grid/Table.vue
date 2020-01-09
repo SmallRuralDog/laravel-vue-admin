@@ -86,10 +86,10 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page" v-if="pageData.lastPage>1">
+      <div class="table-page">
         <el-pagination
           layout="prev, pager, next, jumper,->,total, sizes"
-          hide-on-single-page
+          :hide-on-single-page="false"
           :total="pageData.total"
           :page-size="pageData.pageSize"
           :current-page="pageData.currentPage"

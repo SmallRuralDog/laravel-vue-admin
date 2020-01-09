@@ -12,7 +12,7 @@ class Component implements \JsonSerializable
 
     protected $componentValue;
 
-    public function __construct($value = 0)
+    public function __construct($value = null)
     {
         $this->componentValue($value);
     }
@@ -54,7 +54,6 @@ class Component implements \JsonSerializable
     {
         return $this->componentValue;
     }
-
 
 
     /**

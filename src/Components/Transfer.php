@@ -12,8 +12,8 @@ class Transfer extends Component
     protected $filterable = false;
     protected $filterPlaceholder = "请输入搜索内容";
     protected $targetOrder = "original";
-    protected $titles = ['列表 1', '列表 2'];
-    protected $buttonTexts;
+    protected $titles = ['列表', '列表'];
+    protected $buttonTexts=[];
     protected $leftDefaultChecked = [];
     protected $rightDefaultChecked = [];
 
@@ -25,12 +25,17 @@ class Transfer extends Component
     /**
      * Transfer 的数据源
      * array[{ key, label, disabled }]
-     * @param array $data
+     * @param TransferData[]|\Closure $data
      * @return $this
      */
     public function data($data)
     {
-        $this->data = $data;
+        if ($data instanceof \Closure) {
+            $this->data = call_user_func($data);
+        } else {
+            $this->data = $data;
+        }
+
         return $this;
     }
 

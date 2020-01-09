@@ -26,6 +26,8 @@ trait TraitAttributes
         return $this;
     }
 
+
+
     /**
      * column 的 key
      * @param string $columnKey

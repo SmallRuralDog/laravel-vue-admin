@@ -32,19 +32,22 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy v-model="formData[item.prop]" :attrs="item.component" />
+            <ItemDiaplsy v-model="formData[item.prop]"  :item="item" />
             <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
           </el-form-item>
         </template>
 
         <div class="form-bottom-actions">
-          <el-button
-            :loading="loading"
-            class="submit-btn"
-            type="primary"
-            @click="submitForm('ruleForm')"
-          >{{isEdit?'立即修改':'立即创建'}}</el-button>
-          <el-button class="submit-btn" @click="resetForm('ruleForm')">取消</el-button>
+          <div></div>
+          <div>
+            <el-button
+              :loading="loading"
+              class="submit-btn"
+              type="primary"
+              @click="submitForm('ruleForm')"
+            >{{isEdit?'立即修改':'立即创建'}}</el-button>
+            <el-button class="submit-btn" @click="resetForm('ruleForm')">取消</el-button>
+          </div>
         </div>
       </el-form>
     </el-card>
@@ -62,7 +65,7 @@ export default {
     mode: String,
     attrs: Object,
     form_items: Array,
-    default_values:Object
+    default_values: Object
   },
   computed: {
     isEdit() {
@@ -123,10 +126,15 @@ export default {
 </script>
 <style lang="scss">
 .form-page {
+  .el-form-item__content{
+    line-height: unset;
+  }
   .form-bottom-actions {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     .submit-btn {
-      width: 180px;
+      width: 120px;
     }
   }
   .form-item-help {

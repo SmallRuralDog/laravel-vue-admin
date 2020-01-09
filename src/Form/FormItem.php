@@ -37,6 +37,7 @@ class FormItem
      * FormItem constructor.
      * @param $prop
      * @param $label
+     * @param $field
      */
     public function __construct($prop, $label, $field)
     {
@@ -82,7 +83,6 @@ class FormItem
     }
 
 
-
     /**
      * @return mixed
      */
@@ -115,11 +115,13 @@ class FormItem
     }
 
 
+
     public function getAttrs()
     {
         return [
             'prop' => $this->prop,
             'label' => $this->label,
+            'field' => $this->field,
             'labelWidth' => $this->labelWidth,
             'required' => $this->required,
             'rules' => $this->rules,

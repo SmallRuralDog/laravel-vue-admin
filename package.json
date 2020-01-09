@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@chenfengyuan/vue-qrcode": "^1.0.1",
-        "axios": "^0.19.0",
+        "axios": "^0.19.1",
         "babel-plugin-component": "^1.1.1",
         "babel-plugin-import": "^1.13.0",
         "cross-env": "^5.1",
@@ -29,7 +29,7 @@
     "dependencies": {
         "element-ui": "^2.13.0",
         "view-design": "^4.0.2",
-        "vue": "^2.6.10",
+        "vue": "^2.6.11",
         "vue-bus": "^1.2.1",
         "vue-dplayer": "0.0.10",
         "vue-waterfall2": "^1.9.5",

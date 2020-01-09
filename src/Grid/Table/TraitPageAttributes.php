@@ -9,7 +9,7 @@ trait TraitPageAttributes
     protected $pageSizes = [10, 20, 30, 50, 100];
     protected $perPage = 20;
 
-    protected $pageBackground = false;
+    protected $pageBackground = true;
 
     /**
      * 每页显示个数选择器的选项设置

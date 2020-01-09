@@ -86,6 +86,7 @@ Vue.component('Select', require('./components/widgets/Select').default);
 Vue.component('Cascader', require('./components/widgets/Cascader').default);
 Vue.component('CSwitch', require('./components/widgets/Switch').default);
 Vue.component('Slider', require('./components/widgets/Slider').default);
+Vue.component('Transfer', require('./components/widgets/Transfer').default);
 
 Vue.component('Avatar', require('./components/widgets/Avatar').default);
 Vue.component('Tag', require('./components/widgets/Tag').default);

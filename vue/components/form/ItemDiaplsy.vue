@@ -4,12 +4,13 @@
   </div>
 </template>
 <script>
+import { getArrayValue } from "../../utils";
 export default {
   props: {
     value: {
       default: null
     },
-    attrs: Object
+    item: Object
   },
   data() {
     return {};
@@ -18,15 +19,15 @@ export default {
     prop: "value",
     event: "change"
   },
-  mounted() {
-  },
-  watch: {
-
+  computed: {
+    attrs() {
+      return this.item.component;
+    }
   },
   methods: {
     onChange(value) {
       console.log(value);
-      
+
       this.$emit("change", value);
     }
   }
