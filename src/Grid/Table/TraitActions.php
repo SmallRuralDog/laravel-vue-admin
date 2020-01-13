@@ -57,7 +57,7 @@ trait TraitActions
     {
         $actions = collect($this->actions);
         if (!$this->hideViewAction) {
-            $actions->add(Action::make('view', '查看')->moreAction($this->showMore));
+            //$actions->add(Action::make('view', '查看')->moreAction($this->showMore));
         }
         if (!$this->hideEditAction) {
             $actions->add(Action::make('edit', '编辑')->moreAction($this->showMore));

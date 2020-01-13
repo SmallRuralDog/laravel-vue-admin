@@ -160,12 +160,13 @@ class Grid extends Component implements \JsonSerializable
         if ($this->isGetData) {
             return $this->data();
         } else {
-            $viewData['componentName'] = $this->componentName;
             $this->initActions();
+            $viewData['componentName'] = $this->componentName;
             $viewData['routers'] = [
                 'resource' => url(request()->getPathInfo())
             ];
             $viewData['keyName'] = $this->keyName;
+            $viewData['selection'] = $this->selection;
             $viewData['defaultSort'] = $this->defaultSort;
             $viewData['columnAttributes'] = $this->columnAttributes;
             $viewData['attributes'] = (array)$this->attributes;

@@ -6,19 +6,19 @@
           :routers="attrs.routers"
           :key_name="attrs.keyName"
           :rows="selectionRows"
-          v-if="selectionRows.length>0"
+          v-if="attrs.selection"
         />
+        <div class="search-view">
+          <el-input v-model="search" size="medium" placeholder>
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
+        </div>
       </div>
       <div class="grid-top-container-right">
         <router-link :to="path+'/create'">
           <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
         </router-link>
-        <el-button
-          :loading="loading"
-          @click="getData"
-          size="medium"
-          icon="el-icon-refresh"
-        ></el-button>
+        <el-button :loading="loading" @click="getData" size="medium" icon="el-icon-refresh"></el-button>
       </div>
     </div>
     <el-card shadow="never" :body-style="{padding:0}">
@@ -128,6 +128,7 @@ export default {
         lastPage: 1
       },
       selectionRows: [],
+      search: "",
       path: "/"
     };
   },
@@ -216,6 +217,12 @@ export default {
     padding: 16px 0px;
     display: flex;
     justify-content: space-between;
+    .grid-top-container-left {
+      display: flex;
+      align-items: center;
+      .search-view {
+      }
+    }
   }
 }
 </style>

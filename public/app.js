@@ -726,7 +726,7 @@ __webpack_require__.r(__webpack_exports__);
           var code = _ref.code;
           code === 200 && _this.$bus.emit("tableReload");
         })["finally"](function () {});
-      });
+      })["catch"](function () {});
     }
   },
   computed: {
@@ -970,6 +970,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lastPage: 1
       },
       selectionRows: [],
+      search: "",
       path: "/"
     };
   },
@@ -3844,7 +3845,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
+exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
 
 // exports
 
@@ -3958,7 +3959,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 16px 0;\n}\n.grid-container .grid-top-container {\n  padding: 16px 0px;\n  display: flex;\n  justify-content: space-between;\n}", ""]);
+exports.push([module.i, ".grid-container .table-page {\n  padding: 16px 0;\n}\n.grid-container .grid-top-container {\n  padding: 16px 0px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}", ""]);
 
 // exports
 
@@ -25748,10 +25749,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "el-dropdown",
+    { staticClass: "mr-10" },
     [
       _c(
         "el-button",
-        { attrs: { plain: "", type: "primary", size: "medium" } },
+        { attrs: { size: "medium", disabled: _vm.rows.length <= 0 } },
         [
           _c("span", [_vm._v("已选择 " + _vm._s(_vm.rows.length) + " 项")]),
           _vm._v(" "),
@@ -25852,7 +25854,7 @@ var render = function() {
           "div",
           { staticClass: "grid-top-container-left" },
           [
-            _vm.selectionRows.length > 0
+            _vm.attrs.selection
               ? _c("BatchActions", {
                   attrs: {
                     routers: _vm.attrs.routers,
@@ -25860,7 +25862,35 @@ var render = function() {
                     rows: _vm.selectionRows
                   }
                 })
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "search-view" },
+              [
+                _c(
+                  "el-input",
+                  {
+                    attrs: { size: "medium", placeholder: "" },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  },
+                  [
+                    _c("el-button", {
+                      attrs: { slot: "append", icon: "el-icon-search" },
+                      slot: "append"
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            )
           ],
           1
         ),
