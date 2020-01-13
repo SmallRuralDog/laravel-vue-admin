@@ -68,8 +68,9 @@ export default {
 <style lang="scss">
 .display-column {
   line-height: 1;
-  .el-tag + .el-tag {
-    margin-left: 5px;
+  .el-tag{
+    margin-bottom: 5px;
+    margin-right: 5px;
   }
 }
 </style>

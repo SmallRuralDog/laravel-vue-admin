@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Form;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Form;
 
@@ -114,6 +115,19 @@ class FormItem
         return $this->defaultValue ? $this->defaultValue : $this->component->getComponentValue();
     }
 
+    public function getData($data, $mdel)
+    {
+        if (!method_exists($mdel, $this->prop)) {
+            return $data;
+        } else {
+            if ($mdel->{$this->prop}() instanceof BelongsToMany) {
+                /**@var BelongsToMany $re */
+                $re = $mdel->{$this->prop}();
+                $data = collect($data)->pluck($re->getRelatedKeyName());
+            }
+        }
+        return $data;
+    }
 
 
     public function getAttrs()
@@ -167,6 +181,15 @@ class FormItem
     public function required(bool $required = true)
     {
         $this->required = $required;
+        if (!$this->serveRules) {
+            $this->serveRules('required');
+        }
+        if (!$this->rules) {
+            $this->rules([
+                ['required' => true]
+            ]);
+        }
+
         return $this;
     }
 

@@ -32,7 +32,7 @@ class RoleController extends AdminController
             $grid->column('id', 'ID')->width('80px')->sortable(),
             $grid->column('slug', trans('admin::admin.slug')),
             $grid->column('name', trans('admin::admin.name')),
-            $grid->column('permissions.name', trans('admin::admin.permission'))->displayComponent(Tag::make()),
+            $grid->column('permissions.name', trans('admin::admin.permission'))->displayComponent(Tag::make()->type('info')),
             $grid->column('created_at', trans('admin::admin.created_at')),
             $grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);
@@ -48,7 +48,7 @@ class RoleController extends AdminController
 
         $form->items([
             $form->item('slug', trans('admin::admin.slug'))->serveRules('required'),
-            $form->item('name', trans('admin::admin.name'))->serveRules('required'),
+            $form->item('name', trans('admin::admin.name'))->required()->serveRules('required'),
             $form->item('permissions', trans('admin::admin.permissions'), 'permissions.id')->displayComponent(
                 Transfer::make()->data($permissionModel::get()->map(function ($item) {
                     return TransferData::make($item->id, $item->name);

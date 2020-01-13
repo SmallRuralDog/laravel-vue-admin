@@ -7,8 +7,8 @@ use Admin;
 use DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -19,6 +19,8 @@ use SmallRuralDog\Admin\Form\TraitFormAttrs;
 class Form implements Renderable
 {
     use TraitFormAttrs;
+
+    const REMOVE_FLAG_NAME = '_remove_';
     /**
      * @var Model|Builder
      */
@@ -227,6 +229,7 @@ class Form implements Renderable
 
         $this->relations = $this->getRelationInputs($this->inputs);
 
+
         $this->updates = Arr::except($this->inputs, array_keys($this->relations));
 
     }
@@ -304,6 +307,7 @@ class Form implements Renderable
                 $this->model->setAttribute($key, $value);
             }
             $this->model->save();
+            $this->updateRelation($this->relations);
         });
         return Admin::responseMessage(trans('admin::admin.save_succeeded'));
     }
@@ -312,6 +316,7 @@ class Form implements Renderable
      * 编辑
      * @param $id
      * @return array|string
+     * @throws \Throwable
      */
     public function edit($id)
     {
@@ -343,6 +348,12 @@ class Form implements Renderable
         }
     }
 
+    /**
+     * @param $id
+     * @param null $data
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function update($id, $data = null)
     {
         $data = ($data) ?: request()->all();
@@ -357,8 +368,119 @@ class Form implements Renderable
                 $this->model->setAttribute($key, $value);
             }
             $this->model->save();
+
+            $this->updateRelation($this->relations);
         });
         return Admin::responseMessage(trans('admin::admin.update_succeeded'));
+    }
+
+    protected function prepareUpdate(array $updates, $oneToOneRelation = false){
+        $prepared = [];
+
+        return $updates;
+    }
+
+    private function updateRelation($relationsData)
+    {
+        foreach ($relationsData as $name => $values) {
+            if (!method_exists($this->model, $name)) {
+                continue;
+            }
+            $relation = $this->model->$name();
+
+            $oneToOneRelation = $relation instanceof Relations\HasOne
+                || $relation instanceof Relations\MorphOne
+                || $relation instanceof Relations\BelongsTo;
+
+            $prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
+
+            if (empty($prepared)) {
+                continue;
+            }
+            switch (true) {
+                case $relation instanceof Relations\BelongsToMany:
+                case $relation instanceof Relations\MorphToMany:
+                    if (isset($prepared[$name])) {
+                        $relation->sync($prepared[$name]);
+                    }
+                    break;
+                case $relation instanceof Relations\HasOne:
+
+                    $related = $this->model->$name;
+
+                    // if related is empty
+                    if (is_null($related)) {
+                        $related = $relation->getRelated();
+                        $qualifiedParentKeyName = $relation->getQualifiedParentKeyName();
+                        $localKey = Arr::last(explode('.', $qualifiedParentKeyName));
+                        $related->{$relation->getForeignKeyName()} = $this->model->{$localKey};
+                    }
+
+                    foreach ($prepared[$name] as $column => $value) {
+                        $related->setAttribute($column, $value);
+                    }
+
+                    $related->save();
+                    break;
+                case $relation instanceof Relations\BelongsTo:
+                case $relation instanceof Relations\MorphTo:
+
+                    $parent = $this->model->$name;
+
+                    // if related is empty
+                    if (is_null($parent)) {
+                        $parent = $relation->getRelated();
+                    }
+
+                    foreach ($prepared[$name] as $column => $value) {
+                        $parent->setAttribute($column, $value);
+                    }
+
+                    $parent->save();
+
+                    // When in creating, associate two models
+                    $foreignKeyMethod = version_compare(app()->version(), '5.8.0', '<') ? 'getForeignKey' : 'getForeignKeyName';
+                    if (!$this->model->{$relation->{$foreignKeyMethod}()}) {
+                        $this->model->{$relation->{$foreignKeyMethod}()} = $parent->getKey();
+
+                        $this->model->save();
+                    }
+
+                    break;
+                case $relation instanceof Relations\MorphOne:
+                    $related = $this->model->$name;
+                    if ($related === null) {
+                        $related = $relation->make();
+                    }
+                    foreach ($prepared[$name] as $column => $value) {
+                        $related->setAttribute($column, $value);
+                    }
+                    $related->save();
+                    break;
+                case $relation instanceof Relations\HasMany:
+                case $relation instanceof Relations\MorphMany:
+
+                    foreach ($prepared[$name] as $related) {
+                        /** @var Relations\Relation $relation */
+                        $relation = $this->model()->$name();
+
+                        $keyName = $relation->getRelated()->getKeyName();
+
+                        $instance = $relation->findOrNew(Arr::get($related, $keyName));
+
+                        if ($related[static::REMOVE_FLAG_NAME] == 1) {
+                            $instance->delete();
+                            continue;
+                        }
+
+                        Arr::forget($related, static::REMOVE_FLAG_NAME);
+                        $instance->fill($related);
+                        $instance->save();
+                    }
+
+                    break;
+            }
+        }
     }
 
     /**
@@ -394,7 +516,7 @@ class Form implements Renderable
         foreach ($this->formItems as $formItem) {
             $field = $formItem->getField();
             $prop = $formItem->getProp();
-            $data[$prop] = $e_data->{$prop};
+            $data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         return [
             'code' => 200,

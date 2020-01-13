@@ -13,8 +13,19 @@
 <script>
     Admin = {};
     Admin.token = "{{csrf_token()}}";
+    window.config = {}
 </script>
 @yield('js')
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{ mix('manifest.js', 'vendor/laravel-vue-admin') }}"></script>
+<script src="{{ mix('vendor.js', 'vendor/laravel-vue-admin') }}"></script>
+<script src="{{ mix('app.js', 'vendor/laravel-vue-admin') }}"></script>
+
+<script>
+    window.VueAdmin = new CreateVueAdmin(config)
+</script>
+
+<script>
+    VueAdmin.liftOff()
+</script>
 </body>
 </html>
