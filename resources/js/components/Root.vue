@@ -24,19 +24,19 @@
               :key="menu.id"
             >
               <template slot="title">
-                <i class="el-icon-setting" size="16"></i>
+                <i :class="menu.icon" size="16"></i>
                 <span>{{menu.title}}</span>
               </template>
               <a :data-href="sub_menu.url" v-for="sub_menu in menu.children" :key="sub_menu.id">
                 <el-menu-item :index="sub_menu.route" :route="sub_menu.route">
-                  <i v-show="isCollapsed" class="el-icon-setting"></i>
+                  <i v-show="isCollapsed" :class="sub_menu.icon"></i>
                   <span slot="title">{{sub_menu.title}}</span>
                 </el-menu-item>
               </a>
             </el-submenu>
             <a :data-href="menu.url" v-else :key="menu.id">
               <el-menu-item :index="menu.route" :route="menu.route">
-                <i class="el-icon-setting" size="16"></i>
+                <i :class="menu.icon" size="16"></i>
                 <span slot="title">{{menu.title}}</span>
               </el-menu-item>
             </a>

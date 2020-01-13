@@ -6,6 +6,9 @@ namespace SmallRuralDog\Admin\Grid;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\LvaGrid;
 
@@ -105,12 +108,59 @@ class Model
         return $this->model;
     }
 
+    protected function findQueryByMethod($method)
+    {
+        return $this->queries->first(function ($query) use ($method) {
+            return $query['method'] == $method;
+        });
+    }
+
+    protected function resolvePerPage($paginate)
+    {
+        if ($perPage = request($this->perPageName)) {
+            if (is_array($paginate)) {
+                $paginate['arguments'][0] = (int)$perPage;
+
+                return $paginate['arguments'];
+            }
+
+            $this->perPage = (int)$perPage;
+        }else{
+            $this->perPage = $this->grid->getPerPage();
+        }
+
+        if (isset($paginate['arguments'][0])) {
+            return $paginate['arguments'];
+        }
+
+
+        return [$this->perPage];
+    }
+
     /**
      * 设置每页大小
      */
     protected function setPaginate()
     {
-        $this->perPage = (int)request('per_page', 10);
+        $paginate = $this->findQueryByMethod('paginate');
+
+        $this->queries = $this->queries->reject(function ($query) {
+            return $query['method'] == 'paginate';
+        });
+
+        if (!$this->usePaginate) {
+            $query = [
+                'method' => 'get',
+                'arguments' => [],
+            ];
+        } else {
+            $query = [
+                'method' => 'paginate',
+                'arguments' => $this->resolvePerPage($paginate),
+            ];
+        }
+
+        $this->queries->push($query);
     }
 
     /**
@@ -119,30 +169,76 @@ class Model
     protected function setWith()
     {
         $with = $this->grid->getWiths();
-        $this->model = $this->model->with($with);
+
+        if ($with) $this->queries->push([
+            'method' => 'with',
+            'arguments' => $with,
+        ]);
+
+
     }
+
 
     /**
      * 设置排序
      */
     protected function setSort()
     {
-        $sort_prop = request('sort_prop', null);
-        $sort_order = request('sort_order', null);
-        if ($sort_prop && in_array($sort_order, ['asc', 'desc'])) {
-            $this->model = $this->model->orderBy($sort_prop, $sort_order);
+        $column = request('sort_prop', null);
+        $type = request('sort_order', null);
+        if ($column && in_array($column, ['asc', 'desc'])) {
+            $this->sort = [
+                'column' => $column,
+                'type' => $type
+            ];
         } else {
-
             $defaultSort = $this->grid->getDefaultSort();
+            $this->sort = [
+                'column' => $defaultSort['field'],
+                'type' => $defaultSort['order']
+            ];
+        }
 
-            $this->model = $this->model->orderBy($defaultSort['field'], $defaultSort['order']);
+        if (!is_array($this->sort)) {
+            return;
+        }
+
+        if (empty($this->sort['column']) || empty($this->sort['type'])) {
+            return;
+        }
+
+        if (Str::contains($this->sort['column'], '.')) {
+            //$this->setRelationSort($this->sort['column']);
+        } else {
+            //$this->resetOrderBy();
+
+            // get column. if contains "cast", set set column as cast
+            if (!empty($this->sort['cast'])) {
+                $column = "CAST({$this->sort['column']} AS {$this->sort['cast']}) {$this->sort['type']}";
+                $method = 'orderByRaw';
+                $arguments = [$column];
+            } else {
+                $column = $this->sort['column'];
+                $method = 'orderBy';
+                $arguments = [$column, $this->sort['type']];
+            }
+
+            $this->queries->push([
+                'method' => $method,
+                'arguments' => $arguments,
+            ]);
         }
     }
 
-    /**
-     * @param bool $toArray
-     * @return array
-     */
+    protected function handleInvalidPage(LengthAwarePaginator $paginator)
+    {
+        if ($paginator->lastPage() && $paginator->currentPage() > $paginator->lastPage()) {
+            $lastPageUrl = Request::fullUrlWithQuery([
+                $paginator->getPageName() => $paginator->lastPage(),
+            ]);
+        }
+    }
+
     public function buildData($toArray = false)
     {
         if (empty($this->data)) {
@@ -173,22 +269,58 @@ class Model
         return $data;
     }
 
-    /**
-     * @return array
-     */
+    public function __call($method, $arguments)
+    {
+        $this->queries->push([
+            'method' => $method,
+            'arguments' => $arguments,
+        ]);
+
+        return $this;
+    }
+
+
+    public function __get($key)
+    {
+        $data = $this->buildData();
+
+        if (array_key_exists($key, $data)) {
+            return $data[$key];
+        }
+    }
+
+
     public function get()
     {
+
+        if ($this->model instanceof LengthAwarePaginator) {
+            return $this->model;
+        }
+
+        if ($this->relation) {
+            $this->model = $this->relation->getQuery();
+        }
         $this->setWith();
         $this->setSort();
         $this->setPaginate();
-        $data = $this->model->paginate($this->perPage);
 
-        return [
-            'current_page' => $data->currentPage(),
-            'per_page' => $data->perPage(),
-            'last_page' => $data->lastPage(),
-            'total' => $data->total(),
-            'data' => $this->displayData($data->items())
-        ];
+        $this->queries->unique()->each(function ($query) {
+            $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);
+        });
+
+        if ($this->model instanceof Collection) {
+            return $this->model;
+        }
+
+        if ($this->model instanceof LengthAwarePaginator) {
+            return [
+                'current_page' => $this->model->currentPage(),
+                'per_page' => $this->model->perPage(),
+                'last_page' => $this->model->lastPage(),
+                'total' => $this->model->total(),
+                'data' => $this->displayData($this->model->getCollection())
+            ];
+        }
+
     }
 }

@@ -26,6 +26,7 @@
         <el-table
           v-loading="loading"
           :data="tableData"
+          :row-key="attrs.attributes.rowKey"
           :default-sort="attrs.default_sort_get"
           :height="attrs.attributes.height"
           :max-height="attrs.attributes.maxHeight"
@@ -37,6 +38,7 @@
           :highlight-current-row="attrs.attributes.highlightCurrentRow"
           :empty-text="attrs.attributes.emptyText"
           :tooltip-effect="attrs.attributes.tooltipEffect"
+          :default-expand-all="true"
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >

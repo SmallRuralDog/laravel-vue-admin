@@ -74,7 +74,7 @@ trait TraitAttributes
      * @param bool $fit
      * @return $this
      */
-    public function fit(bool $fit=true)
+    public function fit(bool $fit = true)
     {
         $this->attributes->fit = $fit;
         return $this;
@@ -127,4 +127,9 @@ trait TraitAttributes
         return $this;
     }
 
+    public function rowKey($rowKey)
+    {
+        $this->attributes->rowKey = $rowKey;
+        return $this;
+    }
 }

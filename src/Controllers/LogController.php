@@ -20,11 +20,11 @@ class LogController extends AdminController
         $grid = new Grid(new OperationLog());
         $grid->with(['user']);
         $grid->selection()
-            ->perPage(10)
             ->defaultSort('id', 'desc')
             ->stripe()
             ->emptyText("暂无日志")
             ->pageBackground(true)
+            ->maxHeight('900px')
             ->size('small')->actionShowMore(false)->hideEditAction()->hideViewAction();
         $idColumn = $grid->column('id', "ID")->width("100");
         $nameColumn = $grid->column('user.name', 'User', 'user_id')->help("操作用户")->sortable();

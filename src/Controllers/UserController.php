@@ -11,19 +11,10 @@ use SmallRuralDog\Admin\Components\SelectOption;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
-use SmallRuralDog\Admin\Layout\Content;
 use SmallRuralDog\Admin\Layout\LvaContent;
 
 class UserController extends AdminController
 {
-
-    public function index(Content $content)
-    {
-
-        $content->body($this->grid());
-
-        return $this->isGetData() ? $this->grid() : $content;
-    }
 
 
     protected function grid()

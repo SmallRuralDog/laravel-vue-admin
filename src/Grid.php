@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin;
 
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Column;
@@ -34,6 +35,7 @@ class Grid extends Component implements \JsonSerializable
     protected $view = 'admin::grid.table';
     protected $keyName = 'id';
     protected $selection = false;
+    protected $tree = false;
     protected $dataUrl;
 
     protected $isGetData = false;
@@ -52,6 +54,14 @@ class Grid extends Component implements \JsonSerializable
         ];
         $this->isGetData = request('get_data') == "true";
 
+    }
+
+    /**
+     * @return Model|Builder
+     */
+    public function model()
+    {
+        return $this->model;
     }
 
 
@@ -88,6 +98,18 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
+     * 设置树形表格
+     * @param bool $tree
+     * @return $this
+     */
+    public function tree($tree = true)
+    {
+        $this->tree = $tree;
+        return $this;
+    }
+
+
+    /**
      * Grid添加字段
      * @param string $name 对应列内容的字段名
      * @param string $label 显示的标题
@@ -118,6 +140,13 @@ class Grid extends Component implements \JsonSerializable
      */
     public function columns($columns)
     {
+        if ($this->tree) {
+            $column = $this->addColumn($this->model()->getModel()->getKeyName());
+            $column->type("expand");
+            $column->align("center");
+            $column->width(50);
+            $columns = collect($columns)->prepend($column)->all();
+        }
         if ($this->selection) {
             $column = $this->addColumn($this->model->getModel()->getKey());
             $column->type("selection");
@@ -167,6 +196,7 @@ class Grid extends Component implements \JsonSerializable
             ];
             $viewData['keyName'] = $this->keyName;
             $viewData['selection'] = $this->selection;
+            $viewData['tree'] = $this->tree;
             $viewData['defaultSort'] = $this->defaultSort;
             $viewData['columnAttributes'] = $this->columnAttributes;
             $viewData['attributes'] = (array)$this->attributes;

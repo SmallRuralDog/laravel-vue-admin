@@ -1,4 +1,5 @@
 <?php
+
 namespace SmallRuralDog\Admin\Grid\Table;
 
 class Attributes
@@ -11,17 +12,17 @@ class Attributes
     /**
      * @var bool
      */
-    public $stripe=true;
+    public $stripe = true;
 
     /**
      * @var bool
      */
-    public $border=false;
+    public $border = false;
 
     /**
      * @var string
      */
-    public $size="medium";
+    public $size = "medium";
 
     /**
      * @var bool
@@ -43,5 +44,7 @@ class Attributes
 
 
     public $tooltipEffect;
+
+    public $rowKey = 'id';
 
 }

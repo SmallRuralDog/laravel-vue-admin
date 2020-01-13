@@ -284,12 +284,17 @@ class Select extends Component
     }
 
     /**
-     * @param SelectOption[] $options
+     * @param $options
      * @return $this
      */
-    public function options(array $options)
+    public function options($options)
     {
-        $this->options = $options;
+        if ($options instanceof \Closure) {
+            $this->options = call_user_func($options);
+        } else {
+            $this->options = $options;
+        }
+
         return $this;
     }
 

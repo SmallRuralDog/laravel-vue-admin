@@ -6,8 +6,8 @@ namespace SmallRuralDog\Admin\Grid\Table;
 
 trait TraitPageAttributes
 {
-    protected $pageSizes = [10, 20, 30, 50, 100];
-    protected $perPage = 20;
+    protected $pageSizes = [10, 15, 20, 30, 50, 100];
+    protected $perPage = 15;
 
     protected $pageBackground = true;
 
@@ -45,6 +45,14 @@ trait TraitPageAttributes
         $this->pageBackground = $pageBackground;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPerPage(): int
+    {
+        return $this->perPage;
     }
 
 

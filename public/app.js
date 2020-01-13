@@ -945,6 +945,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -25127,7 +25129,7 @@ var render = function() {
                             [
                               _c("template", { slot: "title" }, [
                                 _c("i", {
-                                  staticClass: "el-icon-setting",
+                                  class: menu.icon,
                                   attrs: { size: "16" }
                                 }),
                                 _vm._v(" "),
@@ -25160,7 +25162,7 @@ var render = function() {
                                               expression: "isCollapsed"
                                             }
                                           ],
-                                          staticClass: "el-icon-setting"
+                                          class: sub_menu.icon
                                         }),
                                         _vm._v(" "),
                                         _c(
@@ -25194,7 +25196,7 @@ var render = function() {
                                 },
                                 [
                                   _c("i", {
-                                    staticClass: "el-icon-setting",
+                                    class: menu.icon,
                                     attrs: { size: "16" }
                                   }),
                                   _vm._v(" "),
@@ -25951,6 +25953,7 @@ var render = function() {
                   ],
                   attrs: {
                     data: _vm.tableData,
+                    "row-key": _vm.attrs.attributes.rowKey,
                     "default-sort": _vm.attrs.default_sort_get,
                     height: _vm.attrs.attributes.height,
                     "max-height": _vm.attrs.attributes.maxHeight,
@@ -25962,7 +25965,8 @@ var render = function() {
                     "highlight-current-row":
                       _vm.attrs.attributes.highlightCurrentRow,
                     "empty-text": _vm.attrs.attributes.emptyText,
-                    "tooltip-effect": _vm.attrs.attributes.tooltipEffect
+                    "tooltip-effect": _vm.attrs.attributes.tooltipEffect,
+                    "default-expand-all": true
                   },
                   on: {
                     "sort-change": _vm.onTableSortChange,

@@ -26,6 +26,10 @@ class Menu extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    protected $casts = [
+        'permission'=>'array'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,6 +53,13 @@ class Menu extends Model
         parent::__construct($attributes);
     }
 
+    public function children() {
+        return $this->hasMany(get_class($this), 'parent_id' );
+    }
+
+    public function allChildren() {
+        return $this->children()->with( 'allChildren' );
+    }
     /**
      * A Menu belongs to many roles.
      *

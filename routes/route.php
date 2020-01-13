@@ -23,7 +23,7 @@ Route::group([
     $router->resource('auth/users', 'UserController')->names('admin.auth.users');
     $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
     $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
-    $router->resource('auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
+    $router->resource('auth/menu', 'MenuController')->names('admin.auth.menu');
     $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
     $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
     $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
