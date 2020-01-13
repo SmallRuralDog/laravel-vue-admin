@@ -7,6 +7,7 @@ namespace SmallRuralDog\Admin\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
+use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
@@ -23,8 +24,9 @@ class MenuController extends AdminController
             $grid->column('id', "ID"),
             $grid->column('title', "Title"),
             $grid->column('uri', "Uri"),
-            $grid->column('created_at', trans('admin::admin.created_at')),
-            $grid->column('updated_at', trans('admin::admin.updated_at'))
+            $grid->column('icon', "icon"),
+            $grid->column('roles.name', trans('admin::admin.roles'))->displayComponent(Tag::make())
+
         ]);
         return $grid;
     }
