@@ -21,7 +21,7 @@ class Attributes
     /**
      * @var string
      */
-    public $size="small";
+    public $size="medium";
 
     /**
      * @var bool

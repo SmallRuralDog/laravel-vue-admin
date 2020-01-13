@@ -9,12 +9,12 @@ class AdminServiceProvider extends ServiceProvider
 {
 
     protected $routeMiddleware = [
-        'admin.auth'       => Middleware\Authenticate::class,
-        'admin.pjax'       => Middleware\Pjax::class,
-        'admin.log'        => Middleware\LogOperation::class,
+        'admin.auth' => Middleware\Authenticate::class,
+        'admin.pjax' => Middleware\Pjax::class,
+        'admin.log' => Middleware\LogOperation::class,
         'admin.permission' => Middleware\Permission::class,
-        'admin.bootstrap'  => Middleware\Bootstrap::class,
-        'admin.session'    => Middleware\Session::class,
+        'admin.bootstrap' => Middleware\Bootstrap::class,
+        'admin.session' => Middleware\Session::class,
     ];
 
     /**
@@ -27,11 +27,12 @@ class AdminServiceProvider extends ServiceProvider
             'admin.auth',
             //'admin.pjax',
             'admin.log',
-           // 'admin.bootstrap',
+            // 'admin.bootstrap',
             'admin.permission',
 //            'admin.session',
         ],
     ];
+
     /**
      * Perform post-registration booting of services.
      *
@@ -39,10 +40,10 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'admin');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'admin');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+        //$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
         if (file_exists($routes = admin_path('routes.php'))) {
             $this->loadRoutesFrom($routes);
         }
@@ -55,7 +56,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/admin.php', 'admin');
+        $this->mergeConfigFrom(__DIR__ . '/../config/admin.php', 'admin');
 
         $this->loadAdminAuthConfig();
 

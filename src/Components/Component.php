@@ -9,7 +9,6 @@ class Component implements \JsonSerializable
     protected $componentName = "";
     protected $className;
     protected $style;
-
     protected $componentValue;
 
     public function __construct($value = null)

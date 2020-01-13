@@ -4,11 +4,13 @@
 namespace SmallRuralDog\Admin\Layout;
 
 
-use Illuminate\Contracts\Support\Renderable;
-use SmallRuralDog\Admin\Grid;
+use SmallRuralDog\Admin\Components\Component;
 
-class Column implements Buildable
+class Column extends Component
 {
+
+    protected $componentName = "Column";
+
     protected $width = 24;
 
     protected $contents = [];
@@ -30,17 +32,4 @@ class Column implements Buildable
         return $this;
     }
 
-    public function build()
-    {
-
-        $content = collect($this->contents)->map(function ($content) {
-            if ($content instanceof Renderable || $content instanceof Grid) {
-                return $content->render();
-            } else {
-                return (string)$content;
-            }
-        })->join('');
-
-        return "<column-layout :span='$this->width'>$content</column-layout>";
-    }
 }

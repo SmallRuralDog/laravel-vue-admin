@@ -3,20 +3,19 @@
     <div class="grid-top-container">
       <div class="grid-top-container-left">
         <BatchActions
-          :routers="routers"
-          :key_name="key_name"
+          :routers="attrs.routers"
+          :key_name="attrs.keyName"
           :rows="selectionRows"
           v-if="selectionRows.length>0"
         />
-        <a :href="routers.resource+'/create'">
-          <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
-        </a>
       </div>
       <div class="grid-top-container-right">
+        <router-link :to="path+'/create'">
+          <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
+        </router-link>
         <el-button
           :loading="loading"
           @click="getData"
-          type="primary"
           size="medium"
           icon="el-icon-refresh"
         ></el-button>
@@ -27,21 +26,21 @@
         <el-table
           v-loading="loading"
           :data="tableData"
-          :default-sort="default_sort_get"
-          :height="attributes.height"
-          :max-height="attributes.maxHeight"
-          :stripe="attributes.stripe"
-          :border="attributes.border"
-          :size="attributes.size"
-          :fit="attributes.fit"
-          :show-header="attributes.showHeader"
-          :highlight-current-row="attributes.highlightCurrentRow"
-          :empty-text="attributes.emptyText"
-          :tooltip-effect="attributes.tooltipEffect"
+          :default-sort="attrs.default_sort_get"
+          :height="attrs.attributes.height"
+          :max-height="attrs.attributes.maxHeight"
+          :stripe="attrs.attributes.stripe"
+          :border="attrs.attributes.border"
+          :size="attrs.attributes.size"
+          :fit="attrs.attributes.fit"
+          :show-header="attrs.attributes.showHeader"
+          :highlight-current-row="attrs.attributes.highlightCurrentRow"
+          :empty-text="attrs.attributes.emptyText"
+          :tooltip-effect="attrs.attributes.tooltipEffect"
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
-          <template v-for="column in columns">
+          <template v-for="column in attrs.columnAttributes">
             <el-table-column
               v-if="column.type=='selection'"
               :type="column.type"
@@ -67,21 +66,21 @@
                 <span>{{scope.column.label}}</span>
                 <el-tooltip
                   placement="top"
-                  v-if="columns[scope.$index].help"
-                  :content="columns[scope.$index].help"
+                  v-if="attrs.columnAttributes[scope.$index].help"
+                  :content="attrs.columnAttributes[scope.$index].help"
                 >
                   <i class="el-icon-question hover"></i>
                 </el-tooltip>
               </template>
               <template slot-scope="scope">
-                <ColumnDisplay :scope="scope" :columns="columns" />
+                <ColumnDisplay :scope="scope" :columns="attrs.columnAttributes" />
               </template>
             </el-table-column>
           </template>
-          <el-table-column v-if="!actions.hide">
+          <el-table-column v-if="!attrs.actions.hide">
             <template slot="header">操作</template>
             <template slot-scope="scope">
-              <Actions :data="actions.data" :scope="scope" :key_name="key_name" />
+              <Actions :data="attrs.actions.data" :scope="scope" :key_name="attrs.keyName" />
             </template>
           </el-table-column>
         </el-table>
@@ -93,8 +92,8 @@
           :total="pageData.total"
           :page-size="pageData.pageSize"
           :current-page="pageData.currentPage"
-          :page-sizes="page_sizes"
-          :background="page_background"
+          :page-sizes="attrs.pageSizes"
+          :background="attrs.pageBackground"
           @size-change="onPageSizeChange"
           @current-change="onPageCurrentChange"
         />
@@ -114,16 +113,7 @@ export default {
     BatchActions
   },
   props: {
-    key_name: String,
-    default_sort: Object,
-    column_attributes: Array,
-    attributes: Object,
-    data_url: String,
-    page_sizes: Array,
-    per_page: Number,
-    page_background: Boolean,
-    routers: Object,
-    actions: Object
+    attrs: Object
   },
   data() {
     return {
@@ -137,7 +127,8 @@ export default {
         currentPage: 1,
         lastPage: 1
       },
-      selectionRows: []
+      selectionRows: [],
+      path: "/"
     };
   },
   mounted() {
@@ -145,14 +136,17 @@ export default {
     this.$bus.on("tableReload", () => {
       this.getData();
     });
+
+    this.path = this.$route.path;
   },
   methods: {
     //获取数据
     getData() {
       this.loading = true;
       this.$http
-        .get(this.data_url, {
+        .get(this.attrs.dataUrl, {
           params: {
+            get_data: true,
             page: this.page,
             per_page: this.pageData.pageSize,
             ...this.sort

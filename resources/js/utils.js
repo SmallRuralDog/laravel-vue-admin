@@ -15,6 +15,25 @@ function getArrayValue(data, path, level) {
     return allData;
 }
 
+
+function flattenDeepChild(data, child_key, key) {
+    let arr = data.map(item => {
+
+
+        let arr = []
+        let itemData = item[key]
+        arr.push(itemData)
+        let v = item[child_key];
+        if (v) {
+            arr.push(flattenDeepChild(item[child_key], child_key, key))
+        }
+        return window._.flattenDeep(arr);
+    })
+
+    return window._.flattenDeep(arr);
+}
+
 export {
-    getArrayValue
+    getArrayValue,
+    flattenDeepChild
 }

@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Auth\Database;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Traits\AdminBuilder;
 use SmallRuralDog\Admin\Traits\ModelTree;
 
@@ -21,9 +22,9 @@ class Menu extends Model
         ModelTree::boot as treeBoot;
     }
 
-    protected $appends = ['url'];
+    protected $appends = ['route'];
 
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -105,9 +106,9 @@ class Menu extends Model
         });
     }
 
-    public function getUrlAttribute()
+    public function getRouteAttribute()
     {
-        return admin_url($this->uri);
+        return Str::start($this->uri, '/');
     }
 
 }

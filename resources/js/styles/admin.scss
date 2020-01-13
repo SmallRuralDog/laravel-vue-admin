@@ -16,9 +16,11 @@ body {
 .ml-5 {
     margin-left: 5px;
 }
-.ml-10{
+
+.ml-10 {
     margin-left: 10px;
 }
+
 .mb-15 {
     margin-bottom: 15px;
 }
@@ -50,9 +52,11 @@ body {
 .fs-24 {
     font-size: 24px;
 }
+
 .fs-25 {
     font-size: 25px;
 }
+
 .hover {
     cursor: pointer;
 }
@@ -63,9 +67,43 @@ body {
     height: 100vh;
     overflow: auto;
 }
-.el-card{
+
+.el-card {
     border: none;
 }
-.el-popconfirm__main{
+
+.el-popconfirm__main {
     margin: 10px 0;
+}
+
+
+/*fade*/
+.fade-enter-active,
+.fade-leave-active {
+    -webkit-transition: opacity 0.1s;
+    transition: opacity 0.1s;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+/*fade-transform*/
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.fade-transform-enter {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px);
+}
+
+.fade-transform-leave-to {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+    transform: translateX(20px);
 }

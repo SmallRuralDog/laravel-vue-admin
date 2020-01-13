@@ -55,8 +55,7 @@ export default {
       }
     },
     onEdit() {
-      const editUrl = this.action.resource + "/" + this.keyVauel + "/edit";
-      window.location.href = editUrl;
+      this.$router.push(this.$route.path + "/" + this.keyVauel + "/edit");
     },
     onDelete() {
       const deleteUrl = this.action.resource + "/" + this.keyVauel;

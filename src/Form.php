@@ -5,20 +5,22 @@ namespace SmallRuralDog\Admin;
 
 use Admin;
 use DB;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
 
-class Form implements Renderable
+class Form extends Component implements \JsonSerializable
 {
     use TraitFormAttrs;
+
+    protected $componentName = "Form";
 
     const REMOVE_FLAG_NAME = '_remove_';
     /**
@@ -58,6 +60,7 @@ class Form implements Renderable
      */
     protected $inputs = [];
 
+    protected $isGetData = false;
     /**
      * Form constructor.
      * @param $model
@@ -67,6 +70,8 @@ class Form implements Renderable
         $this->attrs = new FormAttrs();
         $this->model = new $model;
         $this->dataUrl = request()->getUri();
+
+        $this->isGetData = request('get_data') == "true";
     }
 
 
@@ -325,8 +330,7 @@ class Form implements Renderable
 
         $this->setResourceId($id);
 
-
-        return $this->render();
+        return  $this;
     }
 
     /**
@@ -374,7 +378,8 @@ class Form implements Renderable
         return Admin::responseMessage(trans('admin::admin.update_succeeded'));
     }
 
-    protected function prepareUpdate(array $updates, $oneToOneRelation = false){
+    protected function prepareUpdate(array $updates, $oneToOneRelation = false)
+    {
         $prepared = [];
 
         return $updates;
@@ -483,23 +488,6 @@ class Form implements Renderable
         }
     }
 
-    /**
-     * 表单渲染
-     * @return array|string
-     * @throws \Throwable
-     */
-    public function render()
-    {
-        $viewData = [
-            'action' => $this->getAction(),
-            'dataUrl' => $this->dataUrl,
-            'mode' => $this->getMode(),
-            'attrs' => $this->attrs,
-            'formItems' => $this->formItemsAttr,
-            'defaultValues' => $this->formItemsValue,
-        ];
-        return view('admin::form.base-form', $viewData)->render();
-    }
 
     /**
      * 获取编辑数据
@@ -525,4 +513,22 @@ class Form implements Renderable
 
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        if ($this->isGetData) return $this->editData($this->getResourceId());
+
+        return [
+            'componentName' => $this->componentName,
+            'action' => $this->getAction(),
+            'dataUrl' => $this->dataUrl,
+            'mode' => $this->getMode(),
+            'attrs' => $this->attrs,
+            'formItems' => $this->formItemsAttr,
+            'defaultValues' => $this->formItemsValue,
+        ];
+
+    }
 }

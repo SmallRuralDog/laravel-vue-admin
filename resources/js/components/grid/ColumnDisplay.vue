@@ -69,8 +69,9 @@ export default {
 .display-column {
   line-height: 1;
   .el-tag{
-    margin-bottom: 5px;
-    margin-right: 5px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-right: 4px;
   }
 }
 </style>

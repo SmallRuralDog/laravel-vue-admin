@@ -6,36 +6,33 @@ namespace SmallRuralDog\Admin\Controllers;
 
 use SmallRuralDog\Admin\Components\Avatar;
 use SmallRuralDog\Admin\Components\Input;
-use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
+use SmallRuralDog\Admin\Layout\Content;
+use SmallRuralDog\Admin\Layout\LvaContent;
 
 class UserController extends AdminController
 {
 
-    protected function showPageHeader()
+    public function index(Content $content)
     {
-        return false;
+
+        $content->body($this->grid());
+
+        return $this->isGetData() ? $this->grid() : $content;
     }
 
-    protected function title()
-    {
-        return trans('admin.administrator');
-    }
 
     protected function grid()
     {
 
-
         $userModel = config('admin.database.users_model');
-
         $grid = new Grid(new $userModel());
         $grid->pageBackground()->defaultSort('id', 'asc')->with(['roles:id,name', 'roles.permissions', 'roles.menus'])->selection()
             ->stripe(true)->emptyText("暂无用户")->perPage(10);
-
         $grid->columns([
             $grid->column('id', "ID")->width(80),
             $grid->column('avatar', '头像')->width(80)->align('center')->displayComponent(Avatar::make()->size('small')),
@@ -45,8 +42,6 @@ class UserController extends AdminController
             $grid->column('created_at', trans('admin::admin.created_at')),
             $grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);
-
-
         return $grid;
     }
 

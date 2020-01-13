@@ -2,18 +2,25 @@ import Vue from 'vue'
 import VueBus from 'vue-bus';
 import axios from './util/axios'
 import lodash from 'lodash'
+import router from '@/router'
 import {
     LoadingBar,
     Message,
     Notice
 } from 'view-design'
 import 'view-design/dist/styles/iview.css';
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 Vue.prototype.$Loading = LoadingBar;
 Vue.prototype.$Message = Message;
 Vue.prototype.$http = axios;
 Vue.prototype._ = lodash;
 window._ = lodash;
 Vue.use(VueBus);
+import './styles/admin.scss';
 
 export default class Admin {
     constructor(config) {
@@ -27,7 +34,7 @@ export default class Admin {
     }
 
     boot() {
-        this.bootingCallbacks.forEach(callback => callback(Vue));
+        this.bootingCallbacks.forEach(callback => callback(Vue, router));
         this.bootingCallbacks = []
     }
 
@@ -35,7 +42,8 @@ export default class Admin {
         let _this = this;
         this.boot();
         this.app = new Vue({
-            el: '#app',
+            el: '#vue-admin',
+            router
         });
     }
 }

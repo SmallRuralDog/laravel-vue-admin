@@ -4,22 +4,22 @@
       <el-form
         ref="ruleForm"
         :model="formData"
-        :class="attrs.className"
-        :style="attrs.style"
-        :rules="attrs.rules"
-        :inline="attrs.inline"
-        :label-position="attrs.labelPosition"
-        :label-width="attrs.labelWidth"
-        :label-suffix="attrs.labelSuffix"
-        :hide-required-asterisk="attrs.hideRequiredAsterisk"
-        :show-message="attrs.showMessage"
-        :inline-message="attrs.inlineMessage"
-        :status-icon="attrs.statusIcon"
-        :validate-on-rule-change="attrs.validateOnRuleChange"
-        :size="attrs.size"
-        :disabled="attrs.disabled"
+        :class="attrs.attrs.className"
+        :style="attrs.attrs.style"
+        :rules="attrs.attrs.rules"
+        :inline="attrs.attrs.inline"
+        :label-position="attrs.attrs.labelPosition"
+        :label-width="attrs.attrs.labelWidth"
+        :label-suffix="attrs.attrs.labelSuffix"
+        :hide-required-asterisk="attrs.attrs.hideRequiredAsterisk"
+        :show-message="attrs.attrs.showMessage"
+        :inline-message="attrs.attrs.inlineMessage"
+        :status-icon="attrs.attrs.statusIcon"
+        :validate-on-rule-change="attrs.attrs.validateOnRuleChange"
+        :size="attrs.attrs.size"
+        :disabled="attrs.attrs.disabled"
       >
-        <template v-for="(item,index) in form_items">
+        <template v-for="(item,index) in attrs.formItems">
           <el-form-item
             :key="index"
             :label="item.label"
@@ -32,7 +32,7 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy v-model="formData[item.prop]"  :item="item" />
+            <ItemDiaplsy v-model="formData[item.prop]" :item="item" />
             <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
           </el-form-item>
         </template>
@@ -46,7 +46,7 @@
               type="primary"
               @click="submitForm('ruleForm')"
             >{{isEdit?'立即修改':'立即创建'}}</el-button>
-            <el-button class="submit-btn" @click="resetForm('ruleForm')">取消</el-button>
+            <el-button class="submit-btn" @click="$router.go(-1)">返回</el-button>
           </div>
         </div>
       </el-form>
@@ -60,16 +60,11 @@ export default {
     ItemDiaplsy
   },
   props: {
-    action: String,
-    data_url: String,
-    mode: String,
-    attrs: Object,
-    form_items: Array,
-    default_values: Object
+    attrs: Object
   },
   computed: {
     isEdit() {
-      return this.mode == "edit";
+      return this.attrs.mode == "edit";
     }
   },
   data() {
@@ -79,14 +74,18 @@ export default {
     };
   },
   mounted() {
-    this.formData = this.default_values;
+    this.formData = this.attrs.defaultValues;
     this.isEdit && this.getEditData();
   },
   methods: {
     getEditData() {
       this.loading = true;
       this.$http
-        .get(this.data_url)
+        .get(this.attrs.dataUrl, {
+          params: {
+            get_data: true
+          }
+        })
         .then(({ data }) => {
           this.formData = data;
         })
@@ -100,15 +99,19 @@ export default {
           this.loading = true;
           if (this.isEdit) {
             this.$http
-              .put(this.action, this.formData)
-              .then(({ data }) => {})
+              .put(this.attrs.action, this.formData)
+              .then(({ data }) => {
+                this.$router.go(-1);
+              })
               .finally(() => {
                 this.loading = false;
               });
           } else {
             this.$http
-              .post(this.action, this.formData)
-              .then(({ data }) => {})
+              .post(this.attrs.action, this.formData)
+              .then(({ data }) => {
+                this.$router.go(-1);
+              })
               .finally(() => {
                 this.loading = false;
               });
@@ -126,7 +129,7 @@ export default {
 </script>
 <style lang="scss">
 .form-page {
-  .el-form-item__content{
+  .el-form-item__content {
     line-height: unset;
   }
   .form-bottom-actions {

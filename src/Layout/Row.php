@@ -3,17 +3,22 @@
 
 namespace SmallRuralDog\Admin\Layout;
 
-use Illuminate\Contracts\Support\Renderable;
+use SmallRuralDog\Admin\Components\Component;
 
-class Row implements Buildable, Renderable
+class Row extends Component
 {
+
+    protected $componentName = "Row";
 
     /**
      * @var Column[]
      */
     protected $columns = [];
 
-    protected $class = [];
+    protected $gutter = 0;
+
+
+
 
 
     public function __construct($content = '')
@@ -49,18 +54,19 @@ class Row implements Buildable, Renderable
         $this->columns[] = $column;
     }
 
-
-    public function build()
+    /**
+     * 栅格间隔
+     * @param int $gutter
+     * @return $this
+     */
+    public function gutter($gutter)
     {
-        $content = collect($this->columns)->map(function (Column $column) {
-            return $column->build();
-        })->join('');
-        return "<row-layout>$content</row-layout>";
+        $this->gutter = $gutter;
+        return $this;
     }
 
 
-    public function render()
-    {
-        return $this->build();
-    }
+
+
+
 }

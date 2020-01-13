@@ -101,7 +101,7 @@ class Column
     /**
      * @return Grid
      */
-    public function getGrid(): Grid
+    public function getGrid()
     {
         return $this->grid;
     }

@@ -9,17 +9,17 @@ use SmallRuralDog\Admin\Components\Transfer;
 use SmallRuralDog\Admin\Components\TransferData;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
+use SmallRuralDog\Admin\Layout\Content;
 
 class RoleController extends AdminController
 {
-    protected function showPageHeader()
-    {
-        return false;
-    }
 
-    protected function title()
+    public function index(Content $content)
     {
-        return trans('admin::admin.roles');
+
+        $content->body($this->grid());
+
+        return $this->isGetData() ? $this->grid() : $content;
     }
 
     protected function grid()

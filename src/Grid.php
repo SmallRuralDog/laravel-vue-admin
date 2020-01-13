@@ -6,6 +6,7 @@ namespace SmallRuralDog\Admin;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
@@ -14,10 +15,11 @@ use SmallRuralDog\Admin\Grid\Table\TraitAttributes;
 use SmallRuralDog\Admin\Grid\Table\TraitDefaultSort;
 use SmallRuralDog\Admin\Grid\Table\TraitPageAttributes;
 
-class Grid
+class Grid extends Component implements \JsonSerializable
 {
     use TraitAttributes, TraitPageAttributes, TraitDefaultSort, TraitActions;
 
+    protected $componentName = 'Grid';
     /**
      * @var Model
      */
@@ -34,6 +36,8 @@ class Grid
     protected $selection = false;
     protected $dataUrl;
 
+    protected $isGetData = false;
+
 
     public function __construct(Eloquent $model, Closure $builder = null)
     {
@@ -46,6 +50,7 @@ class Grid
             'order' => 'desc',
             'field' => $model->getKeyName()
         ];
+        $this->isGetData = request('get_data') == "true";
 
     }
 
@@ -131,32 +136,6 @@ class Grid
         return $this->columns;
     }
 
-    /**
-     * view
-     * @return array|string
-     * @throws \Throwable
-     */
-    public function render()
-    {
-
-
-        $this->initActions();
-
-        $viewData['routers'] = [
-            'resource' => url(request()->getPathInfo())
-        ];
-        $viewData['keyName'] = $this->keyName;
-        $viewData['defaultSort'] = $this->defaultSort;
-        $viewData['columnAttributes'] = $this->columnAttributes;
-        $viewData['attributes'] = (array)$this->attributes;
-        $viewData['dataUrl'] = $this->dataUrl;
-        $viewData['pageSizes'] = $this->pageSizes;
-        $viewData['perPage'] = $this->perPage;
-        $viewData['pageBackground'] = $this->pageBackground;
-        $viewData['actions'] = $this->actions;
-
-        return view($this->view, $viewData)->render();
-    }
 
     /**
      * data
@@ -169,5 +148,35 @@ class Grid
             'code' => 200,
             'data' => $data
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+
+
+        if ($this->isGetData) {
+            return $this->data();
+        } else {
+            $viewData['componentName'] = $this->componentName;
+            $this->initActions();
+            $viewData['routers'] = [
+                'resource' => url(request()->getPathInfo())
+            ];
+            $viewData['keyName'] = $this->keyName;
+            $viewData['defaultSort'] = $this->defaultSort;
+            $viewData['columnAttributes'] = $this->columnAttributes;
+            $viewData['attributes'] = (array)$this->attributes;
+            $viewData['dataUrl'] = $this->dataUrl;
+            $viewData['pageSizes'] = $this->pageSizes;
+            $viewData['perPage'] = $this->perPage;
+            $viewData['pageBackground'] = $this->pageBackground;
+            $viewData['actions'] = $this->actions;
+            return $viewData;
+        }
+
+
     }
 }

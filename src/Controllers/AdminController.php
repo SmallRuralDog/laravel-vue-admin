@@ -17,36 +17,32 @@ class AdminController extends Controller
     public function index(Content $content)
     {
 
-        return $this->isAjax() ? $this->grid()->data() : $content
-            ->showPageHeader($this->showPageHeader())
-            ->title($this->title())
-            ->description($this->description['index'] ?? trans('admin.list'))
-            ->body($this->grid());
+        $content->body($this->grid());
+        return $this->isGetData() ? $this->grid() : $content;
     }
+
 
     public function create(Content $content)
     {
-        return $content
-            ->showPageHeader($this->showPageHeader())
-            ->title($this->title())
-            ->description($this->description['create'] ?? trans('admin.create'))
-            ->body($this->form());
+
+
+        $content->body($this->form());
+        return $this->isGetData() ? $this->form() : $content;
     }
 
     public function edit($id, Content $content)
     {
-        return  $this->isAjax() ? $this->form()->editData($id) : $content
-            ->showPageHeader($this->showPageHeader())
-            ->title($this->title())
-            ->description($this->description['edit'] ?? trans('admin.edit'))
-            ->body($this->form()->edit($id));
+
+
+        $content->body($this->form()->edit($id));
+        return $this->isGetData() ? $this->form()->edit($id) : $content;
     }
 
 
-    protected function isAjax()
+    public function isGetData()
     {
-        $request = request();
-        return $request->isJson() || $request->ajax() || $request->isXmlHttpRequest();
+        $get_data = request('get_data');
+        return $get_data == "true";
     }
 
     protected function validatorData(Request $request, $rules, $message = [])

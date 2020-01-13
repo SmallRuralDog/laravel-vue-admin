@@ -1,32 +1,54 @@
 import Vue from 'vue'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import './styles/admin.scss';
 
 
-Vue.use(ElementUI);
 
-Vue.component('login', require('./components/Login').default);
-Vue.component('content-layout', require('./components/layout/Content').default);
-Vue.component('row-layout', require('./components/layout/Row').default);
-Vue.component('column-layout', require('./components/layout/Column').default);
-Vue.component('table-grid', require('./components/grid/Table').default);
-Vue.component('base-form', require('./components/form/BaseForm').default);
+import Login from './components/Login'
+import Root from './components/Root'
+import Content from './components/layout/Content'
+import Row from './components/layout/Row'
+import Column from './components/layout/Column'
+import Table from './components/grid/Table'
+import BaseForm from './components/form/BaseForm'
+
+Vue.component('login', Login);
+Vue.component('Root', Root);
+Vue.component('Content', Content);
+Vue.component('Row', Row);
+Vue.component('Column', Column);
+Vue.component('Grid', Table);
+Vue.component('Form', BaseForm);
 
 
-Vue.component('Input', require('./components/widgets/Input').default);
-Vue.component('RadioGroup', require('./components/widgets/RadioGroup').default);
-Vue.component('Checkbox', require('./components/widgets/Checkbox').default);
-Vue.component('CheckboxGroup', require('./components/widgets/CheckboxGroup').default);
-Vue.component('InputNumber', require('./components/widgets/InputNumber').default);
-Vue.component('Select', require('./components/widgets/Select').default);
-Vue.component('Cascader', require('./components/widgets/Cascader').default);
-Vue.component('CSwitch', require('./components/widgets/Switch').default);
-Vue.component('Slider', require('./components/widgets/Slider').default);
-Vue.component('Transfer', require('./components/widgets/Transfer').default);
+import Input from './components/widgets/Input'
+import RadioGroup from './components/widgets/RadioGroup'
+import Checkbox from './components/widgets/Checkbox'
+import CheckboxGroup from './components/widgets/CheckboxGroup'
+import InputNumber from './components/widgets/InputNumber'
+import Select from './components/widgets/Select'
+import Cascader from './components/widgets/Cascader'
+import Switch from './components/widgets/Switch'
+import Slider from './components/widgets/Slider'
+import Transfer from './components/widgets/Transfer'
+import Avatar from './components/widgets/Avatar'
+import Tag from './components/widgets/Tag'
+import Link from './components/widgets/Link'
+import Text from './components/widgets/Text'
 
-Vue.component('Avatar', require('./components/widgets/Avatar').default);
-Vue.component('Tag', require('./components/widgets/Tag').default);
 
-Vue.component('Link', require('./components/widgets/Link').default);
+Vue.component('Input', Input);
+Vue.component('RadioGroup', RadioGroup);
+Vue.component('Checkbox', Checkbox);
+Vue.component('CheckboxGroup', CheckboxGroup);
+Vue.component('InputNumber', InputNumber);
+Vue.component('Select', Select);
+Vue.component('Cascader', Cascader);
+Vue.component('CSwitch', Switch);
+Vue.component('Slider', Slider);
+Vue.component('Transfer', Transfer);
+
+Vue.component('Avatar', Avatar);
+Vue.component('Tag', Tag);
+
+Vue.component('Link', Link);
+Vue.component('IText', Text);

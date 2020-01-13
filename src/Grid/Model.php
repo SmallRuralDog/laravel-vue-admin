@@ -7,6 +7,7 @@ namespace SmallRuralDog\Admin\Grid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use SmallRuralDog\Admin\Grid;
+use SmallRuralDog\Admin\LvaGrid;
 
 /**
  * Class Model
@@ -147,8 +148,6 @@ class Model
         if (empty($this->data)) {
             $collection = $this->get();
         }
-
-
         $this->data = $collection;
         return $this->data;
     }
@@ -186,6 +185,7 @@ class Model
 
         return [
             'current_page' => $data->currentPage(),
+            'per_page' => $data->perPage(),
             'last_page' => $data->lastPage(),
             'total' => $data->total(),
             'data' => $this->displayData($data->items())
