@@ -25,22 +25,37 @@ return [
     |
     */
     'loginLogo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
-    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo-dark.ab519d9f.png',
+    'logoDark' => 'https://file.iviewui.com/admin-pro-dist/img/logo-dark.ab519d9f.png',
+    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
 
     'copyright' => 'Copyright © 2019 广西米米资产管理有限公司',
+    'footerLinks' => [
+        [
+            'href' => 'https://github.com/SmallRuralDog/laravel-vue-admin',
+            'title' => '官网'
+        ],
+        [
+            'href' => 'https://github.com/SmallRuralDog/laravel-vue-admin',
+            'title' => '社区'
+        ],
+        [
+            'href' => 'https://smallruraldog.github.io/laravel-vue-admin/',
+            'title' => '文档'
+        ]
+    ],
 
 
-/*
-|--------------------------------------------------------------------------
-| Laravel-admin mini logo
-|--------------------------------------------------------------------------
-|
-| The logo of all admin pages when the sidebar menu is collapsed. You can
-| also set it as an image by using a `img` tag, eg
-| '<img src="http://logo-url" alt="Admin logo">'.
-|
-*/
-'logo-mini' => 'https://file.iviewui.com/admin-pro-dist/img/logo-small.4a34a883.png',
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel-admin mini logo
+    |--------------------------------------------------------------------------
+    |
+    | The logo of all admin pages when the sidebar menu is collapsed. You can
+    | also set it as an image by using a `img` tag, eg
+    | '<img src="http://logo-url" alt="Admin logo">'.
+    |
+    */
+    'logo-mini' => 'https://file.iviewui.com/admin-pro-dist/img/logo-small.4a34a883.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,13 +79,13 @@ return [
     */
     'route' => [
 
-    'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
-    'api_prefix' => env('ADMIN_ROUTE_PREFIX', 'admin-api'),
+        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
+        'api_prefix' => env('ADMIN_ROUTE_PREFIX', 'admin-api'),
 
-    'namespace' => 'App\\Admin\\Controllers',
+        'namespace' => 'App\\Admin\\Controllers',
 
-    'middleware' => ['web', 'admin'],
-],
+        'middleware' => ['web', 'admin'],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -117,37 +132,37 @@ return [
     */
     'auth' => [
 
-    'controller' => App\Admin\Controllers\AuthController::class,
+        'controller' => App\Admin\Controllers\AuthController::class,
 
-    'guard' => 'admin',
+        'guard' => 'admin',
 
-    'guards' => [
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admin',
+        'guards' => [
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admin',
+            ],
+        ],
+
+        'providers' => [
+            'admin' => [
+                'driver' => 'eloquent',
+                'model' => SmallRuralDog\Admin\Auth\Database\Administrator::class,
+            ],
+        ],
+
+        // Add "remember me" to login form
+        'remember' => true,
+
+        // Redirect to the specified URI when user is not authorized.
+        'redirect_to' => 'auth/login',
+
+        // The URIs that should be excluded from authorization.
+        'excepts' => [
+            'auth/login',
+            'auth/logout',
+            '_handle_action_',
         ],
     ],
-
-    'providers' => [
-        'admin' => [
-            'driver' => 'eloquent',
-            'model' => SmallRuralDog\Admin\Auth\Database\Administrator::class,
-        ],
-    ],
-
-    // Add "remember me" to login form
-    'remember' => true,
-
-    // Redirect to the specified URI when user is not authorized.
-    'redirect_to' => 'auth/login',
-
-    // The URIs that should be excluded from authorization.
-    'excepts' => [
-        'auth/login',
-        'auth/logout',
-        '_handle_action_',
-    ],
-],
 
     /*
     |--------------------------------------------------------------------------
@@ -160,15 +175,15 @@ return [
     */
     'upload' => [
 
-    // Disk in `config/filesystem.php`.
-    'disk' => 'admin',
+        // Disk in `config/filesystem.php`.
+        'disk' => 'admin',
 
-    // Image and file upload path under the disk above.
-    'directory' => [
-        'image' => 'images',
-        'file' => 'files',
+        // Image and file upload path under the disk above.
+        'directory' => [
+            'image' => 'images',
+            'file' => 'files',
+        ],
     ],
-],
 
     /*
     |--------------------------------------------------------------------------
@@ -180,32 +195,32 @@ return [
     */
     'database' => [
 
-    // Database connection for following tables.
-    'connection' => '',
+        // Database connection for following tables.
+        'connection' => '',
 
-    // User tables and model.
-    'users_table' => 'admin_users',
-    'users_model' => SmallRuralDog\Admin\Auth\Database\Administrator::class,
+        // User tables and model.
+        'users_table' => 'admin_users',
+        'users_model' => SmallRuralDog\Admin\Auth\Database\Administrator::class,
 
-    // Role table and model.
-    'roles_table' => 'admin_roles',
-    'roles_model' => SmallRuralDog\Admin\Auth\Database\Role::class,
+        // Role table and model.
+        'roles_table' => 'admin_roles',
+        'roles_model' => SmallRuralDog\Admin\Auth\Database\Role::class,
 
-    // Permission table and model.
-    'permissions_table' => 'admin_permissions',
-    'permissions_model' => SmallRuralDog\Admin\Auth\Database\Permission::class,
+        // Permission table and model.
+        'permissions_table' => 'admin_permissions',
+        'permissions_model' => SmallRuralDog\Admin\Auth\Database\Permission::class,
 
-    // Menu table and model.
-    'menu_table' => 'admin_menu',
-    'menu_model' => SmallRuralDog\Admin\Auth\Database\Menu::class,
+        // Menu table and model.
+        'menu_table' => 'admin_menu',
+        'menu_model' => SmallRuralDog\Admin\Auth\Database\Menu::class,
 
-    // Pivot table for table above.
-    'operation_log_table' => 'admin_operation_log',
-    'user_permissions_table' => 'admin_user_permissions',
-    'role_users_table' => 'admin_role_users',
-    'role_permissions_table' => 'admin_role_permissions',
-    'role_menu_table' => 'admin_role_menu',
-],
+        // Pivot table for table above.
+        'operation_log_table' => 'admin_operation_log',
+        'user_permissions_table' => 'admin_user_permissions',
+        'role_users_table' => 'admin_role_users',
+        'role_permissions_table' => 'admin_role_permissions',
+        'role_menu_table' => 'admin_role_menu',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -217,23 +232,23 @@ return [
     */
     'operation_log' => [
 
-    'enable' => true,
+        'enable' => true,
 
-    /*
-     * Only logging allowed methods in the list
-     */
-    'allowed_methods' => ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'],
+        /*
+         * Only logging allowed methods in the list
+         */
+        'allowed_methods' => ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'],
 
-    /*
-     * Routes that will not log to database.
-     *
-     * All method to path like: admin/auth/logs
-     * or specific method to path like: get:admin/auth/logs.
-     */
-    'except' => [
-        'admin/auth/logs*',
+        /*
+         * Routes that will not log to database.
+         *
+         * All method to path like: admin/auth/logs
+         * or specific method to path like: get:admin/auth/logs.
+         */
+        'except' => [
+            'admin/auth/logs*',
+        ],
     ],
-],
 
     /*
     |--------------------------------------------------------------------------
@@ -247,7 +262,7 @@ return [
     | Indicates whether to check menu roles.
     |--------------------------------------------------------------------------
     */
-    'check_menu_roles'       => true,
+    'check_menu_roles' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -356,12 +371,12 @@ return [
     */
     'minify_assets' => [
 
-    // Assets will not be minified.
-    'excepts' => [
+        // Assets will not be minified.
+        'excepts' => [
+
+        ],
 
     ],
-
-],
 
     /*
     |--------------------------------------------------------------------------
@@ -405,5 +420,5 @@ return [
     */
     'extensions' => [
 
-],
+    ],
 ];

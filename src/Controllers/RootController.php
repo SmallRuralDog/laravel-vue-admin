@@ -15,7 +15,10 @@ class RootController extends Controller
             'menu' => Admin::menu(),
             'menuList' => Admin::menuList(),
             'logo' => config('admin.logo'),
+            'logoDark' => config('admin.logoDark'),
             'logoMini' => config('admin.logo-mini'),
+            'copyright' => config('admin.copyright'),
+            'footerLinks' => config('admin.footerLinks'),
             'user' => $this->getUserData(),
             'url' => $this->getUrls()
         ];

@@ -290,6 +290,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -297,7 +396,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      isCollapsed: false,
+      fixedSide: localStorage.getItem("fixedSide") ? localStorage.getItem("fixedSide") == "true" : true,
+      fixedHeader: localStorage.getItem("fixedHeader") ? localStorage.getItem("fixedHeader") == "true" : true,
+      isCollapsed: localStorage.getItem("isCollapsed") ? localStorage.getItem("isCollapsed") == "true" : false,
+      isDark: localStorage.getItem("isDark") ? localStorage.getItem("isDark") == "true" : true,
+      isDarkHeader: localStorage.getItem("isDarkHeader") ? localStorage.getItem("isDarkHeader") == "true" : false,
+      showAdminSet: false,
       route: "/"
     };
   },
@@ -332,6 +436,23 @@ __webpack_require__.r(__webpack_exports__);
       this.$confirm("您确定退出登录当前账户吗？", "退出登陆确认").then(function () {
         window.location.href = _this2.page_data.url.logout;
       });
+    }
+  },
+  watch: {
+    fixedSide: function fixedSide(val) {
+      localStorage.setItem("fixedSide", val);
+    },
+    fixedHeader: function fixedHeader(val) {
+      localStorage.setItem("fixedHeader", val);
+    },
+    isCollapsed: function isCollapsed(val) {
+      localStorage.setItem("isCollapsed", val);
+    },
+    isDark: function isDark(val) {
+      localStorage.setItem("isDark", val);
+    },
+    isDarkHeader: function isDarkHeader(val) {
+      localStorage.setItem("isDarkHeader", val);
     }
   }
 });
@@ -3877,7 +3998,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
+exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
 
 // exports
 
@@ -3915,7 +4036,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: width 0.2s;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.2s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 55px;\n  line-height: 55px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 55px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.2s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r {\n  height: 55px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  width: 55px;\n  height: 55px;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.layout-header-bar .layout-header-r .icon-btn {\n  font-size: 18px;\n}\n.layout-header-bar .layout-header-r .icon-btn-mini {\n  font-size: 14px;\n}\n.el-main {\n  padding: 0;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  margin-bottom: 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}", ""]);
+exports.push([module.i, ".admin-layout {\n  min-height: 100vh;\n}\n.ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: all 0.3s ease-in-out;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.content-side-fixed {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n.el-container-fixed {\n  margin-left: 200px;\n  transition: all 0.3s ease-in-out;\n}\n.el-container-fixed-collapsed {\n  margin-left: 60px;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.3s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 55px;\n  line-height: 55px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 55px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.3s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r {\n  height: 55px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  width: 55px;\n  height: 55px;\n  cursor: pointer;\n  transition: all 0.3s ease-in-out;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.layout-header-bar .layout-header-r .icon-btn {\n  font-size: 18px;\n}\n.layout-header-bar .layout-header-r .icon-btn-mini {\n  font-size: 14px;\n}\n.layout-header-bar-dark {\n  background: #1d1e23;\n  color: white;\n}\n.layout-header-bar-dark .el-dropdown {\n  color: white;\n}\n.layout-header-bar-dark .el-breadcrumb__inner {\n  color: #ffffffb3;\n}\n.layout-header-bar-dark .el-breadcrumb__item:last-child .el-breadcrumb__inner {\n  color: white;\n}\n.layout-header-bar-dark .hover:hover {\n  background-color: #1d1e23;\n}\n.layout-header-bar-fixed {\n  position: fixed;\n  right: 0;\n  top: 0;\n  left: 200px;\n  width: auto;\n  transition: all 0.3s ease-in-out;\n}\n.layout-header-bar-fixed-collapsed {\n  left: 60px;\n}\n.el-main {\n  padding: 0;\n}\n.el-main-fixed {\n  margin-top: 55px;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  margin-bottom: 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}\n.admin-footer {\n  text-align: center;\n  color: #808695;\n  margin: 30px 0;\n}\n.admin-footer .footer-links a {\n  color: unset;\n}\n.admin-footer .footer-links a span {\n  margin: 5px 20px;\n}\n.setting-item {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 0;\n}", ""]);
 
 // exports
 
@@ -25109,142 +25230,377 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "el-container",
+    "div",
     [
       _c(
-        "el-aside",
-        {
-          ref: "contentSide",
-          staticClass: "content-side side-dark",
-          attrs: { width: _vm.isCollapsed ? "64px" : "200px" }
-        },
+        "el-container",
+        { staticClass: "admin-layout" },
         [
-          _c("div", { staticClass: "content-side-logo" }, [
-            !_vm.isCollapsed
-              ? _c("img", { attrs: { src: _vm.page_data.logo } })
-              : _c("img", { attrs: { src: _vm.page_data.logoMini } })
-          ]),
-          _vm._v(" "),
           _c(
-            "el-scrollbar",
-            { attrs: { "wrap-class": "scrollbar-wrapper" } },
+            "el-aside",
+            {
+              ref: "contentSide",
+              staticClass: "content-side",
+              class: {
+                "content-side-fixed": _vm.fixedSide,
+                "side-dark": _vm.isDark
+              },
+              attrs: { width: _vm.isCollapsed ? "64px" : "200px" }
+            },
             [
               _c(
-                "el-menu",
-                {
-                  attrs: {
-                    "default-active": _vm.route,
-                    collapse: _vm.isCollapsed,
-                    "background-color": "#1d1e23",
-                    "text-color": "#fff",
-                    "collapse-transition": false,
-                    router: true,
-                    "unique-opened": ""
-                  }
-                },
+                "div",
+                { staticClass: "content-side-logo" },
                 [
-                  _vm._l(_vm.page_data.menu, function(menu) {
-                    return [
-                      menu.children && menu.children.length > 0
-                        ? _c(
-                            "el-submenu",
-                            {
-                              key: menu.id,
-                              attrs: {
-                                "show-timeout": 1,
-                                "hide-timeout": 1,
-                                index: menu.route
-                              }
-                            },
-                            [
-                              _c("template", { slot: "title" }, [
-                                _c("i", {
-                                  class: menu.icon,
-                                  attrs: { size: "16" }
-                                }),
-                                _vm._v(" "),
-                                _c("span", [_vm._v(_vm._s(menu.title))])
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(menu.children, function(sub_menu) {
-                                return _c(
-                                  "a",
-                                  {
-                                    key: sub_menu.id,
-                                    attrs: { "data-href": sub_menu.url }
-                                  },
-                                  [
-                                    _c(
-                                      "el-menu-item",
-                                      {
-                                        attrs: {
-                                          index: sub_menu.route,
-                                          route: sub_menu.route
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          directives: [
-                                            {
-                                              name: "show",
-                                              rawName: "v-show",
-                                              value: _vm.isCollapsed,
-                                              expression: "isCollapsed"
-                                            }
-                                          ],
-                                          class: sub_menu.icon
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
-                                          {
-                                            attrs: { slot: "title" },
-                                            slot: "title"
-                                          },
-                                          [_vm._v(_vm._s(sub_menu.title))]
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        : _c(
-                            "a",
-                            { key: menu.id, attrs: { "data-href": menu.url } },
-                            [
-                              _c(
-                                "el-menu-item",
+                  !_vm.isCollapsed
+                    ? [
+                        !_vm.isDark
+                          ? _c("img", { attrs: { src: _vm.page_data.logo } })
+                          : _c("img", {
+                              attrs: { src: _vm.page_data.logoDark }
+                            })
+                      ]
+                    : _c("img", { attrs: { src: _vm.page_data.logoMini } })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "el-scrollbar",
+                { attrs: { "wrap-class": "scrollbar-wrapper" } },
+                [
+                  _c(
+                    "el-menu",
+                    {
+                      attrs: {
+                        "default-active": _vm.route,
+                        collapse: _vm.isCollapsed,
+                        "background-color": _vm.isDark ? "#1d1e23" : "",
+                        "text-color": _vm.isDark ? "#ffffff" : "",
+                        "collapse-transition": false,
+                        router: true,
+                        "unique-opened": ""
+                      }
+                    },
+                    [
+                      _vm._l(_vm.page_data.menu, function(menu) {
+                        return [
+                          menu.children && menu.children.length > 0
+                            ? _c(
+                                "el-submenu",
                                 {
+                                  key: menu.id,
                                   attrs: {
-                                    index: menu.route,
-                                    route: menu.route
+                                    "show-timeout": 1,
+                                    "hide-timeout": 1,
+                                    index: menu.route
                                   }
                                 },
                                 [
-                                  _c("i", {
-                                    class: menu.icon,
-                                    attrs: { size: "16" }
-                                  }),
+                                  _c("template", { slot: "title" }, [
+                                    _c("i", {
+                                      class: menu.icon,
+                                      attrs: { size: "16" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", [_vm._v(_vm._s(menu.title))])
+                                  ]),
                                   _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    { attrs: { slot: "title" }, slot: "title" },
-                                    [_vm._v(_vm._s(menu.title))]
-                                  )
-                                ]
+                                  _vm._l(menu.children, function(sub_menu) {
+                                    return _c(
+                                      "a",
+                                      {
+                                        key: sub_menu.id,
+                                        attrs: { "data-href": sub_menu.url }
+                                      },
+                                      [
+                                        _c(
+                                          "el-menu-item",
+                                          {
+                                            attrs: {
+                                              index: sub_menu.route,
+                                              route: sub_menu.route
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              directives: [
+                                                {
+                                                  name: "show",
+                                                  rawName: "v-show",
+                                                  value: _vm.isCollapsed,
+                                                  expression: "isCollapsed"
+                                                }
+                                              ],
+                                              class: sub_menu.icon
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                attrs: { slot: "title" },
+                                                slot: "title"
+                                              },
+                                              [_vm._v(_vm._s(sub_menu.title))]
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  })
+                                ],
+                                2
                               )
-                            ],
-                            1
-                          )
-                    ]
-                  })
+                            : _c(
+                                "a",
+                                {
+                                  key: menu.id,
+                                  attrs: { "data-href": menu.url }
+                                },
+                                [
+                                  _c(
+                                    "el-menu-item",
+                                    {
+                                      attrs: {
+                                        index: menu.route,
+                                        route: menu.route
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        class: menu.icon,
+                                        attrs: { size: "16" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        {
+                                          attrs: { slot: "title" },
+                                          slot: "title"
+                                        },
+                                        [_vm._v(_vm._s(menu.title))]
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                        ]
+                      })
+                    ],
+                    2
+                  )
                 ],
-                2
+                1
               )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-container",
+            {
+              class: {
+                "el-container-fixed": _vm.fixedSide,
+                "el-container-fixed-collapsed": _vm.isCollapsed
+              }
+            },
+            [
+              _c(
+                "el-header",
+                {
+                  staticClass: "layout-header-bar",
+                  class: {
+                    "layout-header-bar-dark": _vm.isDarkHeader,
+                    "layout-header-bar-fixed": _vm.fixedHeader,
+                    "layout-header-bar-fixed-collapsed": _vm.isCollapsed
+                  },
+                  style: { padding: 0 },
+                  attrs: { height: "55px" }
+                },
+                [
+                  _c("div", { staticClass: "layout-header-l" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "layout-header-trigger hover",
+                        on: { click: _vm.collapsedSide }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "el-icon-s-fold fs-20 menu-icon",
+                          class: { "rotate-icon": _vm.isCollapsed }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "layout-header-breadcrumb" },
+                      [
+                        _c(
+                          "el-breadcrumb",
+                          { attrs: { separator: "/" } },
+                          [
+                            _c(
+                              "el-breadcrumb-item",
+                              { attrs: { to: { path: "/" } } },
+                              [_vm._v("首页")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.page_data.menuList, function(menu) {
+                              return [
+                                menu.route == _vm.route
+                                  ? _c(
+                                      "el-breadcrumb-item",
+                                      { key: menu.route },
+                                      [_vm._v(_vm._s(menu.title))]
+                                    )
+                                  : _vm._e()
+                              ]
+                            })
+                          ],
+                          2
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "layout-header-r" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "layout-header-trigger layout-header-trigger-min hover"
+                      },
+                      [
+                        _c(
+                          "el-dropdown",
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "layout-header-user" },
+                              [
+                                _c("el-avatar", {
+                                  attrs: {
+                                    src: _vm.page_data.user.avatar,
+                                    size: 25
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  { staticClass: "layout-header-user-name" },
+                                  [_vm._v(_vm._s(_vm.page_data.user.name))]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "el-dropdown-menu",
+                              { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                              [
+                                _c(
+                                  "a",
+                                  [
+                                    _c("el-dropdown-item", [
+                                      _c("i", {
+                                        staticClass: "el-icon-setting",
+                                        attrs: { size: "18" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v("个人设置")])
+                                    ])
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  { on: { click: _vm.onLogout } },
+                                  [
+                                    _c("el-dropdown-item", [
+                                      _c("i", {
+                                        staticClass: "el-icon-right",
+                                        attrs: { size: "18" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v("退出登陆")])
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "layout-header-trigger layout-header-trigger-min hover",
+                        on: {
+                          click: function($event) {
+                            _vm.showAdminSet = true
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "el-icon-setting icon-btn" })]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("el-main", { class: { "el-main-fixed": _vm.fixedHeader } }, [
+                _c(
+                  "div",
+                  { staticClass: "layout-content-main" },
+                  [
+                    _c(
+                      "transition",
+                      { attrs: { name: "fade-transform", mode: "out-in" } },
+                      [_c("router-view")],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("el-footer", { staticClass: "admin-footer" }, [
+                _c(
+                  "div",
+                  { staticClass: "footer-links" },
+                  _vm._l(_vm.page_data.footerLinks, function(item, index) {
+                    return _c(
+                      "el-link",
+                      {
+                        key: index,
+                        attrs: {
+                          type: "text",
+                          href: item.href,
+                          target: "_blank",
+                          underline: false
+                        }
+                      },
+                      [_vm._v(_vm._s(item.title))]
+                    )
+                  }),
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  domProps: { innerHTML: _vm._s(_vm.page_data.copyright) }
+                })
+              ])
             ],
             1
           )
@@ -25252,160 +25608,232 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("el-backtop"),
+      _vm._v(" "),
       _c(
-        "el-container",
-        [
-          _c(
-            "el-header",
-            {
-              staticClass: "layout-header-bar",
-              style: { padding: 0 },
-              attrs: { height: "55px" }
+        "Drawer",
+        {
+          model: {
+            value: _vm.showAdminSet,
+            callback: function($$v) {
+              _vm.showAdminSet = $$v
             },
+            expression: "showAdminSet"
+          }
+        },
+        [
+          _c("div", { staticStyle: { height: "5px" } }),
+          _vm._v(" "),
+          _c("el-divider", [_vm._v("主题风格")]),
+          _vm._v(" "),
+          _c(
+            "div",
             [
-              _c("div", { staticClass: "layout-header-l" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "layout-header-trigger hover",
-                    on: { click: _vm.collapsedSide }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "el-icon-s-fold fs-20 menu-icon",
-                      class: { "rotate-icon": _vm.isCollapsed }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "layout-header-breadcrumb" },
-                  [
-                    _c(
-                      "el-breadcrumb",
-                      { attrs: { separator: "/" } },
-                      [
-                        _c(
-                          "el-breadcrumb-item",
-                          { attrs: { to: { path: "/" } } },
-                          [_vm._v("首页")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.page_data.menuList, function(menu) {
-                          return [
-                            menu.route == _vm.route
-                              ? _c("el-breadcrumb-item", { key: menu.route }, [
-                                  _vm._v(_vm._s(menu.title))
-                                ])
-                              : _vm._e()
-                          ]
-                        })
-                      ],
-                      2
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "layout-header-r" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "layout-header-trigger layout-header-trigger-min hover"
-                  },
-                  [
-                    _c(
-                      "el-dropdown",
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "layout-header-user" },
-                          [
-                            _c("el-avatar", {
-                              attrs: {
-                                src: _vm.page_data.user.avatar,
-                                size: 25
+              _c(
+                "el-badge",
+                {
+                  attrs: { type: "success", "is-dot": "", hidden: _vm.isDark }
+                },
+                [
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "el-tooltip",
+                        {
+                          attrs: { content: "亮色菜单风格", placement: "top" }
+                        },
+                        [
+                          _c("el-image", {
+                            staticClass: "hover",
+                            attrs: {
+                              src:
+                                "https://gw.alipayobjects.com/zos/antfincdn/NQ%24zoisaD2/jpRkZQMyYRryryPNtyIC.svg"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.isDark = false
                               }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              { staticClass: "layout-header-user-name" },
-                              [_vm._v(_vm._s(_vm.page_data.user.name))]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "el-dropdown-menu",
-                          { attrs: { slot: "dropdown" }, slot: "dropdown" },
-                          [
-                            _c(
-                              "a",
-                              [
-                                _c("el-dropdown-item", [
-                                  _c("i", {
-                                    staticClass: "el-icon-setting",
-                                    attrs: { size: "18" }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("个人设置")])
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              { on: { click: _vm.onLogout } },
-                              [
-                                _c("el-dropdown-item", [
-                                  _c("i", {
-                                    staticClass: "el-icon-right",
-                                    attrs: { size: "18" }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("退出登陆")])
-                                ])
-                              ],
-                              1
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "layout-header-trigger layout-header-trigger-min hover"
-                  },
-                  [_c("i", { staticClass: "el-icon-setting icon-btn" })]
-                )
-              ])
-            ]
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-badge",
+                {
+                  attrs: { type: "success", "is-dot": "", hidden: !_vm.isDark }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "ml-20" },
+                    [
+                      _c(
+                        "el-tooltip",
+                        {
+                          attrs: { content: "暗色菜单风格", placement: "top" }
+                        },
+                        [
+                          _c("el-image", {
+                            staticClass: "hover",
+                            attrs: {
+                              src:
+                                "https://gw.alipayobjects.com/zos/antfincdn/XwFOFbLkSM/LCkqqYNmvBEbokSDscrm.svg"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.isDark = true
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
           ),
           _vm._v(" "),
-          _c("el-main", [
+          _c(
+            "div",
+            { staticClass: "mt-30" },
+            [
+              _c(
+                "el-badge",
+                {
+                  attrs: {
+                    type: "success",
+                    "is-dot": "",
+                    hidden: _vm.isDarkHeader
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.isDarkHeader = false
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "el-tooltip",
+                        {
+                          attrs: { content: "亮色顶栏风格", placement: "top" }
+                        },
+                        [
+                          _c("el-image", {
+                            staticClass: "hover",
+                            attrs: {
+                              src:
+                                "https://file.iviewui.com/admin-pro-dist/img/nav-theme-dark.da07f9c2.svg"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-badge",
+                {
+                  attrs: {
+                    type: "success",
+                    "is-dot": "",
+                    hidden: !_vm.isDarkHeader
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "ml-20",
+                      on: {
+                        click: function($event) {
+                          _vm.isDarkHeader = true
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "el-tooltip",
+                        {
+                          attrs: { content: "暗色顶栏风格", placement: "top" }
+                        },
+                        [
+                          _c("el-image", {
+                            staticClass: "hover",
+                            attrs: {
+                              src:
+                                "https://file.iviewui.com/admin-pro-dist/img/header-theme-dark.1606ed02.svg"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("el-divider", [_vm._v("导航设置")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "setting-item" }, [
+            _c("span", [_vm._v("固定顶栏")]),
+            _vm._v(" "),
             _c(
-              "div",
-              { staticClass: "layout-content-main" },
+              "span",
               [
-                _c(
-                  "transition",
-                  { attrs: { name: "fade-transform", mode: "out-in" } },
-                  [_c("router-view")],
-                  1
-                )
+                _c("el-switch", {
+                  model: {
+                    value: _vm.fixedHeader,
+                    callback: function($$v) {
+                      _vm.fixedHeader = $$v
+                    },
+                    expression: "fixedHeader"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "setting-item" }, [
+            _c("span", [_vm._v("固定侧边栏")]),
+            _vm._v(" "),
+            _c(
+              "span",
+              [
+                _c("el-switch", {
+                  model: {
+                    value: _vm.fixedSide,
+                    callback: function($$v) {
+                      _vm.fixedSide = $$v
+                    },
+                    expression: "fixedSide"
+                  }
+                })
               ],
               1
             )
@@ -27295,21 +27723,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Admin; });
 /* harmony import */ var view_design_src_components_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! view-design/src/components/message */ "./node_modules/view-design/src/components/message/index.js");
 /* harmony import */ var view_design_src_components_loading_bar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! view-design/src/components/loading-bar */ "./node_modules/view-design/src/components/loading-bar/index.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_bus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-bus */ "./node_modules/vue-bus/dist/vue-bus.esm.js");
-/* harmony import */ var _util_axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/axios */ "./resources/js/util/axios.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
-/* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! view-design/dist/styles/iview.css */ "./node_modules/view-design/dist/styles/iview.css");
-/* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! element-ui */ "./node_modules/element-ui/lib/element-ui.common.js");
-/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(element_ui__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! element-ui/lib/theme-chalk/index.css */ "./node_modules/element-ui/lib/theme-chalk/index.css");
-/* harmony import */ var element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _styles_admin_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/admin.scss */ "./resources/js/styles/admin.scss");
-/* harmony import */ var _styles_admin_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_styles_admin_scss__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var view_design_src_components_drawer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! view-design/src/components/drawer */ "./node_modules/view-design/src/components/drawer/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_bus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-bus */ "./node_modules/vue-bus/dist/vue-bus.esm.js");
+/* harmony import */ var _util_axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/axios */ "./resources/js/util/axios.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
+/* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! view-design/dist/styles/iview.css */ "./node_modules/view-design/dist/styles/iview.css");
+/* harmony import */ var view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(view_design_dist_styles_iview_css__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! element-ui */ "./node_modules/element-ui/lib/element-ui.common.js");
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(element_ui__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! element-ui/lib/theme-chalk/index.css */ "./node_modules/element-ui/lib/theme-chalk/index.css");
+/* harmony import */ var element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(element_ui_lib_theme_chalk_index_css__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _styles_admin_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./styles/admin.scss */ "./resources/js/styles/admin.scss");
+/* harmony import */ var _styles_admin_scss__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_styles_admin_scss__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -27327,13 +27757,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(element_ui__WEBPACK_IMPORTED_MODULE_8___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$Loading = view_design_src_components_loading_bar__WEBPACK_IMPORTED_MODULE_1__["default"];
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$Message = view_design_src_components_message__WEBPACK_IMPORTED_MODULE_0__["default"];
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$http = _util_axios__WEBPACK_IMPORTED_MODULE_4__["default"];
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype._ = lodash__WEBPACK_IMPORTED_MODULE_5___default.a;
-window._ = lodash__WEBPACK_IMPORTED_MODULE_5___default.a;
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_bus__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(element_ui__WEBPACK_IMPORTED_MODULE_9___default.a);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.component('Drawer', view_design_src_components_drawer__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.prototype.$Loading = view_design_src_components_loading_bar__WEBPACK_IMPORTED_MODULE_1__["default"];
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.prototype.$Message = view_design_src_components_message__WEBPACK_IMPORTED_MODULE_0__["default"];
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.prototype.$http = _util_axios__WEBPACK_IMPORTED_MODULE_5__["default"];
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.prototype._ = lodash__WEBPACK_IMPORTED_MODULE_6___default.a;
+window._ = lodash__WEBPACK_IMPORTED_MODULE_6___default.a;
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_bus__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
 
 var Admin =
@@ -27342,7 +27773,7 @@ function () {
   function Admin(config) {
     _classCallCheck(this, Admin);
 
-    this.bus = new vue__WEBPACK_IMPORTED_MODULE_2___default.a();
+    this.bus = new vue__WEBPACK_IMPORTED_MODULE_3___default.a();
     this.bootingCallbacks = [];
     this.config = config;
   }
@@ -27356,7 +27787,7 @@ function () {
     key: "boot",
     value: function boot() {
       this.bootingCallbacks.forEach(function (callback) {
-        return callback(vue__WEBPACK_IMPORTED_MODULE_2___default.a, _router__WEBPACK_IMPORTED_MODULE_6__["default"]);
+        return callback(vue__WEBPACK_IMPORTED_MODULE_3___default.a, _router__WEBPACK_IMPORTED_MODULE_7__["default"]);
       });
       this.bootingCallbacks = [];
     }
@@ -27366,9 +27797,9 @@ function () {
       var _this = this;
 
       this.boot();
-      this.app = new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
+      this.app = new vue__WEBPACK_IMPORTED_MODULE_3___default.a({
         el: '#vue-admin',
-        router: _router__WEBPACK_IMPORTED_MODULE_6__["default"]
+        router: _router__WEBPACK_IMPORTED_MODULE_7__["default"]
       });
     }
   }]);
