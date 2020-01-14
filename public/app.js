@@ -27776,7 +27776,6 @@ function () {
   function Admin(config) {
     _classCallCheck(this, Admin);
 
-    this.bus = new vue__WEBPACK_IMPORTED_MODULE_3___default.a();
     this.bootingCallbacks = [];
     this.config = config;
   }
@@ -30346,7 +30345,7 @@ function flattenDeepChild(data, child_key, key) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\PHP\laravel-packages\packages\smallruraldog\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\homestead\laravel-vue-admin\packages\SmallRuralDog\Admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

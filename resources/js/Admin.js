@@ -25,7 +25,6 @@ import './styles/admin.scss';
 
 export default class Admin {
     constructor(config) {
-        this.bus = new Vue();
         this.bootingCallbacks = [];
         this.config = config
     }
