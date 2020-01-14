@@ -45,7 +45,7 @@
       </el-scrollbar>
     </el-aside>
     <el-container>
-      <el-header :style="{padding: 0}" class="layout-header-bar" height="44px">
+      <el-header :style="{padding: 0}" class="layout-header-bar" height="55px">
         <div class="layout-header-l">
           <div class="layout-header-trigger hover" @click="collapsedSide">
             <i class="el-icon-s-fold fs-20 menu-icon" :class="{'rotate-icon':isCollapsed}" />
@@ -60,34 +60,31 @@
           </div>
         </div>
         <div class="layout-header-r">
-          <span class="layout-header-trigger layout-header-trigger-min hover">
+          <div class="layout-header-trigger layout-header-trigger-min hover">
             <el-dropdown>
               <div class="layout-header-user">
-                <el-avatar :src="page_data.user.avatar" :size="30" />
+                <el-avatar :src="page_data.user.avatar" :size="25" />
                 <span class="layout-header-user-name">{{page_data.user.name}}</span>
               </div>
               <el-dropdown-menu slot="dropdown">
                 <a>
                   <el-dropdown-item>
-                    <i class="el-icon-user" size="18" />
-                    <span>个人中心</span>
-                  </el-dropdown-item>
-                </a>
-                <a>
-                  <el-dropdown-item>
                     <i class="el-icon-setting" size="18" />
-                    <span>设置</span>
+                    <span>个人设置</span>
                   </el-dropdown-item>
                 </a>
                 <a @click="onLogout">
-                  <el-dropdown-item divided>
+                  <el-dropdown-item>
                     <i class="el-icon-right" size="18" />
                     <span>退出登陆</span>
                   </el-dropdown-item>
                 </a>
               </el-dropdown-menu>
             </el-dropdown>
-          </span>
+          </div>
+          <div class="layout-header-trigger layout-header-trigger-min hover">
+            <i class="el-icon-setting icon-btn"></i>
+          </div>
         </div>
       </el-header>
       <el-main>
@@ -145,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss" >
-$header-bar-height: 44px;
+$header-bar-height: 55px;
 .ivu-layout-sider {
   min-height: 100vh;
 
@@ -240,14 +237,16 @@ $header-bar-height: 44px;
 
   .layout-header-r {
     height: $header-bar-height;
-
+    display: flex;
+    align-items: center;
     .layout-header-trigger {
-      display: inline-block;
       width: $header-bar-height;
       height: $header-bar-height;
-      text-align: center;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .layout-header-trigger-min {
@@ -260,6 +259,12 @@ $header-bar-height: 44px;
       .layout-header-user-name {
         margin-left: 5px;
       }
+    }
+    .icon-btn {
+      font-size: 18px;
+    }
+    .icon-btn-mini {
+      font-size: 14px;
     }
   }
 }

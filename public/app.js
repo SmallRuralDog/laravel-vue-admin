@@ -290,9 +290,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -722,10 +719,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$confirm("您确定删除这" + this.rows.length + "条数据吗？", "批量删除确认").then(function () {
         var deleteUrl = _this.routers.resource + "/" + _this.keys;
 
+        var msg = _this.$Message.loading({
+          content: "正在删除...",
+          duration: 0
+        });
+
         _this.$http["delete"](deleteUrl).then(function (_ref) {
           var code = _ref.code;
           code === 200 && _this.$bus.emit("tableReload");
-        })["finally"](function () {});
+        })["finally"](function () {
+          msg();
+        });
       })["catch"](function () {});
     }
   },
@@ -841,6 +845,32 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3885,7 +3915,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: width 0.2s;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.2s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 44px;\n  line-height: 44px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 44px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 44px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.2s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r {\n  height: 44px;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  display: inline-block;\n  width: 44px;\n  height: 44px;\n  text-align: center;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.el-main {\n  padding: 0;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  margin-bottom: 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}", ""]);
+exports.push([module.i, ".ivu-layout-sider {\n  min-height: 100vh;\n}\n.ivu-layout-sider .ivu-layout-sider-children {\n  height: 100%;\n  padding-top: 0.1px;\n  margin-top: -0.1px;\n}\n.content-side {\n  min-height: 100vh;\n  background: #fff;\n  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);\n  position: relative;\n  transition: width 0.2s;\n  z-index: 13;\n  display: flex;\n  flex-direction: column;\n}\n.content-side .el-menu {\n  border-right: none;\n}\n.content-side .content-side-logo {\n  height: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n.content-side .content-side-logo img {\n  height: 80%;\n  object-fit: cover;\n  vertical-align: middle;\n}\n.content-side .el-scrollbar {\n  flex: 1;\n}\n.content-side .el-scrollbar .scrollbar-wrapper {\n  overflow-x: hidden;\n}\n.side-dark {\n  background: #1d1e23;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.layout-header-bar {\n  width: 100%;\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n  transition: all 0.2s ease-in-out;\n  z-index: 3;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: 55px;\n  line-height: 55px;\n}\n.layout-header-bar .hover:hover {\n  background-color: #f7f7f7;\n}\n.layout-header-bar .layout-header-l {\n  display: flex;\n  height: 55px;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger {\n  width: 55px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .menu-icon {\n  transition-duration: 0.2s;\n  transform: rotate(0deg);\n}\n.layout-header-bar .layout-header-l .layout-header-trigger .rotate-icon {\n  transform: rotate(180deg);\n}\n.layout-header-bar .layout-header-l .layout-header-breadcrumb {\n  margin-left: 10px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r {\n  height: 55px;\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger {\n  width: 55px;\n  height: 55px;\n  cursor: pointer;\n  transition: all 0.2s ease-in-out;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.layout-header-bar .layout-header-r .layout-header-trigger-min {\n  width: auto;\n  padding: 0 12px;\n}\n.layout-header-bar .layout-header-r .layout-header-user {\n  display: flex;\n  align-items: center;\n}\n.layout-header-bar .layout-header-r .layout-header-user .layout-header-user-name {\n  margin-left: 5px;\n}\n.layout-header-bar .layout-header-r .icon-btn {\n  font-size: 18px;\n}\n.layout-header-bar .layout-header-r .icon-btn-mini {\n  font-size: 14px;\n}\n.el-main {\n  padding: 0;\n}\n.layout-content-main {\n  margin: 15px;\n}\n.layout-content-main .layout-page-header {\n  margin: -15px -15px 0;\n  padding: 15px 15px 0 15px;\n  margin-bottom: 15px;\n  background: #fff;\n  border-bottom: 1px solid #e8eaec;\n}\n.layout-content-main .layout-page-header .layout-page-header-title {\n  color: #17233d;\n  font-weight: 500;\n  font-size: 20px;\n  margin-bottom: 8px;\n}\n.layout-content-main .layout-page-header .layout-page-header-description {\n  font-size: 14px;\n  margin-bottom: 15px;\n}", ""]);
 
 // exports
 
@@ -3942,7 +3972,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".display-column {\n  line-height: 1;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}", ""]);
+exports.push([module.i, ".display-column {\n  line-height: unset;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}", ""]);
 
 // exports
 
@@ -3961,7 +3991,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 16px 0;\n}\n.grid-container .grid-top-container {\n  padding: 16px 0px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}", ""]);
+exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n  border-bottom: 1px solid #ebeef5;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}", ""]);
 
 // exports
 
@@ -25230,7 +25260,7 @@ var render = function() {
             {
               staticClass: "layout-header-bar",
               style: { padding: 0 },
-              attrs: { height: "44px" }
+              attrs: { height: "55px" }
             },
             [
               _c("div", { staticClass: "layout-header-l" }, [
@@ -25281,7 +25311,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "layout-header-r" }, [
                 _c(
-                  "span",
+                  "div",
                   {
                     staticClass:
                       "layout-header-trigger layout-header-trigger-min hover"
@@ -25297,7 +25327,7 @@ var render = function() {
                             _c("el-avatar", {
                               attrs: {
                                 src: _vm.page_data.user.avatar,
-                                size: 30
+                                size: 25
                               }
                             }),
                             _vm._v(" "),
@@ -25319,26 +25349,11 @@ var render = function() {
                               [
                                 _c("el-dropdown-item", [
                                   _c("i", {
-                                    staticClass: "el-icon-user",
-                                    attrs: { size: "18" }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("个人中心")])
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              [
-                                _c("el-dropdown-item", [
-                                  _c("i", {
                                     staticClass: "el-icon-setting",
                                     attrs: { size: "18" }
                                   }),
                                   _vm._v(" "),
-                                  _c("span", [_vm._v("设置")])
+                                  _c("span", [_vm._v("个人设置")])
                                 ])
                               ],
                               1
@@ -25348,18 +25363,14 @@ var render = function() {
                               "a",
                               { on: { click: _vm.onLogout } },
                               [
-                                _c(
-                                  "el-dropdown-item",
-                                  { attrs: { divided: "" } },
-                                  [
-                                    _c("i", {
-                                      staticClass: "el-icon-right",
-                                      attrs: { size: "18" }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("span", [_vm._v("退出登陆")])
-                                  ]
-                                )
+                                _c("el-dropdown-item", [
+                                  _c("i", {
+                                    staticClass: "el-icon-right",
+                                    attrs: { size: "18" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("退出登陆")])
+                                ])
                               ],
                               1
                             )
@@ -25370,6 +25381,15 @@ var render = function() {
                     )
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "layout-header-trigger layout-header-trigger-min hover"
+                  },
+                  [_c("i", { staticClass: "el-icon-setting icon-btn" })]
                 )
               ])
             ]
@@ -25851,92 +25871,194 @@ var render = function() {
     "div",
     { staticClass: "grid-container" },
     [
-      _c("div", { staticClass: "grid-top-container" }, [
-        _c(
-          "div",
-          { staticClass: "grid-top-container-left" },
-          [
-            _vm.attrs.selection
-              ? _c("BatchActions", {
-                  attrs: {
-                    routers: _vm.attrs.routers,
-                    key_name: _vm.attrs.keyName,
-                    rows: _vm.selectionRows
-                  }
-                })
-              : _vm._e(),
+      _c(
+        "el-card",
+        { attrs: { shadow: "never", "body-style": { padding: 0 } } },
+        [
+          _c("div", { staticClass: "grid-top-container" }, [
+            _c(
+              "div",
+              { staticClass: "grid-top-container-left" },
+              [
+                _vm.attrs.selection
+                  ? _c("BatchActions", {
+                      attrs: {
+                        routers: _vm.attrs.routers,
+                        key_name: _vm.attrs.keyName,
+                        rows: _vm.selectionRows
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "search-view" },
+                  [
+                    _c(
+                      "el-input",
+                      {
+                        attrs: {
+                          size: "medium",
+                          placeholder: "",
+                          clearable: false
+                        },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      },
+                      [
+                        _c(
+                          "el-button",
+                          { attrs: { slot: "append" }, slot: "append" },
+                          [_vm._v("搜索")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "search-view" },
+              { staticClass: "grid-top-container-right" },
               [
                 _c(
-                  "el-input",
-                  {
-                    attrs: { size: "medium", placeholder: "" },
-                    model: {
-                      value: _vm.search,
-                      callback: function($$v) {
-                        _vm.search = $$v
-                      },
-                      expression: "search"
-                    }
-                  },
+                  "router-link",
+                  { attrs: { to: _vm.path + "/create" } },
                   [
-                    _c("el-button", {
-                      attrs: { slot: "append", icon: "el-icon-search" },
-                      slot: "append"
-                    })
+                    _c(
+                      "el-button",
+                      {
+                        staticClass: "mr-10",
+                        attrs: {
+                          type: "primary",
+                          size: "medium",
+                          icon: "el-icon-plus"
+                        }
+                      },
+                      [_vm._v("新建")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("el-divider", { attrs: { direction: "vertical" } }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "icon-actions" },
+                  [
+                    _c(
+                      "el-dropdown",
+                      { attrs: { trigger: "click" } },
+                      [
+                        _c(
+                          "el-tooltip",
+                          {
+                            staticClass: "item",
+                            attrs: {
+                              effect: "dark",
+                              content: "密度",
+                              placement: "top"
+                            }
+                          },
+                          [_c("i", { staticClass: "el-icon-rank hover" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "el-dropdown-menu",
+                          { attrs: { slot: "dropdown" }, slot: "dropdown" },
+                          [
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.attrs.attributes.size = null
+                                  }
+                                }
+                              },
+                              [_c("el-dropdown-item", [_vm._v("正常")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.attrs.attributes.size = "medium"
+                                  }
+                                }
+                              },
+                              [_c("el-dropdown-item", [_vm._v("中等")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.attrs.attributes.size = "small"
+                                  }
+                                }
+                              },
+                              [_c("el-dropdown-item", [_vm._v("紧凑")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.attrs.attributes.size = "mini"
+                                  }
+                                }
+                              },
+                              [_c("el-dropdown-item", [_vm._v("迷你")])],
+                              1
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-tooltip",
+                      {
+                        staticClass: "item",
+                        attrs: {
+                          effect: "dark",
+                          content: "刷新",
+                          placement: "top"
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "el-icon-refresh hover",
+                          on: { click: _vm.getData }
+                        })
+                      ]
+                    )
                   ],
                   1
                 )
               ],
               1
             )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "grid-top-container-right" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: _vm.path + "/create" } },
-              [
-                _c(
-                  "el-button",
-                  {
-                    attrs: {
-                      type: "primary",
-                      size: "medium",
-                      icon: "el-icon-circle-plus-outline"
-                    }
-                  },
-                  [_vm._v("新建")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("el-button", {
-              attrs: {
-                loading: _vm.loading,
-                size: "medium",
-                icon: "el-icon-refresh"
-              },
-              on: { click: _vm.getData }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "el-card",
-        { attrs: { shadow: "never", "body-style": { padding: 0 } } },
-        [
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             [

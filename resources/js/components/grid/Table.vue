@@ -1,27 +1,53 @@
 <template>
   <div class="grid-container">
-    <div class="grid-top-container">
-      <div class="grid-top-container-left">
-        <BatchActions
-          :routers="attrs.routers"
-          :key_name="attrs.keyName"
-          :rows="selectionRows"
-          v-if="attrs.selection"
-        />
-        <div class="search-view">
-          <el-input v-model="search" size="medium" placeholder>
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
+    <el-card shadow="never" :body-style="{padding:0}">
+      <div class="grid-top-container">
+        <div class="grid-top-container-left">
+          <BatchActions
+            :routers="attrs.routers"
+            :key_name="attrs.keyName"
+            :rows="selectionRows"
+            v-if="attrs.selection"
+          />
+          <div class="search-view">
+            <el-input v-model="search" size="medium" placeholder :clearable="false">
+              <el-button slot="append">搜索</el-button>
+            </el-input>
+          </div>
+        </div>
+        <div class="grid-top-container-right">
+          <router-link :to="path+'/create'">
+            <el-button type="primary" class="mr-10" size="medium" icon="el-icon-plus">新建</el-button>
+          </router-link>
+          <el-divider direction="vertical"></el-divider>
+          <div class="icon-actions">
+            <el-dropdown trigger="click">
+              <el-tooltip class="item" effect="dark" content="密度" placement="top">
+                <i class="el-icon-rank hover"></i>
+              </el-tooltip>
+              <el-dropdown-menu slot="dropdown">
+                <a @click="attrs.attributes.size = null">
+                  <el-dropdown-item>正常</el-dropdown-item>
+                </a>
+                <a @click="attrs.attributes.size = 'medium'">
+                  <el-dropdown-item>中等</el-dropdown-item>
+                </a>
+                <a @click="attrs.attributes.size = 'small'">
+                  <el-dropdown-item>紧凑</el-dropdown-item>
+                </a>
+                <a @click="attrs.attributes.size = 'mini'">
+                  <el-dropdown-item>迷你</el-dropdown-item>
+                </a>
+              </el-dropdown-menu>
+            </el-dropdown>
+
+            <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+              <i class="el-icon-refresh hover" @click="getData"></i>
+            </el-tooltip>
+          </div>
         </div>
       </div>
-      <div class="grid-top-container-right">
-        <router-link :to="path+'/create'">
-          <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline">新建</el-button>
-        </router-link>
-        <el-button :loading="loading" @click="getData" size="medium" icon="el-icon-refresh"></el-button>
-      </div>
-    </div>
-    <el-card shadow="never" :body-style="{padding:0}">
+
       <div>
         <el-table
           v-loading="loading"
@@ -213,16 +239,30 @@ export default {
 <style lang="scss">
 .grid-container {
   .table-page {
-    padding: 16px 0;
+    padding: 8px 0;
   }
   .grid-top-container {
-    padding: 16px 0px;
+    padding: 8px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ebeef5;
     .grid-top-container-left {
       display: flex;
       align-items: center;
       .search-view {
+      }
+    }
+    .grid-top-container-right {
+      display: flex;
+      align-items: center;
+      .icon-actions {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        i {
+          font-size: 20px;
+          margin-right: 10px;
+        }
       }
     }
   }

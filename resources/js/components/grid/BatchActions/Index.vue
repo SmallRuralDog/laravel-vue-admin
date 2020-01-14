@@ -26,12 +26,18 @@ export default {
       )
         .then(() => {
           const deleteUrl = this.routers.resource + "/" + this.keys;
+          const msg = this.$Message.loading({
+            content: "正在删除...",
+            duration: 0
+          });
           this.$http
             .delete(deleteUrl)
             .then(({ code }) => {
               code === 200 && this.$bus.emit("tableReload");
             })
-            .finally(() => {});
+            .finally(() => {
+              msg();
+            });
         })
         .catch(() => {});
     }
