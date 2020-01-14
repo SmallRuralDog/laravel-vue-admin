@@ -1,0 +1,10 @@
+<?php
+
+use Illuminate\Routing\Router;
+
+Route::group([
+    'prefix' => config('admin.route.api_prefix'),
+    'middleware' => config('admin.route.middleware'),
+], function (Router $router) {
+    $router->get('/home', HomeController::class . '@index')->name('admin.home');
+});

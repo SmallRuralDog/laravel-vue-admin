@@ -47,7 +47,7 @@ class MenuController extends AdminController
             })),
             $form->item('title', '名称')->required(),
             $form->item('icon', trans('admin::admin.icon')),
-            $form->item('uri', trans('admin::admin.uri')),
+            $form->item('uri', trans('admin::admin.uri'))->required(),
             $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
                 return $roleModel::all()->map(function ($role) {
                     return SelectOption::make($role->id, $role->name);

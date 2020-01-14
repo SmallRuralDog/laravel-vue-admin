@@ -8,6 +8,12 @@ use Illuminate\Support\ServiceProvider;
 class AdminServiceProvider extends ServiceProvider
 {
 
+    protected $commands = [
+
+        Console\InstallCommand::class,
+
+    ];
+
     protected $routeMiddleware = [
         'admin.auth' => Middleware\Authenticate::class,
         'admin.pjax' => Middleware\Pjax::class,
@@ -47,6 +53,8 @@ class AdminServiceProvider extends ServiceProvider
         if (file_exists($routes = admin_path('routes.php'))) {
             $this->loadRoutesFrom($routes);
         }
+
+        $this->registerPublishing();
     }
 
     /**
@@ -62,7 +70,19 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->registerRouteMiddleware();
 
+        $this->commands($this->commands);
 
+
+    }
+
+
+    protected function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([__DIR__ . '/../config' => config_path()], 'laravel-vue-admin-config');
+            $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang')], 'laravel-vue-admin-lang');
+            $this->publishes([__DIR__ . '/../public' => public_path('vendor/laravel-vue-admin')], 'laravel-vue-admin-assets');
+        }
     }
 
     protected function loadAdminAuthConfig()

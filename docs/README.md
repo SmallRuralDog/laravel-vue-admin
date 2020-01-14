@@ -1,3 +1,8 @@
 # Laravel-Vue-Admin
 
-正在开发中，请勿使用！！！
+
+## 安装
+
+``` bash
+$ composer require smallruraldog/laravel-vue-admin
+```

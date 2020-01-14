@@ -1,16 +1,20 @@
 {
     "name": "smallruraldog/laravel-vue-admin",
-    "description": ":description",
-    "license": "license",
+    "description": "开箱即用的Laravel后台扩展",
+    "license": "MIT",
+    "version": "v0.0.1",
     "authors": [
         {
-            "name": "author name",
-            "email": "author email",
-            "homepage": "author homepage"
+            "name": "zhang wei",
+            "email": "thinktb@qq.com"
         }
     ],
     "homepage": "https://github.com/smallruraldog/admin",
-    "keywords": ["Laravel", "Admin"],
+    "keywords": [
+        "Laravel",
+        "Admin",
+        "Vue"
+    ],
     "require": {
         "illuminate/support": "~5|~6"
     },

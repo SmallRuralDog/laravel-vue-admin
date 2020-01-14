@@ -1,5 +1,0 @@
-* [首页](/zh-cn/)
-* [布局](/zh-cn/content)
-* [模型表格](/zh-cn/grid)
-* [模型表单](/zh-cn/form)
-* [内置组件](/zh-cn/components)

@@ -18,13 +18,13 @@ class AdminTablesSeeder extends Seeder
         Administrator::create([
             'username' => 'admin',
             'password' => bcrypt('admin'),
-            'name' => 'Administrator',
+            'name' => '超级管理员',
         ]);
 
         // create a role.
         Role::truncate();
         Role::create([
-            'name' => 'Administrator',
+            'name' => '超级管理员',
             'slug' => 'administrator',
         ]);
 
@@ -35,31 +35,31 @@ class AdminTablesSeeder extends Seeder
         Permission::truncate();
         Permission::insert([
             [
-                'name' => 'All permission',
+                'name' => '所有权限',
                 'slug' => '*',
                 'http_method' => '',
                 'http_path' => '*',
             ],
             [
-                'name' => 'Dashboard',
+                'name' => '首页',
                 'slug' => 'dashboard',
                 'http_method' => 'GET',
                 'http_path' => '/',
             ],
             [
-                'name' => 'Login',
+                'name' => '登录/退出',
                 'slug' => 'auth.login',
                 'http_method' => '',
                 'http_path' => "/auth/login\r\n/auth/logout",
             ],
             [
-                'name' => 'User setting',
+                'name' => '用户设置',
                 'slug' => 'auth.setting',
                 'http_method' => 'GET,PUT',
                 'http_path' => '/auth/setting',
             ],
             [
-                'name' => 'Auth management',
+                'name' => '系统设置',
                 'slug' => 'auth.management',
                 'http_method' => '',
                 'http_path' => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
@@ -75,58 +75,51 @@ class AdminTablesSeeder extends Seeder
             [
                 'parent_id' => 0,
                 'order' => 1,
-                'title' => 'Dashboard',
-                'icon' => 'fa-bar-chart',
-                'uri' => '/',
-                'controller' => 'Dashboard'
+                'title' => '首页',
+                'icon' => 'el-icon-monitor',
+                'uri' => '/home',
             ],
             [
                 'parent_id' => 0,
                 'order' => 2,
-                'title' => 'Admin',
-                'icon' => 'fa-tasks',
-                'uri' => 'admin',
-                'controller' => 'Admin'
+                'title' => '系统',
+                'icon' => 'el-icon-setting',
+                'uri' => 'system',
             ],
             [
                 'parent_id' => 2,
                 'order' => 3,
-                'title' => 'Users',
+                'title' => '管理员',
                 'icon' => 'fa-users',
                 'uri' => 'auth/users',
-                'controller' => 'SmallRuralDog\Admin\Controllers\UserController'
             ],
             [
                 'parent_id' => 2,
                 'order' => 4,
-                'title' => 'Roles',
+                'title' => '角色',
                 'icon' => 'fa-user',
                 'uri' => 'auth/roles',
-                'controller' => 'SmallRuralDog\Admin\Controllers\RolesController'
             ],
             [
                 'parent_id' => 2,
                 'order' => 5,
-                'title' => 'Permission',
+                'title' => '权限',
                 'icon' => 'fa-ban',
                 'uri' => 'auth/permissions',
-                'controller' => 'SmallRuralDog\Admin\Controllers\PermissionController'
             ],
             [
                 'parent_id' => 2,
                 'order' => 6,
-                'title' => 'Menu',
+                'title' => '菜单',
                 'icon' => 'fa-bars',
                 'uri' => 'auth/menu',
-                'controller' => 'SmallRuralDog\Admin\Controllers\MenuController'
             ],
             [
                 'parent_id' => 2,
                 'order' => 7,
-                'title' => 'Operation log',
+                'title' => '操作日志',
                 'icon' => 'fa-history',
                 'uri' => 'auth/logs',
-                'controller' => 'SmallRuralDog\Admin\Controllers\LogController'
             ],
         ]);
 
