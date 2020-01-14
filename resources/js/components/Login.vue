@@ -100,7 +100,7 @@
 
     .page-account-container {
         flex: 1;
-        padding: 32px 0;
+        padding: 7% 0;
         width: 384px;
         margin: 0 auto;
 

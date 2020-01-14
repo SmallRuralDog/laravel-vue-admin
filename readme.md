@@ -4,6 +4,8 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都�
 
 [文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
 
+![界面预览](https://user-images.githubusercontent.com/5151848/72328488-f55ec800-36ed-11ea-9550-ab10e93e691f.png)
+
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 ``` bash
