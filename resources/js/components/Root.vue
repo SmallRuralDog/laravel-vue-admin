@@ -234,6 +234,9 @@ export default {
       });
     });
   },
+  destroyed() {
+    this.$bus.off("route-after");
+  },
   computed: {
     menuitemClasses() {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];

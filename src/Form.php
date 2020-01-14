@@ -329,7 +329,7 @@ class Form extends Component implements JsonSerializable
         }
 
         if (($response = $this->prepare($data)) instanceof Response) {
-            return Admin::responseError($response);
+            return $response;
         }
 
         DB::transaction(function () use ($data) {
@@ -340,6 +340,9 @@ class Form extends Component implements JsonSerializable
             $this->model->save();
             $this->updateRelation($this->relations);
         });
+        if (($result = $this->callSaved()) instanceof Response) {
+            return $result;
+        }
         return Admin::responseMessage(trans('admin::admin.save_succeeded'));
     }
 
@@ -396,7 +399,7 @@ class Form extends Component implements JsonSerializable
         }
 
         if (($response = $this->prepare($data)) instanceof Response) {
-            return Admin::responseError($response);
+            return $response;
         }
         DB::transaction(function () use ($data) {
 
@@ -406,9 +409,13 @@ class Form extends Component implements JsonSerializable
                 $this->model->setAttribute($key, $value);
             }
             $this->model->save();
-
             $this->updateRelation($this->relations);
         });
+
+        if (($result = $this->callSaved()) instanceof Response) {
+            return $result;
+        }
+
         return Admin::responseMessage(trans('admin::admin.update_succeeded'));
     }
 
@@ -436,7 +443,9 @@ class Form extends Component implements JsonSerializable
                 || $relation instanceof Relations\MorphOne
                 || $relation instanceof Relations\BelongsTo;
 
-            $prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
+            //$prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
+
+            $prepared = [$name => $values];
 
             if (empty($prepared)) {
                 continue;
