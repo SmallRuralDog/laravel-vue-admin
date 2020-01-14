@@ -165,8 +165,10 @@ export default {
     this.$bus.on("tableReload", () => {
       this.getData();
     });
-
     this.path = this.$route.path;
+  },
+  destroyed() {
+    this.$bus.off("tableReload");
   },
   methods: {
     //获取数据
