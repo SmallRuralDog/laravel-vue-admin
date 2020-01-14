@@ -13,8 +13,8 @@ axios.interceptors.request.use(config => {
 });
 axios.interceptors.response.use(
     ({
-         data
-     }) => {
+        data
+    }) => {
         // 对响应数据做点什么
         switch (data.code) {
             case 400:
@@ -33,11 +33,11 @@ axios.interceptors.response.use(
                 });
                 break;
         }
-        return data
+        return data;
     },
     ({
-         response
-     }) => {
+        response
+    }) => {
         console.log(response)
         // 对响应错误做点什么
         Notice.error({

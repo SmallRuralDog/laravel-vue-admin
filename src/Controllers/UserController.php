@@ -50,8 +50,8 @@ class UserController extends AdminController
             $form->item('username', '用户名')->displayComponent(Input::make()->prefixIcon('el-icon-eleme')),
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
             $form->item('avatar', '头像'),
-            $form->item('password', '密码')->displayComponent(Input::make()->password()->showPassword()),
-            //$form->item('password_confirmation', '确认密码')->displayComponent(Input::make()->password()->showPassword()),
+            $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])->displayComponent(Input::make()->password()->showPassword()),
+            $form->item('password_confirmation', '确认密码')->displayComponent(Input::make()->password()->showPassword()),
             $form->item('roles', '角色')->displayComponent(Select::make()->block()->multiple()->options($roleModel::all()->map(function ($role) {
                 return SelectOption::make($role->id, $role->name);
             })->toArray())),
@@ -59,6 +59,10 @@ class UserController extends AdminController
                 return SelectOption::make($role->id, $role->name);
             })->toArray())),
         ]);
+
+        $form->saving(function (Form $form) {
+
+        });
 
         return $form;
     }

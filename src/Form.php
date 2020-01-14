@@ -4,21 +4,24 @@
 namespace SmallRuralDog\Admin;
 
 use Admin;
+use Arr;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use JsonSerializable;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
+use SmallRuralDog\Admin\Form\HasHooks;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
+use Str;
+use Symfony\Component\HttpFoundation\Response;
 
-class Form extends Component implements \JsonSerializable
+class Form extends Component implements JsonSerializable
 {
-    use TraitFormAttrs;
+    use TraitFormAttrs,HasHooks;
 
     protected $componentName = "Form";
 
@@ -61,6 +64,7 @@ class Form extends Component implements \JsonSerializable
     protected $inputs = [];
 
     protected $isGetData = false;
+
     /**
      * Form constructor.
      * @param $model
@@ -227,13 +231,29 @@ class Form extends Component implements \JsonSerializable
         }
     }
 
+    public function input($key, $value = null)
+    {
+        if (is_null($value)) {
+            return Arr::get($this->inputs, $key);
+        }
+        return Arr::set($this->inputs, $key, $value);
+    }
+
+
     protected function prepare($data = [])
     {
+
+        if (($response = $this->callSubmitted()) instanceof Response) {
+            return $response;
+        }
 
         $this->inputs = array_merge($this->removeIgnoredFields($data), $this->inputs);
 
         $this->relations = $this->getRelationInputs($this->inputs);
 
+        if (($response = $this->callSaving()) instanceof Response) {
+            return $response;
+        }
 
         $this->updates = Arr::except($this->inputs, array_keys($this->relations));
 
@@ -266,8 +286,12 @@ class Form extends Component implements \JsonSerializable
     protected function prepareInsert($inserts)
     {
         $prepared = [];
+
+        $columns = \Schema::getColumnListing($this->model()->getTable());
         foreach ($inserts as $key => $value) {
-            Arr::set($prepared, $key, $value);
+            if (in_array($key, $columns)) {
+                Arr::set($prepared, $key, $value);
+            }
         }
         return $prepared;
     }
@@ -304,7 +328,9 @@ class Form extends Component implements \JsonSerializable
             return Admin::responseError($validationMessages);
         }
 
-        $this->prepare($data);
+        if (($response = $this->prepare($data)) instanceof Response) {
+            return Admin::responseError($response);
+        }
 
         DB::transaction(function () use ($data) {
             $inserts = $this->prepareInsert($this->updates);
@@ -330,7 +356,7 @@ class Form extends Component implements \JsonSerializable
 
         $this->setResourceId($id);
 
-        return  $this;
+        return $this;
     }
 
     /**
@@ -530,5 +556,15 @@ class Form extends Component implements \JsonSerializable
             'defaultValues' => $this->formItemsValue,
         ];
 
+    }
+
+    public function __get($name)
+    {
+        return $this->input($name);
+    }
+
+    public function __set($name, $value)
+    {
+        return Arr::set($this->inputs, $name, $value);
     }
 }

@@ -101,7 +101,7 @@ export default {
             this.$http
               .put(this.attrs.action, this.formData)
               .then(({ data }) => {
-                this.$router.go(-1);
+                data.code == 200 && this.$router.go(-1);
               })
               .finally(() => {
                 this.loading = false;
@@ -110,7 +110,7 @@ export default {
             this.$http
               .post(this.attrs.action, this.formData)
               .then(({ data }) => {
-                this.$router.go(-1);
+                data.code == 200 && this.$router.go(-1);
               })
               .finally(() => {
                 this.loading = false;

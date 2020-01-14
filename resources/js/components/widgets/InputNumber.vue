@@ -2,7 +2,7 @@
   <el-input-number
     :style="attrs.style"
     :class="attrs.className"
-    v-model="vm"
+    :value="value"
     :min="attrs.min"
     :max="attrs.max"
     :step="attrs.step"
@@ -23,12 +23,11 @@ export default {
   props: {
     attrs: Object,
     value: {
-      default: null
+      default: 0
     }
   },
   data() {
     return {
-      vm: 0
     };
   },
   model: {

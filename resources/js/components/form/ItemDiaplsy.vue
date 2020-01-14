@@ -26,8 +26,6 @@ export default {
   },
   methods: {
     onChange(value) {
-      console.log(value);
-
       this.$emit("change", value);
     }
   }

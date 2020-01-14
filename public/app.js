@@ -573,16 +573,14 @@ __webpack_require__.r(__webpack_exports__);
           if (_this2.isEdit) {
             _this2.$http.put(_this2.attrs.action, _this2.formData).then(function (_ref2) {
               var data = _ref2.data;
-
-              _this2.$router.go(-1);
+              data.code == 200 && _this2.$router.go(-1);
             })["finally"](function () {
               _this2.loading = false;
             });
           } else {
             _this2.$http.post(_this2.attrs.action, _this2.formData).then(function (_ref3) {
               var data = _ref3.data;
-
-              _this2.$router.go(-1);
+              data.code == 200 && _this2.$router.go(-1);
             })["finally"](function () {
               _this2.loading = false;
             });
@@ -637,7 +635,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onChange: function onChange(value) {
-      console.log(value);
       this.$emit("change", value);
     }
   }
@@ -1728,13 +1725,11 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     attrs: Object,
     value: {
-      "default": null
+      "default": 0
     }
   },
   data: function data() {
-    return {
-      vm: 0
-    };
+    return {};
   },
   model: {
     prop: "value",
@@ -27151,6 +27146,7 @@ var render = function() {
     class: _vm.attrs.className,
     style: _vm.attrs.style,
     attrs: {
+      value: _vm.value,
       min: _vm.attrs.min,
       max: _vm.attrs.max,
       step: _vm.attrs.step,
@@ -27164,14 +27160,7 @@ var render = function() {
       name: _vm.attrs.name,
       placeholder: _vm.attrs.placeholder
     },
-    on: { change: _vm.onChange },
-    model: {
-      value: _vm.vm,
-      callback: function($$v) {
-        _vm.vm = $$v
-      },
-      expression: "vm"
-    }
+    on: { change: _vm.onChange }
   })
 }
 var staticRenderFns = []
