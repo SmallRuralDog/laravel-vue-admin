@@ -15,7 +15,7 @@ style(['width'=>'100px']);
 Tag::make();
 ```
 
-### type
+#### type
 
 默认，会从 success/info/warning/danger 随机显示一个
 
@@ -41,25 +41,25 @@ Tag::make()->type(['info','danger']);
 Tag::make()->type(['yes'=>'info','on'=>'danger',1=>'success',0=>'warning']);
 ```
 
-### 是否可关闭
+#### 是否可关闭
 
 ```php
 Tag::make()->closable();
 ```
 
-### 是否禁用渐变动画
+#### 是否禁用渐变动画
 
 ```php
 Tag::make()->disableTransitions();
 ```
 
-### 是否有边框描边
+#### 是否有边框描边
 
 ```php
 Tag::make()->hit();
 ```
 
-### 尺寸
+#### 尺寸
 
 medium / small / mini
 
@@ -67,7 +67,7 @@ medium / small / mini
 Tag::make()->size('mini');
 ```
 
-### 主题
+#### 主题
 
 dark / light / plain
 
@@ -80,7 +80,7 @@ Tag::make()->effect('dark');
 ```php
 Link::make();
 ```
-### type设置
+#### type设置
 默认，会从 primary / success / warning / danger / info	随机显示一个
 ```php
 Tag::make()->type();
@@ -91,19 +91,19 @@ Tag::make()->type(['info','danger']);
 //指定值对应
 Tag::make()->type(['yes'=>'info','on'=>'danger',1=>'success',0=>'warning']);
 ```
-### 是否下划线
+#### 是否下划线
 ```php
 Tag::make()->underline();
 ```
-### 是否禁用状态
+#### 是否禁用状态
 ```php
 Tag::make()->disabled();
 ```
-### 原生 href 属性
+#### 原生 href 属性
 ```php
 Tag::make()->href("http://www.baidu.com");
 ```
-### 图标类名
+#### 图标类名
 
 可直接使用内置 [Icon 图标](https://element.eleme.cn/#/zh-CN/component/icon)，或使用自定义图标
 ```php

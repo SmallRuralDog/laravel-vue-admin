@@ -118,7 +118,6 @@ $grid->tooltipEffect('dark');
 $grid->tooltipEffect('light');
 ```
 
-## 其他设置
 
 ### 多选
 
@@ -170,7 +169,7 @@ $grid->perPage(20);
 $grid->pageBackground();
 ```
 
-## 表格字段
+## 字段使用
 
 Table 的数据列
 

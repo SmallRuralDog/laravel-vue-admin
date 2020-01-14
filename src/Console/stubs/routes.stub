@@ -6,5 +6,6 @@ Route::group([
     'prefix' => config('admin.route.api_prefix'),
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
+    $router->get('/', HomeController::class . '@index')->name('admin.home');
     $router->get('/home', HomeController::class . '@index')->name('admin.home');
 });
