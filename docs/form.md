@@ -4,7 +4,7 @@
 
 ## 使用示例
 
-```php
+``` php
 $form = new Form(new User());
 $form->items([
     $form->item('username', '用户名')->displayComponent(Input::make()->prefixIcon('el-icon-eleme')),
@@ -19,7 +19,7 @@ return $form;
 
 ### 行内模式
 
-```php
+``` php
 $form->inline();
 ```
 
@@ -27,7 +27,7 @@ $form->inline();
 
 > 如果值为 left 或者 right 时，则需要设置 label-width
 
-```php
+``` php
 $form->labelPosition("right");
 ```
 
@@ -35,13 +35,13 @@ $form->labelPosition("right");
 
 > 例如 '50px'。作为 Form 直接子元素的 form-item 会继承该值。支持 auto
 
-```php
+``` php
 $form->labelWidth("150px");
 ```
 
 ### 标签后缀
 
-```php
+``` php
 $form->labelWidth(":");
 ```
 
@@ -49,7 +49,7 @@ $form->labelWidth(":");
 
 > 是否显示必填字段的标签旁边的红色星号
 
-```php
+``` php
 $form->hideRequiredAsterisk(false);
 ```
 
@@ -57,13 +57,15 @@ $form->hideRequiredAsterisk(false);
 
 > 是否显示校验错误信息
 
-```php
+``` php
 $form->showMessage(false);
 ```
 
 ### 行内展示信息
->行内形式展示校验信息
-```php
+
+> 行内形式展示校验信息
+
+``` php
 $form->inlineMessage(true);
 ```
 
@@ -71,19 +73,21 @@ $form->inlineMessage(true);
 
 > 是否在输入框中显示校验结果反馈图标
 
-```php
+``` php
 $form->statusIcon(true);
 ```
 
 ### 触发验证
->是否在 rules 属性改变后立即触发一次验证
-```php
+
+> 是否在 rules 属性改变后立即触发一次验证
+
+``` php
 $form->validateOnRuleChange(true);
 ```
 
 ### 组件尺寸
 
-```php
+``` php
 $form->size("small");
 ```
 
@@ -91,7 +95,7 @@ $form->size("small");
 
 > 是否禁用该表单内的所有组件。若设置为 true，则表单内组件上的 disabled 属性不再生效
 
-```php
+``` php
 $form->disabled(true);
 ```
 
@@ -101,31 +105,56 @@ $form->disabled(true);
 
 ### 创建字段
 
-```php
+``` php
  $form->item('username', '用户名')
+```
+
+### 复制其他字段值
+
+> 编辑时复制其他字段的值，例如在确认密码框时可以用到
+
+``` php
+$form->item('password_confirmation', '确认密码')->copyValue('password')
+
+$form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
+    ->displayComponent(function (){
+        return Input::make()->password()->showPassword();
+    })
+$form->item('password_confirmation', '确认密码')
+    ->copyValue('password')
+    ->displayComponent(function () {
+        return Input::make()->password()->showPassword();
+    })
 ```
 
 ### 标签的宽度
 
-```php
+``` php
  $form->item('username', '用户名')->labelWidth("120px")
 ```
 
 ### 是否必填
 
-```php
+``` php
  $form->item('username', '用户名')->required()
 ```
 
 ### 后端规则
 
-```php
-$form->item('username', '用户名')->serveRules(["required"], ["required" => '必填'])
+``` php
+//通用规则
+$form->item('username', '用户名')->serveRules(["required"])
+//创建时规则
+$form->item('username', '用户名')->serveCreationRules(["required"])
+//更新时规则
+$form->item('username', '用户名')->serveUpdateRules(["required"])
+//自定义验证消息
+$form->item('username', '用户名')->serveRulesMessage(["required" => '必填'])
 ```
 
 ### 前端规则
 
-```php
+``` php
  $form->item('username', '用户名')->rules([
      ['required' => true, 'message' => '标识必填', 'trigger' => 'blur']
  ])
@@ -133,32 +162,35 @@ $form->item('username', '用户名')->serveRules(["required"], ["required" => '�
 
 ### 错误信息
 
-```php
+``` php
  $form->item('username', '用户名')->error("error")
 ```
 
 ### 显示错误信息
 
-```php
+``` php
  $form->item('username', '用户名')->showMessage()
 ```
 
 ### 行内展示信息
 
-```php
+``` php
  $form->item('username', '用户名')->inlineMessage()
 ```
 
 ### 组件的尺寸
 
-```php
+``` php
  $form->item('username', '用户名')->size("small")
 ```
 
 ### 帮助信息
->支持 html
 
-```php
+> 支持 html
+
+``` php
  $form->item('username', '用户名')->help("help content")
 ```
+
 ## 表单事件
+

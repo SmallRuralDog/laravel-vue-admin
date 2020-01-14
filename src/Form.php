@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Form extends Component implements JsonSerializable
 {
-    use TraitFormAttrs,HasHooks;
+    use TraitFormAttrs, HasHooks;
 
     protected $componentName = "Form";
 
@@ -387,14 +387,22 @@ class Form extends Component implements JsonSerializable
     public function update($id, $data = null)
     {
         $data = ($data) ?: request()->all();
+
+        $builder = $this->model();
+        $this->model = $builder->findOrFail($id);
+
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
         }
-        $builder = $this->model();
-        $this->model = $builder->findOrFail($id);
-        $this->prepare($data);
+
+        if (($response = $this->prepare($data)) instanceof Response) {
+            return Admin::responseError($response);
+        }
         DB::transaction(function () use ($data) {
-            foreach ($this->updates as $key => $value) {
+
+            $updates = $this->prepareUpdate($this->updates);
+
+            foreach ($updates as $key => $value) {
                 $this->model->setAttribute($key, $value);
             }
             $this->model->save();
@@ -407,8 +415,13 @@ class Form extends Component implements JsonSerializable
     protected function prepareUpdate(array $updates, $oneToOneRelation = false)
     {
         $prepared = [];
-
-        return $updates;
+        $columns = \Schema::getColumnListing($this->model()->getTable());
+        foreach ($updates as $key => $value) {
+            if (in_array($key, $columns)) {
+                Arr::set($prepared, $key, $value);
+            }
+        }
+        return $prepared;
     }
 
     private function updateRelation($relationsData)
@@ -531,6 +544,12 @@ class Form extends Component implements JsonSerializable
             $field = $formItem->getField();
             $prop = $formItem->getProp();
             $data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
+        }
+        foreach ($this->formItems as $formItem) {
+            $prop = $formItem->getProp();
+            if ($formItem->getCopyProp()) {
+                $data[$prop] = $data[$formItem->getCopyProp()];
+            }
         }
         return [
             'code' => 200,

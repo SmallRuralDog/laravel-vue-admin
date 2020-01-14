@@ -572,15 +572,19 @@ __webpack_require__.r(__webpack_exports__);
 
           if (_this2.isEdit) {
             _this2.$http.put(_this2.attrs.action, _this2.formData).then(function (_ref2) {
-              var data = _ref2.data;
-              data.code == 200 && _this2.$router.go(-1);
+              var data = _ref2.data,
+                  code = _ref2.code,
+                  message = _ref2.message;
+              code == 200 && _this2.$router.go(-1);
             })["finally"](function () {
               _this2.loading = false;
             });
           } else {
             _this2.$http.post(_this2.attrs.action, _this2.formData).then(function (_ref3) {
-              var data = _ref3.data;
-              data.code == 200 && _this2.$router.go(-1);
+              var data = _ref3.data,
+                  code = _ref3.code,
+                  message = _ref3.message;
+              code == 200 && _this2.$router.go(-1);
             })["finally"](function () {
               _this2.loading = false;
             });
@@ -613,13 +617,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     value: {
       "default": null
     },
-    item: Object
+    item: Object,
+    form_data: Object
   },
   data: function data() {
     return {};
@@ -25916,7 +25927,7 @@ var render = function() {
                     },
                     [
                       _c("ItemDiaplsy", {
-                        attrs: { item: item },
+                        attrs: { item: item, form_data: _vm.formData },
                         model: {
                           value: _vm.formData[item.prop],
                           callback: function($$v) {
@@ -26012,7 +26023,11 @@ var render = function() {
         [
           _c(_vm.attrs.componentName, {
             tag: "component",
-            attrs: { value: _vm.value, attrs: _vm.attrs },
+            attrs: {
+              value: _vm.value,
+              attrs: _vm.attrs,
+              form_data: _vm.form_data
+            },
             on: { change: _vm.onChange }
           })
         ],

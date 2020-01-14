@@ -32,7 +32,7 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy v-model="formData[item.prop]" :item="item" />
+            <ItemDiaplsy v-model="formData[item.prop]" :item="item" :form_data='formData' />
             <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
           </el-form-item>
         </template>
@@ -100,8 +100,8 @@ export default {
           if (this.isEdit) {
             this.$http
               .put(this.attrs.action, this.formData)
-              .then(({ data }) => {
-                data.code == 200 && this.$router.go(-1);
+              .then(({ data, code, message }) => {
+                code == 200 && this.$router.go(-1);
               })
               .finally(() => {
                 this.loading = false;
@@ -109,8 +109,8 @@ export default {
           } else {
             this.$http
               .post(this.attrs.action, this.formData)
-              .then(({ data }) => {
-                data.code == 200 && this.$router.go(-1);
+              .then(({ data, code, message }) => {
+                code == 200 && this.$router.go(-1);
               })
               .finally(() => {
                 this.loading = false;

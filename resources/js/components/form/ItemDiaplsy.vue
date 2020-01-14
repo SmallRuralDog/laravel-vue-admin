@@ -1,6 +1,12 @@
 <template>
   <div v-if="attrs">
-    <component :value="value" :is="attrs.componentName" :attrs="attrs" @change="onChange" />
+    <component
+      :value="value"
+      :is="attrs.componentName"
+      :attrs="attrs"
+      :form_data="form_data"
+      @change="onChange"
+    />
   </div>
 </template>
 <script>
@@ -10,7 +16,8 @@ export default {
     value: {
       default: null
     },
-    item: Object
+    item: Object,
+    form_data: Object
   },
   data() {
     return {};

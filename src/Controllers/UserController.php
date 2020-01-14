@@ -45,13 +45,26 @@ class UserController extends AdminController
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $userModel());
 
+        $userTable = config('admin.database.users_table');
+        $connection = config('admin.database.connection');
 
         $form->items([
-            $form->item('username', '用户名')->displayComponent(Input::make()->prefixIcon('el-icon-eleme')),
+            $form->item('id', "ID")->displayComponent(Input::make()->disabled()),
+            $form->item('username', '用户名')
+                ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])
+                ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])
+                ->displayComponent(Input::make()),
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
             $form->item('avatar', '头像'),
-            $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])->displayComponent(Input::make()->password()->showPassword()),
-            $form->item('password_confirmation', '确认密码')->displayComponent(Input::make()->password()->showPassword()),
+            $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
+                ->displayComponent(function (){
+                    return Input::make()->password()->showPassword();
+                }),
+            $form->item('password_confirmation', '确认密码')
+                ->copyValue('password')
+                ->displayComponent(function () {
+                    return Input::make()->password()->showPassword();
+                }),
             $form->item('roles', '角色')->displayComponent(Select::make()->block()->multiple()->options($roleModel::all()->map(function ($role) {
                 return SelectOption::make($role->id, $role->name);
             })->toArray())),
@@ -61,7 +74,9 @@ class UserController extends AdminController
         ]);
 
         $form->saving(function (Form $form) {
-
+            if ($form->password && $form->model()->password != $form->password) {
+                $form->password = bcrypt($form->password);
+            }
         });
 
         return $form;

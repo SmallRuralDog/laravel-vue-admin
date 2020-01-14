@@ -23,6 +23,8 @@ class FormItem
 
     protected $defaultValue;
 
+    protected $copyProp;
+
     /**
      * @var Form
      */
@@ -30,6 +32,8 @@ class FormItem
 
 
     protected $serveRules;
+    protected $serveCreationRules;
+    protected $serveUpdateRules;
     protected $serveRulesMessage;
 
     protected $component;
@@ -96,16 +100,44 @@ class FormItem
     /**
      * 后端验证规则
      * @param string|array $serveRules
-     * @param $serveRulesMessage
      * @return $this
      */
-    public function serveRules($serveRules, $serveRulesMessage = [])
+    public function serveRules($serveRules)
     {
         $this->serveRules = $serveRules;
-        $this->serveRulesMessage = $serveRulesMessage;
-
         return $this;
     }
+
+    /**
+     * @param mixed $serveCreationRules
+     * @return FormItem
+     */
+    public function serveCreationRules($serveCreationRules)
+    {
+        $this->serveCreationRules = $serveCreationRules;
+        return $this;
+    }
+
+    /**
+     * @param mixed $serveUpdateRules
+     * @return FormItem
+     */
+    public function serveUpdateRules($serveUpdateRules)
+    {
+        $this->serveUpdateRules = $serveUpdateRules;
+        return $this;
+    }
+
+    /**
+     * @param mixed $serveRulesMessage
+     * @return FormItem
+     */
+    public function serveRulesMessage($serveRulesMessage)
+    {
+        $this->serveRulesMessage = $serveRulesMessage;
+        return $this;
+    }
+
 
     /**
      * @return mixed
@@ -115,14 +147,34 @@ class FormItem
         return $this->defaultValue ? $this->defaultValue : $this->component->getComponentValue();
     }
 
-    public function getData($data, $mdel)
+    /**
+     * 复制其他组件的值
+     * @param string $copyProp
+     * @return $this
+     */
+    public function copyValue($copyProp)
     {
-        if (!method_exists($mdel, $this->prop)) {
+        $this->copyProp = $copyProp;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyProp()
+    {
+        return $this->copyProp;
+    }
+
+    public function getData($data, $model)
+    {
+        if (!method_exists($model, $this->prop)) {
             return $data;
         } else {
-            if ($mdel->{$this->prop}() instanceof BelongsToMany) {
+            if ($model->{$this->prop}() instanceof BelongsToMany) {
                 /**@var BelongsToMany $re */
-                $re = $mdel->{$this->prop}();
+                $re = $model->{$this->prop}();
                 $data = collect($data)->pluck($re->getRelatedKeyName());
             }
         }
@@ -150,7 +202,40 @@ class FormItem
 
     public function getServeRole()
     {
-        return $this->serveRules;
+
+        if (request()->isMethod('POST')) {
+            $rules = $this->serveCreationRules ?: $this->serveRules;
+        } elseif (request()->isMethod('PUT')) {
+            $rules = $this->serveUpdateRules ?: $this->serveRules;
+        } else {
+            $rules = $this->rules;
+        }
+
+        if ($rules instanceof \Closure) {
+            $rules = $rules->call($this, $this->form);
+        }
+
+        if (is_string($rules)) {
+            $rules = array_filter(explode('|', $rules));
+        }
+
+        if (!$this->form) {
+            return $rules;
+        }
+
+        if (!$id = $this->form->model()->getKey()) {
+            return $rules;
+        }
+
+        if (is_array($rules)) {
+            foreach ($rules as &$rule) {
+                if (is_string($rule)) {
+                    $rule = str_replace('{{id}}', $id, $rule);
+                }
+            }
+        }
+
+        return $rules;
     }
 
     /**
