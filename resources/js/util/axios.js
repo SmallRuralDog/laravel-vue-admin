@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router'
 import {
     LoadingBar,
     Message,
@@ -24,7 +25,15 @@ axios.interceptors.response.use(
                 });
                 break;
             case 301:
-                window.location.replace(data.data)
+                try {
+                    if (data.data.isVueRoute) {
+                        router.replace(data.data.url)
+                    } else {
+                        window.location.replace = data.data.url
+                    }
+                } catch (error) {
+                    console.error("请返回 Admin::responseRedirect()");
+                }
                 break;
             case 200:
                 data.message && Message.success({

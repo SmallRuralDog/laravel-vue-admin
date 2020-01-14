@@ -2,11 +2,8 @@
 
 namespace SmallRuralDog\Admin;
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use SmallRuralDog\Admin\Auth\Database\Menu;
-use SmallRuralDog\Admin\Controllers\AuthController;
 
 class Admin
 {
@@ -56,7 +53,7 @@ class Admin
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
 
-        return $this->menuList = $menuModel->get(['uri','title']);
+        return $this->menuList = $menuModel->get(['uri', 'title']);
     }
 
 
@@ -96,6 +93,7 @@ class Admin
         ], 200, $headers);
     }
 
+
     public function responseMessage($message = '', $code = 200)
     {
         return $this->response([], $message, $code);
@@ -106,8 +104,11 @@ class Admin
         return $this->response([], $message, $code);
     }
 
-    public function responseRedirect($url = '', $message = '', $code = 301)
+    public function responseRedirect($url, $isVueRoute = true)
     {
-        return $this->response($url, $message, $code);
+        return $this->response([
+            'url' => $url,
+            'isVueRoute' => $isVueRoute
+        ], '', 301);
     }
 }

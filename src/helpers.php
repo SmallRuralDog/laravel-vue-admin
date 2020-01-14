@@ -47,8 +47,8 @@ if (!function_exists('admin_url')) {
      * Get admin url.
      *
      * @param string $path
-     * @param mixed  $parameters
-     * @param bool   $secure
+     * @param mixed $parameters
+     * @param bool $secure
      *
      * @return string
      */
@@ -57,9 +57,7 @@ if (!function_exists('admin_url')) {
         if (\Illuminate\Support\Facades\URL::isValidUrl($path)) {
             return $path;
         }
-
         $secure = $secure ?: (config('admin.https') || config('admin.secure'));
-
         return url(admin_base_path($path), $parameters, $secure);
     }
 }

@@ -30257,6 +30257,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var view_design_src_components_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! view-design/src/components/message */ "./node_modules/view-design/src/components/message/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../router */ "./resources/js/router/index.js");
+
 
 
 
@@ -30280,7 +30282,16 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function 
       break;
 
     case 301:
-      window.location.replace(data.data);
+      try {
+        if (data.data.isVueRoute) {
+          _router__WEBPACK_IMPORTED_MODULE_3__["default"].replace(data.data.url);
+        } else {
+          window.location.replace = data.data.url;
+        }
+      } catch (error) {
+        console.error("请返回 Admin::responseRedirect()");
+      }
+
       break;
 
     case 200:

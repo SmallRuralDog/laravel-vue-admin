@@ -57,7 +57,7 @@ class UserController extends AdminController
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
             $form->item('avatar', '头像'),
             $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
-                ->displayComponent(function (){
+                ->displayComponent(function () {
                     return Input::make()->password()->showPassword();
                 }),
             $form->item('password_confirmation', '确认密码')
@@ -77,6 +77,10 @@ class UserController extends AdminController
             if ($form->password && $form->model()->password != $form->password) {
                 $form->password = bcrypt($form->password);
             }
+        });
+
+        $form->saved(function () {
+            return \Admin::responseRedirect('/home?id=123');
         });
 
         return $form;
