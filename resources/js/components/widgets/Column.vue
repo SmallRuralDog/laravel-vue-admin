@@ -1,15 +1,25 @@
 <template>
-  <span v-if="componentName=='default'">{{value}}</span>
-  <component v-else :is='componentName' :value="value" :attrs="attrs"/>
+  <span v-if="componentName == 'default'">{{ value }}</span>
+  <component
+    v-else
+    :is="componentName"
+    :value="value"
+    :attrs="attrs"
+    :row="row"
+    :column_value="column_value"
+  />
 </template>
 <script>
-
 export default {
   props: {
     value: {
       default: null
     },
-    column_attr: Object
+    column_attr: Object,
+    row: Object,
+    column_value: {
+      default: null
+    }
   },
   computed: {
     attrs() {

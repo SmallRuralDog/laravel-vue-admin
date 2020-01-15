@@ -29,7 +29,7 @@ axios.interceptors.response.use(
                     if (data.data.isVueRoute) {
                         router.replace(data.data.url)
                     } else {
-                        window.location.replace = data.data.url
+                        window.location.href = data.data.url
                     }
                 } catch (error) {
                     console.error("请返回 Admin::responseRedirect()");

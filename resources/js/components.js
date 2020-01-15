@@ -34,6 +34,7 @@ import Avatar from './components/widgets/Avatar'
 import Tag from './components/widgets/Tag'
 import Link from './components/widgets/Link'
 import Text from './components/widgets/Text'
+import Image from './components/widgets/Image'
 
 
 Vue.component('Input', Input);
@@ -52,3 +53,4 @@ Vue.component('Tag', Tag);
 
 Vue.component('Link', Link);
 Vue.component('IText', Text);
+Vue.component('IImage', Image);

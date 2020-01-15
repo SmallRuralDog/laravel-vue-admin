@@ -19,7 +19,7 @@
         :size="attrs.attrs.size"
         :disabled="attrs.attrs.disabled"
       >
-        <template v-for="(item,index) in attrs.formItems">
+        <template v-for="(item, index) in attrs.formItems">
           <el-form-item
             :key="index"
             :label="item.label"
@@ -32,8 +32,16 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy v-model="formData[item.prop]" :item="item" :form_data='formData' />
-            <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
+            <ItemDiaplsy
+              v-model="formData[item.prop]"
+              :item="item"
+              :form_data="formData"
+            />
+            <div
+              v-if="item.help"
+              class="form-item-help"
+              v-html="item.help"
+            ></div>
           </el-form-item>
         </template>
 
@@ -45,8 +53,11 @@
               class="submit-btn"
               type="primary"
               @click="submitForm('ruleForm')"
-            >{{isEdit?'立即修改':'立即创建'}}</el-button>
-            <el-button class="submit-btn" @click="$router.go(-1)">返回</el-button>
+              >{{ isEdit ? "立即修改" : "立即创建" }}</el-button
+            >
+            <el-button class="submit-btn" @click="$router.go(-1)"
+              >返回</el-button
+            >
           </div>
         </div>
       </el-form>

@@ -8,8 +8,9 @@
 className('class-1 class-2');
 style(['width'=>'100px']);
 ```
+## 表格组件
 
-## Tag 标签
+### Tag 标签
 
 ```php
 Tag::make();
@@ -75,7 +76,7 @@ dark / light / plain
 Tag::make()->effect('dark');
 ```
 
-## Link 文字链接
+### Link 文字链接
 
 ```php
 Link::make();
@@ -111,23 +112,28 @@ Tag::make()->icon('el-icon-platform-eleme');
 //OR
 Tag::make()->icon('iconfont my-icon-name');
 ```
-## Avatar 头像
+### Avatar 头像
 属性与 [Element Avatar](https://element.eleme.cn/#/zh-CN/component/avatar)相同
 ```php
 Avatar::make();
 ```
-## Radio 单选框
-## Checkbox 多选框
-## Input 输入框
-## InputNumber 计数器
-## Select 选择器
-## Cascader 级联选择器
-## Switch 开关
-## Slider 滑块
-## TimePicker 时间选择器
-## DatePicker 日期选择器
-## DateTimePicker 日期时间选择器
-## Upload 上传
-## Rate 评分
-## ColorPicker 颜色选择器
-## Transfer 穿梭框
+### Image 图片
+可显示单张或多张图片，支持大图预览
+
+## 表单组件
+
+### Radio 单选框
+### Checkbox 多选框
+### Input 输入框
+### InputNumber 计数器
+### Select 选择器
+### Cascader 级联选择器
+### Switch 开关
+### Slider 滑块
+### TimePicker 时间选择器
+### DatePicker 日期选择器
+### DateTimePicker 日期时间选择器
+### Upload 上传
+### Rate 评分
+### ColorPicker 颜色选择器
+### Transfer 穿梭框

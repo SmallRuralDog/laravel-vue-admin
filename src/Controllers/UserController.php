@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use SmallRuralDog\Admin\Components\Avatar;
+use SmallRuralDog\Admin\Components\Image;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
@@ -33,7 +34,7 @@ class UserController extends AdminController
             ->perPage(10);
         $grid->columns([
             $grid->column('id', "ID")->width(80),
-            $grid->column('avatar', '头像')->width(80)->align('center')->displayComponent(Avatar::make()->size('small')),
+            $grid->column('avatar', '头像')->width(80)->align('center')->displayComponent(Avatar::make()),
             $grid->column('username', trans('admin::admin.username')),
             $grid->column('name', '用户昵称'),
             $grid->column('roles.name', trans('admin::admin.roles'))->displayComponent(Tag::make()->effect('dark')),
@@ -56,7 +57,6 @@ class UserController extends AdminController
         $connection = config('admin.database.connection');
 
         $form->items([
-            $form->item('id', "ID")->displayComponent(Input::make()->disabled()),
             $form->item('username', '用户名')
                 ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])
                 ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])

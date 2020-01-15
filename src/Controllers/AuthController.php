@@ -54,7 +54,7 @@ class AuthController extends AdminController
         $remember = $request->get('remember', false);
 
         if ($this->guard()->attempt($credentials, $remember)) {
-            return $this->responseRedirect(url($this->sendLoginResponse($request)));
+            return \Admin::responseRedirect(url($this->sendLoginResponse($request)),false);
         }
 
         return $this->responseError($this->getFailedLoginMessage());

@@ -39,7 +39,7 @@ class RoleController extends AdminController
         $form = new Form(new $roleModel());
 
         $form->items([
-            $form->item('slug', trans('admin::admin.slug'))->serveRules('required'),
+            $form->item('slug', trans('admin::admin.slug'))->required()->serveRules('required'),
             $form->item('name', trans('admin::admin.name'))->required()->serveRules('required'),
             $form->item('permissions', trans('admin::admin.permissions'), 'permissions.id')->displayComponent(
                 Transfer::make()->data($permissionModel::get()->map(function ($item) {
