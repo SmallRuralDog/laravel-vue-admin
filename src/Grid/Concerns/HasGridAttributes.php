@@ -2,6 +2,8 @@
 
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
+use SmallRuralDog\Admin\Grid\Table\Attributes;
+
 trait HasGridAttributes
 {
 
@@ -130,6 +132,17 @@ trait HasGridAttributes
     public function rowKey($rowKey)
     {
         $this->attributes->rowKey = $rowKey;
+        return $this;
+    }
+
+    /**
+     * 隐藏新建按钮
+     * @param bool $hide
+     * @return $this
+     */
+    public function hideCreateButton(bool $hide = true)
+    {
+        $this->attributes->hideCreateButton = $hide;
         return $this;
     }
 }

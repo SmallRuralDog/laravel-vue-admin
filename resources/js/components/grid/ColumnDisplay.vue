@@ -67,7 +67,9 @@ export default {
 </script>
 <style lang="scss">
 .display-column {
-  line-height: unset;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1;
   .el-tag{
     margin-bottom: 2px;
     margin-top: 2px;

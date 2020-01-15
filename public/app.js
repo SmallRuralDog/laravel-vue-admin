@@ -4130,7 +4130,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".display-column {\n  line-height: unset;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}", ""]);
+exports.push([module.i, ".display-column {\n  vertical-align: middle;\n  display: inline-block;\n  line-height: 1;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}", ""]);
 
 // exports
 
@@ -26406,27 +26406,31 @@ var render = function() {
               "div",
               { staticClass: "grid-top-container-right" },
               [
-                _c(
-                  "router-link",
-                  { attrs: { to: _vm.path + "/create" } },
-                  [
-                    _c(
-                      "el-button",
-                      {
-                        staticClass: "mr-10",
-                        attrs: {
-                          type: "primary",
-                          size: "medium",
-                          icon: "el-icon-plus"
-                        }
-                      },
-                      [_vm._v("新建")]
+                !_vm.attrs.attributes.hideCreateButton
+                  ? _c(
+                      "router-link",
+                      { attrs: { to: _vm.path + "/create" } },
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "mr-10",
+                            attrs: {
+                              type: "primary",
+                              size: "medium",
+                              icon: "el-icon-plus"
+                            }
+                          },
+                          [_vm._v("新建")]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                ),
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("el-divider", { attrs: { direction: "vertical" } }),
+                !_vm.attrs.attributes.hideCreateButton
+                  ? _c("el-divider", { attrs: { direction: "vertical" } })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "div",

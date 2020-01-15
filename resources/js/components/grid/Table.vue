@@ -18,15 +18,15 @@
               @clear="getData"
               v-if="attrs.quickSearch"
             >
-              <el-button  @click="getData" :loading='loading' slot="append">搜索</el-button>
+              <el-button @click="getData" :loading="loading" slot="append">搜索</el-button>
             </el-input>
           </div>
         </div>
         <div class="grid-top-container-right">
-          <router-link :to="path+'/create'">
+          <router-link :to="path+'/create'" v-if="!attrs.attributes.hideCreateButton">
             <el-button type="primary" class="mr-10" size="medium" icon="el-icon-plus">新建</el-button>
           </router-link>
-          <el-divider direction="vertical"></el-divider>
+          <el-divider direction="vertical" v-if="!attrs.attributes.hideCreateButton"></el-divider>
           <div class="icon-actions">
             <el-dropdown trigger="click">
               <el-tooltip class="item" effect="dark" content="密度" placement="top">

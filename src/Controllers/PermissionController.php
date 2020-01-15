@@ -39,7 +39,7 @@ class PermissionController extends AdminController
                 return explode("\n", $value);
             })->displayComponent(function () {
                 return Tag::make();
-            })->width('400px'),
+            }),
             $grid->column('created_at', trans('admin::admin.created_at')),
             $grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);

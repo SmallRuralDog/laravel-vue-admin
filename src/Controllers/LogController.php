@@ -19,6 +19,7 @@ class LogController extends AdminController
     {
         $grid = new Grid(new OperationLog());
         $grid->with(['user'])
+            ->hideCreateButton()
             ->perPage(15)
             ->quickSearch()
             ->selection()

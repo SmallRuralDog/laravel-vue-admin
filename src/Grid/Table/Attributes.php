@@ -47,4 +47,7 @@ class Attributes
 
     public $rowKey = 'id';
 
+
+    public $hideCreateButton = false;
+
 }
