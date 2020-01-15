@@ -1,7 +1,8 @@
 <template>
   <div class="form-page">
-    <el-card shadow="never">
+    <el-card shadow="never" class="form-card">
       <el-form
+        v-show="init"
         ref="ruleForm"
         :model="formData"
         :class="attrs.attrs.className"
@@ -81,6 +82,7 @@ export default {
   data() {
     return {
       loading: false,
+      init: true,
       formData: {}
     };
   },
@@ -91,6 +93,7 @@ export default {
   methods: {
     getEditData() {
       this.loading = true;
+      this.init = false;
       this.$http
         .get(this.attrs.dataUrl, {
           params: {
@@ -99,6 +102,7 @@ export default {
         })
         .then(({ data }) => {
           this.formData = data;
+          this.init = true;
         })
         .finally(() => {
           this.loading = false;
@@ -140,6 +144,9 @@ export default {
 </script>
 <style lang="scss">
 .form-page {
+  .form-card {
+    min-height: 200px;
+  }
   .el-form-item__content {
     line-height: unset;
   }

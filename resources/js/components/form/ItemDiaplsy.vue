@@ -16,7 +16,9 @@ export default {
     value: {
       default: null
     },
+    //fromItem数据
     item: Object,
+    //当前表单数据
     form_data: Object
   },
   data() {

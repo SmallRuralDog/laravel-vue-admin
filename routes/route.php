@@ -25,6 +25,9 @@ Route::group([
     $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
     $router->resource('auth/menu', 'MenuController')->names('admin.auth.menu');
     $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
+
+    $router->post('_handle_upload_', 'HandleController@upload')->name('admin.handle-upload');
+
     $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
     $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
 });

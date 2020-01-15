@@ -4,6 +4,7 @@
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
+use SmallRuralDog\Admin\Components\GridComponent;
 use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Tag;
 
@@ -213,10 +214,10 @@ trait HasColumnAttributes
 
 
     /**
-     * @param Tag|Link $displayComponentAttrs
+     * @param $displayComponentAttrs
      * @return $this
      */
-    private function displayComponentAttrs($displayComponentAttrs)
+    private function displayComponentAttrs(GridComponent $displayComponentAttrs)
     {
         $this->attributes->displayComponentAttrs = $displayComponentAttrs;
         return $this;

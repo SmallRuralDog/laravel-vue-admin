@@ -33,6 +33,11 @@ function flattenDeepChild(data, child_key, key) {
     return window._.flattenDeep(arr);
 }
 
+
+function getFileName($url){
+
+}
+
 export {
     getArrayValue,
     flattenDeepChild

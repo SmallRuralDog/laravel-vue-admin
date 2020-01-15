@@ -4,7 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class Tag extends Component
+class Tag extends GridComponent
 {
     protected $componentName = "Tag";
     protected $type;

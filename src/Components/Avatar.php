@@ -4,7 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class Avatar extends Component
+class Avatar extends GridComponent
 {
     protected $componentName = "Avatar";
     /**

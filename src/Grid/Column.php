@@ -3,6 +3,7 @@
 namespace SmallRuralDog\Admin\Grid;
 
 use Closure;
+use SmallRuralDog\Admin\Components\GridComponent;
 use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\Grid\Column\Attributes;
 

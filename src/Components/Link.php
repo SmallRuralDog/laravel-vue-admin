@@ -4,7 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class Link extends Component
+class Link extends GridComponent
 {
     protected $componentName = "Link";
     protected $type;

@@ -30,6 +30,10 @@ import Cascader from './components/widgets/Cascader'
 import Switch from './components/widgets/Switch'
 import Slider from './components/widgets/Slider'
 import Transfer from './components/widgets/Transfer'
+import Upload from './components/widgets/Upload'
+
+
+
 import Avatar from './components/widgets/Avatar'
 import Tag from './components/widgets/Tag'
 import Link from './components/widgets/Link'
@@ -47,10 +51,10 @@ Vue.component('Cascader', Cascader);
 Vue.component('CSwitch', Switch);
 Vue.component('Slider', Slider);
 Vue.component('Transfer', Transfer);
+Vue.component('Upload', Upload);
 
 Vue.component('Avatar', Avatar);
 Vue.component('Tag', Tag);
-
 Vue.component('Link', Link);
 Vue.component('IText', Text);
 Vue.component('IImage', Image);

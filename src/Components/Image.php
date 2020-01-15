@@ -4,7 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class Image extends Component
+class Image extends GridComponent
 {
     protected $componentName = "IImage";
     protected $src;

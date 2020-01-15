@@ -32,9 +32,11 @@ body {
 .ml-20 {
     margin-left: 20px;
 }
+
 .mt-30 {
     margin-top: 30px;
 }
+
 .mt-50 {
     margin-top: 50px;
 }
@@ -89,8 +91,15 @@ body {
 .el-popconfirm__main {
     margin: 10px 0;
 }
-.el-image-viewer__close{
+
+.el-image-viewer__close {
     color: white;
+}
+
+.el-upload-list__item {
+    img {
+        object-fit: cover;
+    }
 }
 
 /*fade*/
