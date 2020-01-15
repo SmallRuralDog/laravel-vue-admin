@@ -22,6 +22,11 @@ trait HasQuickSearch
     public $quickSearch;
 
 
+    /**
+     * 开启快捷搜索
+     * @param null $search
+     * @return $this
+     */
     public function quickSearch($search = null)
     {
         $this->quickSearch = new QuickSearch();
@@ -34,9 +39,15 @@ trait HasQuickSearch
         return $this;
     }
 
+    /**
+     * 设置快捷搜索占位符，开启快捷搜索后生效
+     * @param $placeholder
+     * @return $this
+     */
     public function quickSearchPlaceholder($placeholder)
     {
-        $this->quickSearch->placeholder = $placeholder;
+        if ($this->quickSearch) $this->quickSearch->placeholder = $placeholder;
+
         return $this;
     }
 
