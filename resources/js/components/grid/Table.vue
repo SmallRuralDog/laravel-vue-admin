@@ -10,8 +10,15 @@
             v-if="attrs.selection"
           />
           <div class="search-view">
-            <el-input v-model="search" size="medium" placeholder :clearable="false">
-              <el-button slot="append">搜索</el-button>
+            <el-input
+              v-model="quickSearch"
+              size="medium"
+              :placeholder="attrs.quickSearch.placeholder"
+              :clearable="true"
+              @clear="getData"
+              v-if="attrs.quickSearch"
+            >
+              <el-button  @click="getData" :loading='loading' slot="append">搜索</el-button>
             </el-input>
           </div>
         </div>
@@ -156,7 +163,7 @@ export default {
         lastPage: 1
       },
       selectionRows: [],
-      search: "",
+      quickSearch: null,
       path: "/"
     };
   },
@@ -180,7 +187,8 @@ export default {
             get_data: true,
             page: this.page,
             per_page: this.pageData.pageSize,
-            ...this.sort
+            ...this.sort,
+            ...this.q_search
           }
         })
         .then(
@@ -233,6 +241,12 @@ export default {
         prop: this.default_sort.prop,
         order: this.default_sort.order == "asc" ? "ascending" : "descending"
       };
+    },
+    q_search() {
+      const q_search = new Object();
+      this.attrs.quickSearch &&
+        (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
+      return q_search;
     }
   }
 };

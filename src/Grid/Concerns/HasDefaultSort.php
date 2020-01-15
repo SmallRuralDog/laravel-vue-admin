@@ -1,10 +1,10 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Grid\Table;
+namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
-trait TraitDefaultSort
+trait HasDefaultSort
 {
     protected $defaultSort;
 

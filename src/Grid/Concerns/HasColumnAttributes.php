@@ -1,13 +1,13 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Grid\Column;
+namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
 use SmallRuralDog\Admin\Components\Link;
 use SmallRuralDog\Admin\Components\Tag;
 
-trait TraitAttributes
+trait HasColumnAttributes
 {
     /**
      *

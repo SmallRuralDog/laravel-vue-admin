@@ -1109,6 +1109,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1134,7 +1141,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lastPage: 1
       },
       selectionRows: [],
-      search: "",
+      quickSearch: null,
       path: "/"
     };
   },
@@ -1161,7 +1168,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           get_data: true,
           page: this.page,
           per_page: this.pageData.pageSize
-        }, this.sort)
+        }, this.sort, {}, this.q_search)
       }).then(function (_ref) {
         var _ref$data = _ref.data,
             data = _ref$data.data,
@@ -1220,6 +1227,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         prop: this.default_sort.prop,
         order: this.default_sort.order == "asc" ? "ascending" : "descending"
       };
+    },
+    q_search: function q_search() {
+      var q_search = new Object();
+      this.attrs.quickSearch && (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
+      return q_search;
     }
   }
 });
@@ -26351,31 +26363,38 @@ var render = function() {
                   "div",
                   { staticClass: "search-view" },
                   [
-                    _c(
-                      "el-input",
-                      {
-                        attrs: {
-                          size: "medium",
-                          placeholder: "",
-                          clearable: false
-                        },
-                        model: {
-                          value: _vm.search,
-                          callback: function($$v) {
-                            _vm.search = $$v
+                    _vm.attrs.quickSearch
+                      ? _c(
+                          "el-input",
+                          {
+                            attrs: {
+                              size: "medium",
+                              placeholder: _vm.attrs.quickSearch.placeholder,
+                              clearable: true
+                            },
+                            on: { clear: _vm.getData },
+                            model: {
+                              value: _vm.quickSearch,
+                              callback: function($$v) {
+                                _vm.quickSearch = $$v
+                              },
+                              expression: "quickSearch"
+                            }
                           },
-                          expression: "search"
-                        }
-                      },
-                      [
-                        _c(
-                          "el-button",
-                          { attrs: { slot: "append" }, slot: "append" },
-                          [_vm._v("搜索")]
+                          [
+                            _c(
+                              "el-button",
+                              {
+                                attrs: { slot: "append", loading: _vm.loading },
+                                on: { click: _vm.getData },
+                                slot: "append"
+                              },
+                              [_vm._v("搜索")]
+                            )
+                          ],
+                          1
                         )
-                      ],
-                      1
-                    )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -30376,7 +30395,7 @@ function flattenDeepChild(data, child_key, key) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\homestead\laravel-vue-admin\packages\SmallRuralDog\Admin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\PHP\laravel-packages\packages\smallruraldog\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -103,6 +103,11 @@ class Model
 
     }
 
+    public function eloquent()
+    {
+        return $this->model;
+    }
+
     public function getModel()
     {
         return $this->model;
@@ -242,6 +247,8 @@ class Model
     public function buildData($toArray = false)
     {
         if (empty($this->data)) {
+
+
             $collection = $this->get();
         }
         $this->data = $collection;

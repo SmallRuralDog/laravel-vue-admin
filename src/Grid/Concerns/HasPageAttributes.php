@@ -1,10 +1,10 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Grid\Table;
+namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
-trait TraitPageAttributes
+trait HasPageAttributes
 {
     protected $pageSizes = [10, 15, 20, 30, 50, 100];
     protected $perPage = 15;

@@ -1,10 +1,11 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Grid\Table;
+namespace SmallRuralDog\Admin\Grid\Concerns;
 
+use SmallRuralDog\Admin\Grid\Tools\Action;
 
-trait TraitActions
+trait HasActions
 {
 
     protected $actions = [];

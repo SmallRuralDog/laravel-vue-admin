@@ -22,8 +22,15 @@ class UserController extends AdminController
 
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
-        $grid->pageBackground()->defaultSort('id', 'asc')->with(['roles:id,name', 'roles.permissions', 'roles.menus'])->selection()
-            ->stripe(true)->emptyText("暂无用户")->perPage(10);
+        $grid
+            ->quickSearch(['name','username'])
+            ->quickSearchPlaceholder("用户名 / 名称")
+            ->pageBackground()
+            ->defaultSort('id', 'asc')
+            ->with(['roles:id,name', 'roles.permissions', 'roles.menus'])
+            ->selection()
+            ->stripe(true)->emptyText("暂无用户")
+            ->perPage(10);
         $grid->columns([
             $grid->column('id', "ID")->width(80),
             $grid->column('avatar', '头像')->width(80)->align('center')->displayComponent(Avatar::make()->size('small')),

@@ -9,7 +9,7 @@ use SmallRuralDog\Admin\Grid\Column\Attributes;
 
 class Column
 {
-    use Grid\Column\TraitAttributes;
+    use Grid\Concerns\HasColumnAttributes;
 
     /**
      * @var Grid

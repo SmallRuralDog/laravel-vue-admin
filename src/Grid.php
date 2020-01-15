@@ -9,16 +9,18 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Column;
+use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
-use SmallRuralDog\Admin\Grid\Table\TraitActions;
-use SmallRuralDog\Admin\Grid\Table\TraitAttributes;
-use SmallRuralDog\Admin\Grid\Table\TraitDefaultSort;
-use SmallRuralDog\Admin\Grid\Table\TraitPageAttributes;
+use SmallRuralDog\Admin\Grid\Concerns\HasActions;
+use SmallRuralDog\Admin\Grid\Concerns\HasAttributes;
+use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
+use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
+use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
 
 class Grid extends Component implements \JsonSerializable
 {
-    use TraitAttributes, TraitPageAttributes, TraitDefaultSort, TraitActions;
+    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasActions, HasQuickSearch;
 
     protected $componentName = 'Grid';
     /**
@@ -165,6 +167,10 @@ class Grid extends Component implements \JsonSerializable
         return $this->columns;
     }
 
+    protected function applyQuery()
+    {
+        $this->applyQuickSearch();
+    }
 
     /**
      * data
@@ -172,6 +178,9 @@ class Grid extends Component implements \JsonSerializable
      */
     public function data()
     {
+
+        $collection = $this->applyQuery();
+
         $data = $this->model->buildData();
         return [
             'code' => 200,
@@ -205,6 +214,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
             $viewData['actions'] = $this->actions;
+            $viewData['quickSearch'] = $this->quickSearch;
             return $viewData;
         }
 

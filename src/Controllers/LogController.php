@@ -19,7 +19,8 @@ class LogController extends AdminController
     {
         $grid = new Grid(new OperationLog());
         $grid->with(['user'])
-            ->perPage(50)
+            ->perPage(15)
+            ->quickSearch()
             ->selection()
             ->defaultSort('id', 'desc')
             ->stripe()

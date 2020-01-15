@@ -1,8 +1,8 @@
 <?php
 
-namespace SmallRuralDog\Admin\Grid\Table;
+namespace SmallRuralDog\Admin\Grid\Concerns;
 
-trait TraitAttributes
+trait HasGridAttributes
 {
 
     /**
