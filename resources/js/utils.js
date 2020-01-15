@@ -34,11 +34,22 @@ function flattenDeepChild(data, child_key, key) {
 }
 
 
-function getFileName($url){
+function getFileName($url) {
+
+}
+
+function getFileUrl($host, $path) {
+    if ($path.indexOf("//") >= 0) {
+        return $path;
+    } else {
+        return $host + $path;
+    }
+
 
 }
 
 export {
     getArrayValue,
-    flattenDeepChild
+    flattenDeepChild,
+    getFileUrl
 }

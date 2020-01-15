@@ -9,9 +9,10 @@ class Upload extends Component
     protected $componentName = "Upload";
 
     protected $action = "";
+    protected $path = "";
     protected $multiple = false;
     protected $data = [];
-    protected $showFileList = true;
+    protected $showFileList = false;
     protected $drag = false;
     protected $accept;
     protected $listType = 'text';
@@ -21,6 +22,7 @@ class Upload extends Component
     public function __construct($value = null)
     {
         $this->action = route('admin.handle-upload');
+        $this->path = \Storage::disk(config('admin.upload.disk'))->url('/');
         $this->componentValue($value);
     }
 
@@ -44,7 +46,7 @@ class Upload extends Component
      * @param bool $multiple
      * @return $this
      */
-    public function multiple($multiple)
+    public function multiple(bool $multiple = true)
     {
         $this->multiple = $multiple;
         return $this;
@@ -60,28 +62,19 @@ class Upload extends Component
         return $this;
     }
 
-    /**
-     * @param bool $showFileList
-     * @return $this
-     */
-    public function showFileList($showFileList)
-    {
-        $this->showFileList = $showFileList;
-        return $this;
-    }
 
     /**
      * @param bool $drag
      * @return $this
      */
-    public function drag($drag)
+    public function drag(bool $drag = true)
     {
         $this->drag = $drag;
         return $this;
     }
 
     /**
-     * @param mixed $accept
+     * @param string $accept
      * @return $this
      */
     public function accept($accept)
@@ -122,7 +115,7 @@ class Upload extends Component
      * @param bool $disabled
      * @return $this
      */
-    public function disabled($disabled)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -132,7 +125,7 @@ class Upload extends Component
      * @param int $limit
      * @return $this
      */
-    public function limit($limit)
+    public function limit(int $limit)
     {
         $this->limit = $limit;
         return $this;

@@ -25,7 +25,7 @@ class UserController extends AdminController
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
         $grid
-            ->quickSearch(['name','username'])
+            ->quickSearch(['name', 'username'])
             ->quickSearchPlaceholder("用户名 / 名称")
             ->pageBackground()
             ->defaultSort('id', 'asc')
@@ -64,6 +64,7 @@ class UserController extends AdminController
                 ->displayComponent(Input::make()),
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
             $form->item('avatar', '头像')->displayComponent(Upload::make()->pictureCard()),
+            $form->item('bg', '头像')->displayComponent(Upload::make()->pictureCard()->multiple(true)->limit(10)),
             $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
                 ->displayComponent(function () {
                     return Input::make()->password()->showPassword();

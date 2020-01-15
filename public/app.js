@@ -2328,6 +2328,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils */ "./resources/js/utils.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2355,6 +2356,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["attrs", "value"],
   data: function data() {
@@ -2369,31 +2372,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     prop: "value",
     event: "change"
   },
+  mounted: function mounted() {},
   methods: {
     onChange: function onChange(value) {
+      console.log(value);
       this.$emit("change", value);
     },
     onRemove: function onRemove(file, fileList) {
-      this.fileList = fileList;
+      this.selfList = fileList;
     },
     onSuccess: function onSuccess(response, file, fileList) {
-      this.fileList = fileList;
-    },
-    onExceed: function onExceed() {
-      this.$Message.error("超出上传数量");
-    }
-  },
-  watch: {
-    defaultFileList: function defaultFileList(val) {
-      this.fileList = val;
-    },
-    fileList: function fileList(val) {
-      console.log(val);
-      var urls = val.map(function (item) {
+      var urls = fileList.filter(function (item) {
+        return item.status == "success";
+      }).map(function (item) {
         if (item.response) {
-          return item.response.data.url;
+          return item.response.data.path;
         } else {
-          return item.url;
+          return item.path;
         }
       });
 
@@ -2403,6 +2398,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var v = urls.length > 0 ? urls[0] : null;
         this.onChange(v);
       }
+    },
+    onExceed: function onExceed() {
+      this.$Message.error("超出上传数量");
+    }
+  },
+  watch: {
+    defaultFileList: function defaultFileList(val) {
+      var _this = this;
+
+      this.fileList = val.map(function (item) {
+        item.url = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.path, item.path);
+        return item;
+      });
     }
   },
   computed: {
@@ -2411,6 +2419,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.value.map(function (item) {
           return {
             name: item,
+            path: item,
             url: item
           };
         });
@@ -2418,6 +2427,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (!this.value) return [];
         return [{
           name: this.value,
+          path: this.value,
           url: this.value
         }];
       }
@@ -27886,30 +27896,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "el-upload",
-    {
-      class: _vm.attrs.className,
-      style: _vm.attrs.style,
-      attrs: {
-        action: _vm.attrs.action,
-        multiple: _vm.attrs.multiple,
-        data: _vm.data,
-        "show-file-list": _vm.attrs.showFileList,
-        drag: _vm.attrs.drag,
-        accept: _vm.attrs.accept,
-        "list-type": _vm.attrs.listType,
-        disabled: _vm.attrs.disabled,
-        limit: _vm.attrs.limit,
-        "file-list": _vm.fileList,
-        "on-exceed": _vm.onExceed,
-        "on-success": _vm.onSuccess,
-        "on-remove": _vm.onRemove
-      }
-    },
+    "div",
     [
-      _c("el-button", { attrs: { size: "small", type: "primary" } }, [
-        _vm._v("点击上传")
-      ])
+      _c(
+        "el-upload",
+        {
+          class: _vm.attrs.className,
+          style: _vm.attrs.style,
+          attrs: {
+            action: _vm.attrs.action,
+            multiple: _vm.attrs.multiple,
+            data: _vm.data,
+            "show-file-list": false,
+            drag: _vm.attrs.drag,
+            accept: _vm.attrs.accept,
+            "list-type": "text",
+            disabled: _vm.attrs.disabled,
+            limit: _vm.attrs.limit,
+            "on-exceed": _vm.onExceed,
+            "on-success": _vm.onSuccess,
+            "on-remove": _vm.onRemove
+          }
+        },
+        [
+          _c("el-button", { attrs: { size: "small", type: "primary" } }, [
+            _vm._v("点击上传")
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -30824,13 +30839,14 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function 
 /*!*******************************!*\
   !*** ./resources/js/utils.js ***!
   \*******************************/
-/*! exports provided: getArrayValue, flattenDeepChild */
+/*! exports provided: getArrayValue, flattenDeepChild, getFileUrl */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArrayValue", function() { return getArrayValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flattenDeepChild", function() { return flattenDeepChild; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileUrl", function() { return getFileUrl; });
 function getArrayValue(data, path, level) {
   var index = level + 1;
   var key = path[index];
@@ -30868,6 +30884,14 @@ function flattenDeepChild(data, child_key, key) {
 }
 
 function getFileName($url) {}
+
+function getFileUrl($host, $path) {
+  if ($path.indexOf("//") >= 0) {
+    return $path;
+  } else {
+    return $host + $path;
+  }
+}
 
 
 
