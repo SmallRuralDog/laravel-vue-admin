@@ -354,8 +354,9 @@ $grid->column('name')->customValue(function ($row, $value) {
 })
 ```
 ### 关联模型
->要成功显示关联模型的值，必须设置with的值
-显示关联模型的值，使用`.`来获取关联模型的值
+>要成功显示关联模型的值，必须设置`with`的值
+
+要显示关联模型的值，使用`.`来获取关联模型的值，可以多级显示，最后一级为要显示的值
 #### 一对一
 ```php
 $grid->with(['permissions']);
@@ -366,4 +367,14 @@ $grid->column('permissions.name'),
 ```php
 $grid->with(['permissions']);
 $grid->column('permissions.name')->displayComponent(Tag::make()->type('info')),
+```
+### 多级显示
+```php
+$grid->with(['permissions','permissions.roles','permissions.roles.administrators']);
+
+$grid->column('permissions.name')->displayComponent(Tag::make()->type('info'));
+
+$grid->column('permissions.roles.name')->displayComponent(Tag::make()->type('info'));
+
+$grid->column('permissions.roles.administrators.name')->displayComponent(Tag::make()->type('info'));
 ```
