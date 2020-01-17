@@ -169,6 +169,26 @@ $grid->perPage(20);
 $grid->pageBackground();
 ```
 
+### 隐藏元素/操作
+可以隐藏页面上的一些操作
+#### 隐藏新建按钮
+```php
+$grid->hideCreateButton();
+```
+#### 隐藏行编辑
+```php
+$grid->hideEditAction();
+```
+#### 隐藏行删除
+```php
+$grid->hideDeleteAction();
+```
+#### 行操作显示模式
+将查看，编辑，删除显示为下拉更多的模式
+```php
+$grid->actionShowMore();
+```
+
 ### 快捷搜索
 >快捷搜索是除了`filter`之外的另一个表格数据搜索方式，用来快速过滤你想要的数据，开启方式如下：
 ```php
@@ -307,6 +327,15 @@ $column->help('帮助内容');
 
 ```php
 $column->displayComponent(Tag::make()->size("mini")->type("info"));
+```
+### 自定义数据
+可以在后端自定义当前列的值
+- `$row`当前数据行的所有值
+- `$value`当前列的值
+```php
+$grid->column('name')->customValue(function ($row, $value) {
+    return $value;
+})
 ```
 ### className
 

@@ -59,6 +59,7 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
+     * 获取自定义数据模型
      * @return Model|Builder
      */
     public function model()
@@ -68,6 +69,7 @@ class Grid extends Component implements \JsonSerializable
 
 
     /**
+     * 获取with
      * @return array
      */
     public function getWiths(): array
@@ -76,7 +78,7 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
-     *
+     *设置with
      * @param array $withs
      * @return $this
      */
