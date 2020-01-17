@@ -247,6 +247,22 @@ $column = $grid->column('prop', 'label','column-key')->width("100");
 
 Column 相关属性设置，更多可查看 [Elment Table-column Attributes](https://element.eleme.cn/#/zh-CN/component/table)
 
+#### class
+
+列的 className
+
+```php
+$column->className('ClassName ClassName-2');
+```
+
+#### LabelClass
+
+当前列标题的自定义类名
+
+```php
+$column->labelClassName('ClassName ClassName');
+```
+
 #### 宽度
 
 对应列的宽度
@@ -350,19 +366,4 @@ $grid->column('permissions.name'),
 ```php
 $grid->with(['permissions']);
 $grid->column('permissions.name')->displayComponent(Tag::make()->type('info')),
-```
-### className
-
-列的 className
-
-```php
-$column->className('ClassName ClassName-2');
-```
-
-### LabelClassName
-
-当前列标题的自定义类名
-
-```php
-$column->labelClassName('ClassName ClassName');
 ```
