@@ -36,7 +36,9 @@
           draggable
           default-expand-all
           v-loading="loading"
-          highlight-current
+          :empty-text="attrs.attributes.emptyText"
+          :indent="10"
+          @node-drop="onNodeDrop"
         >
           <div class="custom-tree-node" slot-scope="{ data,node}">
             <div class="custom-tree-node-item">
@@ -126,6 +128,12 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    onNodeDrop(node, before, after, inner) {
+      console.log(node);
+      console.log(before);
+      console.log(after);
+      console.log(inner);
     }
   }
 };
@@ -134,7 +142,7 @@ export default {
 .grid-container {
   .custom-tree-node {
     flex: 1;
-    padding: 5px;
+    padding-right: 5px;
     display: flex;
     justify-content: space-between;
   }
@@ -151,8 +159,8 @@ export default {
     margin: 1px 0;
   }
   .custom-tree-node {
-    border: 1px solid #dcdcdc;
-    padding: 5px 10px;
+    //border: 1px solid #dcdcdc;
+    //padding: 2px 10px;
   }
 }
 </style>

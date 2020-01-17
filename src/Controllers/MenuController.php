@@ -9,19 +9,20 @@ use SmallRuralDog\Admin\Components\Icon;
 use SmallRuralDog\Admin\Components\InputNumber;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
-use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
 class MenuController extends AdminController
 {
+
+
     protected function grid()
     {
 
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
-        $grid->with(['children','roles','children.roles']);
+        $grid->with(['children', 'roles', 'children.roles']);
         $grid->pageBackground()
             ->defaultSort('id', 'asc')
             ->stripe(true)
@@ -30,9 +31,7 @@ class MenuController extends AdminController
             ->perPage(10000);
         $grid->columns([
             $grid->column('icon', "icon")->displayComponent(Icon::make()),
-            $grid->column('title', "Title")->width("150px"),
-            $grid->column('uri', "Uri"),
-            $grid->column('roles.name', trans('admin::admin.roles'))->displayComponent(Tag::make()),
+            $grid->column('title', "Title"),
         ]);
         return $grid;
     }

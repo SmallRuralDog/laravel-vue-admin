@@ -26,30 +26,7 @@
             unique-opened
           >
             <template v-for="menu in page_data.menu">
-              <el-submenu
-                :show-timeout="1"
-                :hide-timeout="1"
-                :index="menu.route"
-                v-if="menu.children && menu.children.length>0"
-                :key="menu.id"
-              >
-                <template slot="title">
-                  <i :class="menu.icon" size="16"></i>
-                  <span>{{menu.title}}</span>
-                </template>
-                <a :data-href="sub_menu.url" v-for="sub_menu in menu.children" :key="sub_menu.id">
-                  <el-menu-item :index="sub_menu.route" :route="sub_menu.route">
-                    <i v-show="isCollapsed" :class="sub_menu.icon"></i>
-                    <span slot="title">{{sub_menu.title}}</span>
-                  </el-menu-item>
-                </a>
-              </el-submenu>
-              <a :data-href="menu.url" v-else :key="menu.id">
-                <el-menu-item :index="menu.route" :route="menu.route">
-                  <i :class="menu.icon" size="16"></i>
-                  <span slot="title">{{menu.title}}</span>
-                </el-menu-item>
-              </a>
+              <MenuItem :menu="menu" :key="menu.id" :is_collapsed="isCollapsed" />
             </template>
           </el-menu>
         </el-scrollbar>
@@ -199,6 +176,7 @@
 
 <script>
 import { flattenDeepChild } from "../utils";
+
 export default {
   props: {
     page_data: Object

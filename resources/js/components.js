@@ -62,3 +62,8 @@ Vue.component('Link', Link);
 Vue.component('IText', Text);
 Vue.component('IImage', Image);
 Vue.component('Icon', Icon);
+
+
+
+import MenuItem from './components/layout/MenuItem'
+Vue.component('MenuItem', MenuItem);
