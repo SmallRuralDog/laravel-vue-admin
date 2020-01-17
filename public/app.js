@@ -1146,35 +1146,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1214,7 +1185,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.path = this.$route.path;
   },
   destroyed: function destroyed() {
-    this.$bus.off("tableReload");
+    try {
+      this.$bus.off("tableReload");
+      window.removeEventListener("keydown", this.onEnt);
+    } catch (e) {}
   },
   methods: {
     //获取数据
@@ -1273,6 +1247,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onPageCurrentChange: function onPageCurrentChange(page) {
       this.page = page;
       this.getData();
+    },
+    onEnt: function onEnt(event) {
+      if (event.keyCode === 13) {
+        this.getData();
+      }
+    },
+    onQuickSearchFocus: function onQuickSearchFocus() {
+      window.addEventListener("keydown", this.onEnt);
+    },
+    onQuickSearchBlur: function onQuickSearchBlur() {
+      try {
+        window.removeEventListener("keydown", this.onEnt);
+      } catch (error) {}
     }
   },
   computed: {
@@ -26706,7 +26693,11 @@ var render = function() {
                               placeholder: _vm.attrs.quickSearch.placeholder,
                               clearable: true
                             },
-                            on: { clear: _vm.getData },
+                            on: {
+                              clear: _vm.getData,
+                              focus: _vm.onQuickSearchFocus,
+                              blur: _vm.onQuickSearchBlur
+                            },
                             model: {
                               value: _vm.quickSearch,
                               callback: function($$v) {

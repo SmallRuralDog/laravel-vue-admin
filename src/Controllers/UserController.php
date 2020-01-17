@@ -62,7 +62,7 @@ class UserController extends AdminController
                 ->displayComponent(Input::make()),
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
             $form->item('avatar', '头像')->displayComponent(Upload::make()->avatar()->path('avatar')->uniqueName()),
-            $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
+            $form->item('password', '密码')->serveRules(['required', 'string', 'confirmed'])
                 ->displayComponent(function () {
                     return Input::make()->password()->showPassword();
                 }),
