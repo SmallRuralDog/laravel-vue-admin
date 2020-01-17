@@ -150,7 +150,7 @@ $form->item('avatar', '头像')->displayComponent(function(){
 #### 文件URL前缀
 如果数据库保存的是相对地址，则这个就是它的URL前面部分。默认为disk的路径
 ```php
- Upload::make()->action("http://xxxx")
+ Upload::make()->host("http://xxxx")
 ```
 #### 支持多文件
 支持多个文件上传，数据格式为数组
