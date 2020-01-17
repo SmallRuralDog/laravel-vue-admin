@@ -134,6 +134,74 @@ Avatar::make();
 ### DatePicker 日期选择器
 ### DateTimePicker 日期时间选择器
 ### Upload 上传
+通过以下的调用来生成上传组件
+```php
+$form->item('avatar', '头像')->displayComponent(Upload::make()->pictureCard()->avatar()->path('avatar')->uniqueName())
+//or
+$form->item('avatar', '头像')->displayComponent(function(){
+    return Upload::make()->pictureCard()->avatar()->path('avatar')->uniqueName();
+})
+```
+#### 上传地址
+自定义上传地址
+```php
+ Upload::make()->action("http://xxxx")
+```
+#### 文件URL前缀
+如果数据库保存的是相对地址，则这个就是它的URL前面部分。默认为disk的路径
+```php
+ Upload::make()->action("http://xxxx")
+```
+#### 支持多文件
+支持多个文件上传，数据格式为数组
+```php
+ Upload::make()->multiple()
+```
+#### 上传附加数据
+```php
+ Upload::make()->data(['key'=>'value','key_2'=>'value'])
+```
+#### 保存目录
+```php
+ Upload::make()->path("path_name")
+```
+#### 自动生成文件名
+默认为上传的文件名
+```php
+ Upload::make()->uniqueName()
+```
+#### 拖拽上传
+
+```php
+ Upload::make()->drag()
+```
+#### 文件类型
+接受上传的[文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)
+```php
+ Upload::make()->accept("xx")
+```
+#### 文件个数
+默认为一个
+```php
+ Upload::make()->limit(10)
+```
+#### 禁用
+```php
+ Upload::make()->disabled()
+```
+#### 组件类型
+支持 `image` `avatar` `file`
+```php
+ Upload::make()->image()
+ Upload::make()->avatar()
+ Upload::make()->file()
+```
+#### 组件大小
+组件item的高宽，默认 `100x100`
+```php
+ Upload::make()->width(150)
+ Upload::make()->height(120)
+ ```
 ### Rate 评分
 ### ColorPicker 颜色选择器
 ### Transfer 穿梭框

@@ -2357,9 +2357,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["attrs", "value"],
+  props: ["attrs", "value", "form_data"],
   data: function data() {
     return {
       data: _objectSpread({
@@ -2375,62 +2405,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {},
   methods: {
     onChange: function onChange(value) {
-      console.log(value);
       this.$emit("change", value);
     },
-    onRemove: function onRemove(file, fileList) {
-      this.selfList = fileList;
-    },
-    onSuccess: function onSuccess(response, file, fileList) {
-      var urls = fileList.filter(function (item) {
-        return item.status == "success";
-      }).map(function (item) {
-        if (item.response) {
-          return item.response.data.path;
-        } else {
-          return item.path;
-        }
-      });
+    onDelete: function onDelete(index) {
+      if (this._.isArray(this.value)) {
+        var t_value = this._.clone(this.value);
 
-      if (this.attrs.multiple) {
-        this.onChange(urls);
+        t_value.splice(index, 1);
+        this.onChange(t_value);
       } else {
-        var v = urls.length > 0 ? urls[0] : null;
-        this.onChange(v);
+        this.onChange(null);
+      }
+    },
+    onRemove: function onRemove(file, fileList) {},
+    onSuccess: function onSuccess(response, file, fileList) {
+      if (!this.attrs.multiple) {
+        this.onChange(response.data.path);
+      } else {
+        var t_value = this._.clone(this.value);
+
+        t_value = this._.isArray(t_value) ? t_value : [];
+        t_value.push(response.data.path);
+        this.onChange(t_value);
       }
     },
     onExceed: function onExceed() {
       this.$Message.error("超出上传数量");
     }
   },
-  watch: {
-    defaultFileList: function defaultFileList(val) {
+  watch: {},
+  computed: {
+    list: function list() {
       var _this = this;
 
-      this.fileList = val.map(function (item) {
-        item.url = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.path, item.path);
-        return item;
-      });
-    }
-  },
-  computed: {
-    defaultFileList: function defaultFileList() {
       if (this._.isArray(this.value)) {
         return this.value.map(function (item) {
           return {
-            name: item,
+            name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(item),
             path: item,
-            url: item
+            url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.host, item)
           };
         });
       } else {
         if (!this.value) return [];
         return [{
-          name: this.value,
+          name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(this.value),
           path: this.value,
-          url: this.value
+          url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, this.value)
         }];
       }
+    },
+    urlList: function urlList() {
+      return this.list.map(function (item) {
+        return item.url;
+      });
+    },
+    limit: function limit() {
+      return this.attrs.limit - this.list.length;
     }
   }
 });
@@ -4386,6 +4417,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n  border-bottom: 1px solid #ebeef5;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item {\n  margin-right: 10px;\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
 
 // exports
 
@@ -24502,6 +24552,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--6-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Upload.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -27895,39 +27975,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "el-upload",
-        {
-          class: _vm.attrs.className,
-          style: _vm.attrs.style,
-          attrs: {
-            action: _vm.attrs.action,
-            multiple: _vm.attrs.multiple,
-            data: _vm.data,
-            "show-file-list": false,
-            drag: _vm.attrs.drag,
-            accept: _vm.attrs.accept,
-            "list-type": "text",
-            disabled: _vm.attrs.disabled,
-            limit: _vm.attrs.limit,
-            "on-exceed": _vm.onExceed,
-            "on-success": _vm.onSuccess,
-            "on-remove": _vm.onRemove
-          }
-        },
-        [
-          _c("el-button", { attrs: { size: "small", type: "primary" } }, [
-            _vm._v("点击上传")
-          ])
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("div", { staticClass: "upload-component" }, [
+    _c(
+      "div",
+      { staticClass: "upload-images" },
+      [
+        _vm._l(_vm.list, function(item, index) {
+          return [
+            _c(
+              "div",
+              { key: index, staticClass: "upload-images-item" },
+              [
+                _vm.attrs.type == "image"
+                  ? _c("el-image", {
+                      style: {
+                        width: _vm.attrs.width + "px",
+                        height: _vm.attrs.height + "px"
+                      },
+                      attrs: {
+                        title: "预览图片",
+                        src: item.url,
+                        fit: "cover",
+                        "preview-src-list": _vm.urlList
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.attrs.type == "file"
+                  ? _c("el-avatar", {
+                      attrs: {
+                        size: _vm.attrs.width,
+                        shape: "square",
+                        title: item.name,
+                        fit: "cover",
+                        icon: "el-icon-document-checked"
+                      }
+                    })
+                  : _vm.attrs.type == "avatar"
+                  ? _c("el-avatar", {
+                      attrs: { size: _vm.attrs.width, src: item.url }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "mask el-icon-close",
+                  attrs: { title: "删除图片" },
+                  on: {
+                    click: function($event) {
+                      return _vm.onDelete(index)
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          ]
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _vm.list.length < _vm.attrs.limit
+      ? _c(
+          "div",
+          { staticClass: "upload-block" },
+          [
+            _c(
+              "el-upload",
+              {
+                class: _vm.attrs.className,
+                style: _vm.attrs.style,
+                attrs: {
+                  action: _vm.attrs.action,
+                  multiple: _vm.attrs.multiple,
+                  data: _vm.data,
+                  "show-file-list": false,
+                  drag: _vm.attrs.drag,
+                  accept: _vm.attrs.accept,
+                  "list-type": "text",
+                  disabled: _vm.attrs.disabled,
+                  limit: _vm.limit,
+                  "on-exceed": _vm.onExceed,
+                  "on-success": _vm.onSuccess,
+                  "on-remove": _vm.onRemove
+                }
+              },
+              [
+                _c(
+                  "el-button",
+                  {
+                    class: _vm.attrs.type,
+                    style: {
+                      width: _vm.attrs.width + "px",
+                      height: _vm.attrs.height + "px"
+                    },
+                    attrs: { plain: "" }
+                  },
+                  [_vm._v("上传")]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -30488,7 +30641,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Upload_vue_vue_type_template_id_54cc3fe8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Upload.vue?vue&type=template&id=54cc3fe8& */ "./resources/js/components/widgets/Upload.vue?vue&type=template&id=54cc3fe8&");
 /* harmony import */ var _Upload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Upload.vue?vue&type=script&lang=js& */ "./resources/js/components/widgets/Upload.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Upload.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -30496,7 +30651,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Upload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Upload_vue_vue_type_template_id_54cc3fe8___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Upload_vue_vue_type_template_id_54cc3fe8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -30525,6 +30680,22 @@ component.options.__file = "resources/js/components/widgets/Upload.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Upload.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Upload.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--6-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Upload.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Upload.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Upload_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -30839,7 +31010,7 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function 
 /*!*******************************!*\
   !*** ./resources/js/utils.js ***!
   \*******************************/
-/*! exports provided: getArrayValue, flattenDeepChild, getFileUrl */
+/*! exports provided: getArrayValue, flattenDeepChild, getFileUrl, getFileName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30847,6 +31018,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getArrayValue", function() { return getArrayValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "flattenDeepChild", function() { return flattenDeepChild; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileUrl", function() { return getFileUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileName", function() { return getFileName; });
 function getArrayValue(data, path, level) {
   var index = level + 1;
   var key = path[index];
@@ -30883,13 +31055,20 @@ function flattenDeepChild(data, child_key, key) {
   return window._.flattenDeep(arr);
 }
 
-function getFileName($url) {}
-
-function getFileUrl($host, $path) {
-  if ($path.indexOf("//") >= 0) {
-    return $path;
+function getFileUrl(host, path) {
+  if (path.indexOf("//") >= 0) {
+    return path;
   } else {
-    return $host + $path;
+    return host + path;
+  }
+}
+
+function getFileName(path) {
+  try {
+    var pathInfo = path.split('/');
+    return pathInfo[pathInfo.length - 1];
+  } catch (error) {
+    return "";
   }
 }
 
@@ -30904,7 +31083,7 @@ function getFileUrl($host, $path) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\PHP\laravel-packages\packages\smallruraldog\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\homestead\laravel-vue-admin\packages\SmallRuralDog\Admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

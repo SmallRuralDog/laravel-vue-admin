@@ -29,4 +29,5 @@ mix
         extractVueStyles: false,
         processCssUrls: false,
     })
+    .disableNotifications()
     .version()

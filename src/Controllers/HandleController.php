@@ -13,14 +13,23 @@ class HandleController extends Controller
     public function upload(Request $request)
     {
         $file = $request->file('file');
+        $path = $request->input('path', 'image');
+        $uniqueName = $request->input('uniqueName', false);
 
         $disk = config('admin.upload.disk');
 
-        $path = $file->store('images', $disk);
+        $name = $file->getClientOriginalName();
+
+        if ($uniqueName == "true" || $uniqueName == true) {
+            $path = $file->store($path, $disk);
+        } else {
+            $path = $file->storeAs($path, $name, $disk);
+        }
+
 
         $data = [
             'path' => $path,
-            'name' => $file->getClientOriginalName(),
+            'name' => $name,
             'url' => \Storage::disk($disk)->url($path)
         ];
 

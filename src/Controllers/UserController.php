@@ -5,7 +5,6 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use SmallRuralDog\Admin\Components\Avatar;
-use SmallRuralDog\Admin\Components\Image;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
@@ -13,7 +12,6 @@ use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Components\Upload;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
-use SmallRuralDog\Admin\Layout\LvaContent;
 
 class UserController extends AdminController
 {
@@ -63,8 +61,8 @@ class UserController extends AdminController
                 ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])
                 ->displayComponent(Input::make()),
             $form->item('name', '名称')->displayComponent(Input::make()->showWordLimit()->maxlength(20)),
-            $form->item('avatar', '头像')->displayComponent(Upload::make()->pictureCard()),
-            $form->item('bg', '头像')->displayComponent(Upload::make()->pictureCard()->multiple(true)->limit(10)),
+            $form->item('avatar', '头像')->displayComponent(Upload::make()->pictureCard()->avatar()->path('avatar')->uniqueName()),
+            $form->item('images', 'images')->displayComponent(Upload::make()->pictureCard()->multiple(true)->limit(3)->image()->drag()),
             $form->item('password', '密码')->serveRules(['required', 'string', 'min:8', 'confirmed'])
                 ->displayComponent(function () {
                     return Input::make()->password()->showPassword();
