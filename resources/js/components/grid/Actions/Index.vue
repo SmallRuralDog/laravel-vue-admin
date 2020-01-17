@@ -35,7 +35,7 @@ export default {
     scope: Object
   },
   mounted() {
-    //console.log(this.data);
+
   },
   computed: {
     list() {

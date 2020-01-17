@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Column;
-use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
-use SmallRuralDog\Admin\Grid\Model;
-use SmallRuralDog\Admin\Grid\Table\Attributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasActions;
 use SmallRuralDog\Admin\Grid\Concerns\HasAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
+use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
+use SmallRuralDog\Admin\Grid\Model;
+use SmallRuralDog\Admin\Grid\Table\Attributes;
 
 class Grid extends Component implements \JsonSerializable
 {
@@ -109,6 +109,7 @@ class Grid extends Component implements \JsonSerializable
     public function tree($tree = true)
     {
         $this->tree = $tree;
+        $this->componentName = "Tree";
         return $this;
     }
 
@@ -144,13 +145,6 @@ class Grid extends Component implements \JsonSerializable
      */
     public function columns($columns)
     {
-        if ($this->tree) {
-            $column = $this->addColumn($this->model()->getModel()->getKeyName());
-            $column->type("expand");
-            $column->align("center");
-            $column->width(50);
-            $columns = collect($columns)->prepend($column)->all();
-        }
         if ($this->selection) {
             $column = $this->addColumn($this->model->getModel()->getKey());
             $column->type("selection");

@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use Illuminate\Database\Eloquent\Model;
+use SmallRuralDog\Admin\Components\Icon;
 use SmallRuralDog\Admin\Components\InputNumber;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
@@ -19,21 +20,20 @@ class MenuController extends AdminController
 
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
+        $grid->model()->where('parent_id', 0);
+        $grid->with(['children','roles','children.roles']);
         $grid->pageBackground()
             ->defaultSort('id', 'asc')
             ->stripe(true)
+            ->tree()
             ->emptyText("暂无菜单")
-            ->perPage(10);
+            ->perPage(10000);
         $grid->columns([
-            $grid->column('id', "ID"),
-            $grid->column('title', "Title"),
+            $grid->column('icon', "icon")->displayComponent(Icon::make()),
+            $grid->column('title', "Title")->width("150px"),
             $grid->column('uri', "Uri"),
-            $grid->column('icon', "icon"),
             $grid->column('roles.name', trans('admin::admin.roles'))->displayComponent(Tag::make()),
-            $grid->column('order', "order"),
         ]);
-
-
         return $grid;
     }
 
@@ -53,7 +53,7 @@ class MenuController extends AdminController
             $form->item('title', '名称')->required(),
             $form->item('icon', trans('admin::admin.icon')),
             $form->item('uri', trans('admin::admin.uri'))->required(),
-            $form->item('order',trans('admin::admin.order'))->displayComponent(InputNumber::make()->min(0)),
+            $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make()->min(0)),
             $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
                 return $roleModel::all()->map(function ($role) {
                     return SelectOption::make($role->id, $role->name);

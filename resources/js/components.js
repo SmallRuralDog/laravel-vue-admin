@@ -9,6 +9,7 @@ import Content from './components/layout/Content'
 import Row from './components/layout/Row'
 import Column from './components/layout/Column'
 import Table from './components/grid/Table'
+import Tree from './components/grid/Tree'
 import BaseForm from './components/form/BaseForm'
 
 Vue.component('login', Login);
@@ -17,6 +18,7 @@ Vue.component('Content', Content);
 Vue.component('Row', Row);
 Vue.component('Column', Column);
 Vue.component('Grid', Table);
+Vue.component('Tree', Tree);
 Vue.component('Form', BaseForm);
 
 
@@ -39,6 +41,7 @@ import Tag from './components/widgets/Tag'
 import Link from './components/widgets/Link'
 import Text from './components/widgets/Text'
 import Image from './components/widgets/Image'
+import Icon from './components/widgets/Icon'
 
 
 Vue.component('Input', Input);
@@ -58,3 +61,4 @@ Vue.component('Tag', Tag);
 Vue.component('Link', Link);
 Vue.component('IText', Text);
 Vue.component('IImage', Image);
+Vue.component('Icon', Icon);

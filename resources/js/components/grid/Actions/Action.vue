@@ -72,6 +72,8 @@ export default {
   },
   computed: {
     row() {
+      if (this.scope.row) return this.scope.row;
+      if (this.scope.data) return this.scope.data;
       return this.scope.row;
     },
     keyVauel() {
