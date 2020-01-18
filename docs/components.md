@@ -119,7 +119,13 @@ Avatar::make();
 ```
 ### Image 图片
 可显示单张或多张图片，支持大图预览
+```php
 
+```
+### Icon 图标
+```php
+Icon::make()
+```
 ## 表单组件
 
 ### Radio 单选框

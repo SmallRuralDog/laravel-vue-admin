@@ -356,9 +356,9 @@ $grid->column('name')->customValue(function ($row, $value) {
 ### 树形列表
 >用清晰的层级结构展示信息，可展开或折叠。
 
-此功能必须满足以下几点才能正常使用
+此功能必须满足以下几点才能正常使用，暂不支持分页，所以不建议展示大量的数据，后期会加入异步加载
 
-定义一个 `hasMany`管理，并预加载所有`children`
+定义一个 `hasMany`管理，名称固定为`children`，并预加载所有`children`，设置好排序
 ```php
 public function children() {
     return $this->hasMany(get_class($this), 'parent_id' )->orderBy('order')->with( 'children' );
