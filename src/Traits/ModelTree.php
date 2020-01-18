@@ -298,7 +298,7 @@ trait ModelTree
     {
         parent::boot();
 
-        static::saving(function (Model $branch) {
+        /*static::saving(function (Model $branch) {
             $parentColumn = $branch->getParentColumn();
 
             if (Request::has($parentColumn) && Request::input($parentColumn) == $branch->getKey()) {
@@ -316,6 +316,6 @@ trait ModelTree
             }
 
             return $branch;
-        });
+        });*/
     }
 }

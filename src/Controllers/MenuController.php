@@ -100,7 +100,7 @@ class MenuController extends AdminController
                 })->prepend(SelectOption::make(0, '根目录'));
             })),
             $form->item('title', '名称')->required(),
-            $form->item('icon', trans('admin::admin.icon')),
+            $form->item('icon', trans('admin::admin.icon'))->required(),
             $form->item('uri', trans('admin::admin.uri'))->required(),
             $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make()->min(0)),
             $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
