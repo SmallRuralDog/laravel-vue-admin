@@ -50,4 +50,7 @@ class Attributes
 
     public $hideCreateButton = false;
 
+    public $draggable = false;
+    public $draggableUrl;
+
 }

@@ -5,6 +5,9 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use SmallRuralDog\Admin\Auth\Database\Menu;
 use SmallRuralDog\Admin\Components\Icon;
 use SmallRuralDog\Admin\Components\InputNumber;
 use SmallRuralDog\Admin\Components\Select;
@@ -15,6 +18,52 @@ use SmallRuralDog\Admin\Grid;
 class MenuController extends AdminController
 {
 
+    public function menuOrder(Request $request)
+    {
+        try {
+            \Admin::validatorData($request->all(), [
+                'self' => 'required',
+                'target' => 'required',
+                'type' => ['required', Rule::in(["before", "after", "inner"])],
+            ]);
+
+            $self_id = $request->input('self.id');
+            $target_id = $request->input('target.id');
+            $type = $request->input('type');
+            $self_node = Menu::query()->findOrFail($self_id);
+            $target_node = Menu::query()->findOrFail($target_id);
+
+            switch ($type) {
+                case "before":
+                    Menu::query()->where('parent_id', $target_node->parent_id)
+                        ->where('order', '>=', $target_node->order)
+                        ->increment('order');
+                    $self_node->parent_id = $target_node->parent_id;
+                    $self_node->order = $target_node->order;
+                    $self_node->save();
+                    break;
+                case "after":
+                    Menu::query()->where('parent_id', $target_node->parent_id)
+                        ->where('order', '>', $target_node->order)
+                        ->increment('order');
+                    $self_node->parent_id = $target_node->parent_id;
+                    $self_node->order = $target_node->order + 1;
+                    $self_node->save();
+                    break;
+                case "inner":
+                    $self_node->parent_id = $target_node->id;
+                    $self_node->order = 1;
+                    $self_node->save();
+                    break;
+            }
+
+
+        } catch (\Exception $exception) {
+            return \Admin::responseError($exception->getMessage());
+        }
+
+    }
+
 
     protected function grid()
     {
@@ -24,9 +73,10 @@ class MenuController extends AdminController
         $grid->model()->where('parent_id', 0);
         $grid->with(['children', 'roles', 'children.roles']);
         $grid->pageBackground()
-            ->defaultSort('id', 'asc')
+            ->defaultSort('order', 'asc')
             ->stripe(true)
             ->tree()
+            ->draggable(route('admin.auth.menu.order'))
             ->emptyText("暂无菜单")
             ->perPage(10000);
         $grid->columns([

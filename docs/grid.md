@@ -353,6 +353,75 @@ $grid->column('name')->customValue(function ($row, $value) {
     return $value;
 })
 ```
+### 树形列表
+>用清晰的层级结构展示信息，可展开或折叠。
+
+此功能必须满足以下几点才能正常使用
+
+定义一个 `hasMany`管理，并预加载所有`children`
+```php
+public function children() {
+    return $this->hasMany(get_class($this), 'parent_id' )->orderBy('order')->with( 'children' );
+}
+```
+以下代码开启树形展示模式
+```php
+$grid->tree()
+```
+开启拖拽排序功能
+```php
+//自定义拖拽完成接受地址
+$grid->tree()->draggable(route('admin.auth.menu.order'))
+```
+后端会接受到三个参数,可参考以下代码示例
+```php
+public function menuOrder(Request $request)
+{
+    try {
+        \Admin::validatorData($request->all(), [
+            'self' => 'required',//当前节点信息
+            'target' => 'required',//目标节点信息
+            'type' => ['required', Rule::in(["before", "after", "inner"])],//放置类型  前 后  插入
+        ]);
+
+        $self_id = $request->input('self.id');
+        $target_id = $request->input('target.id');
+        $type = $request->input('type');
+        $self_node = Menu::query()->findOrFail($self_id);
+        $target_node = Menu::query()->findOrFail($target_id);
+
+        switch ($type) {
+            case "before":
+                Menu::query()->where('parent_id', $target_node->parent_id)
+                    ->where('order', '>=', $target_node->order)
+                    ->increment('order');
+                $self_node->parent_id = $target_node->parent_id;
+                $self_node->order = $target_node->order;
+                $self_node->save();
+                break;
+            case "after":
+                Menu::query()->where('parent_id', $target_node->parent_id)
+                    ->where('order', '>', $target_node->order)
+                    ->increment('order');
+                $self_node->parent_id = $target_node->parent_id;
+                $self_node->order = $target_node->order + 1;
+                $self_node->save();
+                break;
+            case "inner":
+                $self_node->parent_id = $target_node->id;
+                $self_node->order = 1;
+                $self_node->save();
+                break;
+        }
+
+
+    } catch (\Exception $exception) {
+        return \Admin::responseError($exception->getMessage());
+    }
+
+}
+
+```
 ### 关联模型
 >要成功显示关联模型的值，必须设置`with`的值
 

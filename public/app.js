@@ -1413,6 +1413,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     onNodeDrop: function onNodeDrop(node, before, after, inner) {
+      this.$http.post(this.attrs.attributes.draggableUrl, {
+        self: node.data,
+        target: before.data,
+        type: after
+      }).then(function () {});
       console.log(node);
       console.log(before);
       console.log(after);
@@ -27485,7 +27490,7 @@ var render = function() {
                 ],
                 attrs: {
                   data: _vm.tableData,
-                  draggable: "",
+                  draggable: _vm.attrs.attributes.draggable,
                   "default-expand-all": "",
                   "empty-text": _vm.attrs.attributes.emptyText,
                   indent: 10

@@ -33,7 +33,7 @@
       <div style="padding:10px;">
         <el-tree
           :data="tableData"
-          draggable
+          :draggable="attrs.attributes.draggable"
           default-expand-all
           v-loading="loading"
           :empty-text="attrs.attributes.emptyText"
@@ -130,6 +130,14 @@ export default {
         });
     },
     onNodeDrop(node, before, after, inner) {
+      this.$http
+        .post(this.attrs.attributes.draggableUrl, {
+          self: node.data,
+          target: before.data,
+          type: after
+        })
+        .then(() => {});
+
       console.log(node);
       console.log(before);
       console.log(after);

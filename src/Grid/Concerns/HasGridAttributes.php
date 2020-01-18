@@ -145,4 +145,16 @@ trait HasGridAttributes
         $this->attributes->hideCreateButton = $hide;
         return $this;
     }
+
+    /**
+     * 开启拖拽排序
+     * @param $url
+     * @return $this
+     */
+    public function draggable($url)
+    {
+        $this->attributes->draggable = true;
+        $this->attributes->draggableUrl = $url;
+        return $this;
+    }
 }

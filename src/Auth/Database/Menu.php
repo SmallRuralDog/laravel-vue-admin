@@ -54,7 +54,7 @@ class Menu extends Model
     }
 
     public function children() {
-        return $this->hasMany(get_class($this), 'parent_id' );
+        return $this->hasMany(get_class($this), 'parent_id' )->orderBy('order')->with( 'children' );
     }
 
     public function allChildren() {
