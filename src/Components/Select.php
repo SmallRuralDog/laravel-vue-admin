@@ -176,9 +176,10 @@ class Select extends Component
      * @param string $allowCreateUrl 创建新条目Url
      * @return $this
      */
-    public function allowCreate($allowCreateUrl)
+    public function allowCreate($allowCreateUrl=null)
     {
         $this->allowCreate = true;
+        $this->filterable = true;
         $this->allowCreateUrl = $allowCreateUrl;
         return $this;
     }

@@ -4,13 +4,14 @@
     :class="attrs.className"
     :fit="attrs.fit"
     :lazy="attrs.lazy"
-    :src="value"
+    :src="src"
     :scroll-container="attrs.scrollContainer"
     :preview-src-list="previewSrcList"
     :z-index="attrs.zIndex"
   />
 </template>
 <script>
+import { getFileUrl } from "../../utils";
 export default {
   props: {
     attrs: Object,
@@ -24,12 +25,17 @@ export default {
   },
   mounted() {},
   computed: {
+    src() {
+      return getFileUrl(this.attrs.host, this.value);
+    },
     previewSrcList() {
       if (!this.attrs.preview) return [];
       if (this._.isArray(this.column_value)) {
-        return this.column_value;
+        return this.column_value.map(item => {
+          return getFileUrl(this.attrs.host, item);
+        });
       } else {
-        return [this.column_value];
+        return [getFileUrl(this.attrs.host, this.column_value)];
       }
     }
   }

@@ -896,17 +896,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2030,6 +2019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils */ "./resources/js/utils.js");
 //
 //
 //
@@ -2042,6 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
@@ -2055,13 +2046,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   computed: {
+    src: function src() {
+      return Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, this.value);
+    },
     previewSrcList: function previewSrcList() {
+      var _this = this;
+
       if (!this.attrs.preview) return [];
 
       if (this._.isArray(this.column_value)) {
-        return this.column_value;
+        return this.column_value.map(function (item) {
+          return Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.host, item);
+        });
       } else {
-        return [this.column_value];
+        return [Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, this.column_value)];
       }
     }
   }
@@ -2288,6 +2286,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4581,7 +4584,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
+exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
 
 // exports
 
@@ -4676,7 +4679,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".display-column {\n  vertical-align: middle;\n  display: inline-block;\n  line-height: 1;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}", ""]);
+exports.push([module.i, ".display-column {\n  vertical-align: middle;\n  display: inline-block;\n  line-height: 1;\n}\n.display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}\n.display-column .el-image + .el-image {\n  margin-left: 5px;\n}", ""]);
 
 // exports
 
@@ -28128,7 +28131,7 @@ var render = function() {
     attrs: {
       fit: _vm.attrs.fit,
       lazy: _vm.attrs.lazy,
-      src: _vm.value,
+      src: _vm.src,
       "scroll-container": _vm.attrs.scrollContainer,
       "preview-src-list": _vm.previewSrcList,
       "z-index": _vm.attrs.zIndex
@@ -28382,10 +28385,34 @@ var render = function() {
       on: { change: _vm.onChange }
     },
     _vm._l(_vm.options, function(item, index) {
-      return _c("el-option", {
-        key: index,
-        attrs: { label: item.label, value: item.value, disabled: item.disabled }
-      })
+      return _c(
+        "el-option",
+        {
+          key: index,
+          attrs: {
+            label: item.label,
+            value: item.value,
+            disabled: item.disabled
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "flex-c" },
+            [
+              item.avatar
+                ? _c("el-avatar", {
+                    staticClass: "mr-5",
+                    attrs: { size: 25, src: item.avatar }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(item.label))])
+            ],
+            1
+          )
+        ]
+      )
     }),
     1
   )

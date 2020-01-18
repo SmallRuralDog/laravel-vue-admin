@@ -9,6 +9,7 @@ class SelectOption implements \JsonSerializable
     protected $type = "default";
     protected $label;
     protected $value;
+    protected $avatar;
     protected $disabled = false;
 
     static function make($value, $label)
@@ -30,6 +31,17 @@ class SelectOption implements \JsonSerializable
         $this->disabled = $disabled;
         return $this;
     }
+
+    /**
+     * @param string $avatar
+     * @return $this
+     */
+    public function avatar($avatar)
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
 
 
     /**

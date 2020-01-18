@@ -16,7 +16,9 @@ body {
 .ml-5 {
     margin-left: 5px;
 }
-
+.mr-5{
+    margin-right: 5px;
+}
 .ml-10 {
     margin-left: 10px;
 }
@@ -77,6 +79,18 @@ body {
     cursor: pointer;
 }
 
+
+
+.flex-c {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+/**********************************/
 .page-account {
     display: flex;
     flex-direction: column;
@@ -101,6 +115,11 @@ body {
         object-fit: cover;
     }
 }
+.el-select-dropdown__item{
+    padding: 0 10px;
+}
+
+/*************************************************/
 
 /*fade*/
 .fade-enter-active,

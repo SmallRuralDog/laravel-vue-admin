@@ -2,22 +2,11 @@
   <div class="display-column">
     <template v-if="_.isArray(value)">
       <template v-for="(item, key) in value">
-        <Value
-          :value="item"
-          :column_attr="columnAttr"
-          :key="key"
-          :row="row"
-          :column_value="value"
-        />
+        <Value :value="item" :column_attr="columnAttr" :key="key" :row="row" :column_value="value" />
       </template>
     </template>
     <template v-else>
-      <Value
-        :value="value"
-        :column_attr="columnAttr"
-        :row="row"
-        :column_value="value"
-      />
+      <Value :value="value" :column_attr="columnAttr" :row="row" :column_value="value" />
     </template>
   </div>
 </template>
@@ -85,6 +74,9 @@ export default {
     margin-bottom: 2px;
     margin-top: 2px;
     margin-right: 4px;
+  }
+  .el-image + .el-image {
+    margin-left: 5px;
   }
 }
 </style>

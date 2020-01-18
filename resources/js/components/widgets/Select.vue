@@ -32,7 +32,12 @@
       :label="item.label"
       :value="item.value"
       :disabled="item.disabled"
-    ></el-option>
+    >
+      <div class="flex-c">
+        <el-avatar v-if="item.avatar" :size="25" :src="item.avatar" class="mr-5" />
+        <span>{{item.label}}</span>
+      </div>
+    </el-option>
   </el-select>
 </template>
 <script>

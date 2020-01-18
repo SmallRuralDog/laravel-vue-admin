@@ -8,11 +8,21 @@ class Image extends GridComponent
 {
     protected $componentName = "IImage";
     protected $src;
+    protected $host = "";
     protected $fit = "cover";
     protected $lazy = false;
     protected $scrollContainer;
     protected $preview = false;
     protected $zIndex = 2000;
+
+
+    public function __construct($value = null)
+    {
+        $this->host = \Storage::disk(config('admin.upload.disk'))->url('/');
+
+        $this->componentValue($value);
+    }
+
 
     static public function make($value = null)
     {
@@ -93,9 +103,19 @@ class Image extends GridComponent
      */
     public function size($width = null, $height = null)
     {
-        if ($width) $this->style(collect($this->style)->add(['width' => $width]));
-        if ($height) $this->style(collect($this->style)->add(['height' => $height]));
+        if ($width) $this->style(collect($this->style)->add(['width' => is_int($width) ? $width . 'px' : $width]));
+        if ($height) $this->style(collect($this->style)->add(['height' => is_int($height) ? $height . 'px' : $height]));
 
+        return $this;
+    }
+
+    /**
+     * @param string $host
+     * @return $this
+     */
+    public function host(string $host)
+    {
+        $this->host = $host;
         return $this;
     }
 
