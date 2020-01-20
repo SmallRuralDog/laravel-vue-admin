@@ -20,16 +20,20 @@ php artisan admin:form-item {name}
 //例如
 php artisan admin:form-item smallruraldog/editor
 ```
-### npm初始化
+### 初始化
 进入扩展根目录：扩展包在`admin-components`目录下
 ```bash
 npm install
+```
+### 开发编译
+```bash
+npm run dev
 
 npm run watch-poll 
 ```
-如果未编译，重新执行一次`npm run watch-poll `即可
 
 ### 开发教程
+
 
 ### 使用扩展
 ```php

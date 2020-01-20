@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Controllers;
 use DateTime;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use SmallRuralDog\Admin\Admin;
 
 class ScriptController extends Controller

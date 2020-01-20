@@ -12,7 +12,7 @@ class StyleController extends Controller
 
     public function show($style)
     {
-        $path = Arr::get(Admin::styles(),$style);
+        $path = Arr::get(Admin::styles(), $style);
         abort_if(is_null($path), 404);
         return response(
             file_get_contents($path),

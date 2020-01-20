@@ -11,7 +11,7 @@ class {{ class }} extends Component
      *
      * @var string
      */
-    public $componentName = 'form-item-{{ component }}';
+    protected $componentName = 'form-item-{{ component }}';
 
     static public function make($value = null)
     {
