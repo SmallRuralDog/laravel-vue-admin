@@ -5,7 +5,7 @@ namespace {{ namespace }};
 use Illuminate\Support\ServiceProvider;
 use SmallRuralDog\Admin\Admin;
 
-class FieldServiceProvider extends ServiceProvider
+class FormItemServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
