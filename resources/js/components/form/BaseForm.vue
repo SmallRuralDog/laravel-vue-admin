@@ -38,6 +38,7 @@
                 <ItemDiaplsy
                   v-model="formData[item.relationName][item.relationValueKey]"
                   :form_item="item"
+                  :form_items="attrs.formItems"
                   :form_data="formData"
                 />
               </template>

@@ -11,12 +11,12 @@ class AdminServiceProvider extends ServiceProvider
     protected $commands = [
 
         Console\InstallCommand::class,
+        Console\FormItemCommand::class,
 
     ];
 
     protected $routeMiddleware = [
         'admin.auth' => Middleware\Authenticate::class,
-        'admin.pjax' => Middleware\Pjax::class,
         'admin.log' => Middleware\LogOperation::class,
         'admin.permission' => Middleware\Permission::class,
         'admin.bootstrap' => Middleware\Bootstrap::class,
@@ -31,11 +31,9 @@ class AdminServiceProvider extends ServiceProvider
     protected $middlewareGroups = [
         'admin' => [
             'admin.auth',
-            //'admin.pjax',
             'admin.log',
             // 'admin.bootstrap',
-            'admin.permission',
-//            'admin.session',
+            'admin.permission'
         ],
     ];
 

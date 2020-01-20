@@ -5,6 +5,7 @@
       :is="attrs.componentName"
       :attrs="attrs"
       :form_data="form_data"
+      :form_items="form_items"
       @change="onChange"
     />
   </div>
@@ -16,6 +17,7 @@ export default {
     value: {
       default: null
     },
+    form_items: Array,
     //fromItem数据
     form_item: Object,
     //当前表单数据

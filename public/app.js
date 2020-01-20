@@ -517,6 +517,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -619,12 +620,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     value: {
       "default": null
     },
+    form_items: Array,
     //fromItem数据
     form_item: Object,
     //当前表单数据
@@ -26563,6 +26566,7 @@ var render = function() {
                                   _c("ItemDiaplsy", {
                                     attrs: {
                                       form_item: item,
+                                      form_items: _vm.attrs.formItems,
                                       form_data: _vm.formData
                                     },
                                     model: {
@@ -26689,7 +26693,8 @@ var render = function() {
             attrs: {
               value: _vm.value,
               attrs: _vm.attrs,
-              form_data: _vm.form_data
+              form_data: _vm.form_data,
+              form_items: _vm.form_items
             },
             on: { change: _vm.onChange }
           })
@@ -28966,7 +28971,7 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Admin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return VueAdmin; });
 /* harmony import */ var view_design_src_components_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! view-design/src/components/message */ "./node_modules/view-design/src/components/message/index.js");
 /* harmony import */ var view_design_src_components_loading_bar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! view-design/src/components/loading-bar */ "./node_modules/view-design/src/components/loading-bar/index.js");
 /* harmony import */ var view_design_src_components_drawer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! view-design/src/components/drawer */ "./node_modules/view-design/src/components/drawer/index.js");
@@ -29013,17 +29018,17 @@ window._ = lodash__WEBPACK_IMPORTED_MODULE_6___default.a;
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_bus__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
 
-var Admin =
+var VueAdmin =
 /*#__PURE__*/
 function () {
-  function Admin(config) {
-    _classCallCheck(this, Admin);
+  function VueAdmin(config) {
+    _classCallCheck(this, VueAdmin);
 
     this.bootingCallbacks = [];
     this.config = config;
   }
 
-  _createClass(Admin, [{
+  _createClass(VueAdmin, [{
     key: "booting",
     value: function booting(callback) {
       this.bootingCallbacks.push(callback);
@@ -29049,7 +29054,7 @@ function () {
     }
   }]);
 
-  return Admin;
+  return VueAdmin;
 }();
 
 

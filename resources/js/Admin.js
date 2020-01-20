@@ -23,7 +23,7 @@ window._ = lodash;
 Vue.use(VueBus);
 import './styles/admin.scss';
 
-export default class Admin {
+export default class VueAdmin {
     constructor(config) {
         this.bootingCallbacks = [];
         this.config = config

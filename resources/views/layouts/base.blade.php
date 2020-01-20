@@ -6,7 +6,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ Admin::title() }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    @foreach(\SmallRuralDog\Admin\Admin::styles() as $name => $path)
+        @if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://']))
+            <link rel="stylesheet" href="{{ $path }}">
+        @else
+            <link rel="stylesheet" href="{{route('admin.styles',['style'=>$name])}}">
+        @endif
 
+    @endforeach
     @yield('head-js')
 </head>
 <body>
@@ -26,7 +33,13 @@
 <script>
     window.VueAdmin = new CreateVueAdmin(config)
 </script>
-
+@foreach (\SmallRuralDog\Admin\Admin::scripts() as $name => $path)
+    @if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://']))
+        <script src="{!! $path !!}"></script>
+    @else
+        <script src="{{route('admin.scripts',['script'=>$name])}}"></script>
+    @endif
+@endforeach
 <script>
     VueAdmin.liftOff()
 </script>

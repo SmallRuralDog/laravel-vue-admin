@@ -1,0 +1,20 @@
+<?php
+
+namespace {{ namespace }};
+
+use SmallRuralDog\Admin\Components\Component;
+
+class {{ class }} extends Component
+{
+    /**
+     * 组件名称
+     *
+     * @var string
+     */
+    public $componentName = 'form-item-{{ component }}';
+
+    static public function make($value = null)
+    {
+        return new {{ class }}($value);
+    }
+}

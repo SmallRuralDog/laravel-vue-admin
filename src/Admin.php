@@ -12,6 +12,34 @@ class Admin
     protected $menuList = [];
     public static $metaTitle;
 
+    public static $scripts = [];
+
+    public static $styles = [];
+
+    public static function script($name, $path)
+    {
+        static::$scripts[$name] = $path;
+
+        return new static;
+    }
+
+    public static function style($name, $path)
+    {
+        static::$styles[$name] = $path;
+
+        return new static;
+    }
+
+    public static function scripts()
+    {
+        return static::$scripts;
+    }
+
+    public static function styles()
+    {
+        return static::$styles;
+    }
+
     public static function setTitle($title)
     {
         self::$metaTitle = $title;

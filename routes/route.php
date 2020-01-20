@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use SmallRuralDog\Admin\Controllers\RootController;
 
 Route::group([
     'prefix' => config('admin.route.prefix'),
@@ -12,14 +13,16 @@ Route::group([
     $router->get('auth/logout', $authController . '@getLogout')->name('admin.logout');
     $router->get('auth/setting', $authController . '@getSetting')->name('admin.setting');
     $router->put('auth/setting', $authController . '@putSetting');
-
-    $router->get('/', \SmallRuralDog\Admin\Controllers\RootController::class . "@index")->name('admin.root');
+    $router->get('/', RootController::class . "@index")->name('admin.root');
 });
 Route::group([
     'prefix' => config('admin.route.api_prefix'),
     'middleware' => config('admin.route.middleware'),
     'namespace' => '\SmallRuralDog\Admin\Controllers'
 ], function (Router $router) {
+
+    $router->get('scripts/{script}','ScriptController@show')->name('admin.scripts');
+    $router->get('styles/{style}','StyleController@show')->name('admin.styles');
     $router->resource('auth/users', 'UserController')->names('admin.auth.users');
     $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
     $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');

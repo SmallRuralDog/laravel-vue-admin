@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Support\ServiceProvider;
+use SmallRuralDog\Admin\Admin;
+
+class FieldServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+
+        Admin::script('{{ component }}', __DIR__.'/../dist/js/form-item.js');
+        Admin::style('{{ component }}', __DIR__.'/../dist/css/form-item.css');
+     
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}

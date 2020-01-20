@@ -13,3 +13,10 @@
 
 ## 表单
 自定义表单组件，如`编辑器`,`图片裁剪`等
+### 创建扩展
+```php
+php artisan admin:form-item {name}
+
+//例如
+php artisan admin:form-item smallruraldog/editor
+```

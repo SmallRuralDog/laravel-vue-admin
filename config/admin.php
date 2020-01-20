@@ -163,19 +163,4 @@ return [
 
     'menu_bind_permission' => true,
 
-
-    'enable_default_breadcrumb' => true,
-
-    'minify_assets' => [
-
-        // Assets will not be minified.
-        'excepts' => [
-
-        ],
-
-    ],
-    'extension_dir' => app_path('Admin/Extensions'),
-    'extensions' => [
-
-    ],
 ];
