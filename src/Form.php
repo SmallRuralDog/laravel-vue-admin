@@ -4,12 +4,12 @@
 namespace SmallRuralDog\Admin;
 
 use Admin;
-use Arr;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use JsonSerializable;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Form\FormAttrs;
@@ -119,7 +119,7 @@ class Form extends Component implements JsonSerializable
         });
         /**@var FormItem $item */
         foreach ($items as $item) {
-            $this->formItemsValue[$item->getProp()] = $item->getDefaultValue();
+            Arr::set($this->formItemsValue, $item->getProp(), $item->getDefaultValue());
         }
 
     }
@@ -304,12 +304,14 @@ class Form extends Component implements JsonSerializable
         })->toArray();
 
         foreach (Arr::flatten($columns) as $column) {
+
             if (Str::contains($column, '.')) {
                 list($relation) = explode('.', $column);
 
                 if (method_exists($this->model, $relation) &&
                     $this->model->$relation() instanceof Relation
                 ) {
+
                     $relations[] = $relation;
                 }
             } elseif (method_exists($this->model, $column)) {
@@ -547,17 +549,21 @@ class Form extends Component implements JsonSerializable
         $this->setMode(self::MODE_EDIT);
         $this->setResourceId($id);
         $e_data = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
+
+
         $data = [];
         /**@var FormItem $formItem */
         foreach ($this->formItems as $formItem) {
             $field = $formItem->getField();
             $prop = $formItem->getProp();
-            $data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
+            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model));
+            //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {
             $prop = $formItem->getProp();
             if ($formItem->getCopyProp()) {
-                $data[$prop] = $data[$formItem->getCopyProp()];
+                Arr::set($data, $prop, Arr::get($data, $formItem->getCopyProp()));
+                //$data[$prop] = $data[$formItem->getCopyProp()];
             }
         }
         return [

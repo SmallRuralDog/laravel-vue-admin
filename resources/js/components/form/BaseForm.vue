@@ -2,7 +2,7 @@
   <div class="form-page">
     <el-card shadow="never" class="form-card">
       <el-form
-        v-show="init"
+        v-if="formData"
         ref="ruleForm"
         :model="formData"
         :class="attrs.attrs.className"
@@ -33,16 +33,20 @@
             :inline-message="item.inlineMessage"
             :size="item.size"
           >
-            <ItemDiaplsy
-              v-model="formData[item.prop]"
-              :item="item"
-              :form_data="formData"
-            />
-            <div
-              v-if="item.help"
-              class="form-item-help"
-              v-html="item.help"
-            ></div>
+            <template>
+              <template v-if="item.relationName">
+                <ItemDiaplsy
+                  v-model="formData[item.relationName][item.relationValueKey]"
+                  :form_item="item"
+                  :form_data="formData"
+                />
+              </template>
+              <template v-else>
+                <ItemDiaplsy v-model="formData[item.prop]" :form_item="item" :form_data="formData" />
+              </template>
+
+              <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
+            </template>
           </el-form-item>
         </template>
 
@@ -54,11 +58,8 @@
               class="submit-btn"
               type="primary"
               @click="submitForm('ruleForm')"
-              >{{ isEdit ? "立即修改" : "立即创建" }}</el-button
-            >
-            <el-button class="submit-btn" @click="$router.go(-1)"
-              >返回</el-button
-            >
+            >{{ isEdit ? "立即修改" : "立即创建" }}</el-button>
+            <el-button class="submit-btn" @click="$router.go(-1)">返回</el-button>
           </div>
         </div>
       </el-form>
@@ -82,8 +83,8 @@ export default {
   data() {
     return {
       loading: false,
-      init: true,
-      formData: {}
+      init: false,
+      formData: null
     };
   },
   mounted() {
@@ -102,6 +103,7 @@ export default {
         })
         .then(({ data }) => {
           this.formData = data;
+
           this.init = true;
         })
         .finally(() => {

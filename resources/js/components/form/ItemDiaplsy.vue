@@ -17,7 +17,7 @@ export default {
       default: null
     },
     //fromItem数据
-    item: Object,
+    form_item: Object,
     //当前表单数据
     form_data: Object
   },
@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     attrs() {
-      return this.item.component;
+      return this.form_item.component;
     }
   },
   methods: {

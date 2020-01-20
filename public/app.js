@@ -516,6 +516,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -532,8 +533,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       loading: false,
-      init: true,
-      formData: {}
+      init: false,
+      formData: null
     };
   },
   mounted: function mounted() {
@@ -625,7 +626,7 @@ __webpack_require__.r(__webpack_exports__);
       "default": null
     },
     //fromItem数据
-    item: Object,
+    form_item: Object,
     //当前表单数据
     form_data: Object
   },
@@ -638,7 +639,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     attrs: function attrs() {
-      return this.item.component;
+      return this.form_item.component;
     }
   },
   methods: {
@@ -26511,118 +26512,145 @@ var render = function() {
         "el-card",
         { staticClass: "form-card", attrs: { shadow: "never" } },
         [
-          _c(
-            "el-form",
-            {
-              directives: [
+          _vm.formData
+            ? _c(
+                "el-form",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.init,
-                  expression: "init"
-                }
-              ],
-              ref: "ruleForm",
-              class: _vm.attrs.attrs.className,
-              style: _vm.attrs.attrs.style,
-              attrs: {
-                model: _vm.formData,
-                rules: _vm.attrs.attrs.rules,
-                inline: _vm.attrs.attrs.inline,
-                "label-position": _vm.attrs.attrs.labelPosition,
-                "label-width": _vm.attrs.attrs.labelWidth,
-                "label-suffix": _vm.attrs.attrs.labelSuffix,
-                "hide-required-asterisk": _vm.attrs.attrs.hideRequiredAsterisk,
-                "show-message": _vm.attrs.attrs.showMessage,
-                "inline-message": _vm.attrs.attrs.inlineMessage,
-                "status-icon": _vm.attrs.attrs.statusIcon,
-                "validate-on-rule-change": _vm.attrs.attrs.validateOnRuleChange,
-                size: _vm.attrs.attrs.size,
-                disabled: _vm.attrs.attrs.disabled
-              }
-            },
-            [
-              _vm._l(_vm.attrs.formItems, function(item, index) {
-                return [
-                  _c(
-                    "el-form-item",
-                    {
-                      key: index,
-                      attrs: {
-                        label: item.label,
-                        prop: item.prop,
-                        "label-width": item.labelWidth,
-                        required: item.required,
-                        rules: item.rules,
-                        error: item.error,
-                        "show-message": item.showMessage,
-                        "inline-message": item.inlineMessage,
-                        size: item.size
-                      }
-                    },
-                    [
-                      _c("ItemDiaplsy", {
-                        attrs: { item: item, form_data: _vm.formData },
-                        model: {
-                          value: _vm.formData[item.prop],
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, item.prop, $$v)
-                          },
-                          expression: "formData[item.prop]"
-                        }
-                      }),
-                      _vm._v(" "),
-                      item.help
-                        ? _c("div", {
-                            staticClass: "form-item-help",
-                            domProps: { innerHTML: _vm._s(item.help) }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ]
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-bottom-actions" }, [
-                _c("div"),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "el-button",
-                      {
-                        staticClass: "submit-btn",
-                        attrs: { loading: _vm.loading, type: "primary" },
-                        on: {
-                          click: function($event) {
-                            return _vm.submitForm("ruleForm")
+                  ref: "ruleForm",
+                  class: _vm.attrs.attrs.className,
+                  style: _vm.attrs.attrs.style,
+                  attrs: {
+                    model: _vm.formData,
+                    rules: _vm.attrs.attrs.rules,
+                    inline: _vm.attrs.attrs.inline,
+                    "label-position": _vm.attrs.attrs.labelPosition,
+                    "label-width": _vm.attrs.attrs.labelWidth,
+                    "label-suffix": _vm.attrs.attrs.labelSuffix,
+                    "hide-required-asterisk":
+                      _vm.attrs.attrs.hideRequiredAsterisk,
+                    "show-message": _vm.attrs.attrs.showMessage,
+                    "inline-message": _vm.attrs.attrs.inlineMessage,
+                    "status-icon": _vm.attrs.attrs.statusIcon,
+                    "validate-on-rule-change":
+                      _vm.attrs.attrs.validateOnRuleChange,
+                    size: _vm.attrs.attrs.size,
+                    disabled: _vm.attrs.attrs.disabled
+                  }
+                },
+                [
+                  _vm._l(_vm.attrs.formItems, function(item, index) {
+                    return [
+                      _c(
+                        "el-form-item",
+                        {
+                          key: index,
+                          attrs: {
+                            label: item.label,
+                            prop: item.prop,
+                            "label-width": item.labelWidth,
+                            required: item.required,
+                            rules: item.rules,
+                            error: item.error,
+                            "show-message": item.showMessage,
+                            "inline-message": item.inlineMessage,
+                            size: item.size
                           }
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.isEdit ? "立即修改" : "立即创建"))]
-                    ),
+                        },
+                        [
+                          [
+                            item.relationName
+                              ? [
+                                  _c("ItemDiaplsy", {
+                                    attrs: {
+                                      form_item: item,
+                                      form_data: _vm.formData
+                                    },
+                                    model: {
+                                      value:
+                                        _vm.formData[item.relationName][
+                                          item.relationValueKey
+                                        ],
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.formData[item.relationName],
+                                          item.relationValueKey,
+                                          $$v
+                                        )
+                                      },
+                                      expression:
+                                        "formData[item.relationName][item.relationValueKey]"
+                                    }
+                                  })
+                                ]
+                              : [
+                                  _c("ItemDiaplsy", {
+                                    attrs: {
+                                      form_item: item,
+                                      form_data: _vm.formData
+                                    },
+                                    model: {
+                                      value: _vm.formData[item.prop],
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formData, item.prop, $$v)
+                                      },
+                                      expression: "formData[item.prop]"
+                                    }
+                                  })
+                                ],
+                            _vm._v(" "),
+                            item.help
+                              ? _c("div", {
+                                  staticClass: "form-item-help",
+                                  domProps: { innerHTML: _vm._s(item.help) }
+                                })
+                              : _vm._e()
+                          ]
+                        ],
+                        2
+                      )
+                    ]
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-bottom-actions" }, [
+                    _c("div"),
                     _vm._v(" "),
                     _c(
-                      "el-button",
-                      {
-                        staticClass: "submit-btn",
-                        on: {
-                          click: function($event) {
-                            return _vm.$router.go(-1)
-                          }
-                        }
-                      },
-                      [_vm._v("返回")]
+                      "div",
+                      [
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "submit-btn",
+                            attrs: { loading: _vm.loading, type: "primary" },
+                            on: {
+                              click: function($event) {
+                                return _vm.submitForm("ruleForm")
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.isEdit ? "立即修改" : "立即创建"))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "submit-btn",
+                            on: {
+                              click: function($event) {
+                                return _vm.$router.go(-1)
+                              }
+                            }
+                          },
+                          [_vm._v("返回")]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                )
-              ])
-            ],
-            2
-          )
+                  ])
+                ],
+                2
+              )
+            : _vm._e()
         ],
         1
       )

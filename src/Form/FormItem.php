@@ -3,6 +3,7 @@
 namespace SmallRuralDog\Admin\Form;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Form;
 
@@ -19,11 +20,11 @@ class FormItem
     protected $inlineMessage;
     protected $size;
     protected $help;
-
-
     protected $defaultValue;
-
     protected $copyProp;
+
+    protected $relationName;
+    protected $relationValueKey;
 
     /**
      * @var Form
@@ -52,6 +53,14 @@ class FormItem
         if (empty($this->field)) {
             $this->field = $this->prop;
         }
+
+        if (Str::contains($prop, '.')) {
+            list($relationName, $relationValueKey) = explode('.', $prop);
+            $this->relationName = $relationName;
+            $this->relationValueKey = $relationValueKey;
+        }
+
+
         $this->component = Input::make();
     }
 
@@ -196,7 +205,9 @@ class FormItem
             'inlineMessage' => $this->inlineMessage,
             'size' => $this->size,
             'help' => $this->help,
-            'component' => $this->component
+            'component' => $this->component,
+            'relationName' => $this->relationName,
+            'relationValueKey' => $this->relationValueKey,
         ];
     }
 
