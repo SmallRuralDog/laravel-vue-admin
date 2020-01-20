@@ -13,7 +13,7 @@ class HandleController extends Controller
     public function upload(Request $request)
     {
         $file = $request->file('file');
-        $path = $request->input('path', 'image');
+        $path = $request->input('path', 'images');
         $uniqueName = $request->input('uniqueName', false);
 
         $disk = config('admin.upload.disk');

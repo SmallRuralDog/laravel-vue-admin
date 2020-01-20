@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use JsonSerializable;
 use SmallRuralDog\Admin\Components\Component;
+use SmallRuralDog\Admin\Components\Upload;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\HasHooks;
@@ -364,6 +365,19 @@ class Form extends Component implements JsonSerializable
         return $this;
     }
 
+    protected function deleteFiles(Model $model, $forceDelete = false)
+    {
+        $data = $model->toArray();
+        collect($this->formItems)->filter(function (FormItem $formItem) {
+            return $formItem->getComponent() instanceof Upload;
+        })->each(function (FormItem $formItem) use ($data) {
+            $formItem->setOriginal($data);
+            /**@var Upload $component */
+            $component = $formItem->getComponent();
+            $component->destroy($formItem);
+        });
+    }
+
     /**
      * 模型删除
      * @param $id
@@ -372,11 +386,23 @@ class Form extends Component implements JsonSerializable
     public function destroy($id)
     {
         try {
-            collect(explode(',', $id))->filter()->each(function ($id) {
+            if (($ret = $this->callDeleting($id)) instanceof Response) {
+                return $ret;
+            }
+            collect(explode(',', $id))->each(function ($id) {
                 $builder = $this->model()->newQuery();
-                $model = $builder->findOrFail($id);
+                $relations = $this->getRelations();
+                $this->model = $model = $builder->with($relations)->findOrFail($id);
+                //删除文件
+                $this->deleteFiles($model);
+                //删除关联模型数据
+                $this->deleteRelation($relations);
                 $model->delete();
             });
+            if (($ret = $this->callDeleted()) instanceof Response) {
+                return $ret;
+            }
+
             return \Admin::responseMessage(trans('admin::admin.delete_succeeded'));
         } catch (\Exception $exception) {
             return \Admin::responseError($exception->getMessage() ?: trans('admin::admin.delete_failed'));
@@ -431,6 +457,24 @@ class Form extends Component implements JsonSerializable
             }
         }
         return $prepared;
+    }
+
+    private function deleteRelation($relations)
+    {
+
+        foreach ($relations as $name) {
+            if (!method_exists($this->model, $name)) {
+                continue;
+            }
+            $relation = $this->model->$name();
+            switch (true) {
+                case $relation instanceof Relations\HasOne:
+                case $relation instanceof Relations\HasMany:
+                    $relation->delete();
+                    break;
+            }
+
+        }
     }
 
     private function updateRelation($relationsData)

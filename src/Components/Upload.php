@@ -3,8 +3,9 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
 use Illuminate\Support\Arr;
+use SmallRuralDog\Admin\Form\FormItem;
+use Storage;
 
 class Upload extends Component
 {
@@ -28,13 +29,29 @@ class Upload extends Component
     public function __construct($value = null)
     {
         $this->action = route('admin.handle-upload');
-        $this->host = \Storage::disk(config('admin.upload.disk'))->url('/');
+        $this->host = Storage::disk(config('admin.upload.disk'))->url('/');
         $this->componentValue($value);
     }
 
     static public function make($value = null)
     {
         return new Upload($value);
+    }
+
+    public function destroy(FormItem $formItem)
+    {
+        $files = [];
+        if (is_array($formItem->original)) {
+            $files = $formItem->original;
+        } else {
+            $files[] = $formItem->original;
+        }
+        $storage = Storage::disk(config('admin.upload.disk'));
+        collect($files)->each(function ($file) use ($storage) {
+            if ($storage->exists($file)) {
+                $storage->delete($file);
+            }
+        });
     }
 
     /**

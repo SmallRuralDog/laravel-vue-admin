@@ -11,6 +11,8 @@ class Component implements \JsonSerializable
     protected $style;
     protected $componentValue;
 
+    protected $hideAttrs = [];
+
     public function __construct($value = null)
     {
         $this->componentValue($value);
@@ -61,8 +63,13 @@ class Component implements \JsonSerializable
     public function jsonSerialize()
     {
         $data = [];
+
+        $hide = collect($this->hideAttrs)->push("hideAttrs")->toArray();
+
         foreach ($this as $key => $val) {
-            $data[$key] = $val;
+            if (!in_array($key, $hide)) {
+                $data[$key] = $val;
+            }
         }
         return $data;
     }

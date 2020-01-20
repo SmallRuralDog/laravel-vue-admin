@@ -3,6 +3,7 @@
 namespace SmallRuralDog\Admin\Form;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Form;
@@ -22,22 +23,18 @@ class FormItem
     protected $help;
     protected $defaultValue;
     protected $copyProp;
-
     protected $relationName;
     protected $relationValueKey;
-
     /**
      * @var Form
      */
     protected $form;
-
-
     protected $serveRules;
     protected $serveCreationRules;
     protected $serveUpdateRules;
     protected $serveRulesMessage;
-
     protected $component;
+    public $original;
 
     /**
      * FormItem constructor.
@@ -73,6 +70,11 @@ class FormItem
         return __(str_replace(['.', '_'], ' ', $label));
     }
 
+    public function setOriginal($data)
+    {
+        $this->original = Arr::get($data, $this->prop);
+    }
+
     public function displayComponent($component)
     {
         if ($component instanceof \Closure) {
@@ -82,6 +84,15 @@ class FormItem
         }
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComponent()
+    {
+        return $this->component;
+    }
+
 
     public function setForm($form)
     {
@@ -190,26 +201,6 @@ class FormItem
         return $data;
     }
 
-
-    public function getAttrs()
-    {
-        return [
-            'prop' => $this->prop,
-            'label' => $this->label,
-            'field' => $this->field,
-            'labelWidth' => $this->labelWidth,
-            'required' => $this->required,
-            'rules' => $this->rules,
-            'error' => $this->error,
-            'showMessage' => $this->showMessage,
-            'inlineMessage' => $this->inlineMessage,
-            'size' => $this->size,
-            'help' => $this->help,
-            'component' => $this->component,
-            'relationName' => $this->relationName,
-            'relationValueKey' => $this->relationValueKey,
-        ];
-    }
 
     public function getServeRole()
     {
@@ -354,6 +345,26 @@ class FormItem
     {
         $this->help = $help;
         return $this;
+    }
+
+    public function getAttrs()
+    {
+        return [
+            'prop' => $this->prop,
+            'label' => $this->label,
+            'field' => $this->field,
+            'labelWidth' => $this->labelWidth,
+            'required' => $this->required,
+            'rules' => $this->rules,
+            'error' => $this->error,
+            'showMessage' => $this->showMessage,
+            'inlineMessage' => $this->inlineMessage,
+            'size' => $this->size,
+            'help' => $this->help,
+            'component' => $this->component,
+            'relationName' => $this->relationName,
+            'relationValueKey' => $this->relationValueKey,
+        ];
     }
 
 }
