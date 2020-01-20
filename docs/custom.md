@@ -33,7 +33,7 @@ npm run watch-poll
 ```
 
 ### 开发教程
-
+可查看我写的一个[demo](https://github.com/SmallRuralDog/wangeditor)，很简单的，一看就会，一写就成！！
 
 ### 使用扩展
 ```php
