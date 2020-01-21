@@ -7,6 +7,43 @@
 内置表格自定义组件
 ### 行操作
 数据行的操作
+#### 生成操作类
+暂无命令行创建功能，后面加入
+```php
+<?php
+namespace Admin\Actions;
+use SmallRuralDog\Admin\Actions\RowAction;
+class Delete extends RowAction
+{
+    //操作k标识
+    public $actionKey = "delete";
+    //名称
+    public $name = "删除";
+    //确认提示，不设置则不提示
+    public $confirm = "你确定要删除此条数据吗？";
+    //后端处理请求类型
+    public $httpMethod = "delete";
+    //后端处理请求成功触发事件
+    public $emit = "tableReload";
+
+    /**
+     * Delete constructor.
+     */
+    public function __construct()
+    {
+        //优先级1，前端路由跳转
+        $this->vueRoute = $this->getRoutePath() . '/' . $this->getKey() . '/edit';
+        //优先级2，后端请求处理
+        $this->handleUrl = $this->getResource() . '/' . $this->getKey();
+        //优先级3，url跳转
+        $this->href = route('xxx');
+    }
+}
+```
+#### 使用Action
+```php
+$grid->addAction(new Delete());
+```
 ### 批量操作
 表格批量操作，需要开启`selection`
 ### 自定义按钮
