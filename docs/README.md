@@ -88,6 +88,9 @@ composer require smallruraldog/laravel-vue-admin:dev-master
 // 强制发布静态资源文件
 php artisan vendor:publish --tag=laravel-vue-admin-assets --force
 
+// 强制发布语言包文件
+php artisan vendor:publish --tag=laravel-vue-admin-lang --force
+
 // 清理视图缓存
 php artisan view:clear
 ```

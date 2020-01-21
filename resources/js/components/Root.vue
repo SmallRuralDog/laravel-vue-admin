@@ -197,7 +197,7 @@ export default {
         : true,
       isDarkHeader: localStorage.getItem("isDarkHeader")
         ? localStorage.getItem("isDarkHeader") == "true"
-        : false,
+        : true,
       showAdminSet: false,
       route: "/"
     };
