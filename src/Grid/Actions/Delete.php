@@ -14,6 +14,8 @@ class Delete extends RowAction
 
     public $httpMethod = "delete";
 
+    public $emit = "tableReload";
+
     /**
      * Delete constructor.
      */
