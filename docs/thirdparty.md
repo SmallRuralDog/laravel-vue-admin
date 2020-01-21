@@ -3,6 +3,7 @@
 
 ## From组件
 * [wangeditor](https://github.com/SmallRuralDog/wangeditor) 轻量级 web 富文本编辑器，配置方便，使用简单。支持 IE10+ 浏览器。
+
 ## Grid组件
 
 ## Action组件
