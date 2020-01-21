@@ -5,7 +5,7 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都�
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 ``` bash
-$ composer require smallruraldog/laravel-vue-admin
+composer require smallruraldog/laravel-vue-admin
 ```
 然后运行下面的命令来发布资源：
 ``` bash
@@ -67,3 +67,28 @@ class RoleController extends AdminController
  $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
 ```
 添加菜单，菜单的Uri和注册的路由`auth/roles`一样
+
+## 版本升级
+
+### 查看当前版本
+```bash
+composer show smallruraldog/laravel-vue-admin
+```
+### 更新到最新版
+```bash
+composer require smallruraldog/laravel-vue-admin
+```
+### 更新到开发版
+```bash
+composer require smallruraldog/laravel-vue-admin:dev-master
+```
+### 注意事项
+由于每个版本的静态资源或者语言包都有可能会有更新，所以升级版本之后最好运行下面的命令
+```bash
+// 强制发布静态资源文件
+php artisan vendor:publish --tag=laravel-vue-admin-assets --force
+
+// 清理视图缓存
+php artisan view:clear
+```
+最后不要忘记清理浏览器缓存
