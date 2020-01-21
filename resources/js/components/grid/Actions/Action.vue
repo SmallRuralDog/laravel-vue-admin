@@ -1,19 +1,16 @@
 <template>
-  <a @click="onHandle" v-if="action.moreAction">
-    <el-dropdown-item>{{action.name}}</el-dropdown-item>
-  </a>
   <el-popconfirm
-    v-else-if="action.type=='delete'"
+    v-if="action.confirm"
     placement="top"
-    title="确定要删除这条数据吗？"
-    @onConfirm="onDelete"
+    :title="action.confirm"
+    @onConfirm="onHandle"
   >
     <el-button
       slot="reference"
       type="text"
       size="mini"
       :icon="action.icon"
-      :loading="delete_loading"
+      :loading="loading"
       class="action-button"
     >{{action.name}}</el-button>
   </el-popconfirm>
@@ -22,6 +19,7 @@
     @click="onHandle"
     type="text"
     size="mini"
+    :loading="loading"
     :icon="action.icon"
     class="action-button"
   >{{action.name}}</el-button>
@@ -35,41 +33,51 @@ export default {
   },
   data() {
     return {
-      delete_loading: false
+      loading: false
     };
   },
   methods: {
     onHandle() {
-      switch (this.action.type) {
-        case "edit":
-          this.onEdit();
-          break;
-        case "delete":
-          this.$confirm("确定要删除这条数据吗？", "删除确认").then(() => {
-            this.onDelete();
-          });
-          break;
-        default:
-          break;
+      if (this.vueRoute) {
+        this.$router.push(this.vueRoute);
+      } else if (this.handleUrl) {
+        this.onHandleUrl();
+      } else if (this.action.href) {
+        window.location.href = this.replaceUrl(this.action.href);
       }
     },
-    onEdit() {
-      this.$router.push(this.$route.path + "/" + this.keyVauel + "/edit");
-    },
-    onDelete() {
-      const deleteUrl = this.action.resource + "/" + this.keyVauel;
-      this.delete_loading = true;
-      this.$http
-        .delete(deleteUrl)
+    onHandleUrl() {
+      this.loading = true;
+      this.$http[this.action.httpMethod](this.handleUrl)
         .then(({ code }) => {
-          code === 200 && this.$bus.emit("tableReload");
+          if (code === 200 && this.action.emit)
+            this.$bus.emit(this.action.emit);
         })
         .finally(() => {
-          this.delete_loading = false;
+          this.loading = false;
         });
+    },
+    replaceUrl(url) {
+      url = this._.replace(url, "{{route.path}}", this.$route.path);
+      url = this._.replace(url, "{{key}}", this.keyVauel);
+      return url;
     }
   },
   computed: {
+    handleUrl() {
+      let handleUrl = null;
+      if (this.action.handleUrl) {
+        handleUrl = this.replaceUrl(this.action.handleUrl);
+      }
+      return handleUrl;
+    },
+    vueRoute() {
+      let vueRoute = null;
+      if (this.action.vueRoute) {
+        vueRoute = this.replaceUrl(this.action.vueRoute);
+      }
+      return vueRoute;
+    },
     row() {
       if (this.scope.row) return this.scope.row;
       if (this.scope.data) return this.scope.data;

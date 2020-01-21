@@ -689,8 +689,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     key_name: String,
@@ -699,45 +697,55 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      delete_loading: false
+      loading: false
     };
   },
   methods: {
     onHandle: function onHandle() {
-      var _this = this;
-
-      switch (this.action.type) {
-        case "edit":
-          this.onEdit();
-          break;
-
-        case "delete":
-          this.$confirm("确定要删除这条数据吗？", "删除确认").then(function () {
-            _this.onDelete();
-          });
-          break;
-
-        default:
-          break;
+      if (this.vueRoute) {
+        this.$router.push(this.vueRoute);
+      } else if (this.handleUrl) {
+        this.onHandleUrl();
+      } else if (this.action.href) {
+        window.location.href = this.replaceUrl(this.action.href);
       }
     },
-    onEdit: function onEdit() {
-      this.$router.push(this.$route.path + "/" + this.keyVauel + "/edit");
-    },
-    onDelete: function onDelete() {
-      var _this2 = this;
+    onHandleUrl: function onHandleUrl() {
+      var _this = this;
 
-      var deleteUrl = this.action.resource + "/" + this.keyVauel;
-      this.delete_loading = true;
-      this.$http["delete"](deleteUrl).then(function (_ref) {
+      this.loading = true;
+      this.$http[this.action.httpMethod](this.handleUrl).then(function (_ref) {
         var code = _ref.code;
-        code === 200 && _this2.$bus.emit("tableReload");
+        if (code === 200 && _this.action.emit) _this.$bus.emit(_this.action.emit);
       })["finally"](function () {
-        _this2.delete_loading = false;
+        _this.loading = false;
       });
+    },
+    replaceUrl: function replaceUrl(url) {
+      url = this._.replace(url, "{{route.path}}", this.$route.path);
+      url = this._.replace(url, "{{key}}", this.keyVauel);
+      return url;
     }
   },
   computed: {
+    handleUrl: function handleUrl() {
+      var handleUrl = null;
+
+      if (this.action.handleUrl) {
+        handleUrl = this.replaceUrl(this.action.handleUrl);
+      }
+
+      return handleUrl;
+    },
+    vueRoute: function vueRoute() {
+      var vueRoute = null;
+
+      if (this.action.vueRoute) {
+        vueRoute = this.replaceUrl(this.action.vueRoute);
+      }
+
+      return vueRoute;
+    },
     row: function row() {
       if (this.scope.row) return this.scope.row;
       if (this.scope.data) return this.scope.data;
@@ -770,22 +778,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -793,22 +785,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     key_name: String,
-    data: Array,
+    action_list: Array,
     scope: Object
   },
   mounted: function mounted() {},
-  computed: {
-    list: function list() {
-      return this.data.filter(function (item) {
-        return item.moreAction == false;
-      });
-    },
-    moreList: function moreList() {
-      return this.data.filter(function (item) {
-        return item.moreAction == true;
-      });
-    }
-  }
+  computed: {}
 });
 
 /***/ }),
@@ -26994,19 +26975,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.action.moreAction
-    ? _c(
-        "a",
-        { on: { click: _vm.onHandle } },
-        [_c("el-dropdown-item", [_vm._v(_vm._s(_vm.action.name))])],
-        1
-      )
-    : _vm.action.type == "delete"
+  return _vm.action.confirm
     ? _c(
         "el-popconfirm",
         {
-          attrs: { placement: "top", title: "确定要删除这条数据吗？" },
-          on: { onConfirm: _vm.onDelete }
+          attrs: { placement: "top", title: _vm.action.confirm },
+          on: { onConfirm: _vm.onHandle }
         },
         [
           _c(
@@ -27018,7 +26992,7 @@ var render = function() {
                 type: "text",
                 size: "mini",
                 icon: _vm.action.icon,
-                loading: _vm.delete_loading
+                loading: _vm.loading
               },
               slot: "reference"
             },
@@ -27031,7 +27005,12 @@ var render = function() {
         "el-button",
         {
           staticClass: "action-button",
-          attrs: { type: "text", size: "mini", icon: _vm.action.icon },
+          attrs: {
+            type: "text",
+            size: "mini",
+            loading: _vm.loading,
+            icon: _vm.action.icon
+          },
           on: { click: _vm.onHandle }
         },
         [_vm._v(_vm._s(_vm.action.name))]
@@ -27063,16 +27042,16 @@ var render = function() {
     "div",
     { staticClass: "grid-actions" },
     [
-      _vm._l(_vm.list, function(item) {
+      _vm._l(_vm.action_list, function(action) {
         return [
           _c(
             "span",
-            { key: item.type },
+            { key: action.actionKey },
             [
               _c("Action", {
                 attrs: {
                   scope: _vm.scope,
-                  action: item,
+                  action: action,
                   key_name: _vm.key_name
                 }
               })
@@ -27080,47 +27059,7 @@ var render = function() {
             1
           )
         ]
-      }),
-      _vm._v(" "),
-      _vm.moreList.length > 0
-        ? [
-            _c(
-              "span",
-              [
-                _c(
-                  "el-dropdown",
-                  [
-                    _c("el-button", {
-                      attrs: {
-                        type: "text",
-                        size: "mini",
-                        icon: "el-icon-more"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "el-dropdown-menu",
-                      { attrs: { slot: "dropdown" }, slot: "dropdown" },
-                      _vm._l(_vm.moreList, function(item) {
-                        return _c("Action", {
-                          key: item.type,
-                          attrs: {
-                            scope: _vm.scope,
-                            action: item,
-                            key_name: _vm.key_name
-                          }
-                        })
-                      }),
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]
-        : _vm._e()
+      })
     ],
     2
   )
@@ -27591,7 +27530,7 @@ var render = function() {
                                   return [
                                     _c("Actions", {
                                       attrs: {
-                                        data: _vm.attrs.actions.data,
+                                        action_list: _vm.attrs.actions.data,
                                         scope: scope,
                                         key_name: _vm.attrs.keyName
                                       }
@@ -27602,10 +27541,10 @@ var render = function() {
                             ],
                             null,
                             false,
-                            3193446712
+                            4053759083
                           )
                         },
-                        [_c("template", { slot: "header" }, [_vm._v("操作")])],
+                        [_c("template", { slot: "header" })],
                         2
                       )
                     : _vm._e()

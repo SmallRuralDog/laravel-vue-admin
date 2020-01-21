@@ -3,6 +3,8 @@
 
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
+use SmallRuralDog\Admin\Grid\Actions\Delete;
+use SmallRuralDog\Admin\Grid\Actions\Edit;
 use SmallRuralDog\Admin\Grid\Tools\Action;
 
 trait HasActions
@@ -47,11 +49,6 @@ trait HasActions
         return $this;
     }
 
-    public function actionShowMore($actionShowMore=true)
-    {
-        $this->showMore = $actionShowMore;
-        return $this;
-    }
 
 
     protected function initActions()
@@ -61,10 +58,10 @@ trait HasActions
             //$actions->add(Action::make('view', '查看')->moreAction($this->showMore));
         }
         if (!$this->hideEditAction) {
-            $actions->add(Action::make('edit', '编辑')->moreAction($this->showMore));
+            $actions->add(new Edit());
         }
         if (!$this->hideDeleteAction) {
-            $actions->add(Action::make('delete', '删除')->moreAction($this->showMore));
+            $actions->add(new Delete());
         }
         foreach ($this->addActions as $addAction) {
             $actions->add($addAction);
@@ -73,7 +70,7 @@ trait HasActions
         $this->actions = [
             'hide' => $this->hide,
             'fixed' => $this->fixed,
-            'data' => $this->hide ? [] : $actions->toArray()
+            'data' => $this->hide ? [] : $actions
         ];
 
         return $this;

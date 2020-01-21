@@ -183,11 +183,7 @@ $grid->hideEditAction();
 ```php
 $grid->hideDeleteAction();
 ```
-#### 行操作显示模式
-将查看，编辑，删除显示为下拉更多的模式
-```php
-$grid->actionShowMore();
-```
+
 
 ### 快捷搜索
 >快捷搜索是除了`filter`之外的另一个表格数据搜索方式，用来快速过滤你想要的数据，开启方式如下：

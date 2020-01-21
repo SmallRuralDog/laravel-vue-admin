@@ -115,9 +115,9 @@
             </el-table-column>
           </template>
           <el-table-column v-if="!attrs.actions.hide">
-            <template slot="header">操作</template>
+            <template slot="header"></template>
             <template slot-scope="scope">
-              <Actions :data="attrs.actions.data" :scope="scope" :key_name="attrs.keyName" />
+              <Actions :action_list="attrs.actions.data" :scope="scope" :key_name="attrs.keyName" />
             </template>
           </el-table-column>
         </el-table>

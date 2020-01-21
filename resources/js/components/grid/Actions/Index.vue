@@ -1,24 +1,8 @@
 <template>
   <div class="grid-actions">
-    <template v-for="item in list">
-      <span :key="item.type">
-        <Action :scope="scope" :action="item" :key_name="key_name" />
-      </span>
-    </template>
-    <template v-if="moreList.length>0">
-      <span>
-        <el-dropdown>
-          <el-button type="text" size="mini" icon="el-icon-more"></el-button>
-          <el-dropdown-menu slot="dropdown">
-            <Action
-              :key="item.type"
-              v-for="item in moreList"
-              :scope="scope"
-              :action="item"
-              :key_name="key_name"
-            />
-          </el-dropdown-menu>
-        </el-dropdown>
+    <template v-for="action in action_list">
+      <span :key="action.actionKey">
+        <Action :scope="scope" :action="action" :key_name="key_name" />
       </span>
     </template>
   </div>
@@ -31,23 +15,14 @@ export default {
   },
   props: {
     key_name: String,
-    data: Array,
+    action_list: Array,
     scope: Object
   },
   mounted() {
 
   },
   computed: {
-    list() {
-      return this.data.filter(item => {
-        return item.moreAction == false;
-      });
-    },
-    moreList() {
-      return this.data.filter(item => {
-        return item.moreAction == true;
-      });
-    }
+
   }
 };
 </script>
