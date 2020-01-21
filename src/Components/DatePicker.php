@@ -26,7 +26,7 @@ class DatePicker extends Component
     protected $rangeSeparator = "-";
     protected $defaultValue;
     protected $defaultTime;
-    protected $valueFormat;
+    protected $valueFormat = "yyyy-MM-dd";
     protected $unlinkPanels = false;
     protected $prefixIcon = "el-icon-date";
     protected $clearIcon = "el-icon-circle-close";

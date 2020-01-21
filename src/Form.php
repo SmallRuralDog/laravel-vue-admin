@@ -469,7 +469,6 @@ class Form extends Component implements JsonSerializable
             $relation = $this->model->$name();
             switch (true) {
                 case $relation instanceof Relations\HasOne:
-                case $relation instanceof Relations\HasMany:
                     $relation->delete();
                     break;
             }

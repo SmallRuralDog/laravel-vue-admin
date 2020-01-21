@@ -194,3 +194,21 @@ $form->item('username', '用户名')->serveRulesMessage(["required" => '必填']
 
 ## 表单事件
 
+## 关联模型
+### 一对一
+通过`.`来生成一对一字段
+```php
+//模型定义 hasOne 关系
+class Article extends Model
+{
+    public function content()
+    {
+        return $this->hasOne(ArticleContent::class);
+    }
+}
+
+//创建一对一表单组件
+$form->item('content.content','文章内容')->displayComponent(Wangeditor::make())
+```
+### 一对多
+

@@ -132,11 +132,19 @@ class Admin
         return $this->response([], $message, $code);
     }
 
-    public function responseRedirect($url, $isVueRoute = true)
+    /**
+     * @param $url
+     * @param bool $isVueRoute
+     * @param string $message
+     * @param string $type info/success/warning/error
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function responseRedirect($url, $isVueRoute = true, $message = null, $type = 'success')
     {
         return $this->response([
             'url' => $url,
-            'isVueRoute' => $isVueRoute
-        ], '', 301);
+            'isVueRoute' => $isVueRoute,
+            'type' => $type
+        ], $message, 301);
     }
 }

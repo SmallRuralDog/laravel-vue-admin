@@ -17,7 +17,7 @@ class TimePicker extends Component
     protected $startPlaceholder;
     protected $endPlaceholder;
     protected $isRange = false;
-    protected $arrowControl = false;
+    protected $arrowControl = true;
     protected $align = "left";
     protected $popperClass;
     protected $pickerOptions;
@@ -29,7 +29,7 @@ class TimePicker extends Component
     protected $clearIcon;
     protected $selectableRange;
     protected $format = "HH:mm:ss";
-    protected $type = "picker";
+    protected $type = "select";
 
     protected $start = "09:00";
     protected $end = "18:00";
@@ -37,7 +37,7 @@ class TimePicker extends Component
     protected $minTime = "00:00";
     protected $maxTime;
 
-    static public function make($value = null, $type = "picker")
+    static public function make($value = '', $type = "select")
     {
         return (new TimePicker($value))->type($type);
     }

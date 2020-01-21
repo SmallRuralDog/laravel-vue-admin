@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     onHandle() {
-      console.log(this.action, this.scope);
       switch (this.action.type) {
         case "edit":
           this.onEdit();

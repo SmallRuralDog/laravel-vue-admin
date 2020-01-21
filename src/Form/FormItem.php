@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Form;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Components\Input;
 use SmallRuralDog\Admin\Form;
 
@@ -33,6 +34,9 @@ class FormItem
     protected $serveCreationRules;
     protected $serveUpdateRules;
     protected $serveRulesMessage;
+    /**
+     * @var Component
+     */
     protected $component;
     public $original;
 

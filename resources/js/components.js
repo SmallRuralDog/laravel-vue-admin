@@ -1,8 +1,5 @@
 import Vue from 'vue'
 
-
-
-
 import Login from './components/Login'
 import Root from './components/Root'
 import Content from './components/layout/Content'
@@ -33,15 +30,11 @@ import Switch from './components/widgets/Switch'
 import Slider from './components/widgets/Slider'
 import Transfer from './components/widgets/Transfer'
 import Upload from './components/widgets/Upload'
+import ColorPicker from './components/widgets/ColorPicker'
+import TimePicker from './components/widgets/TimePicker'
+import DatePicker from './components/widgets/DatePicker'
+import DateTimePicker from './components/widgets/DateTimePicker'
 
-
-
-import Avatar from './components/widgets/Avatar'
-import Tag from './components/widgets/Tag'
-import Link from './components/widgets/Link'
-import Text from './components/widgets/Text'
-import Image from './components/widgets/Image'
-import Icon from './components/widgets/Icon'
 
 
 Vue.component('Input', Input);
@@ -55,6 +48,21 @@ Vue.component('CSwitch', Switch);
 Vue.component('Slider', Slider);
 Vue.component('Transfer', Transfer);
 Vue.component('Upload', Upload);
+Vue.component('ColorPicker', ColorPicker);
+Vue.component('TimePicker', TimePicker);
+Vue.component('DatePicker', DatePicker);
+Vue.component('DateTimePicker', DateTimePicker);
+
+
+
+import Avatar from './components/widgets/Avatar'
+import Tag from './components/widgets/Tag'
+import Link from './components/widgets/Link'
+import Text from './components/widgets/Text'
+import Image from './components/widgets/Image'
+import Icon from './components/widgets/Icon'
+
+
 
 Vue.component('Avatar', Avatar);
 Vue.component('Tag', Tag);

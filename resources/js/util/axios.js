@@ -26,6 +26,11 @@ axios.interceptors.response.use(
                 break;
             case 301:
                 try {
+                    data.message && Message[data.data.type]({
+                        content: data.message,
+                        duration: 3
+                    });
+
                     if (data.data.isVueRoute) {
                         router.replace(data.data.url)
                     } else {
