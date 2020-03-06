@@ -2,8 +2,10 @@
 
 namespace SmallRuralDog\Admin\Auth\Database;
 
+use Admin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Traits\AdminBuilder;
@@ -27,7 +29,7 @@ class Menu extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'permission'=>'array'
+        'permission' => 'array'
     ];
 
     /**
@@ -53,13 +55,16 @@ class Menu extends Model
         parent::__construct($attributes);
     }
 
-    public function children() {
-        return $this->hasMany(get_class($this), 'parent_id' )->orderBy('order')->with( 'children' );
+    public function children()
+    {
+        return $this->hasMany(get_class($this), 'parent_id')->orderBy('order')->with('children');
     }
 
-    public function allChildren() {
-        return $this->children()->with( 'allChildren' );
+    public function allChildren()
+    {
+        return $this->children()->with('allChildren');
     }
+
     /**
      * A Menu belongs to many roles.
      *
@@ -90,7 +95,11 @@ class Menu extends Model
             $query->with('roles');
         }
 
-        return $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
+        $all_list = $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
+
+        return collect($all_list)->filter(function ($item) {
+            return Admin::user()->visible(Arr::get($item, 'roles', [])) && Admin::user()->can(Arr::get($item, 'permission'));
+        })->toArray();
     }
 
     /**

@@ -42,7 +42,7 @@ class Permission extends Model
      *
      * @return BelongsToMany
      */
-    public function roles() : BelongsToMany
+    public function roles(): BelongsToMany
     {
         $pivotTable = config('admin.database.role_permissions_table');
 
@@ -58,7 +58,7 @@ class Permission extends Model
      *
      * @return bool
      */
-    public function shouldPassThrough(Request $request) : bool
+    public function shouldPassThrough(Request $request): bool
     {
         if (empty($this->http_method) && empty($this->http_path)) {
             return true;
@@ -66,16 +66,27 @@ class Permission extends Model
 
         $method = $this->http_method;
 
-        $matches = array_map(function ($path) use ($method) {
-            $path = trim(config('admin.route.prefix'), '/').$path;
 
+        $web_matches = array_map(function ($path) use ($method) {
+            $path = trim(config('admin.route.prefix'), '/') . $path;
             if (Str::contains($path, ':')) {
                 list($method, $path) = explode(':', $path);
                 $method = explode(',', $method);
             }
-
             return compact('method', 'path');
         }, explode("\n", $this->http_path));
+
+        $api_matches = array_map(function ($path) use ($method) {
+            $path = trim(config('admin.route.api_prefix'), '/') . $path;
+            if (Str::contains($path, ':')) {
+                list($method, $path) = explode(':', $path);
+                $method = explode(',', $method);
+            }
+            return compact('method', 'path');
+        }, explode("\n", $this->http_path));
+
+        $matches = array_merge($web_matches, $api_matches);
+
 
         foreach ($matches as $match) {
             if ($this->matchRequest($match, $request)) {
@@ -101,13 +112,15 @@ class Permission extends Model
     /**
      * If a request match the specific HTTP method and path.
      *
-     * @param array   $match
+     * @param array $match
      * @param Request $request
      *
      * @return bool
      */
-    protected function matchRequest(array $match, Request $request) : bool
+    protected function matchRequest(array $match, Request $request): bool
     {
+
+
         if ($match['path'] == '/') {
             $path = '/';
         } else {

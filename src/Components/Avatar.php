@@ -14,7 +14,7 @@ class Avatar extends GridComponent
     /**
      * @var string|int
      */
-    protected $size = "large";
+    protected $size = "small";
     /**
      * @var string
      */

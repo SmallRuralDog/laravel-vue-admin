@@ -23,6 +23,7 @@ class RootController extends Controller
             'url' => $this->getUrls()
         ];
 
+
         return view('admin::root', ['data' => $data]);
     }
 

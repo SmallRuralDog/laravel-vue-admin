@@ -144,7 +144,7 @@ trait ModelTree
      *
      * @return array
      */
-    protected function buildNestedArray(array $nodes = [], $parentId = 0)
+    public function buildNestedArray(array $nodes = [], $parentId = 0)
     {
         $branch = [];
 

@@ -70,18 +70,19 @@ class MenuController extends AdminController
 
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
-        $grid->model()->where('parent_id', 0);
-        $grid->with(['children', 'roles', 'children.roles']);
+        //$grid->model()->where('parent_id', 0);
+        //$grid->with(['children', 'roles', 'children.roles']);
         $grid->pageBackground()
             ->defaultSort('order', 'asc')
             ->stripe(true)
-            ->tree()
+            //->tree()
             ->draggable(route('admin.auth.menu.order'))
             ->emptyText("暂无菜单")
             ->perPage(10000);
         $grid->columns([
-            $grid->column('icon', "icon")->displayComponent(Icon::make()),
-            $grid->column('title', "Title"),
+            $grid->column('icon', "图标")->displayComponent(Icon::make()),
+            $grid->column('title', "名称"),
+            $grid->column('uri', "路径"),
         ]);
         return $grid;
     }
@@ -94,7 +95,7 @@ class MenuController extends AdminController
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $model());
         $items = [
-            $form->item('parent_id', '上级目录')->displayComponent(Select::make()->options(function () use ($model) {
+            $form->item('parent_id', '上级目录')->displayComponent(Select::make(0)->options(function () use ($model) {
                 return $model::query()->where('parent_id', 0)->get()->map(function ($item) {
                     return SelectOption::make($item->id, $item->title);
                 })->prepend(SelectOption::make(0, '根目录'));

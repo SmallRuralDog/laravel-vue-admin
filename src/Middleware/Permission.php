@@ -2,10 +2,10 @@
 
 namespace SmallRuralDog\Admin\Middleware;
 
-use SmallRuralDog\Admin\Auth\Permission as Checker;
-use SmallRuralDog\Admin\Facades\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use SmallRuralDog\Admin\Auth\Permission as Checker;
+use SmallRuralDog\Admin\Facades\Admin;
 
 class Permission
 {
@@ -18,8 +18,8 @@ class Permission
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param array                    $args
+     * @param \Closure $next
+     * @param array $args
      *
      * @return mixed
      */
@@ -37,7 +37,7 @@ class Permission
             return $next($request);
         }
 
-        if (!Admin::user()->allPermissions()->first(function ($permission) use ($request) {
+        if (!Admin::user()->allPermissions()->first(function (\SmallRuralDog\Admin\Auth\Database\Permission $permission) use ($request) {
             return $permission->shouldPassThrough($request);
         })) {
             Checker::error();

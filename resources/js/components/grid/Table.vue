@@ -12,7 +12,6 @@
           <div class="search-view">
             <el-input
               v-model="quickSearch"
-              size="medium"
               :placeholder="attrs.quickSearch.placeholder"
               :clearable="true"
               @clear="getData"
@@ -20,18 +19,33 @@
               @focus="onQuickSearchFocus"
               @blur="onQuickSearchBlur"
             >
-              <el-button @click="getData" :loading="loading" slot="append">搜索</el-button>
+              <el-button @click="getData" :loading="loading" slot="append"
+                >搜索</el-button
+              >
             </el-input>
           </div>
         </div>
         <div class="grid-top-container-right">
-          <router-link :to="path + '/create'" v-if="!attrs.attributes.hideCreateButton">
-            <el-button type="primary" class="mr-10" size="medium" icon="el-icon-plus">新建</el-button>
+          <router-link
+            :to="path + '/create'"
+            v-if="!attrs.attributes.hideCreateButton"
+          >
+            <el-button type="primary" class="mr-10" icon="el-icon-plus"
+              >新建</el-button
+            >
           </router-link>
-          <el-divider direction="vertical" v-if="!attrs.attributes.hideCreateButton"></el-divider>
+          <el-divider
+            direction="vertical"
+            v-if="!attrs.attributes.hideCreateButton"
+          ></el-divider>
           <div class="icon-actions">
             <el-dropdown trigger="click">
-              <el-tooltip class="item" effect="dark" content="密度" placement="top">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="密度"
+                placement="top"
+              >
                 <i class="el-icon-rank hover"></i>
               </el-tooltip>
               <el-dropdown-menu slot="dropdown">
@@ -50,7 +64,12 @@
               </el-dropdown-menu>
             </el-dropdown>
 
-            <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="刷新"
+              placement="top"
+            >
               <i class="el-icon-refresh hover" @click="getData"></i>
             </el-tooltip>
           </div>
@@ -110,14 +129,21 @@
                 </el-tooltip>
               </template>
               <template slot-scope="scope">
-                <ColumnDisplay :scope="scope" :columns="attrs.columnAttributes" />
+                <ColumnDisplay
+                  :scope="scope"
+                  :columns="attrs.columnAttributes"
+                />
               </template>
             </el-table-column>
           </template>
           <el-table-column v-if="!attrs.actions.hide">
             <template slot="header"></template>
             <template slot-scope="scope">
-              <Actions :action_list="attrs.actions.data" :scope="scope" :key_name="attrs.keyName" />
+              <Actions
+                :action_list="attrs.actions.data"
+                :scope="scope"
+                :key_name="attrs.keyName"
+              />
             </template>
           </el-table-column>
         </el-table>
