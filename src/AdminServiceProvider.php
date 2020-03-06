@@ -12,6 +12,7 @@ class AdminServiceProvider extends ServiceProvider
 
         Console\InstallCommand::class,
         Console\FormItemCommand::class,
+        Console\ExtendCommand::class,
 
     ];
 
@@ -78,7 +79,7 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__ . '/../config' => config_path()], 'laravel-vue-admin-config');
             $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang')], 'laravel-vue-admin-lang');
-            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'laravel-admin-migrations');
+            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'laravel-admin-migrations');
             $this->publishes([__DIR__ . '/../public' => public_path('vendor/laravel-vue-admin')], 'laravel-vue-admin-assets');
         }
     }

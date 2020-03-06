@@ -70,7 +70,7 @@
                 />
               </template>
             </div>
-            <div>
+            <div class="flex-c">
               <Actions
                 :action_list="attrs.actions.data"
                 :scope="node"

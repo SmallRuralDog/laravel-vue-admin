@@ -5,7 +5,7 @@ namespace {{ namespace }};
 use Illuminate\Support\ServiceProvider;
 use SmallRuralDog\Admin\Admin;
 
-class FormItemServiceProvider extends ServiceProvider
+class ExtendServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -16,7 +16,7 @@ class FormItemServiceProvider extends ServiceProvider
     {
 
         Admin::script('{{ component }}', __DIR__.'/../dist/js/extend.js');
-        Admin::style('{{ component }}', __DIR__.'/../dist/css/form-item.css');
+        Admin::style('{{ component }}', __DIR__.'/../dist/css/extend.css');
 
     }
 
