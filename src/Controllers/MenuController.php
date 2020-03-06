@@ -98,7 +98,7 @@ class MenuController extends AdminController
         $form = new Form(new $model());
         $items = [
             $form->item('parent_id', '上级目录')->displayComponent(Select::make(0)->options(function () use ($model) {
-                return $model::query()->where('parent_id', 0)->get()->map(function ($item) {
+                return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
                     return SelectOption::make($item->id, $item->title);
                 })->prepend(SelectOption::make(0, '根目录'));
             })),

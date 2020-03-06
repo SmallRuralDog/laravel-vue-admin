@@ -32,16 +32,16 @@ class PermissionController extends AdminController
 
         $grid->columns([
             $grid->column('id', 'ID')->sortable()->width('80px'),
-            $grid->column('slug', trans('admin::admin.slug')),
-            $grid->column('name', trans('admin::admin.name')),
+            $grid->column('slug', trans('admin::admin.slug'))->width(120),
+            $grid->column('name', trans('admin::admin.name'))->width(120),
             $grid->column('http_method', trans('admin::admin.http_method'))->displayComponent(Tag::make()),
             $grid->column('http_path', trans('admin::admin.route'))->customValue(function ($row, $value) {
                 return explode("\n", $value);
             })->displayComponent(function () {
                 return Tag::make();
             }),
-            $grid->column('created_at', trans('admin::admin.created_at')),
-            $grid->column('updated_at', trans('admin::admin.updated_at'))
+            //$grid->column('created_at', trans('admin::admin.created_at')),
+            //$grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);
         return $grid;
     }

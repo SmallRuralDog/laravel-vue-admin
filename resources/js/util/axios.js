@@ -49,7 +49,7 @@ axios.interceptors.response.use(
         return data;
     },
     ({ response }) => {
-        console.log(response.status);
+        //console.log(response.status);
         // 对响应错误做点什么
         switch (response.status) {
             case 404:

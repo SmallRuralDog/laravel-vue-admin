@@ -28,7 +28,6 @@
             <el-button
               type="primary"
               class="mr-10"
-              size="medium"
               icon="el-icon-plus"
               >新建</el-button
             >
@@ -159,7 +158,9 @@ export default {
           target: before.data,
           type: after
         })
-        .then(() => {});
+        .then(() => {
+          this.$Message.success("排序成功")
+        });
 
       console.log(node);
       console.log(before);

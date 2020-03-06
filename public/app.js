@@ -388,6 +388,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -1401,7 +1424,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1473,11 +1495,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     onNodeDrop: function onNodeDrop(node, before, after, inner) {
+      var _this3 = this;
+
       this.$http.post(this.attrs.attributes.draggableUrl, {
         self: node.data,
         target: before.data,
         type: after
-      }).then(function () {});
+      }).then(function () {
+        _this3.$Message.success("排序成功");
+      });
       console.log(node);
       console.log(before);
       console.log(after);
@@ -27807,11 +27833,7 @@ var render = function() {
                           "el-button",
                           {
                             staticClass: "mr-10",
-                            attrs: {
-                              type: "primary",
-                              size: "medium",
-                              icon: "el-icon-plus"
-                            }
+                            attrs: { type: "primary", icon: "el-icon-plus" }
                           },
                           [_vm._v("新建")]
                         )
@@ -32897,8 +32919,9 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function 
   return data;
 }, function (_ref2) {
   var response = _ref2.response;
-  console.log(response.status); // 对响应错误做点什么
 
+  //console.log(response.status);
+  // 对响应错误做点什么
   switch (response.status) {
     case 404:
       view_design_src_components_notice__WEBPACK_IMPORTED_MODULE_0__["default"].error({

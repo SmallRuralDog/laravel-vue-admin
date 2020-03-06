@@ -4,8 +4,8 @@
       <el-aside
         ref="contentSide"
         class="content-side"
-        :class="{'content-side-fixed':fixedSide,'side-dark':isDark}"
-        :width="isCollapsed?'64px':'200px'"
+        :class="{ 'content-side-fixed': fixedSide, 'side-dark': isDark }"
+        :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
           <template v-if="!isCollapsed">
@@ -19,36 +19,56 @@
           <el-menu
             :default-active="route"
             :collapse="isCollapsed"
-            :background-color="isDark?'#1d1e23':''"
-            :text-color="isDark?'#ffffff':''"
+            :background-color="isDark ? '#1d1e23' : ''"
+            :text-color="isDark ? '#ffffff' : ''"
             :collapse-transition="false"
             :router="true"
             unique-opened
           >
             <template v-for="menu in page_data.menu">
-              <MenuItem :menu="menu" :key="menu.id" :is_collapsed="isCollapsed" />
+              <MenuItem
+                :menu="menu"
+                :key="menu.id"
+                :is_collapsed="isCollapsed"
+              />
             </template>
           </el-menu>
         </el-scrollbar>
       </el-aside>
       <el-container
-        :class="{'el-container-fixed':fixedSide,'el-container-fixed-collapsed':isCollapsed}"
+        :class="{
+          'el-container-fixed': fixedSide,
+          'el-container-fixed-collapsed': isCollapsed
+        }"
       >
         <el-header
-          :style="{padding: 0}"
+          :style="{ padding: 0 }"
           class="layout-header-bar"
-          :class="{'layout-header-bar-dark':isDarkHeader,'layout-header-bar-fixed':fixedHeader,'layout-header-bar-fixed-collapsed':isCollapsed}"
+          :class="{
+            'layout-header-bar-dark': isDarkHeader,
+            'layout-header-bar-fixed': fixedHeader,
+            'layout-header-bar-fixed-collapsed': isCollapsed
+          }"
           height="55px"
         >
           <div class="layout-header-l">
             <div class="layout-header-trigger hover" @click="collapsedSide">
-              <i class="el-icon-s-fold fs-20 menu-icon" :class="{'rotate-icon':isCollapsed}" />
+              <i
+                class="el-icon-s-fold fs-20 menu-icon"
+                :class="{ 'rotate-icon': isCollapsed }"
+              />
             </div>
             <div class="layout-header-breadcrumb">
               <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/' }"
+                  >首页</el-breadcrumb-item
+                >
                 <template v-for="menu in page_data.menuList">
-                  <el-breadcrumb-item v-if="menu.route==route" :key="menu.route">{{menu.title}}</el-breadcrumb-item>
+                  <el-breadcrumb-item
+                    v-if="menu.route == route"
+                    :key="menu.route"
+                    >{{ menu.title }}</el-breadcrumb-item
+                  >
                 </template>
               </el-breadcrumb>
             </div>
@@ -58,7 +78,9 @@
               <el-dropdown>
                 <div class="layout-header-user">
                   <el-avatar :src="page_data.user.avatar" :size="25" />
-                  <span class="layout-header-user-name">{{page_data.user.name}}</span>
+                  <span class="layout-header-user-name">{{
+                    page_data.user.name
+                  }}</span>
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <a>
@@ -77,14 +99,14 @@
               </el-dropdown>
             </div>
             <div
-              @click="showAdminSet=true"
+              @click="showAdminSet = true"
               class="layout-header-trigger layout-header-trigger-min hover"
             >
               <i class="el-icon-setting icon-btn"></i>
             </div>
           </div>
         </el-header>
-        <el-main :class="{'el-main-fixed':fixedHeader}">
+        <el-main :class="{ 'el-main-fixed': fixedHeader }">
           <div class="layout-content-main">
             <transition name="fade-transform" mode="out-in">
               <router-view></router-view>
@@ -94,13 +116,14 @@
         <el-footer class="admin-footer">
           <div class="footer-links">
             <el-link
-              v-for="(item,index) in page_data.footerLinks"
+              v-for="(item, index) in page_data.footerLinks"
               :key="index"
               type="text"
               :href="item.href"
               target="_blank"
               :underline="false"
-            >{{item.title}}</el-link>
+              >{{ item.title }}</el-link
+            >
           </div>
           <div v-html="page_data.copyright"></div>
         </el-footer>
@@ -115,7 +138,7 @@
           <div>
             <el-tooltip content="亮色菜单风格" placement="top">
               <el-image
-                @click="isDark=false"
+                @click="isDark = false"
                 class="hover"
                 src="https://gw.alipayobjects.com/zos/antfincdn/NQ%24zoisaD2/jpRkZQMyYRryryPNtyIC.svg"
               />
@@ -126,7 +149,7 @@
           <div class="ml-20">
             <el-tooltip content="暗色菜单风格" placement="top">
               <el-image
-                @click="isDark=true"
+                @click="isDark = true"
                 class="hover"
                 src="https://gw.alipayobjects.com/zos/antfincdn/XwFOFbLkSM/LCkqqYNmvBEbokSDscrm.svg"
               />
@@ -136,7 +159,7 @@
       </div>
       <div class="mt-30">
         <el-badge type="success" is-dot :hidden="isDarkHeader">
-          <div @click="isDarkHeader=false">
+          <div @click="isDarkHeader = false">
             <el-tooltip content="亮色顶栏风格" placement="top">
               <el-image
                 class="hover"
@@ -146,7 +169,7 @@
           </div>
         </el-badge>
         <el-badge type="success" is-dot :hidden="!isDarkHeader">
-          <div class="ml-20" @click="isDarkHeader=true">
+          <div class="ml-20" @click="isDarkHeader = true">
             <el-tooltip content="暗色顶栏风格" placement="top">
               <el-image
                 class="hover"
@@ -253,7 +276,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 $header-bar-height: 55px;
 .admin-layout {
   min-height: 100vh;

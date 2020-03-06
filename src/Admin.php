@@ -67,9 +67,10 @@ class Admin
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
 
+        $allNodes = $menuModel->allNodes();
 
 
-        return $this->menu = $menuModel->buildNestedArray($menuModel->allNodes());
+        return $this->menu = $menuModel->buildNestedArray($allNodes);
     }
 
     public function menuList()
@@ -83,7 +84,10 @@ class Admin
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
 
+
+
         return $this->menuList = $menuModel->get(['uri', 'title']);
+
     }
 
 
