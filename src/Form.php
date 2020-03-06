@@ -599,7 +599,8 @@ class Form extends Component implements JsonSerializable
         foreach ($this->formItems as $formItem) {
             $field = $formItem->getField();
             $prop = $formItem->getProp();
-            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model));
+            $component = $formItem->getDisplayComponent();
+            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model,$component));
             //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {

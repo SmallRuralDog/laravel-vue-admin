@@ -2,6 +2,7 @@
   <div class="form-page">
     <el-card shadow="never" class="form-card">
       <el-form
+        v-loading="loading"
         v-if="formData"
         ref="ruleForm"
         :model="formData"
@@ -168,7 +169,7 @@ export default {
     min-height: 200px;
   }
   .el-form-item__content {
-    line-height: unset;
+    //line-height: unset;
   }
   .form-bottom-actions {
     display: flex;

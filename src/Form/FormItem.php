@@ -90,6 +90,11 @@ class FormItem
         return $this;
     }
 
+    public function getDisplayComponent()
+    {
+        return $this->component;
+    }
+
     /**
      * @return mixed
      */
@@ -192,9 +197,12 @@ class FormItem
         return $this->copyProp;
     }
 
-    public function getData($data, $model)
+    public function getData($data, $model, $component)
     {
         if (!method_exists($model, $this->prop)) {
+            if (method_exists($component, "getValue")) {
+                return $component->getValue($data);
+            }
             return $data;
         } else {
             if ($model->{$this->prop}() instanceof BelongsToMany) {
@@ -275,8 +283,6 @@ class FormItem
         $this->inputWidth = $inputWidth;
         return $this;
     }
-
-
 
 
     /**

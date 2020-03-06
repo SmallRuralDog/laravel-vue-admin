@@ -7,7 +7,7 @@ use JsonSerializable;
 class QuickSearch implements JsonSerializable
 {
     public $searchKey = '__search__';
-    public $placeholder;
+    public $placeholder = "输入搜索关键字";
     /**
      * @var array|string|\Closure
      */

@@ -580,6 +580,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1183,7 +1184,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -1225,7 +1225,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   destroyed: function destroyed() {
     try {
       this.$bus.off("tableReload");
-      window.removeEventListener("keydown", this.onEnt);
     } catch (e) {}
   },
   methods: {
@@ -1290,14 +1289,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (event.keyCode === 13) {
         this.getData();
       }
-    },
-    onQuickSearchFocus: function onQuickSearchFocus() {
-      window.addEventListener("keydown", this.onEnt);
-    },
-    onQuickSearchBlur: function onQuickSearchBlur() {
-      try {
-        window.removeEventListener("keydown", this.onEnt);
-      } catch (error) {}
     }
   },
   computed: {
@@ -1946,6 +1937,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
@@ -1954,9 +1948,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {
-      vm: ""
-    };
+    return {};
   },
   model: {
     prop: "value",
@@ -2708,12 +2700,11 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     attrs: Object,
     value: {
-      "default": null
+      "default": true
     }
   },
   data: function data() {
     return {
-      vm: "",
       options: this.attrs.options
     };
   },
@@ -5009,7 +5000,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-page .form-card {\n  min-height: 200px;\n}\n.form-page .el-form-item__content {\n  line-height: unset;\n}\n.form-page .form-bottom-actions {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.form-page .form-bottom-actions .submit-btn {\n  width: 120px;\n}\n.form-page .form-item-help {\n  color: #999;\n}", ""]);
+exports.push([module.i, ".form-page .form-card {\n  min-height: 200px;\n}\n.form-page .form-bottom-actions {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.form-page .form-bottom-actions .submit-btn {\n  width: 120px;\n}\n.form-page .form-item-help {\n  color: #999;\n}", ""]);
 
 // exports
 
@@ -26917,6 +26908,14 @@ var render = function() {
             ? _c(
                 "el-form",
                 {
+                  directives: [
+                    {
+                      name: "loading",
+                      rawName: "v-loading",
+                      value: _vm.loading,
+                      expression: "loading"
+                    }
+                  ],
                   ref: "ruleForm",
                   class: _vm.attrs.attrs.className,
                   style: _vm.attrs.attrs.style,
@@ -27394,10 +27393,23 @@ var render = function() {
                               placeholder: _vm.attrs.quickSearch.placeholder,
                               clearable: true
                             },
-                            on: {
-                              clear: _vm.getData,
-                              focus: _vm.onQuickSearchFocus,
-                              blur: _vm.onQuickSearchBlur
+                            on: { clear: _vm.getData },
+                            nativeOn: {
+                              keyup: function($event) {
+                                if (
+                                  !$event.type.indexOf("key") &&
+                                  _vm._k(
+                                    $event.keyCode,
+                                    "enter",
+                                    13,
+                                    $event.key,
+                                    "Enter"
+                                  )
+                                ) {
+                                  return null
+                                }
+                                return _vm.getData($event)
+                              }
                             },
                             model: {
                               value: _vm.quickSearch,
@@ -28366,7 +28378,9 @@ var render = function() {
       class: _vm.attrs.className,
       style: _vm.attrs.style,
       attrs: {
+        value: _vm.value,
         label: _vm.attrs.label,
+        "true-label": _vm.attrs.label,
         disabled: _vm.attrs.disabled,
         border: _vm.attrs.border,
         size: _vm.attrs.size,
@@ -29034,6 +29048,7 @@ var render = function() {
     class: _vm.attrs.className,
     style: _vm.attrs.style,
     attrs: {
+      value: _vm.value,
       disabled: _vm.attrs.disabled,
       width: _vm.attrs.width,
       "active-icon-class": _vm.attrs.activeIconClass,
@@ -29047,14 +29062,7 @@ var render = function() {
       name: _vm.attrs.name,
       "validate-event": _vm.attrs.validateEvent
     },
-    on: { change: _vm.onChange },
-    model: {
-      value: _vm.vm,
-      callback: function($$v) {
-        _vm.vm = $$v
-      },
-      expression: "vm"
-    }
+    on: { change: _vm.onChange }
   })
 }
 var staticRenderFns = []

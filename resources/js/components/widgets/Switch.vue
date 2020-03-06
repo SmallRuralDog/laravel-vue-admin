@@ -1,6 +1,6 @@
 <template>
   <el-switch
-    v-model="vm"
+    :value="value"
     :style="attrs.style"
     :class="attrs.className"
     :disabled="attrs.disabled"
@@ -23,12 +23,11 @@ export default {
   props: {
     attrs: Object,
     value: {
-      default: null
+      default: true
     }
   },
   data() {
     return {
-      vm: "",
       options: this.attrs.options
     };
   },

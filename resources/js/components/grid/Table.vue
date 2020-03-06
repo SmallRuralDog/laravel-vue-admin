@@ -15,9 +15,8 @@
               :placeholder="attrs.quickSearch.placeholder"
               :clearable="true"
               @clear="getData"
+              @keyup.enter.native="getData"
               v-if="attrs.quickSearch"
-              @focus="onQuickSearchFocus"
-              @blur="onQuickSearchBlur"
             >
               <el-button @click="getData" :loading="loading" slot="append"
                 >搜索</el-button
@@ -205,7 +204,6 @@ export default {
   destroyed() {
     try {
       this.$bus.off("tableReload");
-      window.removeEventListener("keydown", this.onEnt);
     } catch (e) {}
   },
   methods: {
@@ -264,14 +262,6 @@ export default {
       if (event.keyCode === 13) {
         this.getData();
       }
-    },
-    onQuickSearchFocus() {
-      window.addEventListener("keydown", this.onEnt);
-    },
-    onQuickSearchBlur() {
-      try {
-        window.removeEventListener("keydown", this.onEnt);
-      } catch (error) {}
     }
   },
   computed: {

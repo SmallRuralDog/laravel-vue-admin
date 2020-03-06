@@ -26,6 +26,11 @@ class CSwitch extends Component
         return new CSwitch($value);
     }
 
+    public function getValue($value)
+    {
+        return boolval($value);
+    }
+
     /**
      * 是否禁用
      * @param bool $disabled
