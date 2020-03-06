@@ -34,19 +34,33 @@
             :size="item.size"
           >
             <template>
-              <template v-if="item.relationName">
-                <ItemDiaplsy
-                  v-model="formData[item.relationName][item.relationValueKey]"
-                  :form_item="item"
-                  :form_items="attrs.formItems"
-                  :form_data="formData"
-                />
-              </template>
-              <template v-else>
-                <ItemDiaplsy v-model="formData[item.prop]" :form_item="item" :form_data="formData" />
-              </template>
+              <el-row>
+                <el-col :span="item.inputWidth">
+                  <template v-if="item.relationName">
+                    <ItemDiaplsy
+                      v-model="
+                        formData[item.relationName][item.relationValueKey]
+                      "
+                      :form_item="item"
+                      :form_items="attrs.formItems"
+                      :form_data="formData"
+                    />
+                  </template>
+                  <template v-else>
+                    <ItemDiaplsy
+                      v-model="formData[item.prop]"
+                      :form_item="item"
+                      :form_data="formData"
+                    />
+                  </template>
 
-              <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
+                  <div
+                    v-if="item.help"
+                    class="form-item-help"
+                    v-html="item.help"
+                  ></div>
+                </el-col>
+              </el-row>
             </template>
           </el-form-item>
         </template>
@@ -59,8 +73,11 @@
               class="submit-btn"
               type="primary"
               @click="submitForm('ruleForm')"
-            >{{ isEdit ? "立即修改" : "立即创建" }}</el-button>
-            <el-button class="submit-btn" @click="$router.go(-1)">返回</el-button>
+              >{{ isEdit ? "立即修改" : "立即创建" }}</el-button
+            >
+            <el-button class="submit-btn" @click="$router.go(-1)"
+              >返回</el-button
+            >
           </div>
         </div>
       </el-form>

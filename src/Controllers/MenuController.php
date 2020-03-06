@@ -12,6 +12,7 @@ use SmallRuralDog\Admin\Components\Icon;
 use SmallRuralDog\Admin\Components\InputNumber;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
+use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
@@ -70,12 +71,12 @@ class MenuController extends AdminController
 
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
-        //$grid->model()->where('parent_id', 0);
-        //$grid->with(['children', 'roles', 'children.roles']);
+        $grid->model()->where('parent_id', 0);
+        $grid->with(['children', 'roles', 'children.roles']);
         $grid->pageBackground()
             ->defaultSort('order', 'asc')
             ->stripe(true)
-            //->tree()
+            ->tree()
             ->draggable(route('admin.auth.menu.order'))
             ->emptyText("暂无菜单")
             ->perPage(10000);
@@ -83,6 +84,7 @@ class MenuController extends AdminController
             $grid->column('icon', "图标")->displayComponent(Icon::make()),
             $grid->column('title', "名称"),
             $grid->column('uri', "路径"),
+            $grid->column('roles.name', "授权角色")->displayComponent(Tag::make()),
         ]);
         return $grid;
     }
@@ -100,10 +102,10 @@ class MenuController extends AdminController
                     return SelectOption::make($item->id, $item->title);
                 })->prepend(SelectOption::make(0, '根目录'));
             })),
-            $form->item('title', '名称')->required(),
-            $form->item('icon', trans('admin::admin.icon'))->required(),
+            $form->item('title', '名称')->required()->inputWidth(3),
+            $form->item('icon', trans('admin::admin.icon'))->inputWidth(3)->required(),
             $form->item('uri', trans('admin::admin.uri'))->required(),
-            $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make()->min(0)),
+            $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make(1)->min(0)),
             $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
                 return $roleModel::all()->map(function ($role) {
                     return SelectOption::make($role->id, $role->name);

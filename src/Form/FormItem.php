@@ -15,6 +15,7 @@ class FormItem
     protected $label;
     protected $field;
     protected $labelWidth;
+    protected $inputWidth = 24;
     protected $required = false;
     protected $rules;
     protected $error;
@@ -265,6 +266,20 @@ class FormItem
     }
 
     /**
+     * 表单域输入区域宽度  1 - 24
+     * @param int $inputWidth
+     * @return $this
+     */
+    public function inputWidth(int $inputWidth)
+    {
+        $this->inputWidth = $inputWidth;
+        return $this;
+    }
+
+
+
+
+    /**
      * 是否必填，如不设置，则会根据校验规则自动生成
      * @param bool $required
      * @return $this
@@ -358,6 +373,7 @@ class FormItem
             'label' => $this->label,
             'field' => $this->field,
             'labelWidth' => $this->labelWidth,
+            'inputWidth' => $this->inputWidth,
             'required' => $this->required,
             'rules' => $this->rules,
             'error' => $this->error,

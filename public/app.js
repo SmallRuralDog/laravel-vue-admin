@@ -540,6 +540,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1299,6 +1316,29 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -26893,53 +26933,74 @@ var render = function() {
                         },
                         [
                           [
-                            item.relationName
-                              ? [
-                                  _c("ItemDiaplsy", {
-                                    attrs: {
-                                      form_item: item,
-                                      form_items: _vm.attrs.formItems,
-                                      form_data: _vm.formData
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.formData[item.relationName][
-                                          item.relationValueKey
+                            _c(
+                              "el-row",
+                              [
+                                _c(
+                                  "el-col",
+                                  { attrs: { span: item.inputWidth } },
+                                  [
+                                    item.relationName
+                                      ? [
+                                          _c("ItemDiaplsy", {
+                                            attrs: {
+                                              form_item: item,
+                                              form_items: _vm.attrs.formItems,
+                                              form_data: _vm.formData
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.formData[item.relationName][
+                                                  item.relationValueKey
+                                                ],
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formData[
+                                                    item.relationName
+                                                  ],
+                                                  item.relationValueKey,
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "\n                      formData[item.relationName][item.relationValueKey]\n                    "
+                                            }
+                                          })
+                                        ]
+                                      : [
+                                          _c("ItemDiaplsy", {
+                                            attrs: {
+                                              form_item: item,
+                                              form_data: _vm.formData
+                                            },
+                                            model: {
+                                              value: _vm.formData[item.prop],
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formData,
+                                                  item.prop,
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formData[item.prop]"
+                                            }
+                                          })
                                         ],
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.formData[item.relationName],
-                                          item.relationValueKey,
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "formData[item.relationName][item.relationValueKey]"
-                                    }
-                                  })
-                                ]
-                              : [
-                                  _c("ItemDiaplsy", {
-                                    attrs: {
-                                      form_item: item,
-                                      form_data: _vm.formData
-                                    },
-                                    model: {
-                                      value: _vm.formData[item.prop],
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.formData, item.prop, $$v)
-                                      },
-                                      expression: "formData[item.prop]"
-                                    }
-                                  })
-                                ],
-                            _vm._v(" "),
-                            item.help
-                              ? _c("div", {
-                                  staticClass: "form-item-help",
-                                  domProps: { innerHTML: _vm._s(item.help) }
-                                })
-                              : _vm._e()
+                                    _vm._v(" "),
+                                    item.help
+                                      ? _c("div", {
+                                          staticClass: "form-item-help",
+                                          domProps: {
+                                            innerHTML: _vm._s(item.help)
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ],
+                                  2
+                                )
+                              ],
+                              1
+                            )
                           ]
                         ],
                         2
@@ -27849,7 +27910,7 @@ var render = function() {
                           [
                             _c("Actions", {
                               attrs: {
-                                data: _vm.attrs.actions.data,
+                                action_list: _vm.attrs.actions.data,
                                 scope: node,
                                 key_name: _vm.attrs.keyName
                               }
@@ -32789,7 +32850,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.request.use(function (config) {
-  config.headers['X-Requested-With'] = 'XMLHttpRequest';
+  config.headers["X-Requested-With"] = "XMLHttpRequest";
   return config;
 }, function (error) {
   Promise.reject(error);
@@ -32836,12 +32897,25 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function 
   return data;
 }, function (_ref2) {
   var response = _ref2.response;
-  console.log(response); // 对响应错误做点什么
+  console.log(response.status); // 对响应错误做点什么
 
-  view_design_src_components_notice__WEBPACK_IMPORTED_MODULE_0__["default"].error({
-    title: '请求错误',
-    desc: response.data.message
-  });
+  switch (response.status) {
+    case 404:
+      view_design_src_components_notice__WEBPACK_IMPORTED_MODULE_0__["default"].error({
+        title: "请求页面不存在",
+        desc: response.data.message
+      });
+
+      break;
+
+    default:
+      view_design_src_components_notice__WEBPACK_IMPORTED_MODULE_0__["default"].error({
+        title: "请求错误",
+        desc: response.data.message
+      });
+
+      break;
+  }
 
   return Promise.reject(response);
 });

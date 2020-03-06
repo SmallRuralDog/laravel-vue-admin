@@ -14,17 +14,36 @@
               @focus="onQuickSearchFocus"
               @blur="onQuickSearchBlur"
             >
-              <el-button @click="getData" :loading="loading" slot="append">搜索</el-button>
+              <el-button @click="getData" :loading="loading" slot="append"
+                >搜索</el-button
+              >
             </el-input>
           </div>
         </div>
         <div class="grid-top-container-right">
-          <router-link :to="path + '/create'" v-if="!attrs.attributes.hideCreateButton">
-            <el-button type="primary" class="mr-10" size="medium" icon="el-icon-plus">新建</el-button>
+          <router-link
+            :to="path + '/create'"
+            v-if="!attrs.attributes.hideCreateButton"
+          >
+            <el-button
+              type="primary"
+              class="mr-10"
+              size="medium"
+              icon="el-icon-plus"
+              >新建</el-button
+            >
           </router-link>
-          <el-divider direction="vertical" v-if="!attrs.attributes.hideCreateButton"></el-divider>
+          <el-divider
+            direction="vertical"
+            v-if="!attrs.attributes.hideCreateButton"
+          ></el-divider>
           <div class="icon-actions">
-            <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="刷新"
+              placement="top"
+            >
               <i class="el-icon-refresh hover" @click="getData"></i>
             </el-tooltip>
           </div>
@@ -40,9 +59,9 @@
           :indent="10"
           @node-drop="onNodeDrop"
         >
-          <div class="custom-tree-node" slot-scope="{ data,node}">
+          <div class="custom-tree-node" slot-scope="{ data, node }">
             <div class="custom-tree-node-item">
-              <template v-for="(column,index) in attrs.columnAttributes">
+              <template v-for="(column, index) in attrs.columnAttributes">
                 <TreeColumnDisplay
                   :key="index"
                   :data="data"
@@ -53,7 +72,11 @@
               </template>
             </div>
             <div>
-              <Actions :data="attrs.actions.data" :scope="node" :key_name="attrs.keyName" />
+              <Actions
+                :action_list="attrs.actions.data"
+                :scope="node"
+                :key_name="attrs.keyName"
+              />
             </div>
           </div>
         </el-tree>
