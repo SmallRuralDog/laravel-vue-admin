@@ -290,7 +290,7 @@ export default {
     padding: 8px;
     display: flex;
     justify-content: space-between;
-    //border-bottom: 1px solid #ebeef5;
+    border-bottom: 1px solid #ebeef5;
     .grid-top-container-left {
       display: flex;
       align-items: center;

@@ -9,7 +9,6 @@ use SmallRuralDog\Admin\Components\Avatar;
 use SmallRuralDog\Admin\Components\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
-use SmallRuralDog\Admin\Layout\LvaContent;
 
 class LogController extends AdminController
 {
@@ -19,15 +18,12 @@ class LogController extends AdminController
     {
         $grid = new Grid(new OperationLog());
         $grid->with(['user'])
-            ->hideCreateButton()
             ->perPage(15)
             ->quickSearch()
             ->selection()
             ->defaultSort('id', 'desc')
             ->stripe()
-            ->emptyText("暂无日志")
-            ->hideEditAction()
-            ->hideViewAction();
+            ->emptyText("暂无日志");
         $idColumn = $grid->column('id', "ID")->width("100");
         $nameColumn = $grid->column('user.name', 'User', 'user_id')->help("操作用户")->sortable();
         $grid->columns([
@@ -39,6 +35,12 @@ class LogController extends AdminController
             $grid->column('ip'),
             $grid->column('created_at', "创建时间")->sortable()
         ]);
+        $grid->actions(function (Grid\Actions $actions) {
+            $actions->hideEditAction();
+            $actions->hideViewAction();
+        })->toolbars(function (Grid\Toolbars $toolbars) {
+            $toolbars->hideCreateButton();
+        });
         return $grid;
     }
 
