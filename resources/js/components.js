@@ -86,4 +86,6 @@ Vue.component('DeleteAction', DeleteAction);
 
 //Tools
 import GridCreateButton from './components/widgets/Tools/Create'
+import VueRouteButton from './components/widgets/Tools/VueRouteButton'
 Vue.component('GridCreateButton', GridCreateButton);
+Vue.component('VueRouteButton', VueRouteButton);

@@ -62,17 +62,11 @@ trait HasActions
     /**
      * 添加自定义Action
      * @param $action
-     * @param bool $prepend
      * @return $this
      */
-    public function add($action, $prepend = false)
+    public function add($action)
     {
-        if ($prepend) {
-            $this->addActions = collect($this->addActions)->prepend($action)->all();
-        } else {
-            $this->addActions = collect($this->addActions)->push($action)->all();
-        }
-
+        $this->addActions = collect($this->addActions)->push($action)->all();
         return $this;
     }
 

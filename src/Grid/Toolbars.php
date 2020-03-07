@@ -26,6 +26,19 @@ class Toolbars extends AdminJsonBuilder
         return $this;
     }
 
+    public function addLeft($action)
+    {
+        $this->addLeft = collect($this->addLeft)->push($action)->all();
+        return $this;
+    }
+
+
+    public function addRight($action)
+    {
+        $this->addRight = collect($this->addRight)->push($action)->all();
+        return $this;
+    }
+
 
     public function builderData()
     {
@@ -35,9 +48,12 @@ class Toolbars extends AdminJsonBuilder
 
         if (!$this->hideCreateButton) $right->add(new CreateButton());
 
+        foreach ($this->addLeft as $addLeft) {
+            $left->push($addLeft);
+        }
 
         foreach ($this->addRight as $addRight) {
-            $right->add($addRight);
+            $right->prepend($addRight);
         }
 
         return [
