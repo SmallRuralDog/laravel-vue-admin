@@ -71,13 +71,19 @@ class Attributes
     public $filterMultiple = true;
 
 
-
     public $displayComponentAttrs;
 
 
-
-
-
+    /**
+     * 值前缀
+     * @var string
+     */
+    public $itemPrefix;
+    /**
+     * 后缀
+     * @var string
+     */
+    public $itemSuffix;
 
 
 }

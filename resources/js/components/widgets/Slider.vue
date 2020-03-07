@@ -1,6 +1,6 @@
 <template>
   <el-slider
-    v-model="vm"
+    :value="value"
     :style="attrs.style"
     :class="attrs.className"
     :min="attrs.min"
@@ -17,7 +17,8 @@
     :height="attrs.height"
     :label="attrs.label"
     :tooltip-class="attrs.tooltipClass"
-    @change="onChange"
+   
+    @input="onChange"
   ></el-slider>
 </template>
 <script>
@@ -25,12 +26,11 @@ export default {
   props: {
     attrs: Object,
     value: {
-      default: null
+      default: 0
     }
   },
   data() {
     return {
-      vm: this.attrs.componentValue,
       options: this.attrs.options
     };
   },
@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     onChange(value) {
+    
       this.$emit("change", value);
     }
   }

@@ -135,7 +135,8 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column v-if="!attrs.actions.hide">
+          <el-table-column v-if="!attrs.actions.hide" label="操作">
+            
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions

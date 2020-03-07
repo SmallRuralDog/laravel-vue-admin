@@ -5,21 +5,30 @@
     :icon="attrs.icon"
     :size="attrs.size"
     :shape="attrs.shape"
-    :src="value"
+    :src="src"
     :srcSet="attrs.srcSet"
     :alt="attrs.alt"
     :fit="attrs.fit"
   />
 </template>
 <script>
+import { getFileUrl } from "../../utils";
 export default {
   props: {
     attrs: Object,
+    row: Object,
+    column_value: {
+      default: null
+    },
     value: {
       default: null
     }
   },
   mounted() {},
-  computed: {}
+  computed: {
+    src() {
+      return getFileUrl(this.attrs.host, this.value);
+    }
+  }
 };
 </script>

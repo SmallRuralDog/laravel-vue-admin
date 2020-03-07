@@ -13,9 +13,7 @@ class ScriptController extends Controller
     public function show($script)
     {
         $path = Arr::get(Admin::scripts(), $script);
-
         abort_if(is_null($path), 404);
-
         return response(
             file_get_contents($path),
             200,

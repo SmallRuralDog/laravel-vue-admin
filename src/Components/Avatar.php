@@ -7,6 +7,8 @@ namespace SmallRuralDog\Admin\Components;
 class Avatar extends GridComponent
 {
     protected $componentName = "Avatar";
+
+    protected $host = "";
     /**
      * @var string
      */
@@ -36,6 +38,12 @@ class Avatar extends GridComponent
      */
     protected $fit = "cover";
 
+    public function __construct($value = null)
+    {
+        $this->host = \Storage::disk(config('admin.upload.disk'))->url('/');
+
+        $this->componentValue($value);
+    }
 
 
 

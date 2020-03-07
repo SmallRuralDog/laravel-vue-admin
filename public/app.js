@@ -1184,6 +1184,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1790,6 +1791,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils */ "./resources/js/utils.js");
 //
 //
 //
@@ -1803,15 +1805,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
+    row: Object,
+    column_value: {
+      "default": null
+    },
     value: {
       "default": null
     }
   },
   mounted: function mounted() {},
-  computed: {}
+  computed: {
+    src: function src() {
+      return Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, this.value);
+    }
+  }
 });
 
 /***/ }),
@@ -2641,16 +2652,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
     value: {
-      "default": null
+      "default": 0
     }
   },
   data: function data() {
     return {
-      vm: this.attrs.componentValue,
       options: this.attrs.options
     };
   },
@@ -27694,6 +27705,7 @@ var render = function() {
                     ? _c(
                         "el-table-column",
                         {
+                          attrs: { label: "操作" },
                           scopedSlots: _vm._u(
                             [
                               {
@@ -28268,7 +28280,7 @@ var render = function() {
       icon: _vm.attrs.icon,
       size: _vm.attrs.size,
       shape: _vm.attrs.shape,
-      src: _vm.value,
+      src: _vm.src,
       srcSet: _vm.attrs.srcSet,
       alt: _vm.attrs.alt,
       fit: _vm.attrs.fit
@@ -28998,6 +29010,7 @@ var render = function() {
     class: _vm.attrs.className,
     style: _vm.attrs.style,
     attrs: {
+      value: _vm.value,
       min: _vm.attrs.min,
       max: _vm.attrs.max,
       disabled: _vm.attrs.disabled,
@@ -29013,14 +29026,7 @@ var render = function() {
       label: _vm.attrs.label,
       "tooltip-class": _vm.attrs.tooltipClass
     },
-    on: { change: _vm.onChange },
-    model: {
-      value: _vm.vm,
-      callback: function($$v) {
-        _vm.vm = $$v
-      },
-      expression: "vm"
-    }
+    on: { input: _vm.onChange }
   })
 }
 var staticRenderFns = []

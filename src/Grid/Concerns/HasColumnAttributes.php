@@ -5,8 +5,7 @@ namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
 use SmallRuralDog\Admin\Components\GridComponent;
-use SmallRuralDog\Admin\Components\Link;
-use SmallRuralDog\Admin\Components\Tag;
+use SmallRuralDog\Admin\Grid\Column\Attributes;
 
 trait HasColumnAttributes
 {
@@ -26,7 +25,6 @@ trait HasColumnAttributes
         $this->attributes->type = $type;
         return $this;
     }
-
 
 
     /**
@@ -214,6 +212,28 @@ trait HasColumnAttributes
 
 
     /**
+     * 前缀
+     * @param string $itemPrefix
+     * @return $this
+     */
+    public function itemPrefix(string $itemPrefix)
+    {
+        $this->attributes->itemPrefix = $itemPrefix;
+        return $this;
+    }
+
+    /**
+     * 后缀
+     * @param string $itemSuffix
+     * @return $this
+     */
+    public function itemSuffix(string $itemSuffix)
+    {
+        $this->attributes->itemSuffix = $itemSuffix;
+        return $this;
+    }
+
+    /**
      * @param $displayComponentAttrs
      * @return $this
      */
@@ -222,4 +242,6 @@ trait HasColumnAttributes
         $this->attributes->displayComponentAttrs = $displayComponentAttrs;
         return $this;
     }
+
+
 }
