@@ -169,20 +169,7 @@ $grid->perPage(20);
 $grid->pageBackground();
 ```
 
-### 隐藏元素/操作
-可以隐藏页面上的一些操作
-#### 隐藏新建按钮
-```php
-$grid->hideCreateButton();
-```
-#### 隐藏行编辑
-```php
-$grid->hideEditAction();
-```
-#### 隐藏行删除
-```php
-$grid->hideDeleteAction();
-```
+
 
 
 ### 快捷搜索
@@ -447,7 +434,7 @@ $grid->column('permissions.name'),
 $grid->with(['permissions']);
 $grid->column('permissions.name')->displayComponent(Tag::make()->type('info')),
 ```
-### 多级显示
+#### 多级显示
 ```php
 $grid->with(['permissions','permissions.roles','permissions.roles.administrators']);
 
@@ -457,3 +444,72 @@ $grid->column('permissions.roles.name')->displayComponent(Tag::make()->type('inf
 
 $grid->column('permissions.roles.administrators.name')->displayComponent(Tag::make()->type('info'));
 ```
+
+## 行操作
+
+```php
+ $grid->actions(function (Grid\Actions $actions) {
+ 	$actions->hideEditAction();
+ 	$actions->hideViewAction();
+ })
+```
+
+#### 隐藏所有操作
+
+```php
+$actions->hideActions()
+```
+
+#### 隐藏详情操作
+
+```php
+$actions->hideViewAction()
+```
+
+#### 隐藏编辑操作
+
+```
+$actions->hideEditAction()
+```
+
+#### 隐藏删除操作
+
+```
+$actions->hideDeleteAction()
+```
+
+#### 添加自定义操作
+
+创建自定义操作请查看 [如何创建自定义操作]()
+
+```
+$actions->add(new MyAction())
+```
+
+
+
+## 工具栏
+
+```php
+$grid->toolbars(function (Grid\Toolbars $toolbars) {
+	$toolbars->hideCreateButton();
+});
+```
+
+#### 隐藏创建按钮
+
+```php
+$toolbars->hideCreateButton()
+```
+
+#### 添加自定义工具
+
+详情请看[如何创建自定义工具]()
+
+```php
+$toolbars->addLeft(new MyLeftTool());//添加在左侧
+$toolbars->addRight(new MyRoghtTool());//添加在右侧
+```
+
+
+
