@@ -1,8 +1,13 @@
 <template>
   <div class="grid-actions">
     <template v-for="action in action_list">
-      <span :key="action.actionKey">
-        <Action :scope="scope" :action="action" :key_name="key_name" />
+      <span :key="action.componentName">
+        <component
+          :is="action.componentName"
+          :scope="scope"
+          :action="action"
+          :key_name="key_name"
+        />
       </span>
     </template>
   </div>
@@ -18,12 +23,8 @@ export default {
     action_list: Array,
     scope: Object
   },
-  mounted() {
-
-  },
-  computed: {
-
-  }
+  mounted() {},
+  computed: {}
 };
 </script>
 <style lang="scss">
@@ -31,7 +32,7 @@ export default {
   .el-button + .el-button {
     margin-left: 0;
   }
-  span + span{
+  span + span {
     margin-left: 10px;
   }
 }

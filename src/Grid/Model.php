@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Grid;
-use SmallRuralDog\Admin\LvaGrid;
 
 /**
  * Class Model
@@ -130,7 +129,7 @@ class Model
             }
 
             $this->perPage = (int)$perPage;
-        }else{
+        } else {
             $this->perPage = $this->grid->getPerPage();
         }
 

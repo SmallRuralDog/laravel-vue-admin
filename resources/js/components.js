@@ -75,3 +75,11 @@ Vue.component('Icon', Icon);
 
 import MenuItem from './components/layout/MenuItem'
 Vue.component('MenuItem', MenuItem);
+
+
+
+//Actions
+import EditAction from './components/widgets/Actions/EditAction'
+import DeleteAction from './components/widgets/Actions/DeleteAction'
+Vue.component('EditAction', EditAction);
+Vue.component('DeleteAction', DeleteAction);

@@ -3,8 +3,8 @@
 
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
-use SmallRuralDog\Admin\Grid\Actions\Delete;
-use SmallRuralDog\Admin\Grid\Actions\Edit;
+use SmallRuralDog\Admin\Grid\Actions\DeleteAction;
+use SmallRuralDog\Admin\Grid\Actions\EditAction;
 use SmallRuralDog\Admin\Grid\Tools\Action;
 
 trait HasActions
@@ -19,61 +19,82 @@ trait HasActions
     private $showMore = false;
     private $fixed = false;
 
+    /**
+     * 隐藏所有操作
+     * @return $this
+     */
     public function hideActions()
     {
         $this->hide = true;
         return $this;
     }
 
+    /**
+     * 隐藏详情操作
+     * @return $this
+     */
     public function hideViewAction()
     {
         $this->hideViewAction = true;
         return $this;
     }
 
+    /**
+     * 隐藏编辑操作
+     * @return $this
+     */
     public function hideEditAction()
     {
         $this->hideEditAction = true;
         return $this;
     }
 
+    /**
+     * 隐藏删除操作
+     * @return $this
+     */
     public function hideDeleteAction()
     {
         $this->hideDeleteAction = true;
         return $this;
     }
 
-    public function addAction($action)
+    /**
+     * 添加自定义Action
+     * @param $action
+     * @param bool $prepend
+     * @return $this
+     */
+    public function add($action, $prepend = false)
     {
-        $this->addActions = collect($this->addActions)->add($action)->all();
+        if ($prepend) {
+            $this->addActions = collect($this->addActions)->prepend($action)->all();
+        } else {
+            $this->addActions = collect($this->addActions)->push($action)->all();
+        }
+
         return $this;
     }
 
 
-
-    protected function initActions()
+    public function builderActions()
     {
         $actions = collect($this->actions);
-        if (!$this->hideViewAction) {
-            //$actions->add(Action::make('view', '查看')->moreAction($this->showMore));
-        }
+
         if (!$this->hideEditAction) {
-            $actions->add(new Edit());
+            $actions->add(new EditAction());
         }
         if (!$this->hideDeleteAction) {
-            $actions->add(new Delete());
+            $actions->add(new DeleteAction());
         }
         foreach ($this->addActions as $addAction) {
             $actions->add($addAction);
         }
 
-        $this->actions = [
+        return [
             'hide' => $this->hide,
-            'fixed' => $this->fixed,
-            'data' => $this->hide ? [] : $actions
+            'data' => $actions
         ];
-
-        return $this;
     }
 
 }

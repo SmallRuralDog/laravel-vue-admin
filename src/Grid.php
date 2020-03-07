@@ -8,8 +8,8 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Components\Component;
+use SmallRuralDog\Admin\Grid\Actions;
 use SmallRuralDog\Admin\Grid\Column;
-use SmallRuralDog\Admin\Grid\Concerns\HasActions;
 use SmallRuralDog\Admin\Grid\Concerns\HasAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
 use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
@@ -20,7 +20,7 @@ use SmallRuralDog\Admin\Grid\Table\Attributes;
 
 class Grid extends Component implements \JsonSerializable
 {
-    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasActions, HasQuickSearch;
+    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch;
 
     protected $componentName = 'Grid';
     /**
@@ -42,6 +42,8 @@ class Grid extends Component implements \JsonSerializable
 
     protected $isGetData = false;
 
+    private $actions;
+
 
     public function __construct(Eloquent $model, Closure $builder = null)
     {
@@ -55,6 +57,8 @@ class Grid extends Component implements \JsonSerializable
             'field' => $model->getKeyName()
         ];
         $this->isGetData = request('get_data') == "true";
+
+        $this->actions = new Actions();
 
     }
 
@@ -169,6 +173,27 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
+     * 自定义行操作
+     * @param $closure
+     * @return $this
+     */
+    public function actions($closure)
+    {
+        call_user_func($closure, $this->actions);
+        return $this;
+    }
+
+    /**
+     * 隐藏行操作
+     * @return $this
+     */
+    public function hideActions()
+    {
+        $this->actions->hideActions();
+        return $this;
+    }
+
+    /**
      * data
      * @return array
      */
@@ -194,7 +219,8 @@ class Grid extends Component implements \JsonSerializable
         if ($this->isGetData) {
             return $this->data();
         } else {
-            $this->initActions();
+
+
             $viewData['componentName'] = $this->componentName;
             $viewData['routers'] = [
                 'resource' => url(request()->getPathInfo())
@@ -209,7 +235,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
-            $viewData['actions'] = $this->actions;
+            $viewData['actions'] = $this->actions->builderActions();
             $viewData['quickSearch'] = $this->quickSearch;
             return $viewData;
         }

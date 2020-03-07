@@ -344,12 +344,26 @@ $column->displayComponent(Tag::make()->size("mini")->type("info"));
 可以在后端自定义当前列的值
 - `$row`当前数据行的所有值
 - `$value`当前列的值
+
+支持HTML标签
+
 ```php
 $grid->column('name')->customValue(function ($row, $value) {
     return $value;
 })
 ```
+### 前缀/后缀
+
+会在值的前后以字符串形式拼接
+
+```
+grid->column('name')->itemSuffix("折")
+```
+
+
+
 ### 树形列表
+
 >用清晰的层级结构展示信息，可展开或折叠。
 
 此功能必须满足以下几点才能正常使用，暂不支持分页，所以不建议展示大量的数据，后期会加入异步加载

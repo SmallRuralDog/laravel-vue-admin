@@ -1,9 +1,9 @@
 <template>
-  <span v-if="componentName == 'default'">{{ value }}</span>
+  <span v-if="componentName == 'default'" v-html="selfValue"></span>
   <component
     v-else
     :is="componentName"
-    :value="value"
+    :value="selfValue"
     :attrs="attrs"
     :row="row"
     :column_value="column_value"
@@ -24,6 +24,9 @@ export default {
   computed: {
     attrs() {
       return this.column_attr.displayComponentAttrs;
+    },
+    selfValue() {
+      return this.column_attr.itemPrefix + this.value + this.column_attr.itemSuffix;
     },
     componentName() {
       try {

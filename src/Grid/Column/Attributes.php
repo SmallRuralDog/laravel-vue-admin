@@ -78,12 +78,12 @@ class Attributes
      * 值前缀
      * @var string
      */
-    public $itemPrefix;
+    public $itemPrefix = "";
     /**
      * 后缀
      * @var string
      */
-    public $itemSuffix;
+    public $itemSuffix = "";
 
 
 }
