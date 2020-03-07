@@ -325,10 +325,20 @@ class Form extends Component implements JsonSerializable
 
     public function store()
     {
+
+        if (($result = $this->callSubmitted()) instanceof Response) {
+            return $result;
+        }
+
+
         $data = request()->all();
 
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
+        }
+
+        if (($result = $this->callSaving()) instanceof Response) {
+            return $result;
         }
 
         if (($response = $this->prepare($data)) instanceof Response) {
@@ -417,6 +427,9 @@ class Form extends Component implements JsonSerializable
      */
     public function update($id, $data = null)
     {
+        if (($result = $this->callSubmitted()) instanceof Response) {
+            return $result;
+        }
         $data = ($data) ?: request()->all();
 
         $builder = $this->model();
@@ -424,6 +437,9 @@ class Form extends Component implements JsonSerializable
 
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
+        }
+        if (($result = $this->callSaving()) instanceof Response) {
+            return $result;
         }
 
         if (($response = $this->prepare($data)) instanceof Response) {
@@ -589,6 +605,10 @@ class Form extends Component implements JsonSerializable
      */
     public function editData($id)
     {
+        if (($result = $this->callEditing($id)) instanceof Response) {
+            return $result;
+        }
+
         $this->setMode(self::MODE_EDIT);
         $this->setResourceId($id);
         $e_data = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
@@ -600,7 +620,7 @@ class Form extends Component implements JsonSerializable
             $field = $formItem->getField();
             $prop = $formItem->getProp();
             $component = $formItem->getDisplayComponent();
-            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model,$component));
+            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model, $component));
             //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {

@@ -12,7 +12,18 @@ class BaseAction implements JsonSerializable
     protected $className;
     protected $style;
 
+    protected $resource;
+
     public $hideAttrs = [];
+
+    /**
+     * BaseAction constructor.
+     */
+    public function __construct()
+    {
+        $this->resource = url(request()->getPathInfo());
+    }
+
 
     public function jsonSerialize()
     {

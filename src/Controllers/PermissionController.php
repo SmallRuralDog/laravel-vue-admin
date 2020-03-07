@@ -28,7 +28,7 @@ class PermissionController extends AdminController
 
         $grid = new Grid(new $permissionModel());
 
-        $grid->defaultSort('id', 'asc')->hideViewAction();
+        $grid->defaultSort('id', 'asc');
 
         $grid->columns([
             $grid->column('id', 'ID')->sortable()->width('80px'),
@@ -40,9 +40,12 @@ class PermissionController extends AdminController
             })->displayComponent(function () {
                 return Tag::make();
             }),
-            //$grid->column('created_at', trans('admin::admin.created_at')),
-            //$grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);
+
+        $grid->actions(function (Grid\Actions $actions) {
+            $actions->hideViewAction();
+        });
+
         return $grid;
     }
 

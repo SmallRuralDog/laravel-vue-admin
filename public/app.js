@@ -1826,7 +1826,8 @@ __webpack_require__.r(__webpack_exports__);
     onHandle: function onHandle() {
       var _this = this;
 
-      this.$http["delete"](this.$route.path + "/" + this.key).then(function (_ref) {
+      this.loading = true;
+      this.$http["delete"](this.action.resource + "/" + this.key).then(function (_ref) {
         var code = _ref.code;
         if (code === 200) _this.$bus.emit("tableReload");
       })["finally"](function () {

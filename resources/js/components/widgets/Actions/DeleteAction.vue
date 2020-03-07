@@ -28,8 +28,9 @@ export default {
   },
   methods: {
     onHandle() {
+      this.loading = true;
       this.$http
-        .delete(this.$route.path + "/" + this.key)
+        .delete(this.action.resource + "/" + this.key)
         .then(({ code }) => {
           if (code === 200) this.$bus.emit("tableReload");
         })

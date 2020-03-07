@@ -126,11 +126,12 @@ trait HasHooks
     /**
      * Call editing callbacks.
      *
+     * @param $id
      * @return mixed
      */
-    protected function callEditing()
+    protected function callEditing($id)
     {
-        return $this->callHooks('editing');
+        return $this->callHooks('editing',$id);
     }
 
     /**
