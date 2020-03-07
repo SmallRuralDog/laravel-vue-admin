@@ -85,7 +85,7 @@
 </template>
 <script>
 import TreeColumnDisplay from "./TreeColumnDisplay";
-import Actions from "./Actions/Index";
+import Actions from "./Actions/TreeAction";
 export default {
   components: {
     TreeColumnDisplay,

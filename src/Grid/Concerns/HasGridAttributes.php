@@ -135,16 +135,6 @@ trait HasGridAttributes
         return $this;
     }
 
-    /**
-     * 隐藏新建按钮
-     * @param bool $hide
-     * @return $this
-     */
-    public function hideCreateButton(bool $hide = true)
-    {
-        $this->attributes->hideCreateButton = $hide;
-        return $this;
-    }
 
     /**
      * 开启拖拽排序

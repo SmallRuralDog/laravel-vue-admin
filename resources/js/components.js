@@ -83,3 +83,7 @@ import EditAction from './components/widgets/Actions/EditAction'
 import DeleteAction from './components/widgets/Actions/DeleteAction'
 Vue.component('EditAction', EditAction);
 Vue.component('DeleteAction', DeleteAction);
+
+//Tools
+import GridCreateButton from './components/widgets/Tools/Create'
+Vue.component('GridCreateButton', GridCreateButton);

@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Actions;
 use SmallRuralDog\Admin\Grid\Column;
-use SmallRuralDog\Admin\Grid\Concerns\HasAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
 use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
+use SmallRuralDog\Admin\Grid\Toolbars;
+
 
 class Grid extends Component implements \JsonSerializable
 {
@@ -44,6 +45,8 @@ class Grid extends Component implements \JsonSerializable
 
     private $actions;
 
+    private $toolbars;
+
 
     public function __construct(Eloquent $model, Closure $builder = null)
     {
@@ -59,6 +62,7 @@ class Grid extends Component implements \JsonSerializable
         $this->isGetData = request('get_data') == "true";
 
         $this->actions = new Actions();
+        $this->toolbars = new Toolbars();
 
     }
 
@@ -173,6 +177,17 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
+     * 自定义toolbars
+     * @param $closure
+     * @return $this
+     */
+    public function toolbars($closure)
+    {
+        call_user_func($closure, $this->toolbars);
+        return $this;
+    }
+
+    /**
      * 自定义行操作
      * @param $closure
      * @return $this
@@ -236,6 +251,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
             $viewData['actions'] = $this->actions->builderActions();
+            $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['quickSearch'] = $this->quickSearch;
             return $viewData;
         }

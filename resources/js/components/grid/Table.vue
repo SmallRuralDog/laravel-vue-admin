@@ -25,14 +25,11 @@
           </div>
         </div>
         <div class="grid-top-container-right">
-          <router-link
-            :to="path + '/create'"
-            v-if="!attrs.attributes.hideCreateButton"
-          >
-            <el-button type="primary" class="mr-10" icon="el-icon-plus"
-              >新建</el-button
-            >
-          </router-link>
+          <component
+            v-for="(component, index) in attrs.toolbars.right"
+            :key="component.componentName + index"
+            :is="component.componentName"
+          />
           <el-divider
             direction="vertical"
             v-if="!attrs.attributes.hideCreateButton"
@@ -74,7 +71,6 @@
           </div>
         </div>
       </div>
-
       <div>
         <el-table
           v-loading="loading"
@@ -135,7 +131,10 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column v-if="attrs.actions && !attrs.actions.hide" label="操作">
+          <el-table-column
+            v-if="attrs.actions && !attrs.actions.hide"
+            label="操作"
+          >
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions
@@ -257,11 +256,6 @@ export default {
     onPageCurrentChange(page) {
       this.page = page;
       this.getData();
-    },
-    onEnt(event) {
-      if (event.keyCode === 13) {
-        this.getData();
-      }
     }
   },
   computed: {
@@ -295,7 +289,7 @@ export default {
     padding: 8px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ebeef5;
+    //border-bottom: 1px solid #ebeef5;
     .grid-top-container-left {
       display: flex;
       align-items: center;
