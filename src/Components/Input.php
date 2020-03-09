@@ -34,6 +34,9 @@ class Input extends Component
     protected $tabindex;
     protected $validateEvent = true;
 
+    protected $prepend;
+    protected $append;
+
 
 
     static public function make($value = null)
@@ -326,6 +329,30 @@ class Input extends Component
         $this->validateEvent = $validateEvent;
         return $this;
     }
+
+    /**
+     * 输入框前置内容
+     * @param mixed $prepend
+     * @return $this
+     */
+    public function prepend($prepend)
+    {
+        $this->prepend = $prepend;
+        return $this;
+    }
+
+    /**
+     * 输入框后置内容
+     * @param mixed $append
+     * @return $this
+     */
+    public function append($append)
+    {
+        $this->append = $append;
+        return $this;
+    }
+
+
 
 
 }

@@ -39,6 +39,7 @@ import ColorPicker from './components/widgets/ColorPicker'
 import TimePicker from './components/widgets/TimePicker'
 import DatePicker from './components/widgets/DatePicker'
 import DateTimePicker from './components/widgets/DateTimePicker'
+import WangEditor from './components/widgets/WangEditor'
 
 
 
@@ -57,6 +58,7 @@ Vue.component('ColorPicker', ColorPicker);
 Vue.component('TimePicker', TimePicker);
 Vue.component('DatePicker', DatePicker);
 Vue.component('DateTimePicker', DateTimePicker);
+Vue.component('WangEditor', WangEditor);
 
 
 
@@ -68,13 +70,14 @@ import Image from './components/widgets/Image'
 import Icon from './components/widgets/Icon'
 
 
-
+//Grid
 Vue.component('Avatar', Avatar);
 Vue.component('Tag', Tag);
 Vue.component('Link', Link);
 Vue.component('IText', Text);
 Vue.component('IImage', Image);
 Vue.component('Icon', Icon);
+
 
 
 
@@ -94,3 +97,8 @@ import GridCreateButton from './components/widgets/Tools/Create'
 import VueRouteButton from './components/widgets/Tools/VueRouteButton'
 Vue.component('GridCreateButton', GridCreateButton);
 Vue.component('VueRouteButton', VueRouteButton);
+
+
+//Widget
+import Divider from './components/widgets/Divider'
+Vue.component('Divider', Divider)

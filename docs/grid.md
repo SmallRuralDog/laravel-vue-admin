@@ -327,7 +327,10 @@ $column->help('帮助内容');
 ```php
 $column->displayComponent(Tag::make()->size("mini")->type("info"));
 ```
+
+
 ### 自定义数据
+
 可以在后端自定义当前列的值
 - `$row`当前数据行的所有值
 - `$value`当前列的值
@@ -343,8 +346,8 @@ $grid->column('name')->customValue(function ($row, $value) {
 
 会在值的前后以字符串形式拼接
 
-```
-grid->column('name')->itemSuffix("折")
+```php
+$grid->column('name')->itemSuffix("折")
 ```
 
 

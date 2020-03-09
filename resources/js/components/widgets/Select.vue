@@ -27,15 +27,24 @@
     @change="onChange"
   >
     <el-option
-      v-for="(item,index) in options"
+      v-for="(item, index) in options"
       :key="index"
       :label="item.label"
       :value="item.value"
       :disabled="item.disabled"
     >
-      <div class="flex-c">
-        <el-avatar v-if="item.avatar" :size="25" :src="item.avatar" class="mr-5" />
-        <span>{{item.label}}</span>
+    
+      <div class="flex-c-sb">
+        <div class="flex-c">
+          <el-avatar
+            v-if="item.avatar"
+            :size="25"
+            :src="item.avatar"
+            class="mr-5"
+          />
+          <span>{{ item.label }}</span>
+        </div>
+        <div class="flex-c" v-if="item.desc" v-html="item.desc"></div>
       </div>
     </el-option>
   </el-select>

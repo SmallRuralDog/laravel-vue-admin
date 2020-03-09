@@ -62,6 +62,13 @@ if (!function_exists('admin_url')) {
     }
 }
 
+if (!function_exists('admin_file_url')) {
+    function admin_file_url($path)
+    {
+        return \Storage::disk(config('admin.upload.disk'))->url($path);
+    }
+};
+
 if (!function_exists('admin_toastr')) {
 
     /**

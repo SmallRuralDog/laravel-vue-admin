@@ -192,6 +192,17 @@ $form->item('username', '用户名')->serveRulesMessage(["required" => '必填']
  $form->item('username', '用户名')->help("help content")
 ```
 
+### 头部/底部组件
+
+会在当前字段上下添加组件，常用于字段内部分块
+
+```php
+$form->topComponent(Divider::make("详细信息"))
+$form->footerComponent(Divider::make("详细信息"));
+```
+
+
+
 ## 表单事件
 
 ## 关联模型

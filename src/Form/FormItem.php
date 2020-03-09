@@ -39,6 +39,9 @@ class FormItem
      * @var Component
      */
     protected $component;
+    protected $topComponent;
+    protected $footerComponent;
+
     public $original;
 
     /**
@@ -78,6 +81,36 @@ class FormItem
     public function setOriginal($data)
     {
         $this->original = Arr::get($data, $this->prop);
+    }
+
+    /**
+     * 设置头部组件
+     * @param $component
+     * @return $this
+     */
+    public function topComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->topComponent = call_user_func($component);
+        } else {
+            $this->topComponent = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 设置底部组件
+     * @param $component
+     * @return $this
+     */
+    public function footerComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->footerComponent = call_user_func($component);
+        } else {
+            $this->footerComponent = $component;
+        }
+        return $this;
     }
 
     public function displayComponent($component)
@@ -388,6 +421,8 @@ class FormItem
             'size' => $this->size,
             'help' => $this->help,
             'component' => $this->component,
+            'topComponent' => $this->topComponent,
+            'footerComponent' => $this->footerComponent,
             'relationName' => $this->relationName,
             'relationValueKey' => $this->relationValueKey,
         ];

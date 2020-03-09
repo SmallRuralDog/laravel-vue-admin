@@ -28,11 +28,14 @@
     :validate-event="attrs.validateEvent"
     :value="value"
     @input="onChange"
-  ></el-input>
+  >
+    <template slot="prepend" v-if="attrs.prepend">{{ attrs.prepend }}</template>
+    <template slot="append" v-if="attrs.append">{{ attrs.append }}</template>
+  </el-input>
 </template>
 <script>
 export default {
-  props: ['attrs', 'value','form_data'],
+  props: ["attrs", "value", "form_data"],
   data() {
     return {};
   },

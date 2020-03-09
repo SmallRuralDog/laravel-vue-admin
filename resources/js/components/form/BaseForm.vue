@@ -22,50 +22,61 @@
         :disabled="attrs.attrs.disabled"
       >
         <template v-for="(item, index) in attrs.formItems">
-          <el-form-item
-            :key="index"
-            :label="item.label"
-            :prop="item.prop"
-            :label-width="item.labelWidth"
-            :required="item.required"
-            :rules="item.rules"
-            :error="item.error"
-            :show-message="item.showMessage"
-            :inline-message="item.inlineMessage"
-            :size="item.size"
-          >
-            <template>
-              <el-row>
-                <el-col :span="item.inputWidth">
-                  <template v-if="item.relationName">
-                    <ItemDiaplsy
-                      v-model="
-                        formData[item.relationName][item.relationValueKey]
-                      "
-                      :form_item="item"
-                      :form_items="attrs.formItems"
-                      :form_data="formData"
-                    />
-                  </template>
-                  <template v-else>
-                    <ItemDiaplsy
-                      v-model="formData[item.prop]"
-                      :form_item="item"
-                      :form_data="formData"
-                    />
-                  </template>
+          <div :key="index">
+            <component
+              v-if="item.topComponent"
+              :is="item.topComponent.componentName"
+              :attrs="item.topComponent"
+            />
 
-                  <div
-                    v-if="item.help"
-                    class="form-item-help"
-                    v-html="item.help"
-                  ></div>
-                </el-col>
-              </el-row>
-            </template>
-          </el-form-item>
+            <el-form-item
+              :label="item.label"
+              :prop="item.prop"
+              :label-width="item.labelWidth"
+              :required="item.required"
+              :rules="item.rules"
+              :error="item.error"
+              :show-message="item.showMessage"
+              :inline-message="item.inlineMessage"
+              :size="item.size"
+            >
+              <template>
+                <el-row>
+                  <el-col :span="item.inputWidth">
+                    <template v-if="item.relationName">
+                      <ItemDiaplsy
+                        v-model="
+                          formData[item.relationName][item.relationValueKey]
+                        "
+                        :form_item="item"
+                        :form_items="attrs.formItems"
+                        :form_data="formData"
+                      />
+                    </template>
+                    <template v-else>
+                      <ItemDiaplsy
+                        v-model="formData[item.prop]"
+                        :form_item="item"
+                        :form_data="formData"
+                      />
+                    </template>
+
+                    <div
+                      v-if="item.help"
+                      class="form-item-help"
+                      v-html="item.help"
+                    ></div>
+                  </el-col>
+                </el-row>
+              </template>
+            </el-form-item>
+            <component
+              v-if="item.footerComponent"
+              :is="item.footerComponent.componentName"
+              :attrs="item.footerComponent"
+            />
+          </div>
         </template>
-
         <div class="form-bottom-actions">
           <div></div>
           <div>

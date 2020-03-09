@@ -4,12 +4,15 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class SelectOption implements \JsonSerializable
+use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
+
+class SelectOption extends AdminJsonBuilder
 {
     protected $type = "default";
     protected $label;
     protected $value;
     protected $avatar;
+    protected $desc;
     protected $disabled = false;
 
     static function make($value, $label)
@@ -42,17 +45,13 @@ class SelectOption implements \JsonSerializable
         return $this;
     }
 
-
-
     /**
-     * @inheritDoc
+     * @param mixed $desc
+     * @return $this
      */
-    public function jsonSerialize()
+    public function desc($desc)
     {
-        $data = [];
-        foreach ($this as $key => $val) {
-            $data[$key] = $val;
-        }
-        return $data;
+        $this->desc = $desc;
+        return $this;
     }
 }
