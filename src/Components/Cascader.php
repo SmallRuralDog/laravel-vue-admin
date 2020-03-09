@@ -18,7 +18,7 @@ class Cascader extends Component
     protected $clearable = false;
     protected $showAllLevels = true;
     protected $collapseTags = false;
-    protected $separator = "/";
+    protected $separator = " / ";
     protected $filterable = false;
     protected $debounce = 300;
     protected $popperClass;
@@ -258,6 +258,7 @@ class Cascader extends Component
     }
 
     /**
+     * 设置选项值数组
      * @param array $options
      * @return $this
      */

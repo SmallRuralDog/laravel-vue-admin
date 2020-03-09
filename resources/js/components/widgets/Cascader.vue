@@ -3,7 +3,7 @@
     v-if="attrs.panel"
     :style="attrs.style"
     :class="attrs.className"
-    v-model="vm"
+    :value="value"
     :size="attrs.size"
     :placeholder="attrs.placeholder"
     :disabled="attrs.disabled"
@@ -22,7 +22,7 @@
     v-else
     :style="attrs.style"
     :class="attrs.className"
-    v-model="vm"
+    :value="value"
     :size="attrs.size"
     :placeholder="attrs.placeholder"
     :disabled="attrs.disabled"
@@ -44,11 +44,11 @@ export default {
     attrs: Object,
     value: {
       default: null
-    }
+    },
+    form_data: Object
   },
   data() {
     return {
-      vm: 0,
       props: {},
       options: []
     };

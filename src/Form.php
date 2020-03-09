@@ -244,20 +244,22 @@ class Form extends Component implements JsonSerializable
     protected function prepare($data = [])
     {
 
+        //触发表单提交前事件
         if (($response = $this->callSubmitted()) instanceof Response) {
             return $response;
         }
-
+        //处理要过滤的字段
         $this->inputs = array_merge($this->removeIgnoredFields($data), $this->inputs);
-
-        $this->relations = $this->getRelationInputs($this->inputs);
-
+        //处理表单提交时事件
         if (($response = $this->callSaving()) instanceof Response) {
             return $response;
         }
 
-        $this->updates = Arr::except($this->inputs, array_keys($this->relations));
+        //处理关联字段
+        $this->relations = $this->getRelationInputs($this->inputs);
 
+
+        $this->updates = Arr::except($this->inputs, array_keys($this->relations));
     }
 
     protected function removeIgnoredFields($input): array
@@ -270,6 +272,7 @@ class Form extends Component implements JsonSerializable
     protected function getRelationInputs($inputs = []): array
     {
         $relations = [];
+
 
         foreach ($inputs as $column => $value) {
             $column = \Illuminate\Support\Str::camel($column);
@@ -333,20 +336,20 @@ class Form extends Component implements JsonSerializable
 
         $data = request()->all();
 
+
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
         }
 
-        if (($result = $this->callSaving()) instanceof Response) {
-            return $result;
-        }
 
         if (($response = $this->prepare($data)) instanceof Response) {
             return $response;
         }
 
+
         DB::transaction(function () use ($data) {
             $inserts = $this->prepareInsert($this->updates);
+
             foreach ($inserts as $key => $value) {
                 $this->model->setAttribute($key, $value);
             }
@@ -395,28 +398,28 @@ class Form extends Component implements JsonSerializable
      */
     public function destroy($id)
     {
-        try {
-            if (($ret = $this->callDeleting($id)) instanceof Response) {
-                return $ret;
-            }
-            collect(explode(',', $id))->each(function ($id) {
-                $builder = $this->model()->newQuery();
-                $relations = $this->getRelations();
-                $this->model = $model = $builder->with($relations)->findOrFail($id);
-                //删除文件
-                $this->deleteFiles($model);
-                //删除关联模型数据
-                $this->deleteRelation($relations);
-                $model->delete();
-            });
-            if (($ret = $this->callDeleted()) instanceof Response) {
-                return $ret;
-            }
-
-            return \Admin::responseMessage(trans('admin::admin.delete_succeeded'));
-        } catch (\Exception $exception) {
-            return \Admin::responseError($exception->getMessage() ?: trans('admin::admin.delete_failed'));
+        //try {
+        if (($ret = $this->callDeleting($id)) instanceof Response) {
+            return $ret;
         }
+        collect(explode(',', $id))->each(function ($id) {
+            $builder = $this->model()->newQuery();
+            $relations = $this->getRelations();
+            $this->model = $model = $builder->with($relations)->findOrFail($id);
+            //删除文件
+            $this->deleteFiles($model);
+            //删除关联模型数据
+            $this->deleteRelation($relations);
+            $model->delete();
+        });
+        if (($ret = $this->callDeleted()) instanceof Response) {
+            return $ret;
+        }
+
+        return \Admin::responseMessage(trans('admin::admin.delete_succeeded'));
+        /*} catch (\Exception $exception) {
+            return \Admin::responseError($exception->getMessage() ?: trans('admin::admin.delete_failed'));
+        }*/
     }
 
     /**
@@ -437,9 +440,6 @@ class Form extends Component implements JsonSerializable
 
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
-        }
-        if (($result = $this->callSaving()) instanceof Response) {
-            return $result;
         }
 
         if (($response = $this->prepare($data)) instanceof Response) {
@@ -494,6 +494,8 @@ class Form extends Component implements JsonSerializable
 
     private function updateRelation($relationsData)
     {
+
+
         foreach ($relationsData as $name => $values) {
             if (!method_exists($this->model, $name)) {
                 continue;
@@ -507,6 +509,7 @@ class Form extends Component implements JsonSerializable
             //$prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
 
             $prepared = [$name => $values];
+
 
             if (empty($prepared)) {
                 continue;
@@ -582,13 +585,23 @@ class Form extends Component implements JsonSerializable
 
                         $instance = $relation->findOrNew(Arr::get($related, $keyName));
 
-                        if ($related[static::REMOVE_FLAG_NAME] == 1) {
-                            $instance->delete();
-                            continue;
-                        }
+                        //处理已删除的关联
+                        try {
+                            if ($related[static::REMOVE_FLAG_NAME] == 1) {
+                                $instance->delete();
+                                continue;
+                            }
+                            Arr::forget($related, static::REMOVE_FLAG_NAME);
+                        } catch (\Exception $exception) {
 
-                        Arr::forget($related, static::REMOVE_FLAG_NAME);
-                        $instance->fill($related);
+                        }
+                        //过滤不存在的字段
+                        foreach ($related as $key => $value) {
+                            if (\Schema::hasColumn($instance->getTable(), $key)) {
+                                $instance->setAttribute($key, $value);
+                            }
+
+                        }
                         $instance->save();
                     }
 

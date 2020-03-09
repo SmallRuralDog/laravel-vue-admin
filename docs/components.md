@@ -134,6 +134,50 @@ Icon::make()
 ### InputNumber 计数器
 ### Select 选择器
 ### Cascader 级联选择器
+
+当一个数据集合有清晰的层级结构时，可通过级联选择器逐级查看并选择
+
+#### 基础用法
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use SmallRuralDog\Admin\Traits\ModelTree;
+
+class GoodsClass extends Model
+{
+    use ModelTree;
+
+    public function children()
+    {
+        return $this->hasMany(get_class($this), 'parent_id')->orderBy('order');
+    }
+}
+```
+
+
+
+```php
+$form->item("goods_class_id", "产品分类")->displayComponent(function () {
+    $goods_class = new GoodsClass();
+    $allNodes = $goods_class->toTree();
+    return Cascader::make()->options($allNodes)->value("id")->label("name")->expandTrigger("hover");
+}),
+```
+
+#### 属性
+
+显示为面板模式
+
+```php
+Cascader::make()->panel(true)
+```
+
+
+
 ### Switch 开关
 ### Slider 滑块
 ### TimePicker 时间选择器
@@ -161,7 +205,9 @@ $form->item('avatar', '头像')->displayComponent(function(){
 #### 支持多文件
 支持多个文件上传，数据格式为数组
 ```php
- Upload::make()->multiple()
+ Upload::make()->multiple();
+//如果是一对多情况下，并且是对象数组，需要指定文件路径的字段
+ Upload::make()->multiple(true,"keyName");
 ```
 #### 上传附加数据
 ```php
@@ -207,7 +253,7 @@ $form->item('avatar', '头像')->displayComponent(function(){
 ```php
  Upload::make()->width(150)
  Upload::make()->height(120)
- ```
+```
 ### Rate 评分
 ### ColorPicker 颜色选择器
 ### Transfer 穿梭框

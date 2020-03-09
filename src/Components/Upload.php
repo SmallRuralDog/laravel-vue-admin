@@ -4,6 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 use Illuminate\Support\Arr;
+use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Form\FormItem;
 use Storage;
 
@@ -25,6 +26,12 @@ class Upload extends Component
 
     protected $width = 100;
     protected $height = 100;
+
+
+    protected $keyName;
+    protected $valueName;
+
+    protected $remove_flag_name = Form::REMOVE_FLAG_NAME;
 
     public function __construct($value = null)
     {
@@ -78,11 +85,15 @@ class Upload extends Component
 
     /**
      * @param bool $multiple
+     * @param null|string $keyName
+     * @param null|string $valueName
      * @return $this
      */
-    public function multiple(bool $multiple = true)
+    public function multiple(bool $multiple = true, $keyName = null, $valueName = null)
     {
         $this->multiple = $multiple;
+        $this->keyName = $keyName;
+        $this->valueName = $valueName;
         return $this;
     }
 

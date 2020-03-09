@@ -1,30 +1,38 @@
 <template>
   <div class="upload-component">
     <div class="upload-images">
-      <template v-for="(item,index) in list">
+      <template v-for="(item, index) in list">
         <div :key="index" class="upload-images-item">
           <el-image
             title="预览图片"
-            v-if="attrs.type=='image'"
+            v-if="attrs.type == 'image'"
             :src="item.url"
-            :style="{'width':attrs.width+'px','height':attrs.height+'px'}"
+            :style="{ width: attrs.width + 'px', height: attrs.height + 'px' }"
             fit="cover"
             :preview-src-list="urlList"
           />
           <el-avatar
-            v-if="attrs.type=='file'"
+            v-if="attrs.type == 'file'"
             :size="attrs.width"
             shape="square"
             :title="item.name"
             fit="cover"
             icon="el-icon-document-checked"
           />
-          <el-avatar v-else-if="attrs.type=='avatar'" :size="attrs.width" :src="item.url" />
-          <i @click="onDelete(index)" class="mask el-icon-close" title="删除图片"></i>
+          <el-avatar
+            v-else-if="attrs.type == 'avatar'"
+            :size="attrs.width"
+            :src="item.url"
+          />
+          <i
+            @click="onDelete(index)"
+            class="mask el-icon-close"
+            title="删除图片"
+          ></i>
         </div>
       </template>
     </div>
-    <div class="upload-block" v-if="list.length<attrs.limit">
+    <div class="upload-block" v-if="list.length < attrs.limit">
       <el-upload
         :style="attrs.style"
         :class="attrs.className"
@@ -44,8 +52,9 @@
         <el-button
           plain
           :class="attrs.type"
-          :style="{'width':attrs.width+'px','height':attrs.height+'px'}"
-        >上传</el-button>
+          :style="{ width: attrs.width + 'px', height: attrs.height + 'px' }"
+          >上传</el-button
+        >
       </el-upload>
     </div>
   </div>
@@ -75,7 +84,7 @@ export default {
     onDelete(index) {
       if (this._.isArray(this.value)) {
         let t_value = this._.clone(this.value);
-        t_value.splice(index, 1);
+        t_value[index][this.attrs.remove_flag_name] = 1;
         this.onChange(t_value);
       } else {
         this.onChange(null);
@@ -88,12 +97,35 @@ export default {
       } else {
         let t_value = this._.clone(this.value);
         t_value = this._.isArray(t_value) ? t_value : [];
-        t_value.push(response.data.path);
+        t_value.push(this.getObject(response.data.path, 0));
         this.onChange(t_value);
       }
     },
     onExceed() {
       this.$Message.error("超出上传数量");
+    },
+    getObject(path, id) {
+      let keyName = this.attrs.keyName;
+      let valueName = this.attrs.valueName;
+      let remove_flag_name = this.attrs.remove_flag_name;
+      let obj = {};
+      if (keyName != null && valueName != null) {
+        obj[keyName] = id;
+        obj[valueName] = path;
+        obj["name"] = getFileName(path);
+        obj[remove_flag_name] = 0;
+        return obj;
+      } else {
+        return path;
+      }
+    },
+    getObjectPath(item) {
+      let keyName = this.attrs.keyName;
+      let valueName = this.attrs.valueName;
+      if (keyName != null && valueName != null) {
+        return item[valueName];
+      }
+      return item;
     }
   },
   watch: {},
@@ -101,20 +133,32 @@ export default {
   computed: {
     list() {
       if (this._.isArray(this.value)) {
-        return this.value.map(item => {
-          return {
-            name: getFileName(item),
-            path: item,
-            url: getFileUrl(this.attrs.host, item)
-          };
-        });
+        return this.value
+          .filter(item => {
+            if (item[this.attrs.remove_flag_name]) {
+              return item[this.attrs.remove_flag_name] == 0;
+            }
+            return true;
+          })
+          .map(item => {
+            let itemPath = this.getObjectPath(item);
+            return {
+              name: getFileName(itemPath),
+              path: itemPath,
+              url: getFileUrl(this.attrs.host, itemPath)
+            };
+          });
       } else {
         if (!this.value) return [];
+        let itemPath = this.value;
+        if (this._.isObject()) {
+          itemPath = this.getObjectPath(this.value);
+        }
         return [
           {
-            name: getFileName(this.value),
-            path: this.value,
-            url: getFileUrl(this.attrs.host, this.value)
+            name: getFileName(itemPath),
+            path: itemPath,
+            url: getFileUrl(this.attrs.host, itemPath)
           }
         ];
       }

@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  props: ['attrs', 'value'],
+  props: ['attrs', 'value','form_data'],
   data() {
     return {};
   },

@@ -2040,11 +2040,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     attrs: Object,
     value: {
       "default": null
-    }
+    },
+    form_data: Object
   },
   data: function data() {
     return {
-      vm: 0,
       props: {},
       options: []
     };
@@ -2533,7 +2533,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['attrs', 'value'],
+  props: ['attrs', 'value', 'form_data'],
   data: function data() {
     return {};
   },
@@ -3246,6 +3246,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["attrs", "value", "form_data"],
@@ -3270,7 +3279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this._.isArray(this.value)) {
         var t_value = this._.clone(this.value);
 
-        t_value.splice(index, 1);
+        t_value[index][this.attrs.remove_flag_name] = 1;
         this.onChange(t_value);
       } else {
         this.onChange(null);
@@ -3284,12 +3293,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var t_value = this._.clone(this.value);
 
         t_value = this._.isArray(t_value) ? t_value : [];
-        t_value.push(response.data.path);
+        t_value.push(this.getObject(response.data.path, 0));
         this.onChange(t_value);
       }
     },
     onExceed: function onExceed() {
       this.$Message.error("超出上传数量");
+    },
+    getObject: function getObject(path, id) {
+      var keyName = this.attrs.keyName;
+      var valueName = this.attrs.valueName;
+      var remove_flag_name = this.attrs.remove_flag_name;
+      var obj = {};
+
+      if (keyName != null && valueName != null) {
+        obj[keyName] = id;
+        obj[valueName] = path;
+        obj["name"] = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(path);
+        obj[remove_flag_name] = 0;
+        return obj;
+      } else {
+        return path;
+      }
+    },
+    getObjectPath: function getObjectPath(item) {
+      var keyName = this.attrs.keyName;
+      var valueName = this.attrs.valueName;
+
+      if (keyName != null && valueName != null) {
+        return item[valueName];
+      }
+
+      return item;
     }
   },
   watch: {},
@@ -3298,19 +3333,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       if (this._.isArray(this.value)) {
-        return this.value.map(function (item) {
+        return this.value.filter(function (item) {
+          if (item[_this.attrs.remove_flag_name]) {
+            return item[_this.attrs.remove_flag_name] == 0;
+          }
+
+          return true;
+        }).map(function (item) {
+          var itemPath = _this.getObjectPath(item);
+
           return {
-            name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(item),
-            path: item,
-            url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.host, item)
+            name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(itemPath),
+            path: itemPath,
+            url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.host, itemPath)
           };
         });
       } else {
         if (!this.value) return [];
+        var itemPath = this.value;
+
+        if (this._.isObject()) {
+          itemPath = this.getObjectPath(this.value);
+        }
+
         return [{
-          name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(this.value),
-          path: this.value,
-          url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, this.value)
+          name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(itemPath),
+          path: itemPath,
+          url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(this.attrs.host, itemPath)
         }];
       }
     },
@@ -28688,6 +28737,7 @@ var render = function() {
         class: _vm.attrs.className,
         style: _vm.attrs.style,
         attrs: {
+          value: _vm.value,
           size: _vm.attrs.size,
           placeholder: _vm.attrs.placeholder,
           disabled: _vm.attrs.disabled,
@@ -28701,19 +28751,13 @@ var render = function() {
           props: _vm.props,
           options: _vm.options
         },
-        on: { change: _vm.onChange },
-        model: {
-          value: _vm.vm,
-          callback: function($$v) {
-            _vm.vm = $$v
-          },
-          expression: "vm"
-        }
+        on: { change: _vm.onChange }
       })
     : _c("el-cascader", {
         class: _vm.attrs.className,
         style: _vm.attrs.style,
         attrs: {
+          value: _vm.value,
           size: _vm.attrs.size,
           placeholder: _vm.attrs.placeholder,
           disabled: _vm.attrs.disabled,
@@ -28727,14 +28771,7 @@ var render = function() {
           props: _vm.props,
           options: _vm.options
         },
-        on: { change: _vm.onChange },
-        model: {
-          value: _vm.vm,
-          callback: function($$v) {
-            _vm.vm = $$v
-          },
-          expression: "vm"
-        }
+        on: { change: _vm.onChange }
       })
 }
 var staticRenderFns = []
