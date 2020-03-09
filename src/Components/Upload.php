@@ -48,6 +48,7 @@ class Upload extends Component
     public function destroy(FormItem $formItem)
     {
         $files = [];
+
         if (is_array($formItem->original)) {
             $files = $formItem->original;
         } else {
@@ -55,6 +56,10 @@ class Upload extends Component
         }
         $storage = Storage::disk(config('admin.upload.disk'));
         collect($files)->each(function ($file) use ($storage) {
+
+            if (!empty($this->valueName)) {
+                $file = $file[$this->valueName];
+            }
             if ($storage->exists($file)) {
                 $storage->delete($file);
             }

@@ -12,6 +12,368 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./node_modules/awe-dnd/vue-dragging.es5.js":
+/*!**************************************************!*\
+  !*** ./node_modules/awe-dnd/vue-dragging.es5.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * Awe-dnd v0.3.2
+ * (c) 2018 Awe <hilongjw@gmail.com>
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	undefined;
+}(this, (function () { 'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DragData = function () {
+    function DragData() {
+        _classCallCheck(this, DragData);
+
+        this.data = {};
+    }
+
+    _createClass(DragData, [{
+        key: 'new',
+        value: function _new(key) {
+            if (!this.data[key]) {
+                this.data[key] = {
+                    className: '',
+                    List: [],
+                    KEY_MAP: {}
+                };
+            }
+            return this.data[key];
+        }
+    }, {
+        key: 'get',
+        value: function get(key) {
+            return this.data[key];
+        }
+    }]);
+
+    return DragData;
+}();
+
+var $dragging = {
+    listeners: {},
+    $on: function $on(event, func) {
+        var events = this.listeners[event];
+        if (!events) {
+            this.listeners[event] = [];
+        }
+        this.listeners[event].push(func);
+    },
+    $once: function $once(event, func) {
+        var vm = this;
+        function on() {
+            vm.$off(event, on);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            func.apply(vm, args);
+        }
+        this.$on(event, on);
+    },
+    $off: function $off(event, func) {
+        var events = this.listeners[event];
+        if (!func || !events) {
+            this.listeners[event] = [];
+            return;
+        }
+        this.listeners[event] = this.listeners[event].filter(function (i) {
+            return i !== func;
+        });
+    },
+    $emit: function $emit(event, context) {
+        var events = this.listeners[event];
+        if (events && events.length > 0) {
+            events.forEach(function (func) {
+                func(context);
+            });
+        }
+    }
+};
+var _ = {
+    on: function on(el, type, fn) {
+        el.addEventListener(type, fn);
+    },
+    off: function off(el, type, fn) {
+        el.removeEventListener(type, fn);
+    },
+    addClass: function addClass(el, cls) {
+        if (arguments.length < 2) {
+            el.classList.add(cls);
+        } else {
+            for (var i = 1, len = arguments.length; i < len; i++) {
+                el.classList.add(arguments[i]);
+            }
+        }
+    },
+    removeClass: function removeClass(el, cls) {
+        if (arguments.length < 2) {
+            el.classList.remove(cls);
+        } else {
+            for (var i = 1, len = arguments.length; i < len; i++) {
+                el.classList.remove(arguments[i]);
+            }
+        }
+    }
+};
+
+var vueDragging = function (Vue, options) {
+    var isPreVue = Vue.version.split('.')[0] === '1';
+    var dragData = new DragData();
+    var isSwap = false;
+    var Current = null;
+
+    function handleDragStart(e) {
+        var el = getBlockEl(e.target);
+        var key = el.getAttribute('drag_group');
+        var drag_key = el.getAttribute('drag_key');
+        var comb = el.getAttribute('comb');
+        var DDD = dragData.new(key);
+        var item = DDD.KEY_MAP[drag_key];
+        var index = DDD.List.indexOf(item);
+        var groupArr = DDD.List.filter(function (item) {
+            return item[comb];
+        });
+        _.addClass(el, 'dragging');
+
+        if (e.dataTransfer) {
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text', JSON.stringify(item));
+        }
+
+        Current = {
+            index: index,
+            item: item,
+            el: el,
+            group: key,
+            groupArr: groupArr
+        };
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        return false;
+    }
+
+    function handleDragEnter(e) {
+        var el = void 0;
+        if (e.type === 'touchmove') {
+            e.stopPropagation();
+            e.preventDefault();
+            el = getOverElementFromTouch(e);
+            el = getBlockEl(el);
+        } else {
+            el = getBlockEl(e.target);
+        }
+
+        if (!el || !Current) return;
+
+        var key = el.getAttribute('drag_group');
+        if (key !== Current.group || !Current.el || !Current.item || el === Current.el) return;
+        var drag_key = el.getAttribute('drag_key');
+        var DDD = dragData.new(key);
+        var item = DDD.KEY_MAP[drag_key];
+
+        if (item === Current.item) return;
+
+        var indexTo = DDD.List.indexOf(item);
+        var indexFrom = DDD.List.indexOf(Current.item);
+
+        swapArrayElements(DDD.List, indexFrom, indexTo);
+
+        Current.groupArr.forEach(function (item) {
+            if (item != Current.item) {
+                DDD.List.splice(DDD.List.indexOf(item), 1);
+            }
+        });
+
+        var targetIndex = DDD.List.indexOf(Current.item);
+        if (Current.groupArr.length) {
+            var _DDD$List;
+
+            (_DDD$List = DDD.List).splice.apply(_DDD$List, [targetIndex, 1].concat(_toConsumableArray(Current.groupArr)));
+        }
+
+        Current.index = indexTo;
+        isSwap = true;
+        $dragging.$emit('dragged', {
+            draged: Current.item,
+            to: item,
+            value: DDD.value,
+            group: key
+        });
+    }
+
+    function handleDragLeave(e) {
+        _.removeClass(getBlockEl(e.target), 'drag-over', 'drag-enter');
+    }
+
+    function handleDrag(e) {}
+
+    function handleDragEnd(e) {
+        var el = getBlockEl(e.target);
+        _.removeClass(el, 'dragging', 'drag-over', 'drag-enter');
+        Current = null;
+        // if (isSwap) {
+        isSwap = false;
+        var group = el.getAttribute('drag_group');
+        $dragging.$emit('dragend', { group: group });
+        // }
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        return false;
+    }
+
+    function getBlockEl(el) {
+        if (!el) return;
+        while (el.parentNode) {
+            if (el.getAttribute && el.getAttribute('drag_block')) {
+                return el;
+                break;
+            } else {
+                el = el.parentNode;
+            }
+        }
+    }
+
+    function swapArrayElements(items, indexFrom, indexTo) {
+        var item = items[indexTo];
+        if (isPreVue) {
+            items.$set(indexTo, items[indexFrom]);
+            items.$set(indexFrom, item);
+        } else {
+            Vue.set(items, indexTo, items[indexFrom]);
+            Vue.set(items, indexFrom, item);
+        }
+        return items;
+    }
+
+    function getOverElementFromTouch(e) {
+        var touch = e.touches[0];
+        var el = document.elementFromPoint(touch.clientX, touch.clientY);
+        return el;
+    }
+
+    function addDragItem(el, binding, vnode) {
+        var item = binding.value.item;
+        var list = binding.value.list;
+        var DDD = dragData.new(binding.value.group);
+
+        var drag_key = isPreVue ? binding.value.key : vnode.key;
+        DDD.value = binding.value;
+        DDD.className = binding.value.className;
+        DDD.KEY_MAP[drag_key] = item;
+        if (list && DDD.List !== list) {
+            DDD.List = list;
+        }
+        el.setAttribute('draggable', 'true');
+        el.setAttribute('drag_group', binding.value.group);
+        el.setAttribute('drag_block', binding.value.group);
+        el.setAttribute('drag_key', drag_key);
+        el.setAttribute('comb', binding.value.comb);
+
+        _.on(el, 'dragstart', handleDragStart);
+        _.on(el, 'dragenter', handleDragEnter);
+        _.on(el, 'dragover', handleDragOver);
+        _.on(el, 'drag', handleDrag);
+        _.on(el, 'dragleave', handleDragLeave);
+        _.on(el, 'dragend', handleDragEnd);
+        _.on(el, 'drop', handleDrop);
+
+        _.on(el, 'touchstart', handleDragStart);
+        _.on(el, 'touchmove', handleDragEnter);
+        _.on(el, 'touchend', handleDragEnd);
+    }
+
+    function removeDragItem(el, binding, vnode) {
+        var DDD = dragData.new(binding.value.group);
+        var drag_key = isPreVue ? binding.value.key : vnode.key;
+        DDD.KEY_MAP[drag_key] = undefined;
+        _.off(el, 'dragstart', handleDragStart);
+        _.off(el, 'dragenter', handleDragEnter);
+        _.off(el, 'dragover', handleDragOver);
+        _.off(el, 'drag', handleDrag);
+        _.off(el, 'dragleave', handleDragLeave);
+        _.off(el, 'dragend', handleDragEnd);
+        _.off(el, 'drop', handleDrop);
+
+        _.off(el, 'touchstart', handleDragStart);
+        _.off(el, 'touchmove', handleDragEnter);
+        _.off(el, 'touchend', handleDragEnd);
+    }
+
+    Vue.prototype.$dragging = $dragging;
+    if (!isPreVue) {
+        Vue.directive('dragging', {
+            bind: addDragItem,
+            update: function update(el, binding, vnode) {
+                var DDD = dragData.new(binding.value.group);
+                var item = binding.value.item;
+                var list = binding.value.list;
+
+                var drag_key = vnode.key;
+                var old_item = DDD.KEY_MAP[drag_key];
+                if (item && old_item !== item) {
+                    DDD.KEY_MAP[drag_key] = item;
+                }
+                if (list && DDD.List !== list) {
+                    DDD.List = list;
+                }
+            },
+
+            unbind: removeDragItem
+        });
+    } else {
+        Vue.directive('dragging', {
+            update: function update(newValue, oldValue) {
+                addDragItem(this.el, {
+                    modifiers: this.modifiers,
+                    arg: this.arg,
+                    value: newValue,
+                    oldValue: oldValue
+                });
+            },
+            unbind: function unbind(newValue, oldValue) {
+                removeDragItem(this.el, {
+                    modifiers: this.modifiers,
+                    arg: this.arg,
+                    value: newValue ? newValue : { group: this.el.getAttribute('drag_group') },
+                    oldValue: oldValue
+                });
+            }
+        });
+    }
+};
+
+return vueDragging;
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-helper-vue-jsx-merge-props/index.js":
 /*!****************************************************************!*\
   !*** ./node_modules/babel-helper-vue-jsx-merge-props/index.js ***!
@@ -3271,6 +3633,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     event: "change"
   },
   mounted: function mounted() {},
+  destroyed: function destroyed() {},
   methods: {
     onChange: function onChange(value) {
       this.$emit("change", value);
@@ -3325,6 +3688,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return item;
+    },
+    getObjectKey: function getObjectKey(item) {
+      var keyName = this.attrs.keyName;
+      var valueName = this.attrs.valueName;
+
+      if (keyName != null && valueName != null) {
+        return item[keyName];
+      }
+
+      return item;
     }
   },
   watch: {},
@@ -3343,6 +3716,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var itemPath = _this.getObjectPath(item);
 
           return {
+            id: _this.getObjectKey(item),
             name: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileName"])(itemPath),
             path: itemPath,
             url: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getFileUrl"])(_this.attrs.host, itemPath)
@@ -30218,40 +30592,61 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_Root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Root */ "./resources/js/components/Root.vue");
-/* harmony import */ var _components_layout_Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/layout/Content */ "./resources/js/components/layout/Content.vue");
-/* harmony import */ var _components_layout_Row__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/layout/Row */ "./resources/js/components/layout/Row.vue");
-/* harmony import */ var _components_layout_Column__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/layout/Column */ "./resources/js/components/layout/Column.vue");
-/* harmony import */ var _components_grid_Table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/grid/Table */ "./resources/js/components/grid/Table.vue");
-/* harmony import */ var _components_grid_Tree__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/grid/Tree */ "./resources/js/components/grid/Tree.vue");
-/* harmony import */ var _components_form_BaseForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/form/BaseForm */ "./resources/js/components/form/BaseForm.vue");
-/* harmony import */ var _components_widgets_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/widgets/Input */ "./resources/js/components/widgets/Input.vue");
-/* harmony import */ var _components_widgets_RadioGroup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/widgets/RadioGroup */ "./resources/js/components/widgets/RadioGroup.vue");
-/* harmony import */ var _components_widgets_Checkbox__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/widgets/Checkbox */ "./resources/js/components/widgets/Checkbox.vue");
-/* harmony import */ var _components_widgets_CheckboxGroup__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/widgets/CheckboxGroup */ "./resources/js/components/widgets/CheckboxGroup.vue");
-/* harmony import */ var _components_widgets_InputNumber__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/widgets/InputNumber */ "./resources/js/components/widgets/InputNumber.vue");
-/* harmony import */ var _components_widgets_Select__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/widgets/Select */ "./resources/js/components/widgets/Select.vue");
-/* harmony import */ var _components_widgets_Cascader__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/widgets/Cascader */ "./resources/js/components/widgets/Cascader.vue");
-/* harmony import */ var _components_widgets_Switch__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/widgets/Switch */ "./resources/js/components/widgets/Switch.vue");
-/* harmony import */ var _components_widgets_Slider__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/widgets/Slider */ "./resources/js/components/widgets/Slider.vue");
-/* harmony import */ var _components_widgets_Transfer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/widgets/Transfer */ "./resources/js/components/widgets/Transfer.vue");
-/* harmony import */ var _components_widgets_Upload__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/widgets/Upload */ "./resources/js/components/widgets/Upload.vue");
-/* harmony import */ var _components_widgets_ColorPicker__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/widgets/ColorPicker */ "./resources/js/components/widgets/ColorPicker.vue");
-/* harmony import */ var _components_widgets_TimePicker__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/widgets/TimePicker */ "./resources/js/components/widgets/TimePicker.vue");
-/* harmony import */ var _components_widgets_DatePicker__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/widgets/DatePicker */ "./resources/js/components/widgets/DatePicker.vue");
-/* harmony import */ var _components_widgets_DateTimePicker__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/widgets/DateTimePicker */ "./resources/js/components/widgets/DateTimePicker.vue");
-/* harmony import */ var _components_widgets_Avatar__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/widgets/Avatar */ "./resources/js/components/widgets/Avatar.vue");
-/* harmony import */ var _components_widgets_Tag__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/widgets/Tag */ "./resources/js/components/widgets/Tag.vue");
-/* harmony import */ var _components_widgets_Link__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/widgets/Link */ "./resources/js/components/widgets/Link.vue");
-/* harmony import */ var _components_widgets_Text__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/widgets/Text */ "./resources/js/components/widgets/Text.vue");
-/* harmony import */ var _components_widgets_Image__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/widgets/Image */ "./resources/js/components/widgets/Image.vue");
-/* harmony import */ var _components_widgets_Icon__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/widgets/Icon */ "./resources/js/components/widgets/Icon.vue");
-/* harmony import */ var _components_layout_MenuItem__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/layout/MenuItem */ "./resources/js/components/layout/MenuItem.vue");
-/* harmony import */ var _components_widgets_Actions_EditAction__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/widgets/Actions/EditAction */ "./resources/js/components/widgets/Actions/EditAction.vue");
-/* harmony import */ var _components_widgets_Actions_DeleteAction__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/widgets/Actions/DeleteAction */ "./resources/js/components/widgets/Actions/DeleteAction.vue");
-/* harmony import */ var _components_widgets_Tools_Create__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/widgets/Tools/Create */ "./resources/js/components/widgets/Tools/Create.vue");
-/* harmony import */ var _components_widgets_Tools_VueRouteButton__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/widgets/Tools/VueRouteButton */ "./resources/js/components/widgets/Tools/VueRouteButton.vue");
+/* harmony import */ var awe_dnd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! awe-dnd */ "./node_modules/awe-dnd/vue-dragging.es5.js");
+/* harmony import */ var awe_dnd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(awe_dnd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_Root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Root */ "./resources/js/components/Root.vue");
+/* harmony import */ var _components_layout_Content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/layout/Content */ "./resources/js/components/layout/Content.vue");
+/* harmony import */ var _components_layout_Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/layout/Row */ "./resources/js/components/layout/Row.vue");
+/* harmony import */ var _components_layout_Column__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/layout/Column */ "./resources/js/components/layout/Column.vue");
+/* harmony import */ var _components_grid_Table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/grid/Table */ "./resources/js/components/grid/Table.vue");
+/* harmony import */ var _components_grid_Tree__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/grid/Tree */ "./resources/js/components/grid/Tree.vue");
+/* harmony import */ var _components_form_BaseForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/form/BaseForm */ "./resources/js/components/form/BaseForm.vue");
+/* harmony import */ var _components_widgets_Input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/widgets/Input */ "./resources/js/components/widgets/Input.vue");
+/* harmony import */ var _components_widgets_RadioGroup__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/widgets/RadioGroup */ "./resources/js/components/widgets/RadioGroup.vue");
+/* harmony import */ var _components_widgets_Checkbox__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/widgets/Checkbox */ "./resources/js/components/widgets/Checkbox.vue");
+/* harmony import */ var _components_widgets_CheckboxGroup__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/widgets/CheckboxGroup */ "./resources/js/components/widgets/CheckboxGroup.vue");
+/* harmony import */ var _components_widgets_InputNumber__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/widgets/InputNumber */ "./resources/js/components/widgets/InputNumber.vue");
+/* harmony import */ var _components_widgets_Select__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/widgets/Select */ "./resources/js/components/widgets/Select.vue");
+/* harmony import */ var _components_widgets_Cascader__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/widgets/Cascader */ "./resources/js/components/widgets/Cascader.vue");
+/* harmony import */ var _components_widgets_Switch__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/widgets/Switch */ "./resources/js/components/widgets/Switch.vue");
+/* harmony import */ var _components_widgets_Slider__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/widgets/Slider */ "./resources/js/components/widgets/Slider.vue");
+/* harmony import */ var _components_widgets_Transfer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/widgets/Transfer */ "./resources/js/components/widgets/Transfer.vue");
+/* harmony import */ var _components_widgets_Upload__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/widgets/Upload */ "./resources/js/components/widgets/Upload.vue");
+/* harmony import */ var _components_widgets_ColorPicker__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/widgets/ColorPicker */ "./resources/js/components/widgets/ColorPicker.vue");
+/* harmony import */ var _components_widgets_TimePicker__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/widgets/TimePicker */ "./resources/js/components/widgets/TimePicker.vue");
+/* harmony import */ var _components_widgets_DatePicker__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/widgets/DatePicker */ "./resources/js/components/widgets/DatePicker.vue");
+/* harmony import */ var _components_widgets_DateTimePicker__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/widgets/DateTimePicker */ "./resources/js/components/widgets/DateTimePicker.vue");
+/* harmony import */ var _components_widgets_Avatar__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/widgets/Avatar */ "./resources/js/components/widgets/Avatar.vue");
+/* harmony import */ var _components_widgets_Tag__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/widgets/Tag */ "./resources/js/components/widgets/Tag.vue");
+/* harmony import */ var _components_widgets_Link__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/widgets/Link */ "./resources/js/components/widgets/Link.vue");
+/* harmony import */ var _components_widgets_Text__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/widgets/Text */ "./resources/js/components/widgets/Text.vue");
+/* harmony import */ var _components_widgets_Image__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/widgets/Image */ "./resources/js/components/widgets/Image.vue");
+/* harmony import */ var _components_widgets_Icon__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/widgets/Icon */ "./resources/js/components/widgets/Icon.vue");
+/* harmony import */ var _components_layout_MenuItem__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/layout/MenuItem */ "./resources/js/components/layout/MenuItem.vue");
+/* harmony import */ var _components_widgets_Actions_EditAction__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/widgets/Actions/EditAction */ "./resources/js/components/widgets/Actions/EditAction.vue");
+/* harmony import */ var _components_widgets_Actions_DeleteAction__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/widgets/Actions/DeleteAction */ "./resources/js/components/widgets/Actions/DeleteAction.vue");
+/* harmony import */ var _components_widgets_Tools_Create__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/widgets/Tools/Create */ "./resources/js/components/widgets/Tools/Create.vue");
+/* harmony import */ var _components_widgets_Tools_VueRouteButton__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/widgets/Tools/VueRouteButton */ "./resources/js/components/widgets/Tools/VueRouteButton.vue");
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(awe_dnd__WEBPACK_IMPORTED_MODULE_1___default.a);
+
+
+
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('login', _components_Login__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Root', _components_Root__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Content', _components_layout_Content__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Row', _components_layout_Row__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Column', _components_layout_Column__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Grid', _components_grid_Table__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Tree', _components_grid_Tree__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Form', _components_form_BaseForm__WEBPACK_IMPORTED_MODULE_9__["default"]);
 
 
 
@@ -30261,68 +30656,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('login', _components_Login__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Root', _components_Root__WEBPACK_IMPORTED_MODULE_2__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Content', _components_layout_Content__WEBPACK_IMPORTED_MODULE_3__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Row', _components_layout_Row__WEBPACK_IMPORTED_MODULE_4__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Column', _components_layout_Column__WEBPACK_IMPORTED_MODULE_5__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Grid', _components_grid_Table__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Tree', _components_grid_Tree__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Form', _components_form_BaseForm__WEBPACK_IMPORTED_MODULE_8__["default"]);
 
 
 
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Input', _components_widgets_Input__WEBPACK_IMPORTED_MODULE_10__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('RadioGroup', _components_widgets_RadioGroup__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Checkbox', _components_widgets_Checkbox__WEBPACK_IMPORTED_MODULE_12__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CheckboxGroup', _components_widgets_CheckboxGroup__WEBPACK_IMPORTED_MODULE_13__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InputNumber', _components_widgets_InputNumber__WEBPACK_IMPORTED_MODULE_14__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Select', _components_widgets_Select__WEBPACK_IMPORTED_MODULE_15__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Cascader', _components_widgets_Cascader__WEBPACK_IMPORTED_MODULE_16__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CSwitch', _components_widgets_Switch__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Slider', _components_widgets_Slider__WEBPACK_IMPORTED_MODULE_18__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Transfer', _components_widgets_Transfer__WEBPACK_IMPORTED_MODULE_19__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Upload', _components_widgets_Upload__WEBPACK_IMPORTED_MODULE_20__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ColorPicker', _components_widgets_ColorPicker__WEBPACK_IMPORTED_MODULE_21__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('TimePicker', _components_widgets_TimePicker__WEBPACK_IMPORTED_MODULE_22__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DatePicker', _components_widgets_DatePicker__WEBPACK_IMPORTED_MODULE_23__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DateTimePicker', _components_widgets_DateTimePicker__WEBPACK_IMPORTED_MODULE_24__["default"]);
 
 
 
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Avatar', _components_widgets_Avatar__WEBPACK_IMPORTED_MODULE_25__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Tag', _components_widgets_Tag__WEBPACK_IMPORTED_MODULE_26__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Link', _components_widgets_Link__WEBPACK_IMPORTED_MODULE_27__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('IText', _components_widgets_Text__WEBPACK_IMPORTED_MODULE_28__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('IImage', _components_widgets_Image__WEBPACK_IMPORTED_MODULE_29__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Icon', _components_widgets_Icon__WEBPACK_IMPORTED_MODULE_30__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('MenuItem', _components_layout_MenuItem__WEBPACK_IMPORTED_MODULE_31__["default"]); //Actions
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Input', _components_widgets_Input__WEBPACK_IMPORTED_MODULE_9__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('RadioGroup', _components_widgets_RadioGroup__WEBPACK_IMPORTED_MODULE_10__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Checkbox', _components_widgets_Checkbox__WEBPACK_IMPORTED_MODULE_11__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CheckboxGroup', _components_widgets_CheckboxGroup__WEBPACK_IMPORTED_MODULE_12__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('InputNumber', _components_widgets_InputNumber__WEBPACK_IMPORTED_MODULE_13__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Select', _components_widgets_Select__WEBPACK_IMPORTED_MODULE_14__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Cascader', _components_widgets_Cascader__WEBPACK_IMPORTED_MODULE_15__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('CSwitch', _components_widgets_Switch__WEBPACK_IMPORTED_MODULE_16__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Slider', _components_widgets_Slider__WEBPACK_IMPORTED_MODULE_17__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Transfer', _components_widgets_Transfer__WEBPACK_IMPORTED_MODULE_18__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Upload', _components_widgets_Upload__WEBPACK_IMPORTED_MODULE_19__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ColorPicker', _components_widgets_ColorPicker__WEBPACK_IMPORTED_MODULE_20__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('TimePicker', _components_widgets_TimePicker__WEBPACK_IMPORTED_MODULE_21__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DatePicker', _components_widgets_DatePicker__WEBPACK_IMPORTED_MODULE_22__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DateTimePicker', _components_widgets_DateTimePicker__WEBPACK_IMPORTED_MODULE_23__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('EditAction', _components_widgets_Actions_EditAction__WEBPACK_IMPORTED_MODULE_32__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DeleteAction', _components_widgets_Actions_DeleteAction__WEBPACK_IMPORTED_MODULE_33__["default"]); //Tools
 
 
 
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Avatar', _components_widgets_Avatar__WEBPACK_IMPORTED_MODULE_24__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Tag', _components_widgets_Tag__WEBPACK_IMPORTED_MODULE_25__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Link', _components_widgets_Link__WEBPACK_IMPORTED_MODULE_26__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('IText', _components_widgets_Text__WEBPACK_IMPORTED_MODULE_27__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('IImage', _components_widgets_Image__WEBPACK_IMPORTED_MODULE_28__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Icon', _components_widgets_Icon__WEBPACK_IMPORTED_MODULE_29__["default"]);
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('MenuItem', _components_layout_MenuItem__WEBPACK_IMPORTED_MODULE_30__["default"]); //Actions
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('EditAction', _components_widgets_Actions_EditAction__WEBPACK_IMPORTED_MODULE_31__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DeleteAction', _components_widgets_Actions_DeleteAction__WEBPACK_IMPORTED_MODULE_32__["default"]); //Tools
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('GridCreateButton', _components_widgets_Tools_Create__WEBPACK_IMPORTED_MODULE_33__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('VueRouteButton', _components_widgets_Tools_VueRouteButton__WEBPACK_IMPORTED_MODULE_34__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('GridCreateButton', _components_widgets_Tools_Create__WEBPACK_IMPORTED_MODULE_34__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('VueRouteButton', _components_widgets_Tools_VueRouteButton__WEBPACK_IMPORTED_MODULE_35__["default"]);
 
 /***/ }),
 

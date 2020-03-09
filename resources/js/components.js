@@ -1,5 +1,10 @@
 import Vue from 'vue'
 
+
+import VueDND from 'awe-dnd'
+
+Vue.use(VueDND)
+
 import Login from './components/Login'
 import Root from './components/Root'
 import Content from './components/layout/Content'

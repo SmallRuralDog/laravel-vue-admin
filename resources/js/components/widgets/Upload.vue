@@ -77,6 +77,7 @@ export default {
     event: "change"
   },
   mounted() {},
+  destroyed() {},
   methods: {
     onChange(value) {
       this.$emit("change", value);
@@ -126,6 +127,14 @@ export default {
         return item[valueName];
       }
       return item;
+    },
+    getObjectKey(item) {
+      let keyName = this.attrs.keyName;
+      let valueName = this.attrs.valueName;
+      if (keyName != null && valueName != null) {
+        return item[keyName];
+      }
+      return item;
     }
   },
   watch: {},
@@ -143,6 +152,7 @@ export default {
           .map(item => {
             let itemPath = this.getObjectPath(item);
             return {
+              id: this.getObjectKey(item),
               name: getFileName(itemPath),
               path: itemPath,
               url: getFileUrl(this.attrs.host, itemPath)

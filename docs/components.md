@@ -139,6 +139,8 @@ Icon::make()
 
 #### 基础用法
 
+模型导入`ModelTree`
+
 ```php
 <?php
 
@@ -158,10 +160,18 @@ class GoodsClass extends Model
 }
 ```
 
+使用demo
 
+`goods_class_path` 需要设置成json类型
 
 ```php
-$form->item("goods_class_id", "产品分类")->displayComponent(function () {
+protected $casts = [
+	"goods_class_path" => "json"
+];
+```
+
+```php
+$form->item("goods_class_path", "产品分类")->displayComponent(function () {
     $goods_class = new GoodsClass();
     $allNodes = $goods_class->toTree();
     return Cascader::make()->options($allNodes)->value("id")->label("name")->expandTrigger("hover");
@@ -206,8 +216,8 @@ $form->item('avatar', '头像')->displayComponent(function(){
 支持多个文件上传，数据格式为数组
 ```php
  Upload::make()->multiple();
-//如果是一对多情况下，并且是对象数组，需要指定文件路径的字段
- Upload::make()->multiple(true,"keyName");
+//如果是一对多情况下，并且是对象数组，需要指定文件组件,文件路径字段
+ Upload::make()->multiple(true,"keyName","valueName");
 ```
 #### 上传附加数据
 ```php

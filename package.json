@@ -34,6 +34,7 @@
         "wangeditor": "^3.1.1"
     },
     "dependencies": {
+        "awe-dnd": "^0.3.4",
         "url-loader": "^3.0.0"
     }
 }
