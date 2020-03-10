@@ -21,7 +21,7 @@ class CSwitch extends Component
     protected $name = "#C0CCDA";
     protected $validateEvent = true;
 
-    static public function make($value = null)
+    static public function make($value = false)
     {
         return new CSwitch($value);
     }

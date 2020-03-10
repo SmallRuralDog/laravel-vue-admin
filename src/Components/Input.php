@@ -39,7 +39,7 @@ class Input extends Component
 
 
 
-    static public function make($value = null)
+    static public function make($value = "")
     {
         return new Input($value);
     }
