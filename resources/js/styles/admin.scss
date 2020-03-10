@@ -96,7 +96,11 @@ body {
     display: flex;
     flex-wrap: wrap;
 }
-
+.flex-s {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
 .flex-c {
     display: flex;
     align-items: center;
