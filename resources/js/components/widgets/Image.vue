@@ -7,7 +7,6 @@
     :src="src"
     :scroll-container="attrs.scrollContainer"
     :preview-src-list="previewSrcList"
-    :z-index="attrs.zIndex"
   />
 </template>
 <script>

@@ -9,6 +9,7 @@
             :src="item.url"
             :style="{ width: attrs.width + 'px', height: attrs.height + 'px' }"
             fit="cover"
+            class="upload-show-image"
             :preview-src-list="urlList"
           />
           <el-avatar
@@ -32,7 +33,11 @@
         </div>
       </template>
     </div>
-    <div class="upload-block" v-if="list.length < attrs.limit">
+    <div
+      class="upload-block"
+      :class="{ 'ml-10': attrs.multiple }"
+      v-if="list.length < attrs.limit"
+    >
       <el-upload
         :style="attrs.style"
         :class="attrs.className"
@@ -191,8 +196,10 @@ export default {
   .upload-images {
     display: flex;
     flex-wrap: wrap;
-    .upload-images-item {
+    .upload-images-item + .upload-images-item {
       margin-right: 10px;
+    }
+    .upload-images-item {
       position: relative;
       line-height: 1;
 
@@ -224,6 +231,10 @@ export default {
           opacity: 1;
         }
       }
+    }
+    .upload-show-image {
+      border: 1px solid #dcdfe6;
+      padding: 2px;
     }
   }
   .upload-block {

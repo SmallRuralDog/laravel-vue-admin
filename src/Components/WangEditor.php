@@ -38,8 +38,6 @@ class WangEditor extends Component
 
     protected $uploadImgServer;
 
-    protected $hideAttrs = [];
-
     static public function make($value = null)
     {
         return new Wangeditor($value);

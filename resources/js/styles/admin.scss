@@ -16,15 +16,28 @@ body {
 .ml-5 {
     margin-left: 5px;
 }
-.mr-5{
+
+.mr-5 {
     margin-right: 5px;
 }
+.mt-5{
+    margin-top: 5px;
+}
+
 .ml-10 {
     margin-left: 10px;
 }
 
 .mr-10 {
     margin-right: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
 }
 
 .mb-15 {
@@ -79,11 +92,22 @@ body {
     cursor: pointer;
 }
 
-
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .flex-c {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.flex-c-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
@@ -91,6 +115,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.flex-1 {
+    flex: 1;
 }
 
 
@@ -120,7 +149,8 @@ body {
         object-fit: cover;
     }
 }
-.el-select-dropdown__item{
+
+.el-select-dropdown__item {
     padding: 0 10px;
 }
 

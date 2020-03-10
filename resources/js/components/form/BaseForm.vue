@@ -133,8 +133,12 @@ export default {
         })
         .then(({ data }) => {
           this.formData = data;
-
           this.init = true;
+
+          //发送表单编辑数据加载完毕事件
+          this.$nextTick(() => {
+            this.$bus.emit("EditDataLoadingCompleted");
+          });
         })
         .finally(() => {
           this.loading = false;

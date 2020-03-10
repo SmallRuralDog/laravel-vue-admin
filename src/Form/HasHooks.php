@@ -2,8 +2,8 @@
 
 namespace SmallRuralDog\Admin\Form;
 
+use Arr;
 use Closure;
-use \Arr;
 use Symfony\Component\HttpFoundation\Response;
 
 trait HasHooks
@@ -18,7 +18,7 @@ trait HasHooks
     /**
      * Register a hook.
      *
-     * @param string  $name
+     * @param string $name
      * @param Closure $callback
      *
      * @return $this
@@ -34,7 +34,7 @@ trait HasHooks
      * Call hooks by giving name.
      *
      * @param string $name
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return Response
      */
@@ -65,6 +65,10 @@ trait HasHooks
     public function editing(Closure $callback)
     {
         return $this->registerHook('editing', $callback);
+    }
+
+    public function editQuery(Closure $callback){
+        return $this->registerHook('editQuery', $callback);
     }
 
     /**
@@ -103,6 +107,11 @@ trait HasHooks
         return $this->registerHook('saved', $callback);
     }
 
+    public function DbTransaction(Closure $callback)
+    {
+        return $this->registerHook('DbTransaction', $callback);
+    }
+
     /**
      * @param Closure $callback
      *
@@ -131,7 +140,16 @@ trait HasHooks
      */
     protected function callEditing($id)
     {
-        return $this->callHooks('editing',$id);
+        return $this->callHooks('editing', $id);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function callEdiQuery($data)
+    {
+        return $this->callHooks('editQuery', $data);
     }
 
     /**
@@ -182,5 +200,10 @@ trait HasHooks
     protected function callDeleted()
     {
         return $this->callHooks('deleted');
+    }
+
+    protected function callDbTransaction()
+    {
+        return $this->callHooks('DbTransaction');
     }
 }

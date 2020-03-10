@@ -991,7 +991,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (_ref) {
         var data = _ref.data;
         _this.formData = data;
-        _this.init = true;
+        _this.init = true; //发送表单编辑数据加载完毕事件
+
+        _this.$nextTick(function () {
+          _this.$bus.emit("EditDataLoadingCompleted");
+        });
       })["finally"](function () {
         _this.loading = false;
       });
@@ -2850,7 +2854,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3162,6 +3165,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object,
+    form_data: Object,
     value: {
       "default": null
     }
@@ -3601,6 +3605,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5688,7 +5697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n}\n\n.flex-c-sb {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
+exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.mt-5 {\n  margin-top: 5px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-10 {\n  margin-bottom: 10px;\n}\n\n.mt-10 {\n  margin-top: 10px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-c {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-sb {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
 
 // exports
 
@@ -5878,7 +5887,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item {\n  margin-right: 10px;\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
+exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item + .upload-images-item {\n  margin-right: 10px;\n}\n.upload-component .upload-images .upload-images-item {\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-images .upload-show-image {\n  border: 1px solid #dcdfe6;\n  padding: 2px;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
 
 // exports
 
@@ -29645,8 +29654,7 @@ var render = function() {
       lazy: _vm.attrs.lazy,
       src: _vm.src,
       "scroll-container": _vm.attrs.scrollContainer,
-      "preview-src-list": _vm.previewSrcList,
-      "z-index": _vm.attrs.zIndex
+      "preview-src-list": _vm.previewSrcList
     }
   })
 }
@@ -30366,6 +30374,7 @@ var render = function() {
               [
                 _vm.attrs.type == "image"
                   ? _c("el-image", {
+                      staticClass: "upload-show-image",
                       style: {
                         width: _vm.attrs.width + "px",
                         height: _vm.attrs.height + "px"
@@ -30416,7 +30425,10 @@ var render = function() {
     _vm.list.length < _vm.attrs.limit
       ? _c(
           "div",
-          { staticClass: "upload-block" },
+          {
+            staticClass: "upload-block",
+            class: { "ml-10": _vm.attrs.multiple }
+          },
           [
             _c(
               "el-upload",

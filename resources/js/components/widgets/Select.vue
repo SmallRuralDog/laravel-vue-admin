@@ -33,7 +33,7 @@
       :value="item.value"
       :disabled="item.disabled"
     >
-    
+
       <div class="flex-c-sb">
         <div class="flex-c">
           <el-avatar
@@ -53,6 +53,7 @@
 export default {
   props: {
     attrs: Object,
+    form_data:Object,
     value: {
       default: null
     }

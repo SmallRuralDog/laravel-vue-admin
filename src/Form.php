@@ -67,6 +67,16 @@ class Form extends Component implements JsonSerializable
     protected $isGetData = false;
 
     /**
+     * 编辑数据
+     * @var array
+     */
+    public $editData = [];
+
+
+    protected $addRule = [];
+    protected $addRuleMessage = [];
+
+    /**
      * Form constructor.
      * @param $model
      */
@@ -206,6 +216,20 @@ class Form extends Component implements JsonSerializable
     }
 
     /**
+     * 添加表单验证规则
+     * @param $rules
+     * @param $message
+     * @return $this
+     */
+    public function addValidatorRule($rules, $message = [])
+    {
+        $this->addRule = $rules;
+        $this->addRuleMessage = $message;
+
+        return $this;
+    }
+
+    /**
      * @param $data
      * @return string
      */
@@ -225,6 +249,10 @@ class Form extends Component implements JsonSerializable
                     }
                 }
             }
+
+            $rules = array_merge($rules, $this->addRule);
+            $ruleMessages = array_merge($ruleMessages, $this->addRuleMessage);
+
             Admin::validatorData($data, $rules, $ruleMessages);
             return false;
         } catch (\Exception $exception) {
@@ -355,6 +383,9 @@ class Form extends Component implements JsonSerializable
             }
             $this->model->save();
             $this->updateRelation($this->relations);
+            if (($result = $this->callDbTransaction()) instanceof Response) {
+                abort(400, $result);
+            }
         });
         if (($result = $this->callSaved()) instanceof Response) {
             return $result;
@@ -446,14 +477,15 @@ class Form extends Component implements JsonSerializable
             return $response;
         }
         DB::transaction(function () use ($data) {
-
             $updates = $this->prepareUpdate($this->updates);
-
             foreach ($updates as $key => $value) {
                 $this->model->setAttribute($key, $value);
             }
             $this->model->save();
             $this->updateRelation($this->relations);
+            if (($result = $this->callDbTransaction()) instanceof Response) {
+                abort(400, $result);
+            }
         });
 
         if (($result = $this->callSaved()) instanceof Response) {
@@ -624,7 +656,7 @@ class Form extends Component implements JsonSerializable
 
         $this->setMode(self::MODE_EDIT);
         $this->setResourceId($id);
-        $e_data = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
+        $this->editData = $this->model = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
 
 
         $data = [];
@@ -633,7 +665,7 @@ class Form extends Component implements JsonSerializable
             $field = $formItem->getField();
             $prop = $formItem->getProp();
             $component = $formItem->getDisplayComponent();
-            Arr::set($data, $prop, $formItem->getData(Arr::get($e_data, $prop), $this->model, $component));
+            Arr::set($data, $prop, $formItem->getData(Arr::get($this->editData, $prop), $this->model, $component));
             //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {
@@ -643,9 +675,15 @@ class Form extends Component implements JsonSerializable
                 //$data[$prop] = $data[$formItem->getCopyProp()];
             }
         }
+        $this->editData = $data;
+
+        if (($result = $this->callEdiQuery($data)) instanceof Response) {
+            return $result;
+        }
+
         return [
             'code' => 200,
-            'data' => $data
+            'data' => $this->editData
         ];
 
     }
