@@ -203,9 +203,70 @@ $form->footerComponent(Divider::make("详细信息"));
 
 
 
-## 表单事件
+## 表单回调
+
+目前提供了下面几个方法来接收回调函数
+
+```php
+//和laravel-admin相同
+$form->editing(function (Form $form) {});
+$form->submitted(function (Form $form) {});
+$form->submitted(function (Form $form) {});
+$form->saving(function (Form $form) {});
+$form->saved(function (Form $form) {});
+$form->deleting(function (Form $form) {});
+$form->deleted(function (Form $form) {});
+
+//表单要编辑的数据查询并处理后，可用于对不存在的关联模型字段提供数据
+$form->editQuery(function (Form $form,$data) {
+    
+    //比如我要附加产品sku的数据
+    $form->editData["goods_sku"] = [
+        "goods_attrs" => $form->model()->attr_map,
+        "goods_sku_list" => $form->model()->skus,
+    ];
+});
+
+
+//表单数据保存后，此事件是在数据库事务中触发，如果抛出异常将会回滚
+$form->DbTransaction(function (Form $form) {
+    try {
+        $model = $form->model();
+        
+        //比如在产品基本数据保存完毕后，自定义保存产品sku数据
+        
+        //获取表单提交的数据
+        $attrs = $form->input("goods_sku.goods_attrs");
+        
+        //保存逻辑..........
+        
+        
+    } catch (\Exception $exception) {
+        abort(400, 'SKU保存失败');
+    }
+});
+```
+
+
+
+
+
+## 全局验证规则
+
+会和字段验证规则组合在一起，常用于数组验证
+
+```php
+$form->addValidatorRule([
+	'goods_sku.goods_sku_list.*.price' => ["numeric", "min:0.01"]
+], [
+	'goods_sku.goods_sku_list.*.price.min' => '价格最小为0.01'
+]);
+```
+
+
 
 ## 关联模型
+
 ### 一对一
 通过`.`来生成一对一字段
 ```php
@@ -223,11 +284,20 @@ $form->item('content.content','文章内容')->displayComponent(Wangeditor::make
 ```
 ### 一对多
 
+目前暂无一对多内置块组件，可用于多图等组件
+
+```php
+//Goods 模型
+public function images(){
+	return $this->hasMany(GoodsImage::class);
+}
+//GoodsControoler 
+$form->item("images", "商品图片")->required()->displayComponent(Upload::make()->width(130)->height(130)->multiple(true, "id", "path")->limit(10))->help("尺寸750x750像素以上，大小2M以下,最多10张图片，第一张为产品主图")
+```
 
 
-## 表单回调
 
-### 保存回调
 
-###
+
+
 
