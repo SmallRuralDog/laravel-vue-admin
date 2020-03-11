@@ -13,8 +13,9 @@ export default {
   methods: {
     onHandle() {
       if (this.action.httpPath) {
+        window.location.href = this.http_path;
       } else {
-        //this.$router.push(this.path);
+        this.$router.push(this.path);
       }
     }
   },
@@ -26,7 +27,13 @@ export default {
       });
       return path;
     },
-    http_path() {},
+    http_path() {
+      let path = this.action.httpPath;
+      this._.forEach(this.row, (value, key) => {
+        path = this._.replace(path, "{" + key + "}", value);
+      });
+      return path;
+    },
     colum() {
       return this.scope.colum;
     },

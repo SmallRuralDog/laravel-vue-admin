@@ -20,12 +20,15 @@ body {
 .mr-5 {
     margin-right: 5px;
 }
-.mt-5{
+
+.mt-5 {
     margin-top: 5px;
 }
-.m-10{
+
+.m-10 {
     margin: 10px;
 }
+
 .ml-10 {
     margin-left: 10px;
 }
@@ -42,11 +45,16 @@ body {
     margin-top: 10px;
 }
 
-.m-15{
+.m-15 {
     margin: 15px;
 }
+
 .mb-15 {
     margin-bottom: 15px;
+}
+
+.mt-15 {
+    margin-top: 15px;
 }
 
 .ml-20 {
@@ -101,11 +109,13 @@ body {
     display: flex;
     flex-wrap: wrap;
 }
+
 .flex-s {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
 }
+
 .flex-c {
     display: flex;
     align-items: center;

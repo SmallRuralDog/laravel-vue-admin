@@ -2337,7 +2337,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onHandle: function onHandle() {
-      if (this.action.httpPath) {} else {//this.$router.push(this.path);
+      if (this.action.httpPath) {
+        window.location.href = this.http_path;
+      } else {
+        this.$router.push(this.path);
       }
     }
   },
@@ -2353,7 +2356,17 @@ __webpack_require__.r(__webpack_exports__);
 
       return path;
     },
-    http_path: function http_path() {},
+    http_path: function http_path() {
+      var _this2 = this;
+
+      var path = this.action.httpPath;
+
+      this._.forEach(this.row, function (value, key) {
+        path = _this2._.replace(path, "{" + key + "}", value);
+      });
+
+      return path;
+    },
     colum: function colum() {
       return this.scope.colum;
     },
@@ -5760,7 +5773,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.mt-5 {\n  margin-top: 5px;\n}\n\n.m-10 {\n  margin: 10px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-10 {\n  margin-bottom: 10px;\n}\n\n.mt-10 {\n  margin-top: 10px;\n}\n\n.m-15 {\n  margin: 15px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.flex-s {\n  display: flex;\n  align-items: flex-start;\n  flex-wrap: wrap;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-c {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-sb {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
+exports.push([module.i, "#app,\nbody,\nhtml {\n  height: 100%;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.mt-5 {\n  margin-top: 5px;\n}\n\n.m-10 {\n  margin: 10px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-10 {\n  margin-bottom: 10px;\n}\n\n.mt-10 {\n  margin-top: 10px;\n}\n\n.m-15 {\n  margin: 15px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.mt-15 {\n  margin-top: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.flex-s {\n  display: flex;\n  align-items: flex-start;\n  flex-wrap: wrap;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-c {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-sb {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-card {\n  border: none;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-20px);\n  transform: translateX(-20px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(20px);\n  transform: translateX(20px);\n}", ""]);
 
 // exports
 
