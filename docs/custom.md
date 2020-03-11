@@ -55,13 +55,21 @@ npm install
 npm run dev
 ```
 
-进入开发自动编译
+开发模式自动编译
 
-```
+```bash
 npm run watch
 ```
 
 > 注意：如果失败，可能需要执行两次
+
+编译
+
+```bash
+npm run production
+```
+
+
 
 ## 目录结构说明
 
@@ -159,6 +167,8 @@ class GoodsSku extends Component
             attrs: Object,
             //当前表单的所有字段的值
             form_data: Object,
+            //当前表单所有的item
+            form_items: Array,
             //当前字段的值，注意：不一定的null
             value: {
                 default: null
