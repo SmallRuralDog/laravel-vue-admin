@@ -455,7 +455,7 @@ $header-bar-height: 55px;
   margin-top: $header-bar-height;
 }
 .layout-content-main {
-  margin: 15px;
+  margin: 0px;
 
   .layout-page-header {
     margin: -15px -15px 0;

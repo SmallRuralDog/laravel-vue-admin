@@ -23,7 +23,7 @@ class RadioGroup extends Component
      * @param Radio[] $options
      * @return RadioGroup
      */
-    static public function make($value = null, $options = [])
+    public static function make($value = null, $options = [])
     {
         return (new RadioGroup($value))->options($options);
     }
@@ -72,7 +72,7 @@ class RadioGroup extends Component
      * @param Radio[] $options
      * @return RadioGroup
      */
-    protected function options(array $options)
+    public function options(array $options)
     {
         $this->options = $options;
         return $this;

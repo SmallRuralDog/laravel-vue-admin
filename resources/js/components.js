@@ -89,8 +89,10 @@ Vue.component('MenuItem', MenuItem);
 //Actions
 import EditAction from './components/widgets/Actions/EditAction'
 import DeleteAction from './components/widgets/Actions/DeleteAction'
+import VueRouteAction from './components/widgets/Actions/VueRouteAction'
 Vue.component('EditAction', EditAction);
 Vue.component('DeleteAction', DeleteAction);
+Vue.component('VueRouteAction', VueRouteAction);
 
 //Tools
 import GridCreateButton from './components/widgets/Tools/Create'

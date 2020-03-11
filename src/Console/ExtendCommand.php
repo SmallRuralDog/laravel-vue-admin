@@ -47,9 +47,9 @@ class ExtendCommand extends Command
         $this->addExtendPackageToRootComposer();
         $this->addScriptsToNpmPackage();
 
-        if ($this->confirm('Would you like to update your Composer packages?', true)) {
+        /*if ($this->confirm('Would you like to update your Composer packages?', true)) {
             $this->composerUpdate();
-        }
+        }*/
 
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="grid-actions">
-    <template v-for="action in action_list">
-      <span :key="action.componentName">
+    <template v-for="(action, index) in order_action_list">
+      <span :key="action.componentName + index">
         <component
           :is="action.componentName"
           :scope="scope"
@@ -24,7 +24,11 @@ export default {
     scope: Object
   },
   mounted() {},
-  computed: {}
+  computed: {
+    order_action_list(){
+      return window._.orderBy(this.action_list,['order'],['desc'])
+    }
+  }
 };
 </script>
 <style lang="scss">

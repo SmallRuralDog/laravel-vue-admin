@@ -21,8 +21,6 @@ export default {
   },
   methods: {
     onHandle() {
-        console.log(this.scope);
-        
       this.$router.push(this.$route.path + "/" + this.key + "/edit");
     }
   },

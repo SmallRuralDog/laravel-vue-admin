@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index(Content $content)
     {
 
-        $content->body($this->grid());
+        $content->body($this->grid())->className("m-15");
         return $this->isGetData() ? $this->grid() : $content;
     }
 

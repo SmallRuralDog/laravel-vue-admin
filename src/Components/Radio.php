@@ -33,10 +33,10 @@ class Radio extends Component
 
     /**
      * Radio 的 value
-     * @param string $label
+     * @param  $label
      * @return $this
      */
-    public function label(string $label)
+    public function label($label)
     {
         $this->label = $label;
         return $this;

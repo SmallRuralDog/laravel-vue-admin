@@ -126,6 +126,39 @@ Avatar::make();
 ```php
 Icon::make()
 ```
+
+
+### 操作组件
+
+#### 导航操作
+
+用于跳转到其他页面的操作
+
+```php
+VueRouteAction::make()
+    ->order(3) //排序 越大越靠前
+    ->name("公众号管理") //操作名称
+    ->icon("icon-class-name")//图标
+    ->path("WeChat/manage/{app_id}")//vue路由路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
+    ->httpPath("http://www.baodu.com")//打开新的连接
+//调用代码
+$grid->actions(function (Grid\Actions $actions) {
+      $actions->add(...);
+});
+```
+
+### 工具栏组件
+
+#### VueRouteButton
+
+用于跳转到其他页面的操作
+
+```php
+VueRouteButton::make("/adv/loc", "广告位管理")->type("text")
+```
+
+
+
 ## 表单组件
 
 ### Radio 单选框
@@ -137,7 +170,7 @@ Icon::make()
 
 当一个数据集合有清晰的层级结构时，可通过级联选择器逐级查看并选择
 
-#### 基础用法
+基础用法
 
 模型导入`ModelTree`
 
@@ -178,7 +211,7 @@ $form->item("goods_class_path", "产品分类")->displayComponent(function () {
 }),
 ```
 
-#### 属性
+属性
 
 显示为面板模式
 
@@ -202,63 +235,74 @@ $form->item('avatar', '头像')->displayComponent(function(){
     return Upload::make()->pictureCard()->avatar()->path('avatar')->uniqueName();
 })
 ```
-#### 上传地址
+上传地址
+
 自定义上传地址
 ```php
  Upload::make()->action("http://xxxx")
 ```
-#### 文件URL前缀
+文件URL前缀
+
 如果数据库保存的是相对地址，则这个就是它的URL前面部分。默认为disk的路径
 ```php
  Upload::make()->host("http://xxxx")
 ```
-#### 支持多文件
+支持多文件
+
 支持多个文件上传，数据格式为数组
 ```php
  Upload::make()->multiple();
 //如果是一对多情况下，并且是对象数组，需要指定文件组件,文件路径字段
  Upload::make()->multiple(true,"keyName","valueName");
 ```
-#### 上传附加数据
+上传附加数据
+
 ```php
  Upload::make()->data(['key'=>'value','key_2'=>'value'])
 ```
-#### 保存目录
+保存目录
+
 ```php
  Upload::make()->path("path_name")
 ```
-#### 自动生成文件名
+自动生成文件名
+
 默认为上传的文件名
 ```php
  Upload::make()->uniqueName()
 ```
-#### 拖拽上传
+拖拽上传
 
 ```php
  Upload::make()->drag()
 ```
-#### 文件类型
+文件类型
+
 接受上传的[文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)
 ```php
  Upload::make()->accept("xx")
 ```
-#### 文件个数
+文件个数
+
 默认为一个
 ```php
  Upload::make()->limit(10)
 ```
-#### 禁用
+禁用
+
 ```php
  Upload::make()->disabled()
 ```
-#### 组件类型
+组件类型
+
 支持 `image` `avatar` `file`
 ```php
  Upload::make()->image()
  Upload::make()->avatar()
  Upload::make()->file()
 ```
-#### 组件大小
+组件大小
+
 组件item的高宽，默认 `100x100`
 ```php
  Upload::make()->width(150)
@@ -267,3 +311,4 @@ $form->item('avatar', '头像')->displayComponent(function(){
 ### Rate 评分
 ### ColorPicker 颜色选择器
 ### Transfer 穿梭框
+
