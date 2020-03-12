@@ -4,7 +4,6 @@
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
 
-use Illuminate\Support\Collection;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Tools\QuickSearch;
@@ -58,6 +57,7 @@ trait HasQuickSearch
      */
     protected function applyQuickSearch()
     {
+
         if (!$this->quickSearch) {
             return;
         }
@@ -75,9 +75,12 @@ trait HasQuickSearch
         }
 
         if (is_array($this->quickSearch->search)) {
-            foreach ($this->quickSearch->search as $column) {
-                $this->addWhereLikeBinding($column, true, '%' . $query . '%');
-            }
+            $this->model()->where(function ($queryW) use ($query) {
+                foreach ($this->quickSearch->search as $key => $column) {
+                    $this->addWhereLikeBinding($queryW, $column, false, '%' . $query . '%');
+                }
+            });
+
         } elseif (is_null($this->quickSearch->search)) {
             $this->addWhereBindings($query);
         }
@@ -165,18 +168,19 @@ trait HasQuickSearch
     /**
      * Add where like binding to model query.
      *
+     * @param  $query
      * @param string $column
      * @param bool $or
      * @param string $pattern
      */
-    protected function addWhereLikeBinding(string $column, bool $or, string $pattern)
+    protected function addWhereLikeBinding($query, string $column, bool $or, string $pattern)
     {
         $connectionType = $this->model()->eloquent()->getConnection()->getDriverName();
         $likeOperator = $connectionType == 'pgsql' ? 'ilike' : 'like';
 
         $method = $or ? 'orWhere' : 'where';
 
-        $this->model()->{$method}($column, $likeOperator, $pattern);
+        $query->{$method}($column, $likeOperator, $pattern);
     }
 
     /**

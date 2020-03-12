@@ -9,7 +9,7 @@
             :rows="selectionRows"
             v-if="attrs.selection"
           />
-          <div class="search-view">
+          <div class="search-view mr-10">
             <el-input
               v-model="quickSearch"
               :placeholder="attrs.quickSearch.placeholder"
@@ -22,6 +22,14 @@
                 >搜索</el-button
               >
             </el-input>
+          </div>
+          <div>
+            <component
+              v-for="(component, index) in attrs.toolbars.left"
+              :key="component.componentName + index"
+              :is="component.componentName"
+              :attrs="component"
+            />
           </div>
         </div>
         <div class="grid-top-container-right">

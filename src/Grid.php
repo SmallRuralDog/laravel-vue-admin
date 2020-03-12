@@ -215,7 +215,7 @@ class Grid extends Component implements \JsonSerializable
     public function data()
     {
 
-        $collection = $this->applyQuery();
+        $this->applyQuery();
 
         $data = $this->model->buildData();
         return [

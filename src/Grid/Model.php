@@ -277,11 +277,11 @@ class Model
 
     public function __call($method, $arguments)
     {
+
         $this->queries->push([
             'method' => $method,
             'arguments' => $arguments,
         ]);
-
         return $this;
     }
 
@@ -309,6 +309,8 @@ class Model
         $this->setWith();
         $this->setSort();
         $this->setPaginate();
+
+        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);

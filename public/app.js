@@ -1607,6 +1607,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -28365,7 +28373,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "search-view" },
+                  { staticClass: "search-view mr-10" },
                   [
                     _vm.attrs.quickSearch
                       ? _c(
@@ -28416,6 +28424,18 @@ var render = function() {
                         )
                       : _vm._e()
                   ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  _vm._l(_vm.attrs.toolbars.left, function(component, index) {
+                    return _c(component.componentName, {
+                      key: component.componentName + index,
+                      tag: "component",
+                      attrs: { attrs: component }
+                    })
+                  }),
                   1
                 )
               ],
