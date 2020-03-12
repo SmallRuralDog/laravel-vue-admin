@@ -149,15 +149,17 @@ $grid->actions(function (Grid\Actions $actions) {
 
 ### 工具栏组件
 
-#### VueRouteButton
+#### ToolButton
 
-用于跳转到其他页面的操作
+可用于vue路由导航，异步请求，连接跳转 操作
 
 ```php
-VueRouteButton::make("/adv/loc", "广告位管理")->type("text")
+Grid\Tools\ToolButton::make("同步粉丝")
+    ->handler("request") // 类型 request|route|link
+    ->uri("") //路径
 ```
 
-
+其他属性可参考 `el-button`
 
 ## 表单组件
 

@@ -8,8 +8,6 @@ return [
     'loginDesc' => '开箱即用的 Laravel 后台扩展',
 
 
-    'loginLogo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
-    'logoDark' => 'https://file.iviewui.com/admin-pro-dist/img/logo-dark.ab519d9f.png',
     'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
 
     'copyright' => 'Copyright © 2020 小土狗',
@@ -24,7 +22,6 @@ return [
         ]
     ],
 
-    'logo-mini' => 'https://file.iviewui.com/admin-pro-dist/img/logo-small.4a34a883.png',
 
     'bootstrap' => app_path('Admin/bootstrap.php'),
 

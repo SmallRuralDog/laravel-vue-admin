@@ -7,12 +7,13 @@
       <div class="page-account-top">
         <div class="page-account-top-logo">
           <img :src="page_data.logo" alt="logo" />
+          <h1>{{page_data.name}}</h1>
         </div>
 
         <div class="page-account-top-desc">{{ page_data.desc }}</div>
       </div>
       <div class="login-form">
-        <el-form ref="formValidate" :model="form" :rules="ruleValidate">
+        <el-form ref="formValidate" :model="form" :rules="ruleValidate" size="medium">
           <el-form-item prop="username">
             <el-input
               autofocus
@@ -131,7 +132,14 @@ export default {
     padding: 32px 0;
     text-align: center;
   }
-
+  .page-account-top-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+      font-weight: 100;
+    }
+  }
   .page-account-top-logo img {
     height: 75px;
   }

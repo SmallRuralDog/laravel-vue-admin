@@ -31,7 +31,8 @@ class AuthController extends AdminController
         $data = $this->vueData();
 
         $data['backgroundImage'] = config('admin.login_background_image');
-        $data['logo'] = config('admin.loginLogo');
+        $data['logo'] = config('admin.logo');
+        $data['name'] = config('admin.name');
         $data['desc'] = config('admin.loginDesc');
 
         $data['url']['postLogin'] = route('admin.post.login');

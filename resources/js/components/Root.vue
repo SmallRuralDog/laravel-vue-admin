@@ -8,12 +8,8 @@
         :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
-          <template v-if="!isCollapsed">
-            <img :src="page_data.logo" v-if="!isDark" />
-            <img :src="page_data.logoDark" v-else />
-          </template>
-
-          <img :src="page_data.logoMini" v-else />
+          <img :src="page_data.logo" />
+          <h1 v-if="!isCollapsed">{{ page_data.name }}</h1>
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-menu
@@ -313,6 +309,17 @@ $header-bar-height: 55px;
       object-fit: cover;
       vertical-align: middle;
     }
+    h1 {
+      display: inline-block;
+      margin: 0 0 0 5px;
+      color: #666;
+      font-weight: 600;
+      font-size: 20px;
+      vertical-align: middle;
+      animation: fade-in;
+      animation-duration: 0.3s;
+    }
+
   }
   .el-scrollbar {
     flex: 1;
@@ -338,6 +345,11 @@ $header-bar-height: 55px;
 .side-dark {
   background: #1d1e23;
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  .content-side-logo {
+    h1 {
+      color: #ffffff;
+    }
+  }
 }
 .layout-header-bar {
   width: 100%;

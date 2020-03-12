@@ -96,9 +96,9 @@ Vue.component('VueRouteAction', VueRouteAction);
 
 //Tools
 import GridCreateButton from './components/widgets/Tools/Create'
-import VueRouteButton from './components/widgets/Tools/VueRouteButton'
+import ToolButton from './components/widgets/Tools/ToolButton'
 Vue.component('GridCreateButton', GridCreateButton);
-Vue.component('VueRouteButton', VueRouteButton);
+Vue.component('ToolButton', ToolButton);
 
 
 //Widget

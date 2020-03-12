@@ -29,7 +29,7 @@
             v-for="(component, index) in attrs.toolbars.right"
             :key="component.componentName + index"
             :is="component.componentName"
-            :attr="component"
+            :attrs="component"
           />
           <el-divider
             direction="vertical"
