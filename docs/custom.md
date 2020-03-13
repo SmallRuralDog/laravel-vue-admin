@@ -87,7 +87,7 @@ npm run production
 
 ## 创建组件
 
-### 表单字段组件
+### Form字段组件
 
 在 `src/components`下创建一个PHP类
 
@@ -208,11 +208,305 @@ VueAdmin.booting((Vue, router, store) => {
 $form->item("goods_sku", "产品规格")->displayComponent(GoodsSku::make())
 ```
 
-### 表格字段组件
+### Grid字段组件
 
-### 表格操作组件
+### Grid操作组件
 
-### 表格工具栏组件
+自定义表格行操作
+
+> 下面以ActionButton为例
+
+创建一个组件类 继承 `BaseRowAction`
+
+```php
+class ActionButton extends BaseRowAction
+{
+    use Button;//导入Button属性
+    
+    protected $uri;
+    protected $componentName = "ActionButton";
+    protected $handler;
+
+    public function __construct($content)
+    {
+        $this->content = $content;
+        $this->type("text");
+    }
+
+    /**
+     * @param string $content 按钮内容
+     * @return ToolButton
+     */
+    public static function make($content)
+    {
+        return new ActionButton($content);
+    }
+
+    /**
+     * @param mixed $uri
+     * @return $this
+     */
+    public function uri($uri)
+    {
+        $this->uri = $uri;
+        return $this;
+    }
+
+    /**
+     * @param string $handler 响应类型 request|route|link
+     * @return $this
+     */
+    public function handler($handler)
+    {
+        $this->handler = $handler;
+        return $this;
+    }
+}
+```
+
+创建组件Vue文件
+
+```vue
+<template>
+  <el-button
+    :type="action.type"
+    :size="action.size"
+    :plain="action.plain"
+    :round="action.round"
+    :circle="action.circle"
+    :disabled="action.disabled"
+    :icon="action.icon"
+    :autofocus="action.autofocus"
+    :loading="loading"
+    class="mr-10"
+    @click="onClick"
+    >{{ action.content }}</el-button
+  >
+</template>
+<script>
+export default {
+  props: {
+    scope: Object,//当前行的字段定义和数据
+    action: Object,//当前主键的属性
+    key_name: String//主键名称
+  },
+  data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    onClick() {
+      //判断操作响应类型
+      switch (this.action.handler) {
+        case "route":
+          this.$route.push(this.uri);
+          break;
+        case "link":
+          window.location.href = this.uri;
+          break;
+        case "request":
+          this.onRequest(this.uri);
+          break;
+        default:
+          this.$Message.warning("响应类型未定义");
+          break;
+      }
+    },
+    onRequest(uri) {
+      this.loading = true;
+      this.$http
+        .get(uri)
+        .then(res => {
+          if (res.code == 200) {
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }
+  },
+  computed: {
+    uri() {
+      //替换变量
+      let uri = this.action.uri;
+      this._.forEach(this.row, (value, key) => {
+        uri = this._.replace(uri, "{" + key + "}", value);
+      });
+      return uri;
+    },
+    //当前表格/树形表格的字段定义
+    colum() {
+      return this.scope.colum;
+    },
+    //当前行的值
+    row() {
+      return this.scope.row;
+    },
+    //主键值
+    key() {
+      return this.scope.row[this.key_name];
+    }
+  }
+};
+</script>
+```
+
+注册Vue组件
+
+```js
+Vue.component('ActionButton', require('xxx').default);
+```
+
+使用自定义组件
+
+```php
+$grid->actions(function (Grid\Actions $actions) {
+	$actions->add(Grid\Actions\ActionButton::make("公众号管理")->order(3)->handler('route')->uri("WeChat/manage/{app_id}"));
+});
+```
+
+
+
+### Grid工具栏组件
+
+![image-20200313100328876](custom.assets/image-20200313100328876.png)
+
+下面以ToolButton为例
+
+按照国际惯例，创建组件类 继承`BaseAction`
+
+```php
+class ToolButton extends BaseAction
+{
+    use Button;
+    protected $uri;
+    protected $componentName = "ToolButton";
+    protected $handler;
+
+    public function __construct($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @param string $content 按钮内容
+     * @return ToolButton
+     */
+    public static function make($content)
+    {
+        return new ToolButton($content);
+    }
+
+    /**
+     * @param mixed $uri
+     * @return $this
+     */
+    public function uri($uri)
+    {
+        $this->uri = $uri;
+        return $this;
+    }
+
+    /**
+     * @param string $handler 响应类型 request|route|link
+     * @return $this
+     */
+    public function handler($handler)
+    {
+        $this->handler = $handler;
+        return $this;
+    }
+
+
+}
+```
+
+创建vue文件
+
+```php
+<template>
+  <el-button
+    :type="attrs.type"
+    :size="attrs.size"
+    :plain="attrs.plain"
+    :round="attrs.round"
+    :circle="attrs.circle"
+    :disabled="attrs.disabled"
+    :icon="attrs.icon"
+    :autofocus="attrs.autofocus"
+    :loading="loading"
+    class="mr-10"
+    @click="onClick"
+    >{{ attrs.content }}</el-button
+  >
+</template>
+<script>
+export default {
+  props: {
+      //组件属性
+    attrs: Object
+  },
+  data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    onClick() {
+      switch (this.attrs.handler) {
+        case "route":
+          this.$router.push(this.attrs.uri);
+          break;
+        case "link":
+          window.location.href = this.attrs.uri;
+          break;
+        case "request":
+          this.onRequest(this.attrs.uri);
+          break;
+        default:
+          this.$Message.warning("响应类型未定义");
+          break;
+      }
+    },
+    onRequest(uri) {
+      this.loading = true;
+      this.$http
+        .get(uri)
+        .then(res => {
+          if (res.code == 200) {
+  
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }
+  }
+};
+</script>
+```
+
+注册Vue组件
+
+```js
+Vue.component('ToolButton', require('xxx').default);
+```
+
+调用组件
+
+```php
+$fansListGrid->toolbars(function (Grid\Toolbars $toolbars) use ($app_id) {
+    $toolbars->hideCreateButton();
+    $toolbars->addRight(Grid\Tools\ToolButton::make("同步粉丝")
+                        ->icon("el-icon-refresh")
+                        ->type("primary")
+                        ->handler("request")
+                        ->uri(route("WeChat/syncFans", ['app_id' => $app_id])));
+});
+```
+
+
 
 ### Page组件
 

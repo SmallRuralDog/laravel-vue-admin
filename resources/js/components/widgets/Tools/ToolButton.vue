@@ -28,7 +28,7 @@ export default {
     onClick() {
       switch (this.attrs.handler) {
         case "route":
-          this.$route.push(this.attrs.uri);
+          this.$router.push(this.attrs.uri);
           break;
         case "link":
           window.location.href = this.attrs.uri;

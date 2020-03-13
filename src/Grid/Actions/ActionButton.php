@@ -1,31 +1,33 @@
 <?php
 
 
-namespace SmallRuralDog\Admin\Grid\Tools;
+namespace SmallRuralDog\Admin\Grid\Actions;
 
 
-use SmallRuralDog\Admin\Actions\BaseAction;
+use SmallRuralDog\Admin\Actions\BaseRowAction;
 use SmallRuralDog\Admin\Components\Attrs\Button;
 
-class ToolButton extends BaseAction
+class ActionButton extends BaseRowAction
 {
     use Button;
     protected $uri;
-    protected $componentName = "ToolButton";
+    protected $componentName = "ActionButton";
     protected $handler;
+
 
     public function __construct($content)
     {
         $this->content = $content;
+        $this->type("text");
     }
 
     /**
      * @param string $content 按钮内容
-     * @return ToolButton
+     * @return ActionButton
      */
     public static function make($content)
     {
-        return new ToolButton($content);
+        return new ActionButton($content);
     }
 
     /**
@@ -47,6 +49,4 @@ class ToolButton extends BaseAction
         $this->handler = $handler;
         return $this;
     }
-
-
 }

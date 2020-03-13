@@ -666,27 +666,29 @@ $actions->hideActions()
 
 #### 隐藏详情操作
 
+当前版本暂无详情功能
+
 ```php
 $actions->hideViewAction()
 ```
 
 #### 隐藏编辑操作
 
-```
+```php
 $actions->hideEditAction()
 ```
 
 #### 隐藏删除操作
 
-```
+```php
 $actions->hideDeleteAction()
 ```
 
 #### 添加自定义操作
 
-创建自定义操作请查看 [如何创建自定义操作]()
+创建自定义操作请查看 [如何创建自定义操作](https://smallruraldog.github.io/laravel-vue-admin/#/custom?id=%e8%a1%a8%e6%a0%bc%e6%93%8d%e4%bd%9c%e7%bb%84%e4%bb%b6)
 
-```
+```php
 $actions->add(new MyAction())
 ```
 
@@ -708,7 +710,7 @@ $toolbars->hideCreateButton()
 
 #### 添加自定义工具
 
-详情请看[如何创建自定义工具]()
+详情请看[如何创建自定义工具](https://smallruraldog.github.io/laravel-vue-admin/#/custom?id=%e8%a1%a8%e6%a0%bc%e5%b7%a5%e5%85%b7%e6%a0%8f%e7%bb%84%e4%bb%b6)
 
 ```php
 $toolbars->addLeft(new MyLeftTool());//添加在左侧

@@ -112,8 +112,7 @@
       :body-style="{ padding: 0 }"
       v-loading="loading"
     >
-      <el-tabs v-if="true">
-        
+      <el-tabs v-if="false">
         <el-tab-pane label="全部" name="first"></el-tab-pane>
         <el-tab-pane label="代付款" name="second"></el-tab-pane>
         <el-tab-pane label="代发货" name="third"></el-tab-pane>
