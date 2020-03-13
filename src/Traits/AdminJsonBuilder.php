@@ -11,7 +11,7 @@ class AdminJsonBuilder implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        $data = [];
+        $data = null;
         $hide = collect($this->hideAttrs)->push("hideAttrs")->toArray();
         foreach ($this as $key => $val) {
             if (!in_array($key, $hide)) {

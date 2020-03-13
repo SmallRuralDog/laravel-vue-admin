@@ -3,7 +3,7 @@
     <el-card shadow="never" :body-style="{ padding: 0 }">
       <div class="grid-top-container">
         <div class="grid-top-container-left">
-          <div class="search-view">
+          <div class="search-view mr-10">
             <el-input
               v-model="quickSearch"
               size="medium"
@@ -19,19 +19,22 @@
               >
             </el-input>
           </div>
+          <div>
+            <component
+              v-for="(component, index) in attrs.toolbars.left"
+              :key="component.componentName + index"
+              :is="component.componentName"
+              :attrs="component"
+            />
+          </div>
         </div>
         <div class="grid-top-container-right">
-          <router-link
-            :to="path + '/create'"
-            v-if="!attrs.attributes.hideCreateButton"
-          >
-            <el-button
-              type="primary"
-              class="mr-10"
-              icon="el-icon-plus"
-              >新建</el-button
-            >
-          </router-link>
+           <component
+            v-for="(component, index) in attrs.toolbars.right"
+            :key="component.componentName + index"
+            :is="component.componentName"
+            :attrs="component"
+          />
           <el-divider
             direction="vertical"
             v-if="!attrs.attributes.hideCreateButton"
@@ -48,6 +51,9 @@
           </div>
         </div>
       </div>
+    </el-card>
+
+    <el-card class="mt-10" shadow="never" :body-style="{ padding: 0 }">
       <div style="padding:10px;">
         <el-tree
           :data="tableData"
@@ -159,7 +165,7 @@ export default {
           type: after
         })
         .then(() => {
-          this.$Message.success("排序成功")
+          this.$Message.success("排序成功");
         });
 
       console.log(node);

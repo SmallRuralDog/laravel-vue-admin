@@ -1,6 +1,31 @@
 <template>
   <div class="grid-container">
     <el-card shadow="never" :body-style="{ padding: 0 }">
+      <div class="filter-form" v-if="attrs.filter.filters.length > 0">
+        <el-form
+          :inline="true"
+          label-suffix=":"
+          :model="filterFormData"
+          v-if="filterFormData"
+        >
+          <el-form-item
+            v-for="(item, index) in attrs.filter.filters"
+            :key="index"
+            :label="item.label"
+          >
+            <ItemDiaplsy
+              v-model="filterFormData[item.column]"
+              :form_item="item"
+              :form_items="attrs.filters"
+              :form_data="filterFormData"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
+            <el-button @click="onFilterReset">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <div class="grid-top-container">
         <div class="grid-top-container-left">
           <BatchActions
@@ -80,9 +105,24 @@
           </div>
         </div>
       </div>
+    </el-card>
+    <el-card
+      class="mt-10"
+      shadow="never"
+      :body-style="{ padding: 0 }"
+      v-loading="loading"
+    >
+      <el-tabs v-if="true">
+        
+        <el-tab-pane label="全部" name="first"></el-tab-pane>
+        <el-tab-pane label="代付款" name="second"></el-tab-pane>
+        <el-tab-pane label="代发货" name="third"></el-tab-pane>
+        <el-tab-pane label="待收货" name="third"></el-tab-pane>
+        <el-tab-pane label="已完成" name="third"></el-tab-pane>
+        <el-tab-pane label="已关闭" name="third"></el-tab-pane>
+      </el-tabs>
       <div>
         <el-table
-          v-loading="loading"
           :data="tableData"
           :row-key="attrs.attributes.rowKey"
           :default-sort="attrs.default_sort_get"
@@ -176,10 +216,12 @@
 import ColumnDisplay from "./ColumnDisplay";
 import Actions from "./Actions/Index";
 import BatchActions from "./BatchActions/Index";
+import ItemDiaplsy from "../form/ItemDiaplsy";
 export default {
   components: {
     ColumnDisplay,
     Actions,
+    ItemDiaplsy,
     BatchActions
   },
   props: {
@@ -199,10 +241,13 @@ export default {
       },
       selectionRows: [],
       quickSearch: null,
+      filterFormData: null,
       path: "/"
     };
   },
   mounted() {
+    this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
+
     this.getData();
     this.$bus.on("tableReload", () => {
       this.getData();
@@ -215,6 +260,15 @@ export default {
     } catch (e) {}
   },
   methods: {
+    onFilterSubmit() {
+      this.getData();
+    },
+    onFilterReset() {
+      console.log(this.attrs.filter.filterFormData);
+      
+      this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
+      this.getData();
+    },
     //获取数据
     getData() {
       this.loading = true;
@@ -225,7 +279,8 @@ export default {
             page: this.page,
             per_page: this.pageData.pageSize,
             ...this.sort,
-            ...this.q_search
+            ...this.q_search,
+            ...this.filterFormData
           }
         })
         .then(
@@ -298,7 +353,6 @@ export default {
     padding: 8px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ebeef5;
     .grid-top-container-left {
       display: flex;
       align-items: center;
@@ -316,6 +370,28 @@ export default {
         }
       }
     }
+  }
+  .el-table .cell {
+    line-height: unset;
+  }
+  .el-tabs__header {
+    padding: 0;
+    margin: 0;
+  }
+  .el-tabs__item {
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+  }
+  .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+    padding-left: 15px;
+  }
+  .el-tabs__nav-wrap::after {
+    height: 1px;
+    background-color: #ebeef5;
+  }
+  .filter-form {
+    padding: 10px 10px 0 10px;
   }
 }
 </style>

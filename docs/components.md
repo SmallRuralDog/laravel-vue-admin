@@ -227,6 +227,11 @@ Cascader::make()->panel(true)
 ### Slider 滑块
 ### TimePicker 时间选择器
 ### DatePicker 日期选择器
+
+```php
+DatePicker::make()
+```
+
 ### DateTimePicker 日期时间选择器
 ### Upload 上传
 通过以下的调用来生成上传组件

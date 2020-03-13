@@ -107,6 +107,11 @@ class Model
         return $this->model;
     }
 
+    public function usePaginate($use = true)
+    {
+        $this->usePaginate = $use;
+    }
+
     public function getModel()
     {
         return $this->model;
@@ -243,14 +248,20 @@ class Model
         }
     }
 
+    public function addConditions(array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            call_user_func_array([$this, key($condition)], current($condition));
+        }
+
+        return $this;
+    }
+
     public function buildData($toArray = false)
     {
         if (empty($this->data)) {
-
-
-            $collection = $this->get();
+            $this->data = $this->get();
         }
-        $this->data = $collection;
         return $this->data;
     }
 
@@ -310,7 +321,6 @@ class Model
         $this->setSort();
         $this->setPaginate();
 
-        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);

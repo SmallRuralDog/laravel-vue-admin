@@ -1435,6 +1435,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ColumnDisplay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ColumnDisplay */ "./resources/js/components/grid/ColumnDisplay.vue");
 /* harmony import */ var _Actions_Index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Actions/Index */ "./resources/js/components/grid/Actions/Index.vue");
 /* harmony import */ var _BatchActions_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BatchActions/Index */ "./resources/js/components/grid/BatchActions/Index.vue");
+/* harmony import */ var _form_ItemDiaplsy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form/ItemDiaplsy */ "./resources/js/components/form/ItemDiaplsy.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1615,6 +1616,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -1622,6 +1664,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     ColumnDisplay: _ColumnDisplay__WEBPACK_IMPORTED_MODULE_0__["default"],
     Actions: _Actions_Index__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ItemDiaplsy: _form_ItemDiaplsy__WEBPACK_IMPORTED_MODULE_3__["default"],
     BatchActions: _BatchActions_Index__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
@@ -1641,12 +1684,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       selectionRows: [],
       quickSearch: null,
+      filterFormData: null,
       path: "/"
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
     this.getData();
     this.$bus.on("tableReload", function () {
       _this.getData();
@@ -1659,6 +1704,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } catch (e) {}
   },
   methods: {
+    onFilterSubmit: function onFilterSubmit() {
+      this.getData();
+    },
+    onFilterReset: function onFilterReset() {
+      console.log(this.attrs.filter.filterFormData);
+      this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
+      this.getData();
+    },
     //获取数据
     getData: function getData() {
       var _this2 = this;
@@ -1669,7 +1722,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           get_data: true,
           page: this.page,
           per_page: this.pageData.pageSize
-        }, this.sort, {}, this.q_search)
+        }, this.sort, {}, this.q_search, {}, this.filterFormData)
       }).then(function (_ref) {
         var _ref$data = _ref.data,
             data = _ref$data.data,
@@ -1756,6 +1809,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2771,19 +2830,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      vm: "",
+      vm: this._.clone(this.value),
       init: false
     };
   },
-  mounted: function mounted() {},
   watch: {
     value: function value(_value) {
-      if (!this.init) {
-        this.vm = _value;
-        this.init = true;
-      }
+      this.vm = _value;
     }
   },
+  mounted: function mounted() {},
   methods: {
     onChange: function onChange(value) {
       this.$emit("change", value);
@@ -5947,7 +6003,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n  border-bottom: 1px solid #ebeef5;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}", ""]);
+exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}\n.grid-container .el-table .cell {\n  line-height: unset;\n}\n.grid-container .el-tabs__header {\n  padding: 0;\n  margin: 0;\n}\n.grid-container .el-tabs__item {\n  padding: 0 15px;\n  height: 50px;\n  line-height: 50px;\n}\n.grid-container .el-tabs--top .el-tabs__item.is-top:nth-child(2) {\n  padding-left: 15px;\n}\n.grid-container .el-tabs__nav-wrap::after {\n  height: 1px;\n  background-color: #ebeef5;\n}\n.grid-container .filter-form {\n  padding: 10px 10px 0 10px;\n}", ""]);
 
 // exports
 
@@ -28356,6 +28412,82 @@ var render = function() {
         "el-card",
         { attrs: { shadow: "never", "body-style": { padding: 0 } } },
         [
+          _vm.attrs.filter.filters.length > 0
+            ? _c(
+                "div",
+                { staticClass: "filter-form" },
+                [
+                  _vm.filterFormData
+                    ? _c(
+                        "el-form",
+                        {
+                          attrs: {
+                            inline: true,
+                            "label-suffix": ":",
+                            model: _vm.filterFormData
+                          }
+                        },
+                        [
+                          _vm._l(_vm.attrs.filter.filters, function(
+                            item,
+                            index
+                          ) {
+                            return _c(
+                              "el-form-item",
+                              { key: index, attrs: { label: item.label } },
+                              [
+                                _c("ItemDiaplsy", {
+                                  attrs: {
+                                    form_item: item,
+                                    form_items: _vm.attrs.filters,
+                                    form_data: _vm.filterFormData
+                                  },
+                                  model: {
+                                    value: _vm.filterFormData[item.column],
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.filterFormData,
+                                        item.column,
+                                        $$v
+                                      )
+                                    },
+                                    expression: "filterFormData[item.column]"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "el-form-item",
+                            [
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { type: "primary" },
+                                  on: { click: _vm.onFilterSubmit }
+                                },
+                                [_vm._v("搜索")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-button",
+                                { on: { click: _vm.onFilterReset } },
+                                [_vm._v("重置")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        2
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { staticClass: "grid-top-container" }, [
             _c(
               "div",
@@ -28563,7 +28695,56 @@ var render = function() {
               ],
               2
             )
-          ]),
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-card",
+        {
+          directives: [
+            {
+              name: "loading",
+              rawName: "v-loading",
+              value: _vm.loading,
+              expression: "loading"
+            }
+          ],
+          staticClass: "mt-10",
+          attrs: { shadow: "never", "body-style": { padding: 0 } }
+        },
+        [
+          true
+            ? _c(
+                "el-tabs",
+                [
+                  _c("el-tab-pane", {
+                    attrs: { label: "全部", name: "first" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-tab-pane", {
+                    attrs: { label: "代付款", name: "second" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-tab-pane", {
+                    attrs: { label: "代发货", name: "third" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-tab-pane", {
+                    attrs: { label: "待收货", name: "third" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-tab-pane", {
+                    attrs: { label: "已完成", name: "third" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-tab-pane", {
+                    attrs: { label: "已关闭", name: "third" }
+                  })
+                ],
+                1
+              )
+            : undefined,
           _vm._v(" "),
           _c(
             "div",
@@ -28571,14 +28752,6 @@ var render = function() {
               _c(
                 "el-table",
                 {
-                  directives: [
-                    {
-                      name: "loading",
-                      rawName: "v-loading",
-                      value: _vm.loading,
-                      expression: "loading"
-                    }
-                  ],
                   attrs: {
                     data: _vm.tableData,
                     "row-key": _vm.attrs.attributes.rowKey,
@@ -28742,7 +28915,8 @@ var render = function() {
             ],
             1
           )
-        ]
+        ],
+        1
       )
     ],
     1
@@ -28782,7 +28956,7 @@ var render = function() {
             _c("div", { staticClass: "grid-top-container-left" }, [
               _c(
                 "div",
-                { staticClass: "search-view" },
+                { staticClass: "search-view mr-10" },
                 [
                   _vm.attrs.quickSearch
                     ? _c(
@@ -28822,6 +28996,18 @@ var render = function() {
                     : _vm._e()
                 ],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                _vm._l(_vm.attrs.toolbars.left, function(component, index) {
+                  return _c(component.componentName, {
+                    key: component.componentName + index,
+                    tag: "component",
+                    attrs: { attrs: component }
+                  })
+                }),
+                1
               )
             ]),
             _vm._v(" "),
@@ -28829,23 +29015,13 @@ var render = function() {
               "div",
               { staticClass: "grid-top-container-right" },
               [
-                !_vm.attrs.attributes.hideCreateButton
-                  ? _c(
-                      "router-link",
-                      { attrs: { to: _vm.path + "/create" } },
-                      [
-                        _c(
-                          "el-button",
-                          {
-                            staticClass: "mr-10",
-                            attrs: { type: "primary", icon: "el-icon-plus" }
-                          },
-                          [_vm._v("新建")]
-                        )
-                      ],
-                      1
-                    )
-                  : _vm._e(),
+                _vm._l(_vm.attrs.toolbars.right, function(component, index) {
+                  return _c(component.componentName, {
+                    key: component.componentName + index,
+                    tag: "component",
+                    attrs: { attrs: component }
+                  })
+                }),
                 _vm._v(" "),
                 !_vm.attrs.attributes.hideCreateButton
                   ? _c("el-divider", { attrs: { direction: "vertical" } })
@@ -28876,10 +29052,19 @@ var render = function() {
                   1
                 )
               ],
-              1
+              2
             )
-          ]),
-          _vm._v(" "),
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-card",
+        {
+          staticClass: "mt-10",
+          attrs: { shadow: "never", "body-style": { padding: 0 } }
+        },
+        [
           _c(
             "div",
             { staticStyle: { padding: "10px" } },

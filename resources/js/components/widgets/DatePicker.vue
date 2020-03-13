@@ -31,19 +31,17 @@ export default {
   },
   data() {
     return {
-      vm: "",
+      vm: this._.clone(this.value),
       init: false
     };
   },
-  mounted() {},
+
   watch: {
     value(value) {
-      if (!this.init) {
-        this.vm = value;
-        this.init = true;
-      }
+      this.vm = value;
     }
   },
+  mounted() {},
   methods: {
     onChange(value) {
       this.$emit("change", value);

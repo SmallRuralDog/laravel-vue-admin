@@ -11,9 +11,11 @@ use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Actions;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
+use SmallRuralDog\Admin\Grid\Concerns\HasFilter;
 use SmallRuralDog\Admin\Grid\Concerns\HasGridAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasPageAttributes;
 use SmallRuralDog\Admin\Grid\Concerns\HasQuickSearch;
+use SmallRuralDog\Admin\Grid\Filter;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
 use SmallRuralDog\Admin\Grid\Toolbars;
@@ -21,7 +23,7 @@ use SmallRuralDog\Admin\Grid\Toolbars;
 
 class Grid extends Component implements \JsonSerializable
 {
-    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch;
+    use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter;
 
     protected $componentName = 'Grid';
     /**
@@ -63,6 +65,7 @@ class Grid extends Component implements \JsonSerializable
 
         $this->actions = new Actions();
         $this->toolbars = new Toolbars();
+        $this->filter = new Filter($this->model);
 
     }
 
@@ -173,7 +176,10 @@ class Grid extends Component implements \JsonSerializable
 
     protected function applyQuery()
     {
+        //快捷搜索
         $this->applyQuickSearch();
+
+        $this->applyFilter(false);
     }
 
     /**
@@ -253,6 +259,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['actions'] = $this->actions->builderActions();
             $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['quickSearch'] = $this->quickSearch;
+            $viewData['filter'] = $this->filter->buildFilter();
             return $viewData;
         }
 
