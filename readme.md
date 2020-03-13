@@ -1,7 +1,7 @@
 # Laravel-Vue-Admin
 ## 简介
-Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都参(CTRL)考(V)了 laravel-admin
-实现了前后端分离，后端控制前端组件，前端使用ElementUI，目前已实现大部分组件，具体可查看 [使用文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
+Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，
+前后端分离，后端控制前端组件，前端使用ElementUI，具体可查看 [使用文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
 ## 界面预览
 ![界面预览](https://user-images.githubusercontent.com/5151848/72328488-f55ec800-36ed-11ea-9550-ab10e93e691f.png)
 
