@@ -85,6 +85,18 @@ npm run production
   - components //组件定义类
 ```
 
+当然你还可以创建你的 路由  控制器  Model 等等，开发出一个具有业务逻辑的扩展
+
+## 创建步骤
+
+创建一个自定义组件需要三部
+
+- 第一步：创建组件定义类
+
+- 第二步：创建Vue组件
+
+- 第三部：注册Vue组件
+
 ## 创建组件
 
 ### Form字段组件
@@ -210,9 +222,17 @@ $form->item("goods_sku", "产品规格")->displayComponent(GoodsSku::make())
 
 ### Grid字段组件
 
+正在编写中....
+
+### Grid字段编辑组件
+
+正在编写中....
+
 ### Grid操作组件
 
 自定义表格行操作
+
+![image-20200313101225595](custom.assets/image-20200313101225595.png)
 
 > 下面以ActionButton为例
 
