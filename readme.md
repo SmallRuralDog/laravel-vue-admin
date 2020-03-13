@@ -8,7 +8,7 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都�
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 
-由于现在是开发阶段，建议安装开发版本体验，暂不建议正式项目使用哦~~
+现在是开发阶段，建议安装开发版本体验
 ``` bash
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
@@ -24,4 +24,4 @@ php artisan admin:install
 启动服务后，在浏览器打开 `/admin` ,使用用户名 admin 和密码 admin登录.
 
 ## 说明
-项目正在开发中，还有很多功能尚未实现，欢迎体验吐槽 ~~
+项目正在开发中，欢迎体验吐槽
