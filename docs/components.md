@@ -120,7 +120,7 @@ Avatar::make();
 ### Image 图片
 可显示单张或多张图片，支持大图预览
 ```php
-
+Image::make();
 ```
 ### Icon 图标
 ```php
@@ -130,17 +130,16 @@ Icon::make()
 
 ### 操作组件
 
-#### 导航操作
+#### ActionButton
 
-用于跳转到其他页面的操作
+可用于vue路由导航，异步请求，连接跳转 操作
 
 ```php
-VueRouteAction::make()
+ActionButton::make("ActionName")
     ->order(3) //排序 越大越靠前
-    ->name("公众号管理") //操作名称
     ->icon("icon-class-name")//图标
-    ->path("WeChat/manage/{app_id}")//vue路由路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
-    ->httpPath("http://www.baodu.com")//打开新的连接
+    >handler("route")
+    ->uri("WeChat/manage/{app_id}")//路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
 //调用代码
 $grid->actions(function (Grid\Actions $actions) {
       $actions->add(...);
@@ -163,11 +162,58 @@ Grid\Tools\ToolButton::make("同步粉丝")
 
 ## 表单组件
 
+基于element-ui的表单组件实现，基本上所有的组件功能都实现了。使用过程中可查看element-ui的文档，调用的时候`make()->`即可
+
 ### Radio 单选框
+
+```php
+RadioGroup::make(1, [
+	Radio::make(1, "公众号"),
+	Radio::make(2, "小程序"),
+])
+```
+
 ### Checkbox 多选框
+
+```php
+CheckboxGroup::make()->options([
+	Checkbox::make(value,name),
+	Checkbox::make(value,name),
+]);
+```
+
 ### Input 输入框
+
+```
+Input::make()
+```
+
 ### InputNumber 计数器
+
+```
+InputNumber::make()
+```
+
 ### Select 选择器
+
+![image-20200313102505193](components.assets/image-20200313102505193.png)
+
+```php
+Select::make()
+    ->filterable()
+    ->options(function () {
+        return [
+            SelectOption::make(id, name)->avatar("")->desc("")
+        ];
+})
+```
+
+支持远程搜索
+
+```php
+Select::make()->filterable()->remote($remoteUrl)
+```
+
 ### Cascader 级联选择器
 
 当一个数据集合有清晰的层级结构时，可通过级联选择器逐级查看并选择
@@ -221,11 +267,24 @@ $form->item("goods_class_path", "产品分类")->displayComponent(function () {
 Cascader::make()->panel(true)
 ```
 
-
-
 ### Switch 开关
+
+```php
+CSwitch::make()
+```
+
 ### Slider 滑块
+
+```php
+Slider::make()
+```
+
 ### TimePicker 时间选择器
+
+```php
+TimePicker::make()
+```
+
 ### DatePicker 日期选择器
 
 ```php
@@ -233,6 +292,11 @@ DatePicker::make()
 ```
 
 ### DateTimePicker 日期时间选择器
+
+```php
+DateTimePicker::make()
+```
+
 ### Upload 上传
 通过以下的调用来生成上传组件
 ```php
@@ -316,6 +380,24 @@ $form->item('avatar', '头像')->displayComponent(function(){
  Upload::make()->height(120)
 ```
 ### Rate 评分
+
+```
+Rate::make()
+```
+
 ### ColorPicker 颜色选择器
+
+```
+ColorPicker::make()
+```
+
 ### Transfer 穿梭框
+
+```php
+Transfer::make()->data($permissionModel::get()->map(function ($item) {
+	return TransferData::make($item->id, $item->name);
+}))->titles(['可授权', '已授权'])->filterable()
+```
+
+
 
