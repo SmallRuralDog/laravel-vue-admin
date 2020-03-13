@@ -5,7 +5,7 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都�
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 
-由于现在是开发阶段，建议安装开发版本体验，暂不建议正式项目使用哦~~
+由于现在是开发阶段，建议安装开发版本体验，暂不建议公司大项目使用
 ``` bash
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
@@ -37,11 +37,6 @@ class RoleController extends AdminController
         $grid = new Grid(new $roleModel());
         $grid->columns([
             $grid->column('id', 'ID')->width('80px')->sortable(),
-            $grid->column('slug', trans('admin::admin.slug')),
-            $grid->column('name', trans('admin::admin.name')),
-            $grid->column('permissions.name', trans('admin::admin.permission'))->displayComponent(Tag::make()->type('info')),
-            $grid->column('created_at', trans('admin::admin.created_at')),
-            $grid->column('updated_at', trans('admin::admin.updated_at'))
         ]);
         return $grid;
     }
@@ -52,12 +47,6 @@ class RoleController extends AdminController
         $form = new Form(new $roleModel());
         $form->items([
             $form->item('slug', trans('admin::admin.slug'))->serveRules('required'),
-            $form->item('name', trans('admin::admin.name'))->required()->serveRules('required'),
-            $form->item('permissions', trans('admin::admin.permissions'), 'permissions.id')->displayComponent(
-                Transfer::make()->data($permissionModel::get()->map(function ($item) {
-                    return TransferData::make($item->id, $item->name);
-                }))->titles(['可授权', '已授权'])->filterable()
-            )
         ]);
         return $form;
     }
@@ -98,3 +87,17 @@ php artisan vendor:publish --tag=laravel-vue-admin-lang --force
 php artisan view:clear
 ```
 最后不要忘记清理浏览器缓存
+
+
+
+# 交流
+
+![image-20200313103804881](README.assets/image-20200313103804881.png)
+
+# 打赏
+
+如果你觉得 Laravel-Vue-admin 节省了你的开发时间，让你少加班，让你能更早的回家陪女友或者打游戏，能让你更快速的挣到钱，那么请支持我，让我能继续的将 Laravel-Vue-admin 做好，做下去！
+
+
+
+![image-20200313112129545](README.assets/image-20200313112129545.png)
