@@ -219,7 +219,7 @@ $grid->filter(function($filter){
 
 目前支持的过滤类型有下面这些:
 
-### equal
+#### equal
 
 `sql: ... WHERE`column`= "$input"`：
 
@@ -227,7 +227,7 @@ $grid->filter(function($filter){
 $filter->equal('column', $label);
 ```
 
-### not equal
+#### not equal
 
 `sql: ... WHERE`column`!= "$input"`：
 
@@ -235,7 +235,7 @@ $filter->equal('column', $label);
 $filter->notEqual('column', $label);
 ```
 
-### like
+#### like
 
 `sql: ... WHERE`column`LIKE "%$input%"`：
 
@@ -243,7 +243,7 @@ $filter->notEqual('column', $label);
 $filter->like('column', $label);
 ```
 
-### ilike
+#### ilike
 
 `sql: ... WHERE`column`ILIKE "%$input%"`：
 
@@ -251,9 +251,7 @@ $filter->like('column', $label);
 $filter->ilike('column', $label);
 ```
 
-### contains
-
-> since v1.6.12
+#### contains
 
 等于like查询
 
@@ -261,9 +259,7 @@ $filter->ilike('column', $label);
 $filter->contains('title');
 ```
 
-### starts with
-
-> since v1.6.12
+#### starts with
 
 查询以输入内容开头的title字段数据
 
@@ -271,9 +267,7 @@ $filter->contains('title');
 $filter->startsWith('title');
 ```
 
-### starts with
-
-> since v1.6.12
+#### starts with
 
 查询以输入内容结尾的title字段数据
 
@@ -281,7 +275,7 @@ $filter->startsWith('title');
 $filter->endsWith('title');
 ```
 
-### 大于
+#### 大于
 
 `sql: ... WHERE`column`> "$input"`：
 
@@ -289,7 +283,7 @@ $filter->endsWith('title');
 $filter->gt('column', $label);
 ```
 
-### 小于
+#### 小于
 
 `sql: ... WHERE`column`< "$input"`：
 
@@ -297,7 +291,7 @@ $filter->gt('column', $label);
 $filter->lt('column', $label);
 ```
 
-### between
+#### between
 
 `sql: ... WHERE`column`BETWEEN "$start" AND "$end"`：
 
@@ -311,7 +305,7 @@ $filter->between('column', $label)->datetime();
 $filter->between('column', $label)->time();
 ```
 
-### in
+#### in
 
 `sql: ... WHERE`column`in (...$inputs)`：
 
@@ -319,7 +313,7 @@ $filter->between('column', $label)->time();
 $filter->in('column', $label)->multipleSelect(['key' => 'value']);
 ```
 
-### notIn
+#### notIn
 
 `sql: ... WHERE`column`not in (...$inputs)`：
 
@@ -327,7 +321,7 @@ $filter->in('column', $label)->multipleSelect(['key' => 'value']);
 $filter->notIn('column', $label)->multipleSelect(['key' => 'value']);
 ```
 
-### date
+#### date
 
 `sql: ... WHERE DATE(`column`) = "$input"`：
 
@@ -335,7 +329,7 @@ $filter->notIn('column', $label)->multipleSelect(['key' => 'value']);
 $filter->date('column', $label);
 ```
 
-### day
+#### day
 
 `sql: ... WHERE DAY(`column`) = "$input"`：
 
@@ -343,7 +337,7 @@ $filter->date('column', $label);
 $filter->day('column', $label);
 ```
 
-### month
+#### month
 
 `sql: ... WHERE MONTH(`column`) = "$input"`：
 
@@ -351,7 +345,7 @@ $filter->day('column', $label);
 $filter->month('column', $label);
 ```
 
-### year
+#### year
 
 `sql: ... WHERE YEAR(`column`) = "$input"`：
 
@@ -359,7 +353,7 @@ $filter->month('column', $label);
 $filter->year('column', $label);
 ```
 
-### where
+#### where
 
 可以用where来构建比较复杂的查询过滤
 
