@@ -21,6 +21,5 @@ class Date extends AbstractFilter
     {
         parent::__construct($column, $label);
 
-        $this->{$this->fieldName}();
     }
 }

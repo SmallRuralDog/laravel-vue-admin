@@ -1,11 +1,17 @@
 <template>
-  <component
-    :style="componentData.style"
-    :class="componentData.className"
-    :is="componentData.componentName"
-    :attrs="componentData"
-    v-if="!loading"
-  />
+  <div
+    style="min-height:100px;"
+    v-loading="loading"
+    element-loading-background="rgba(0, 0, 0, 0)"
+  >
+    <component
+      :style="componentData.style"
+      :class="componentData.className"
+      :is="componentData.componentName"
+      :attrs="componentData"
+      v-if="!loading"
+    />
+  </div>
 </template>
 <script>
 export default {

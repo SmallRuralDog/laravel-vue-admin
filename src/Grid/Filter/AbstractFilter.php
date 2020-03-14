@@ -123,5 +123,4 @@ abstract class AbstractFilter extends AdminJsonBuilder
         }]];
     }
 
-
 }

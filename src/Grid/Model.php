@@ -321,6 +321,7 @@ class Model
         $this->setSort();
         $this->setPaginate();
 
+        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);

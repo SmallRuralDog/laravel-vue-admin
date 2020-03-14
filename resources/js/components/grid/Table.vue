@@ -1,31 +1,7 @@
 <template>
   <div class="grid-container">
     <el-card shadow="never" :body-style="{ padding: 0 }">
-      <div class="filter-form" v-if="attrs.filter.filters.length > 0">
-        <el-form
-          :inline="true"
-          label-suffix=":"
-          :model="filterFormData"
-          v-if="filterFormData"
-        >
-          <el-form-item
-            v-for="(item, index) in attrs.filter.filters"
-            :key="index"
-            :label="item.label"
-          >
-            <ItemDiaplsy
-              v-model="filterFormData[item.column]"
-              :form_item="item"
-              :form_items="attrs.filters"
-              :form_data="filterFormData"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
-            <el-button @click="onFilterReset">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
+     
       <div class="grid-top-container">
         <div class="grid-top-container-left">
           <BatchActions
@@ -112,14 +88,40 @@
       :body-style="{ padding: 0 }"
       v-loading="loading"
     >
-      <el-tabs v-if="false">
+     <el-tabs v-if="false">
         <el-tab-pane label="全部" name="first"></el-tab-pane>
         <el-tab-pane label="代付款" name="second"></el-tab-pane>
         <el-tab-pane label="代发货" name="third"></el-tab-pane>
-        <el-tab-pane label="待收货" name="third"></el-tab-pane>
-        <el-tab-pane label="已完成" name="third"></el-tab-pane>
-        <el-tab-pane label="已关闭" name="third"></el-tab-pane>
+        <el-tab-pane label="待收货" name="third2"></el-tab-pane>
+        <el-tab-pane label="已完成" name="third3"></el-tab-pane>
+        <el-tab-pane label="已关闭" name="third4"></el-tab-pane>
       </el-tabs>
+     <div class="filter-form" v-if="attrs.filter.filters.length > 0">
+        <el-form
+          :inline="true"
+          label-suffix="："
+          :model="filterFormData"
+          v-if="filterFormData"
+        >
+          <el-form-item
+            v-for="(item, index) in attrs.filter.filters"
+            :key="index"
+            :label="item.label"
+          >
+            <ItemDiaplsy
+              v-model="filterFormData[item.column]"
+              :form_item="item"
+              :form_items="attrs.filters"
+              :form_data="filterFormData"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
+            <el-button @click="onFilterReset">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+     
       <div>
         <el-table
           :data="tableData"
@@ -181,7 +183,7 @@
           </template>
           <el-table-column
             v-if="attrs.actions && !attrs.actions.hide"
-            label="操作"
+            label=""
           >
             <template slot="header"></template>
             <template slot-scope="scope">
@@ -390,7 +392,14 @@ export default {
     background-color: #ebeef5;
   }
   .filter-form {
-    padding: 10px 10px 0 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ebeef5;
+    .el-form-item{
+      margin-bottom: 0px;
+      .el-form-item__label{
+        padding: 0;
+      }
+    }
   }
 }
 </style>

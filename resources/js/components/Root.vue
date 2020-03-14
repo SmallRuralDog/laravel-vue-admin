@@ -103,7 +103,7 @@
           </div>
         </el-header>
         <el-main :class="{ 'el-main-fixed': fixedHeader }">
-          <div class="layout-content-main">
+          <div class="layout-content-main" >
             <transition name="fade-transform" mode="out-in">
               <router-view></router-view>
             </transition>
