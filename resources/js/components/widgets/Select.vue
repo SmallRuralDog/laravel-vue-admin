@@ -24,6 +24,7 @@
     :default-first-option="attrs.defaultFirstOption"
     :popper-append-to-body="attrs.popperAppendToBody"
     :automatic-dropdown="attrs.automaticDropdown"
+    :remote-method="remoteMethod"
     @change="onChange"
   >
     <el-option
@@ -33,7 +34,6 @@
       :value="item.value"
       :disabled="item.disabled"
     >
-
       <div class="flex-c-sb">
         <div class="flex-c">
           <el-avatar
@@ -53,7 +53,7 @@
 export default {
   props: {
     attrs: Object,
-    form_data:Object,
+    form_data: Object,
     value: {
       default: null
     }
@@ -70,6 +70,13 @@ export default {
   methods: {
     onChange(value) {
       this.$emit("change", value);
+    },
+    remoteMethod(query) {
+      this.$http
+        .get(this.attrs.remoteUrl, { params: { query: query } })
+        .then(res => {
+          this.options = res.data;
+        });
     }
   }
 };

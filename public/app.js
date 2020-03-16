@@ -2153,6 +2153,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2332,7 +2333,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -3482,6 +3482,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onChange: function onChange(value) {
       this.$emit("change", value);
+    },
+    remoteMethod: function remoteMethod(query) {
+      var _this = this;
+
+      this.$http.get(this.attrs.remoteUrl, {
+        params: {
+          query: query
+        }
+      }).then(function (res) {
+        _this.options = res.data;
+      });
     }
   }
 });
@@ -6218,7 +6229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item + .upload-images-item {\n  margin-right: 10px;\n}\n.upload-component .upload-images .upload-images-item {\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-images .upload-show-image {\n  border: 1px solid #dcdfe6;\n  padding: 2px;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
+exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item + .upload-images-item {\n  margin-left: 10px;\n}\n.upload-component .upload-images .upload-images-item {\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-images .upload-show-image {\n  border: 1px solid #dcdfe6;\n  padding: 2px;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
 
 // exports
 
@@ -29395,8 +29406,11 @@ var render = function() {
           expression: "loading"
         }
       ],
-      staticStyle: { "min-height": "100px" },
-      attrs: { "element-loading-background": "rgba(0, 0, 0, 0)" }
+      staticStyle: { "min-height": "150px" },
+      attrs: {
+        "element-loading-spinner": "el-icon-loading",
+        "element-loading-background": "rgba(0, 0, 0, 0)"
+      }
     },
     [
       !_vm.loading
@@ -29621,7 +29635,6 @@ var render = function() {
   return _c(
     "el-button",
     {
-      staticClass: "mr-10",
       attrs: {
         type: _vm.action.type,
         size: _vm.action.size,
@@ -30478,7 +30491,8 @@ var render = function() {
         "reserve-keyword": _vm.attrs.reserveKeyword,
         "default-first-option": _vm.attrs.defaultFirstOption,
         "popper-append-to-body": _vm.attrs.popperAppendToBody,
-        "automatic-dropdown": _vm.attrs.automaticDropdown
+        "automatic-dropdown": _vm.attrs.automaticDropdown,
+        "remote-method": _vm.remoteMethod
       },
       on: { change: _vm.onChange }
     },

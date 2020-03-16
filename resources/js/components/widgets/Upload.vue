@@ -197,7 +197,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .upload-images-item + .upload-images-item {
-      margin-right: 10px;
+      margin-left: 10px;
     }
     .upload-images-item {
       position: relative;

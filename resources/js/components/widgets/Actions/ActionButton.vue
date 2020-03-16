@@ -9,7 +9,6 @@
     :icon="action.icon"
     :autofocus="action.autofocus"
     :loading="loading"
-    class="mr-10"
     @click="onClick"
     >{{ action.content }}</el-button
   >
