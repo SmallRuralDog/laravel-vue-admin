@@ -8,9 +8,9 @@ return [
     'loginDesc' => '开箱即用的 Laravel 后台扩展',
 
 
-    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo.7b8cc895.png',
+    'logo' => 'https://file.iviewui.com/admin-pro-dist/img/logo-small.4a34a883.png',
 
-    'copyright' => 'Copyright © 2020 小土狗',
+    'copyright' => 'Copyright © 2020 SmallRuralDog',
     'footerLinks' => [
         [
             'href' => 'https://github.com/SmallRuralDog/laravel-vue-admin',

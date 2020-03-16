@@ -72,6 +72,8 @@ class Form extends Component implements JsonSerializable
      */
     public $editData = [];
 
+    protected $isEdit = false;
+
 
     protected $addRule = [];
     protected $addRuleMessage = [];
@@ -181,6 +183,16 @@ class Form extends Component implements JsonSerializable
         return $this->mode === $mode;
     }
 
+    /**
+     * @return bool
+     */
+    public function isEdit(): bool
+    {
+        return $this->isEdit;
+    }
+
+
+
     public function setResourceId($id)
     {
         $this->id = $id;
@@ -270,7 +282,6 @@ class Form extends Component implements JsonSerializable
             return $exception->getMessage();//\Admin::responseError();
         }
     }
-
 
 
     public function input($key, $value = null)
@@ -414,6 +425,7 @@ class Form extends Component implements JsonSerializable
      */
     public function edit($id)
     {
+        $this->isEdit = true;
 
         $this->setMode(self::MODE_EDIT);
 
@@ -665,6 +677,9 @@ class Form extends Component implements JsonSerializable
      */
     public function editData($id)
     {
+
+        $this->isEdit = true;
+
         if (($result = $this->callEditing($id)) instanceof Response) {
             return $result;
         }

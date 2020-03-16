@@ -11,7 +11,7 @@ class FormAttrs
     public $rules;
     public $inline = false;
     public $labelPosition = 'right';
-    public $labelWidth = "120px";
+    public $labelWidth = "200px";
     public $labelSuffix = "：";
     public $hideRequiredAsterisk = false;
     public $showMessage = true;

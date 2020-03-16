@@ -8,6 +8,6 @@ interface AdminResource
 {
     public function grid();
 
-    public function form();
+    public function form($isEdit = false);
 
 }

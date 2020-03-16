@@ -34,8 +34,8 @@ class AdminController extends Controller
     {
 
 
-        $content->body($this->form()->edit($id));
-        return $this->isGetData() ? $this->form()->edit($id) : $content;
+        $content->body($this->form(true)->edit($id));
+        return $this->isGetData() ? $this->form(true)->edit($id) : $content;
     }
 
 

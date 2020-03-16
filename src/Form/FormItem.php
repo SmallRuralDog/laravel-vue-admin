@@ -334,10 +334,11 @@ class FormItem
         $this->required = $required;
         if (!$this->serveRules) {
             $this->serveRules('required');
+            $this->serveRulesMessage(['required' => '请填写' . $this->label]);
         }
         if (!$this->rules) {
             $this->rules([
-                ['required' => true]
+                ['required' => true, "message" => "请填写" . $this->label]
             ]);
         }
 

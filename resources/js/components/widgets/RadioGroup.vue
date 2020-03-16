@@ -3,6 +3,7 @@
     v-model="vm"
     :style="attrs.style"
     :class="attrs.className"
+    :disabled="attrs.disabled"
     @change="onChange"
   >
     <el-radio
