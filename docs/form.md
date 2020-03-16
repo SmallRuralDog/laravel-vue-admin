@@ -184,6 +184,17 @@ $form->item('username', '用户名')->serveRulesMessage(["required" => '必填']
  $form->item('username', '用户名')->size("small")
 ```
 
+### 动态显示/隐藏
+
+根据其他字段的值显示或隐藏当前字段
+
+```php
+$form->item('username', '用户名')->vif("key","value")
+$form->item('username', '用户名')->vif("key.key","value") //支持点操作
+```
+
+
+
 ### 帮助信息
 
 > 支持 html
