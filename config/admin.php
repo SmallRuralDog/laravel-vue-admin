@@ -3,7 +3,7 @@
 return [
 
 
-    'name' => 'Laravel-vue-admin',
+    'name' => 'vue-admin',
 
     'loginDesc' => '开箱即用的 Laravel 后台扩展',
 
