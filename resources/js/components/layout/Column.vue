@@ -1,7 +1,7 @@
 <template>
   <el-col :span="attrs.width">
     <component
-      v-for="(content,index) in attrs.contents"
+      v-for="(content, index) in attrs.contents"
       :key="index"
       :is="content.componentName"
       :attrs="content"
@@ -17,5 +17,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

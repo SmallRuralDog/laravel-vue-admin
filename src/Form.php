@@ -32,7 +32,7 @@ class Form extends Component implements JsonSerializable
      */
     protected $model;
 
-    protected $id;
+    protected $id = 0;
 
     protected $formItemsAttr = [];
     protected $formItemsValue = [];
@@ -75,6 +75,11 @@ class Form extends Component implements JsonSerializable
 
     protected $addRule = [];
     protected $addRuleMessage = [];
+
+    /**
+     * @var \Validator
+     */
+    protected $validator;
 
     /**
      * Form constructor.
@@ -253,12 +258,20 @@ class Form extends Component implements JsonSerializable
             $rules = array_merge($rules, $this->addRule);
             $ruleMessages = array_merge($ruleMessages, $this->addRuleMessage);
 
-            Admin::validatorData($data, $rules, $ruleMessages);
+            $this->validator = \Validator::make($data, $rules, $ruleMessages);
+
+            $this->callValidating($this->validator);
+
+            if ($this->validator->fails()) {
+                abort(400, $this->validator->errors()->first());
+            }
             return false;
         } catch (\Exception $exception) {
             return $exception->getMessage();//\Admin::responseError();
         }
     }
+
+
 
     public function input($key, $value = null)
     {
@@ -465,6 +478,8 @@ class Form extends Component implements JsonSerializable
             return $result;
         }
         $data = ($data) ?: request()->all();
+
+        $this->setResourceId($id);
 
         $builder = $this->model();
         $this->model = $builder->findOrFail($id);

@@ -22,7 +22,12 @@
         :disabled="attrs.attrs.disabled"
       >
         <template v-for="(item, index) in attrs.formItems">
-          <div :key="index">
+          <ItemIf
+            :key="index"
+            :form_item="item"
+            :form_items="attrs.formItems"
+            :form_data="formData"
+          >
             <component
               v-if="item.topComponent"
               :is="item.topComponent.componentName"
@@ -75,7 +80,7 @@
               :is="item.footerComponent.componentName"
               :attrs="item.footerComponent"
             />
-          </div>
+          </ItemIf>
         </template>
         <div class="form-bottom-actions">
           <div></div>
@@ -98,9 +103,11 @@
 </template>
 <script>
 import ItemDiaplsy from "./ItemDiaplsy";
+import ItemIf from "./ItemIf";
 export default {
   components: {
-    ItemDiaplsy
+    ItemDiaplsy,
+    ItemIf
   },
   props: {
     attrs: Object

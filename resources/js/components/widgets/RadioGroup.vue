@@ -32,6 +32,11 @@ export default {
       vm: this._.clone(this.value)
     };
   },
+  watch: {
+    value(value) {
+      this.vm = value;
+    }
+  },
   model: {
     prop: "value",
     event: "change"

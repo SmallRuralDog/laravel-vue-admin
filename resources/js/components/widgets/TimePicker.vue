@@ -54,11 +54,6 @@
     :name="attrs.name"
     :prefix-icon="attrs.prefixIcon"
     :clear-icon="attrs.clearIcon"
-    :start="attrs.start"
-    :end="attrs.end"
-    :step="attrs.step"
-    :minTime="attrs.minTime"
-    :maxTime="attrs.maxTime"
     @change="onChange"
   ></el-time-select>
 </template>

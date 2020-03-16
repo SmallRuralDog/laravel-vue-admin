@@ -44,6 +44,12 @@ class FormItem
 
     public $original;
 
+
+    protected $vif = [
+        'key' => null,
+        'value' => null
+    ];
+
     /**
      * FormItem constructor.
      * @param $prop
@@ -405,6 +411,22 @@ class FormItem
         return $this;
     }
 
+
+    /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    public function vif($key, $value)
+    {
+        $this->vif = [
+            'key' => $key,
+            'value' => $value
+        ];
+        return $this;
+    }
+
+
     public function getAttrs()
     {
         return [
@@ -425,6 +447,7 @@ class FormItem
             'footerComponent' => $this->footerComponent,
             'relationName' => $this->relationName,
             'relationValueKey' => $this->relationValueKey,
+            'vif' => $this->vif
         ];
     }
 

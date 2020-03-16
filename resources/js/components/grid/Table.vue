@@ -10,14 +10,14 @@
             :rows="selectionRows"
             v-if="attrs.selection"
           />
-          <div class="search-view mr-10">
+          <div class="search-view mr-10"  v-if="attrs.quickSearch">
             <el-input
               v-model="quickSearch"
               :placeholder="attrs.quickSearch.placeholder"
               :clearable="true"
               @clear="getData"
               @keyup.enter.native="getData"
-              v-if="attrs.quickSearch"
+             
             >
               <el-button @click="getData" :loading="loading" slot="append"
                 >搜索</el-button

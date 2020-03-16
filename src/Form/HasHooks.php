@@ -67,7 +67,8 @@ trait HasHooks
         return $this->registerHook('editing', $callback);
     }
 
-    public function editQuery(Closure $callback){
+    public function editQuery(Closure $callback)
+    {
         return $this->registerHook('editQuery', $callback);
     }
 
@@ -107,9 +108,24 @@ trait HasHooks
         return $this->registerHook('saved', $callback);
     }
 
+    /**
+     * 数据事务处理时回调
+     * @param Closure $callback
+     * @return HasHooks
+     */
     public function DbTransaction(Closure $callback)
     {
         return $this->registerHook('DbTransaction', $callback);
+    }
+
+    /**
+     * 表单验证时回调
+     * @param Closure $callback
+     * @return HasHooks
+     */
+    public function validating(Closure $callback)
+    {
+        return $this->registerHook('validating', $callback);
     }
 
     /**
@@ -206,4 +222,10 @@ trait HasHooks
     {
         return $this->callHooks('DbTransaction');
     }
+
+    protected function callValidating($validator)
+    {
+        return $this->callHooks('validating', $validator);
+    }
+
 }

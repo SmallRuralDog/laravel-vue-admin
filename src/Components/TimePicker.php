@@ -31,11 +31,6 @@ class TimePicker extends Component
     protected $format = "HH:mm:ss";
     protected $type = "select";
 
-    protected $start = "09:00";
-    protected $end = "18:00";
-    protected $step = "00:30";
-    protected $minTime = "00:00";
-    protected $maxTime;
 
     static public function make($value = '', $type = "select")
     {
@@ -284,60 +279,6 @@ class TimePicker extends Component
         return $this;
     }
 
-    /**
-     * 开始时间
-     * @param string $start
-     * @return $this
-     */
-    public function start($start)
-    {
-        $this->start = $start;
-        return $this;
-    }
-
-    /**
-     * 结束时间
-     * @param string $end
-     * @return $this
-     */
-    public function end($end)
-    {
-        $this->end = $end;
-        return $this;
-    }
-
-    /**
-     * 间隔时间
-     * @param string $step
-     * @return $this
-     */
-    public function step($step)
-    {
-        $this->step = $step;
-        return $this;
-    }
-
-    /**
-     * 最小时间，小于该时间的时间段将被禁用
-     * @param string $minTime
-     * @return $this
-     */
-    public function minTime($minTime)
-    {
-        $this->minTime = $minTime;
-        return $this;
-    }
-
-    /**
-     * 最大时间，大于该时间的时间段将被禁用
-     * @param mixed $maxTime
-     * @return $this
-     */
-    public function maxTime($maxTime)
-    {
-        $this->maxTime = $maxTime;
-        return $this;
-    }
 
 
 }

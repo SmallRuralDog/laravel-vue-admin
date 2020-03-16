@@ -212,10 +212,22 @@ $form->footerComponent(Divider::make("详细信息"));
 $form->editing(function (Form $form) {});
 $form->submitted(function (Form $form) {});
 $form->submitted(function (Form $form) {});
-$form->saving(function (Form $form) {});
+$form->saving(function (Form $form) {
+    
+    //返回错误信息
+    return \Admin::responseError("xxxx");
+});
 $form->saved(function (Form $form) {});
 $form->deleting(function (Form $form) {});
 $form->deleted(function (Form $form) {});
+
+//表单验证时回调，用于处理复杂的表单验证
+$form->validating(function (Form $form, $validator) {
+    //-------例如
+    $validator->sometimes('end_time', 'email', function ($input) {
+         return true;
+     });
+});
 
 //表单要编辑的数据查询并处理后，可用于对不存在的关联模型字段提供数据
 $form->editQuery(function (Form $form,$data) {
