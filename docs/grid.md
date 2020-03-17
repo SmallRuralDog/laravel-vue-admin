@@ -684,6 +684,17 @@ $actions->hideEditAction()
 $actions->hideDeleteAction()
 ```
 
+#### 编辑/删除操作
+
+基于el-button实现
+
+```php
+$actions->editAction()->disabled(true);//获取编辑操作实例，并置属性
+$actions->deleteAction()->message("确定要删除吗，删除不可恢复？");//获取删除操作实例
+```
+
+
+
 #### 添加自定义操作
 
 创建自定义操作请查看 [如何创建自定义操作](https://smallruraldog.github.io/laravel-vue-admin/#/custom?id=%e8%a1%a8%e6%a0%bc%e6%93%8d%e4%bd%9c%e7%bb%84%e4%bb%b6)

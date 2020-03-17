@@ -1,7 +1,13 @@
 <template>
   <el-button
-    type="text"
+    :type="action.type"
+    :size="action.size"
+    :plain="action.plain"
+    :round="action.round"
+    :circle="action.circle"
+    :disabled="action.disabled"
     :icon="action.icon"
+    :autofocus="action.autofocus"
     :loading="loading"
     @click="onHandle"
     >编辑</el-button

@@ -19,6 +19,37 @@ trait HasActions
     private $showMore = false;
     private $fixed = false;
 
+
+    protected $editAction;
+    protected $deleteAction;
+
+
+    public function __construct()
+    {
+        $this->editAction = new EditAction();
+        $this->deleteAction = new DeleteAction();
+
+    }
+
+    /**
+     * @return EditAction
+     */
+    public function editAction(): EditAction
+    {
+        return $this->editAction;
+    }
+
+    /**
+     * @return DeleteAction
+     */
+    public function deleteAction(): DeleteAction
+    {
+        return $this->deleteAction;
+    }
+
+
+
+
     /**
      * 隐藏所有操作
      * @return $this
@@ -76,10 +107,10 @@ trait HasActions
         $actions = collect($this->actions);
 
         if (!$this->hideEditAction) {
-            $actions->add(new EditAction());
+            $actions->add($this->editAction);
         }
         if (!$this->hideDeleteAction) {
-            $actions->add(new DeleteAction());
+            $actions->add($this->deleteAction);
         }
         foreach ($this->addActions as $addAction) {
             $actions->add($addAction);

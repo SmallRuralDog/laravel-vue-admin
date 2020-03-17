@@ -72,7 +72,6 @@ class Form extends Component implements JsonSerializable
      */
     public $editData = [];
 
-    protected $isEdit = false;
 
 
     protected $addRule = [];
@@ -183,13 +182,6 @@ class Form extends Component implements JsonSerializable
         return $this->mode === $mode;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEdit(): bool
-    {
-        return $this->isEdit;
-    }
 
 
 

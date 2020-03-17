@@ -4,8 +4,11 @@
 namespace SmallRuralDog\Admin\Actions;
 
 
+use SmallRuralDog\Admin\Components\Attrs\Button;
+
 class BaseRowAction extends BaseAction
 {
+    use Button;
 
     protected $icon;
 
@@ -30,8 +33,6 @@ class BaseRowAction extends BaseAction
         $this->order = $order;
         return $this;
     }
-
-
 
 
 }

@@ -2,7 +2,7 @@
   <div
     style="min-height:150px;"
     v-loading="loading"
-     element-loading-spinner="el-icon-loading"
+    element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0)"
   >
     <component
@@ -28,6 +28,7 @@ export default {
     this.$bus.on("route-after", to => {
       this.path = to.path;
       this.query = to.query;
+      this.loading = true;
       this.$nextTick(() => {
         this.getContent();
       });
@@ -38,7 +39,29 @@ export default {
   },
   methods: {
     getContent() {
-      this.loading = true;
+      let componentData = this._.get(this.$store.state.contents, this.path);
+      if (componentData) {
+        this.componentData = componentData;
+        this.loading = false;
+      } else {
+        this.$store
+          .dispatch("getCenten", {
+            path: this.path,
+            contentUrl: window.config.apiRoot + this.path,
+            params: {
+              ...this.query
+            }
+          })
+          .then(data => {
+            this.componentData = data;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
+      }
+
+      /*this.loading = true;
       let contentUrl = window.config.apiRoot + this.path;
       this.$http
         .get(contentUrl, {
@@ -50,7 +73,7 @@ export default {
           this.componentData = data;
           this.loading = false;
         })
-        .catch(() => {});
+        .catch(() => {});*/
     }
   }
 };

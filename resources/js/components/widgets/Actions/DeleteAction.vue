@@ -1,13 +1,19 @@
 <template>
   <el-popconfirm
     placement="top"
-    title="确定要删除此内容？"
+    :title="action.message"
     @onConfirm="onHandle"
   >
     <el-button
       slot="reference"
-      type="text"
+      :type="action.type"
+      :size="action.size"
+      :plain="action.plain"
+      :round="action.round"
+      :circle="action.circle"
+      :disabled="action.disabled"
       :icon="action.icon"
+      :autofocus="action.autofocus"
       :loading="loading"
       class="action-button"
       >删除</el-button

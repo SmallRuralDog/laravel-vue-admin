@@ -1,7 +1,6 @@
 <template>
   <div class="grid-container">
     <el-card shadow="never" :body-style="{ padding: 0 }">
-     
       <div class="grid-top-container">
         <div class="grid-top-container-left">
           <BatchActions
@@ -10,14 +9,13 @@
             :rows="selectionRows"
             v-if="attrs.selection"
           />
-          <div class="search-view mr-10"  v-if="attrs.quickSearch">
+          <div class="search-view mr-10" v-if="attrs.quickSearch">
             <el-input
               v-model="quickSearch"
               :placeholder="attrs.quickSearch.placeholder"
               :clearable="true"
               @clear="getData"
               @keyup.enter.native="getData"
-             
             >
               <el-button @click="getData" :loading="loading" slot="append"
                 >搜索</el-button
@@ -88,7 +86,7 @@
       :body-style="{ padding: 0 }"
       v-loading="loading"
     >
-     <el-tabs v-if="false">
+      <el-tabs v-if="false">
         <el-tab-pane label="全部" name="first"></el-tab-pane>
         <el-tab-pane label="代付款" name="second"></el-tab-pane>
         <el-tab-pane label="代发货" name="third"></el-tab-pane>
@@ -96,7 +94,7 @@
         <el-tab-pane label="已完成" name="third3"></el-tab-pane>
         <el-tab-pane label="已关闭" name="third4"></el-tab-pane>
       </el-tabs>
-     <div class="filter-form" v-if="attrs.filter.filters.length > 0">
+      <div class="filter-form" v-if="attrs.filter.filters.length > 0">
         <el-form
           :inline="true"
           label-suffix="："
@@ -121,7 +119,7 @@
           </el-form-item>
         </el-form>
       </div>
-     
+
       <div>
         <el-table
           :data="tableData"
@@ -181,10 +179,7 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column
-            v-if="attrs.actions && !attrs.actions.hide"
-            label=""
-          >
+          <el-table-column v-if="attrs.actions && !attrs.actions.hide" label="">
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions
@@ -250,6 +245,7 @@ export default {
     this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
 
     this.getData();
+
     this.$bus.on("tableReload", () => {
       this.getData();
     });
@@ -266,7 +262,7 @@ export default {
     },
     onFilterReset() {
       console.log(this.attrs.filter.filterFormData);
-      
+
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
       this.getData();
     },
@@ -394,9 +390,9 @@ export default {
   .filter-form {
     padding: 10px;
     border-bottom: 1px solid #ebeef5;
-    .el-form-item{
+    .el-form-item {
       margin-bottom: 0px;
-      .el-form-item__label{
+      .el-form-item__label {
         padding: 0;
       }
     }

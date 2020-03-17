@@ -6,7 +6,7 @@ trait Button
 {
     protected $content;
     protected $size;
-    protected $type;
+    protected $type = "primary";
     protected $plain = false;
     protected $round = false;
     protected $circle = false;

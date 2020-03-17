@@ -3,6 +3,7 @@ import VueBus from 'vue-bus';
 import axios from './util/axios'
 import lodash from 'lodash'
 import router from '@/router'
+import store from '@/store'
 import {
     LoadingBar,
     Message,
@@ -22,6 +23,8 @@ Vue.prototype.$http = axios;
 Vue.prototype._ = lodash;
 window._ = lodash;
 Vue.use(VueBus);
+
+
 import './styles/admin.scss';
 
 export default class VueAdmin {
@@ -44,6 +47,7 @@ export default class VueAdmin {
         this.boot();
         this.app = new Vue({
             el: '#vue-admin',
+            store,
             router
         });
     }

@@ -8,6 +8,10 @@ use SmallRuralDog\Admin\Actions\BaseRowAction;
 
 class EditAction extends BaseRowAction
 {
+
+
     protected $componentName = "EditAction";
+
+    protected $type = "text";
 
 }

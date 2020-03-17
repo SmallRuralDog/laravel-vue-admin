@@ -16,6 +16,27 @@ class Toolbars extends AdminJsonBuilder
 
     private $hideCreateButton;
 
+    protected $createButton;
+
+    /**
+     * Toolbars constructor.
+     */
+    public function __construct()
+    {
+        $this->createButton = new CreateButton();
+        $this->createButton->content("创建")->icon("el-icon-plus");
+
+    }
+
+    /**
+     * @return CreateButton
+     */
+    public function createButton(): CreateButton
+    {
+        return $this->createButton;
+    }
+
+
     /**
      * @param mixed $hideCreateButton
      * @return $this
@@ -46,7 +67,7 @@ class Toolbars extends AdminJsonBuilder
         $left = collect($this->left);
         $right = collect($this->right);
 
-        if (!$this->hideCreateButton) $right->add(new CreateButton());
+        if (!$this->hideCreateButton) $right->add($this->createButton);
 
         foreach ($this->addLeft as $addLeft) {
             $left->push($addLeft);
