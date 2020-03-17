@@ -1,5 +1,6 @@
-# Laravel-Vue-Admin
-## 简介
+
+![laravel-vue-admin-logo](./docs/README.assets/laravel-vue-admin-logo.png)
+
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，
 前后端分离，后端控制前端组件，前端使用ElementUI，具体可查看 [使用文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
 ## 界面预览

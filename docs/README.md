@@ -1,6 +1,12 @@
-# Laravel-Vue-Admin
-## 简介
-Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，很多地方都参考了 laravel-admin 和 Nova
+
+
+![laravel-vue-admin-logo](README.assets/laravel-vue-admin-logo.png)
+
+
+
+
+
+Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
