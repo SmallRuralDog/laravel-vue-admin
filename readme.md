@@ -1,10 +1,12 @@
 
-![laravel-vue-admin-logo](./docs/README.assets/logo.png)
+![laravel-vue-admin-logo](./docs/README.assets/logo-1584436939847.png)
 
-Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，
-前后端分离，后端控制前端组件，前端使用ElementUI，具体可查看 [使用文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
-## 界面预览
-![界面预览](https://user-images.githubusercontent.com/5151848/72328488-f55ec800-36ed-11ea-9550-ab10e93e691f.png)
+Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展，前后端分离，后端控制前端组件，前端使用ElementUI
+
+
+
+ [中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
+
 
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。

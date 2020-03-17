@@ -2,9 +2,9 @@
 
 
 
-![logo](README.assets/logo.png)
 
 
+![logo](README.assets/logo-1584436939847.png)
 
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
