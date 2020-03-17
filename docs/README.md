@@ -1,8 +1,8 @@
 
 
-![laravel-vue-admin-logo](README.assets/laravel-vue-admin-logo.png)
 
 
+![logo](README.assets/logo.png)
 
 
 
