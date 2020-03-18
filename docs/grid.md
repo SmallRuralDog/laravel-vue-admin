@@ -532,7 +532,7 @@ $column->help('帮助内容');
 使用示例
 
 ```php
-$column->displayComponent(Tag::make()->size("mini")->type("info"));
+$column->component(Tag::make()->size("mini")->type("info"));
 ```
 
 

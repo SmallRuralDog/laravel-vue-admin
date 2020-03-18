@@ -6,10 +6,10 @@
 
 ``` php
 $form = new Form(new User());
-$form->items([
-    $form->item('username', '用户名')->displayComponent(Input::make()->prefixIcon('el-icon-eleme')),
-    $form->item('status', '状态')->displayComponent(Slider::make(15))
-]);
+
+$form->item('username', '用户名')->component(Input::make()->prefixIcon('el-icon-eleme'));
+$form->item('status', '状态')->component(Slider::make(15));
+
 return $form;
 ```
 
