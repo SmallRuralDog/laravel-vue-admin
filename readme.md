@@ -2,6 +2,9 @@
 
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
+
+[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
+
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 
@@ -66,19 +69,19 @@ class GroupBuyController extends AdminController implements AdminResource
 
 ## 版本升级
 
-### 查看当前版本
+ 查看当前版本
 ```bash
 composer show smallruraldog/laravel-vue-admin
 ```
-### 更新到最新版
+ 更新到最新版
 ```bash
 composer require smallruraldog/laravel-vue-admin
 ```
-### 更新到开发版
+ 更新到开发版
 ```bash
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
-### 注意事项
+ 注意事项
 由于每个版本的静态资源或者语言包都有可能会有更新，所以升级版本之后最好运行下面的命令
 ```bash
 // 强制发布静态资源文件
@@ -98,10 +101,8 @@ php artisan view:clear
 
 ![image-20200313103804881](./docs/README.assets/image-20200313103804881.png)
 
-# 打赏
+# 支持
 
 如果你觉得 Laravel-Vue-Admin 节省了你的开发时间，让你少加班，让你能更早的回家陪女友或者打游戏，能让你更快速的挣到钱，那么请支持我，让我能继续的将 Laravel-Vue-Admin 做好，做下去！
-
-
 
 ![image-20200313112129545](./docs/README.assets/image-20200313112129545.png)
