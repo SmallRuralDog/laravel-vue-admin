@@ -17,12 +17,12 @@ class TimePicker extends Component
     protected $startPlaceholder;
     protected $endPlaceholder;
     protected $isRange = false;
-    protected $arrowControl = true;
+    protected $arrowControl = false;
     protected $align = "left";
     protected $popperClass;
     protected $pickerOptions;
     protected $rangeSeparator = '-';
-    protected $valueFormat;
+    protected $valueFormat = "HH:mm:ss";
     protected $defaultValue;
     protected $name;
     protected $prefixIcon;

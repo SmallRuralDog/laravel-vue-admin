@@ -24,16 +24,12 @@ class AdminController extends Controller
 
     public function create(Content $content)
     {
-
-
         $content->body($this->form())->className("m-10");
         return $this->isGetData() ? $this->form() : $content;
     }
 
     public function edit($id, Content $content)
     {
-
-
         $content->body($this->form(true)->edit($id))->className("m-10");
         return $this->isGetData() ? $this->form(true)->edit($id) : $content;
     }

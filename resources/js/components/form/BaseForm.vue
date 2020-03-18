@@ -2,7 +2,6 @@
   <div class="form-page">
     <el-card shadow="never" class="form-card" v-loading="loading">
       <el-form
-        
         v-if="formData"
         ref="ruleForm"
         :model="formData"
@@ -125,7 +124,7 @@ export default {
     };
   },
   mounted() {
-    this.formData = this.attrs.defaultValues;
+    this.formData = this._.cloneDeep(this.attrs.defaultValues);
     this.isEdit && this.getEditData();
   },
   methods: {
@@ -159,7 +158,10 @@ export default {
             this.$http
               .put(this.attrs.action, this.formData)
               .then(({ data, code, message }) => {
-                code == 200 && this.$router.go(-1);
+                if (code == 200) {
+                  this.formData = this._.cloneDeep(this.attrs.defaultValues);
+                  this.$router.go(-1);
+                }
               })
               .finally(() => {
                 this.loading = false;
