@@ -103,10 +103,8 @@
           </div>
         </el-header>
         <el-main :class="{ 'el-main-fixed': fixedHeader }">
-          <div class="layout-content-main" >
-            <transition name="fade-transform" mode="out-in">
-              <router-view></router-view>
-            </transition>
+          <div class="layout-content-main">
+            <router-view></router-view>
           </div>
         </el-main>
         <el-footer class="admin-footer">
@@ -126,70 +124,71 @@
       </el-container>
     </el-container>
     <el-backtop></el-backtop>
-    <Drawer v-model="showAdminSet">
-      <div style="height:5px;"></div>
-      <el-divider>主题风格</el-divider>
-      <div>
-        <el-badge type="success" is-dot :hidden="isDark">
-          <div>
-            <el-tooltip content="亮色菜单风格" placement="top">
-              <el-image
-                @click="isDark = false"
-                class="hover"
-                src="https://gw.alipayobjects.com/zos/antfincdn/NQ%24zoisaD2/jpRkZQMyYRryryPNtyIC.svg"
-              />
-            </el-tooltip>
-          </div>
-        </el-badge>
-        <el-badge type="success" is-dot :hidden="!isDark">
-          <div class="ml-20">
-            <el-tooltip content="暗色菜单风格" placement="top">
-              <el-image
-                @click="isDark = true"
-                class="hover"
-                src="https://gw.alipayobjects.com/zos/antfincdn/XwFOFbLkSM/LCkqqYNmvBEbokSDscrm.svg"
-              />
-            </el-tooltip>
-          </div>
-        </el-badge>
-      </div>
-      <div class="mt-30">
-        <el-badge type="success" is-dot :hidden="isDarkHeader">
-          <div @click="isDarkHeader = false">
-            <el-tooltip content="亮色顶栏风格" placement="top">
-              <el-image
-                class="hover"
-                src="https://file.iviewui.com/admin-pro-dist/img/nav-theme-dark.da07f9c2.svg"
-              />
-            </el-tooltip>
-          </div>
-        </el-badge>
-        <el-badge type="success" is-dot :hidden="!isDarkHeader">
-          <div class="ml-20" @click="isDarkHeader = true">
-            <el-tooltip content="暗色顶栏风格" placement="top">
-              <el-image
-                class="hover"
-                src="https://file.iviewui.com/admin-pro-dist/img/header-theme-dark.1606ed02.svg"
-              />
-            </el-tooltip>
-          </div>
-        </el-badge>
-      </div>
-      <el-divider>导航设置</el-divider>
+    <el-drawer :visible.sync="showAdminSet" size="250px">
+      <div style="padding:0 10px;">
+        <el-divider>主题风格</el-divider>
+        <div>
+          <el-badge type="success" is-dot :hidden="isDark">
+            <div>
+              <el-tooltip content="亮色菜单风格" placement="top">
+                <el-image
+                  @click="isDark = false"
+                  class="hover"
+                  src="https://gw.alipayobjects.com/zos/antfincdn/NQ%24zoisaD2/jpRkZQMyYRryryPNtyIC.svg"
+                />
+              </el-tooltip>
+            </div>
+          </el-badge>
+          <el-badge type="success" is-dot :hidden="!isDark">
+            <div class="ml-20">
+              <el-tooltip content="暗色菜单风格" placement="top">
+                <el-image
+                  @click="isDark = true"
+                  class="hover"
+                  src="https://gw.alipayobjects.com/zos/antfincdn/XwFOFbLkSM/LCkqqYNmvBEbokSDscrm.svg"
+                />
+              </el-tooltip>
+            </div>
+          </el-badge>
+        </div>
+        <div class="mt-30">
+          <el-badge type="success" is-dot :hidden="isDarkHeader">
+            <div @click="isDarkHeader = false">
+              <el-tooltip content="亮色顶栏风格" placement="top">
+                <el-image
+                  class="hover"
+                  src="https://file.iviewui.com/admin-pro-dist/img/nav-theme-dark.da07f9c2.svg"
+                />
+              </el-tooltip>
+            </div>
+          </el-badge>
+          <el-badge type="success" is-dot :hidden="!isDarkHeader">
+            <div class="ml-20" @click="isDarkHeader = true">
+              <el-tooltip content="暗色顶栏风格" placement="top">
+                <el-image
+                  class="hover"
+                  src="https://file.iviewui.com/admin-pro-dist/img/header-theme-dark.1606ed02.svg"
+                />
+              </el-tooltip>
+            </div>
+          </el-badge>
+        </div>
+        <el-divider>导航设置</el-divider>
 
-      <div class="setting-item">
-        <span>固定顶栏</span>
-        <span>
-          <el-switch v-model="fixedHeader"></el-switch>
-        </span>
+        <div class="setting-item">
+          <span>固定顶栏</span>
+          <span>
+            <el-switch v-model="fixedHeader"></el-switch>
+          </span>
+        </div>
+        <div class="setting-item">
+          <span>固定侧边栏</span>
+          <span>
+            <el-switch v-model="fixedSide"></el-switch>
+          </span>
+        </div>
       </div>
-      <div class="setting-item">
-        <span>固定侧边栏</span>
-        <span>
-          <el-switch v-model="fixedSide"></el-switch>
-        </span>
-      </div>
-    </Drawer>
+    </el-drawer>
   </div>
 </template>
 
@@ -319,7 +318,6 @@ $header-bar-height: 55px;
       animation: fade-in;
       animation-duration: 0.3s;
     }
-
   }
   .el-scrollbar {
     flex: 1;
@@ -456,6 +454,7 @@ $header-bar-height: 55px;
   left: 200px;
   width: auto;
   transition: all 0.3s ease-in-out;
+  z-index: 999;
 }
 .layout-header-bar-fixed-collapsed {
   left: 60px;

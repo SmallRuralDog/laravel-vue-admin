@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+
+
 import routes from './routes'
 Vue.use(Router)
 const router = createRouter({ base: window.config.base })
@@ -19,7 +22,7 @@ function createRouter({ base }) {
 
 async function beforeEach(to, from, next) {
 
-    
+
 
     const components = await resolveComponents(
         router.getMatchedComponents({ ...to })
@@ -28,14 +31,17 @@ async function beforeEach(to, from, next) {
         return next()
     }
     if (components[components.length - 1].loading !== false) {
-        router.app.$nextTick(() => router.app.$Loading.start())
+        router.app.$nextTick(() => {
+            
+        })
     }
     next()
 }
 
 async function afterEach(to, from, next) {
     await router.app.$nextTick()
-    router.app.$Loading.finish()
+
+   
 
     router.app.$bus.emit('route-after', to);
 }

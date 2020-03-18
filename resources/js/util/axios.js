@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "../router";
-import { LoadingBar, Message, Notice } from "view-design";
+import { Notification, Message } from 'element-ui';
+
 
 axios.interceptors.request.use(
     config => {
@@ -17,16 +18,14 @@ axios.interceptors.response.use(
         switch (data.code) {
             case 400:
                 Message.error({
-                    content: data.message,
-                    duration: 3
+                    message: data.message
                 });
                 break;
             case 301:
                 try {
                     data.message &&
                         Message[data.data.type]({
-                            content: data.message,
-                            duration: 3
+                            message: data.message
                         });
 
                     if (data.data.isVueRoute) {
@@ -41,8 +40,7 @@ axios.interceptors.response.use(
             case 200:
                 data.message &&
                     Message.success({
-                        content: data.message,
-                        duration: 3
+                        message: data.message
                     });
                 break;
         }
@@ -53,13 +51,14 @@ axios.interceptors.response.use(
         // 对响应错误做点什么
         switch (response.status) {
             case 404:
-                Notice.error({
+                Notification.error({
                     title: "请求页面不存在",
                     desc: response.data.message
                 });
+                router.replace('/404')
                 break;
             default:
-                Notice.error({
+                Notification.error({
                     title: "请求错误",
                     desc: response.data.message
                 });

@@ -30,17 +30,17 @@ class PermissionController extends AdminController
 
         $grid->defaultSort('id', 'asc');
 
-        $grid->columns([
-            $grid->column('id', 'ID')->sortable()->width('80px'),
-            $grid->column('slug', trans('admin::admin.slug'))->width(120),
-            $grid->column('name', trans('admin::admin.name'))->width(120),
-            $grid->column('http_method', trans('admin::admin.http_method'))->displayComponent(Tag::make()),
-            $grid->column('http_path', trans('admin::admin.route'))->customValue(function ($row, $value) {
-                return explode("\n", $value);
-            })->displayComponent(function () {
-                return Tag::make();
-            }),
-        ]);
+
+        $grid->column('id', 'ID')->sortable()->width('80px');
+        $grid->column('slug', trans('admin::admin.slug'))->width(120);
+        $grid->column('name', trans('admin::admin.name'))->width(120);
+        $grid->column('http_method', trans('admin::admin.http_method'))->component(Tag::make());
+        $grid->column('http_path', trans('admin::admin.route'))->customValue(function ($row, $value) {
+            return explode("\n", $value);
+        })->component(function () {
+            return Tag::make();
+        });
+
 
         $grid->actions(function (Grid\Actions $actions) {
             $actions->hideViewAction();
@@ -54,30 +54,20 @@ class PermissionController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
 
         $form = new Form(new $permissionModel());
-        $http_method = $form->item('http_method', trans('admin::admin.http.method'))
+
+
+        $form->item('slug', trans('admin::admin.slug'))->required();
+        $form->item('name', trans('admin::admin.name'))->required();
+        $form->item('http_method', trans('admin::admin.http.method'))
             ->help(trans('admin::admin.all_methods_if_empty'))
-            ->displayComponent(function () {
+            ->component(function () {
                 return Select::make()->multiple()
                     ->block()
                     ->clearable()
                     ->options($this->getHttpMethodsOptions());
             });
+        $form->item('http_path', trans('admin::admin.http.path'))->required()->component(Input::make()->textarea(8));
 
-        $form->items([
-            $form->item('slug', trans('admin::admin.slug'))
-                ->rules([
-                    ['required' => true, 'message' => '标识必填', 'trigger' => 'blur']
-                ])
-                ->serveRules("required", [
-                    'required' => '标识必填'
-                ]),
-            $form->item('name', trans('admin::admin.name'))
-                ->rules([
-                    ['required' => true, 'message' => '必填', 'trigger' => 'blur']
-                ]),
-            $http_method,
-            $form->item('http_path', trans('admin::admin.http.path'))->serveRules('required')->displayComponent(Input::make()->textarea(8))
-        ]);
 
         return $form;
     }

@@ -37,16 +37,13 @@ class Grid extends Component implements \JsonSerializable
     protected $rows;
     public $columnAttributes = [];
     protected $withs = [];
-    protected $view = 'admin::grid.table';
+
     protected $keyName = 'id';
     protected $selection = false;
     protected $tree = false;
     protected $dataUrl;
-
     protected $isGetData = false;
-
     private $actions;
-
     private $toolbars;
 
 
@@ -153,6 +150,7 @@ class Grid extends Component implements \JsonSerializable
 
     /**
      * @param Column[] $columns
+     * @deprecated
      */
     public function columns($columns)
     {
@@ -163,7 +161,6 @@ class Grid extends Component implements \JsonSerializable
             $column->width(50);
             $columns = collect($columns)->prepend($column)->all();
         }
-
         $this->columnAttributes = collect($columns)->map(function (Column $column) {
             return $column->getAttributes();
         })->toArray();
@@ -218,7 +215,7 @@ class Grid extends Component implements \JsonSerializable
      * data
      * @return array
      */
-    public function data()
+    protected function data()
     {
 
         $this->applyQuery();
@@ -235,13 +232,12 @@ class Grid extends Component implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-
-
+        if (count($this->columnAttributes) <= 0) {
+            $this->columns($this->columns);
+        }
         if ($this->isGetData) {
             return $this->data();
         } else {
-
-
             $viewData['componentName'] = $this->componentName;
             $viewData['routers'] = [
                 'resource' => url(request()->getPathInfo())
@@ -262,7 +258,5 @@ class Grid extends Component implements \JsonSerializable
             $viewData['filter'] = $this->filter->buildFilter();
             return $viewData;
         }
-
-
     }
 }

@@ -1,17 +1,18 @@
 <template>
   <div
-    style="min-height:150px;"
-    v-loading="loading"
+    id="base-content"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0)"
   >
-    <component
-      :style="componentData.style"
-      :class="componentData.className"
-      :is="componentData.componentName"
-      :attrs="componentData"
-      v-if="!loading"
-    />
+    <transition name="fade-transform" mode="out-in">
+      <component
+        :style="componentData.style"
+        :class="componentData.className"
+        :is="componentData.componentName"
+        :attrs="componentData"
+        v-if="!loading"
+      />
+    </transition>
   </div>
 </template>
 <script>
@@ -29,6 +30,7 @@ export default {
       this.path = to.path;
       this.query = to.query;
       this.loading = true;
+
       this.$nextTick(() => {
         this.getContent();
       });
@@ -60,20 +62,6 @@ export default {
             this.loading = false;
           });
       }
-
-      /*this.loading = true;
-      let contentUrl = window.config.apiRoot + this.path;
-      this.$http
-        .get(contentUrl, {
-          params: {
-            ...this.query
-          }
-        })
-        .then(data => {
-          this.componentData = data;
-          this.loading = false;
-        })
-        .catch(() => {});*/
     }
   }
 };

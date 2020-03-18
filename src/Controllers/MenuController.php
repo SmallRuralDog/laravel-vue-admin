@@ -80,12 +80,12 @@ class MenuController extends AdminController
             ->draggable(route('admin.auth.menu.order'))
             ->emptyText("暂无菜单")
             ->perPage(10000);
-        $grid->columns([
-            $grid->column('icon', "图标")->displayComponent(Icon::make()),
-            $grid->column('title', "名称"),
-            $grid->column('uri', "路径"),
-            $grid->column('roles.name', "授权角色")->displayComponent(Tag::make()),
-        ]);
+
+        $grid->column('icon', "图标")->displayComponent(Icon::make());
+        $grid->column('title', "名称");
+        $grid->column('uri', "路径");
+        $grid->column('roles.name', "授权角色")->displayComponent(Tag::make());
+
         return $grid;
     }
 
@@ -96,31 +96,29 @@ class MenuController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $model());
-        $items = [
-            $form->item('parent_id', '上级目录')->displayComponent(Select::make(0)->options(function () use ($model) {
-                return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
-                    return SelectOption::make($item->id, $item->title);
-                })->prepend(SelectOption::make(0, '根目录'));
-            })),
-            $form->item('title', '名称')->required()->inputWidth(3),
-            $form->item('icon', trans('admin::admin.icon'))->inputWidth(3)->required(),
-            $form->item('uri', trans('admin::admin.uri'))->required(),
-            $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make(1)->min(0)),
-            $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
-                return $roleModel::all()->map(function ($role) {
-                    return SelectOption::make($role->id, $role->name);
-                });
-            })),
-        ];
+
+        $form->item('parent_id', '上级目录')->displayComponent(Select::make(0)->options(function () use ($model) {
+            return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
+                return SelectOption::make($item->id, $item->title);
+            })->prepend(SelectOption::make(0, '根目录'));
+        }));
+        $form->item('title', '名称')->required()->inputWidth(3);
+        $form->item('icon', trans('admin::admin.icon'))->inputWidth(3)->required();
+        $form->item('uri', trans('admin::admin.uri'))->required();
+        $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make(1)->min(0));
+        $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
+            return $roleModel::all()->map(function ($role) {
+                return SelectOption::make($role->id, $role->name);
+            });
+        }));
+
         if ((new $model())->withPermission()) {
-            $items = collect($items)->add($form->item('permission', trans('admin::admin.permission'))->displayComponent(Select::make()->clearable()->block()->multiple()->options(function () use ($permissionModel) {
+            $items = $form->item('permission', trans('admin::admin.permission'))->displayComponent(Select::make()->clearable()->block()->multiple()->options(function () use ($permissionModel) {
                 return $permissionModel::all()->map(function ($role) {
                     return SelectOption::make($role->id, $role->name);
                 });
-            })));
+            }));
         };
-
-        $form->items($items);
 
 
         return $form;

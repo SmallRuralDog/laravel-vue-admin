@@ -1,8 +1,8 @@
 <template>
   <div class="form-page">
-    <el-card shadow="never" class="form-card">
+    <el-card shadow="never" class="form-card" v-loading="loading">
       <el-form
-        v-loading="loading"
+        
         v-if="formData"
         ref="ruleForm"
         :model="formData"

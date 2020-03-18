@@ -73,7 +73,6 @@ class Form extends Component implements JsonSerializable
     public $editData = [];
 
 
-
     protected $addRule = [];
     protected $addRuleMessage = [];
 
@@ -118,18 +117,19 @@ class Form extends Component implements JsonSerializable
     {
         $item = new FormItem($prop, $label, $field);
         $item->setForm($this);
+        $this->formItems[] = $item;
         return $item;
     }
 
 
     /**
      * 设置字段组
+     * @deprecated
      * @param array $items
      */
     public function items($items = [])
     {
 
-        $this->formItems = $items;
 
         $this->formItemsAttr = collect($items)->map(function (FormItem $item) {
             return $item->getAttrs();
@@ -181,8 +181,6 @@ class Form extends Component implements JsonSerializable
     {
         return $this->mode === $mode;
     }
-
-
 
 
     public function setResourceId($id)
@@ -715,8 +713,12 @@ class Form extends Component implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        if ($this->isGetData) return $this->editData($this->getResourceId());
 
+        if (count($this->formItemsAttr) <= 0) {
+            $this->items($this->formItems);
+        }
+
+        if ($this->isGetData) return $this->editData($this->getResourceId());
         return [
             'componentName' => $this->componentName,
             'action' => $this->getAction(),

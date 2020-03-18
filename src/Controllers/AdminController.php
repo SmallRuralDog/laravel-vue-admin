@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index(Content $content)
     {
 
-        $content->body($this->grid())->className("m-15");
+        $content->body($this->grid())->className("m-10");
         return $this->isGetData() ? $this->grid() : $content;
     }
 
@@ -26,7 +26,7 @@ class AdminController extends Controller
     {
 
 
-        $content->body($this->form());
+        $content->body($this->form())->className("m-10");
         return $this->isGetData() ? $this->form() : $content;
     }
 
@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
 
 
-        $content->body($this->form(true)->edit($id));
+        $content->body($this->form(true)->edit($id))->className("m-10");
         return $this->isGetData() ? $this->form(true)->edit($id) : $content;
     }
 

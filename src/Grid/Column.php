@@ -84,7 +84,28 @@ class Column
         return $this->displayCallbacks ? call_user_func($this->displayCallbacks, $row, $value) : $value;
     }
 
+    /**
+     * 设置组件
+     * @deprecated
+     * @param $component
+     * @return $this
+     */
     public function displayComponent($component)
+    {
+        if ($component instanceof Closure) {
+            $this->displayComponentAttrs(call_user_func($component));
+        } else {
+            $this->displayComponentAttrs($component);
+        }
+        return $this;
+    }
+
+    /**
+     * 设置组件
+     * @param $component
+     * @return $this
+     */
+    public function component($component)
     {
         if ($component instanceof Closure) {
             $this->displayComponentAttrs(call_user_func($component));

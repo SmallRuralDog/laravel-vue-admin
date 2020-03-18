@@ -7,14 +7,20 @@
 ```php
 use SmallRuralDog\Admin\Grid;
 
-$userModel = config('admin.database.users_model');
-$grid = new Grid(new $userModel());
-$idColumn = $grid->column('id', "ID")->width("100")->sortable();
-$nameColumn = $grid->column('name', '用户昵称');
-$grid->columns([
-    $idColumn,
-    $nameColumn
-]);
+$grid = new Grid(new SeckillGoods());
+
+//设置字段
+$grid->column('order', '排序')->width(80);
+
+//toolbar设置
+$grid->toolbars(function (Grid\Toolbars $toolbars) {
+    $toolbars->createButton()->content("添加商品");
+});
+//action设置
+$grid->actions(function (Grid\Actions $actions) {
+    $actions->hideEditAction();
+});
+
 return $grid;
 ```
 
@@ -584,38 +590,6 @@ public function menuOrder(Request $request)
             'target' => 'required',//目标节点信息
             'type' => ['required', Rule::in(["before", "after", "inner"])],//放置类型  前 后  插入
         ]);
-
-        $self_id = $request->input('self.id');
-        $target_id = $request->input('target.id');
-        $type = $request->input('type');
-        $self_node = Menu::query()->findOrFail($self_id);
-        $target_node = Menu::query()->findOrFail($target_id);
-
-        switch ($type) {
-            case "before":
-                Menu::query()->where('parent_id', $target_node->parent_id)
-                    ->where('order', '>=', $target_node->order)
-                    ->increment('order');
-                $self_node->parent_id = $target_node->parent_id;
-                $self_node->order = $target_node->order;
-                $self_node->save();
-                break;
-            case "after":
-                Menu::query()->where('parent_id', $target_node->parent_id)
-                    ->where('order', '>', $target_node->order)
-                    ->increment('order');
-                $self_node->parent_id = $target_node->parent_id;
-                $self_node->order = $target_node->order + 1;
-                $self_node->save();
-                break;
-            case "inner":
-                $self_node->parent_id = $target_node->id;
-                $self_node->order = 1;
-                $self_node->save();
-                break;
-        }
-
-
     } catch (\Exception $exception) {
         return \Admin::responseError($exception->getMessage());
     }
@@ -697,7 +671,7 @@ $actions->deleteAction()->message("确定要删除吗，删除不可恢复？");
 
 #### 添加自定义操作
 
-创建自定义操作请查看 [如何创建自定义操作](https://smallruraldog.github.io/laravel-vue-admin/#/custom?id=%e8%a1%a8%e6%a0%bc%e6%93%8d%e4%bd%9c%e7%bb%84%e4%bb%b6)
+创建自定义操作请查看 [如何创建自定义操作](./custom?id=%e8%a1%a8%e6%a0%bc%e6%93%8d%e4%bd%9c%e7%bb%84%e4%bb%b6)
 
 ```php
 $actions->add(new MyAction())
@@ -710,6 +684,7 @@ $actions->add(new MyAction())
 ```php
 $grid->toolbars(function (Grid\Toolbars $toolbars) {
 	$toolbars->hideCreateButton();
+    $toolbars->createButton()->content("添加商品");//获取创建组件实例，修改属性
 });
 ```
 

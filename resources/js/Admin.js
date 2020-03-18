@@ -4,28 +4,25 @@ import axios from './util/axios'
 import lodash from 'lodash'
 import router from '@/router'
 import store from '@/store'
-import {
-    LoadingBar,
-    Message,
-    Drawer
-} from 'view-design'
-import 'view-design/dist/styles/iview.css';
+
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
-Vue.component('Drawer', Drawer);
+Vue.use(ElementUI, { size: 'small' });
 
 
-Vue.prototype.$Loading = LoadingBar;
-Vue.prototype.$Message = Message;
+
+
+import './styles/admin.scss';
+
+
 Vue.prototype.$http = axios;
 Vue.prototype._ = lodash;
 window._ = lodash;
 Vue.use(VueBus);
 
 
-import './styles/admin.scss';
+
 
 export default class VueAdmin {
     constructor(config) {

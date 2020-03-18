@@ -7,8 +7,7 @@ mix
         'axios',
         'vue',
         'vue-router',
-        'element-ui',
-        'view-design'
+        'element-ui'
     ])
     .setResourceRoot('/vendor/laravel-vue-admin')
     .setPublicPath('public')

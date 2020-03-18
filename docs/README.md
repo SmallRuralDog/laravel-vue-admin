@@ -1,9 +1,3 @@
-
-
-
-
-
-
 ![logo](README.assets/logo-1584436939847.png)
 
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
@@ -27,43 +21,50 @@ php artisan admin:install
 启动服务后，在浏览器打开 `/admin` ,使用用户名 admin 和密码 admin登录.
 ## 开始使用
 下面是一个简单使用的代码示例
+
+
+
+创建资源控制器 继承`AdminController`，并实现`AdminResource`
+
 ```php
-namespace SmallRuralDog\Admin\Controllers;
-use SmallRuralDog\Admin\Components\Tag;
-use SmallRuralDog\Admin\Components\Transfer;
-use SmallRuralDog\Admin\Components\TransferData;
-use SmallRuralDog\Admin\Form;
-use SmallRuralDog\Admin\Grid;
-class RoleController extends AdminController
+use SmallRuralDog\Admin\Controllers\AdminController;
+use SmallRuralDog\Admin\Controllers\AdminResource;
+
+class GroupBuyController extends AdminController implements AdminResource
 {
-    protected function grid()
+
+    //表格定义
+    public function grid()
     {
-        $roleModel = config('admin.database.roles_model');
-        $grid = new Grid(new $roleModel());
-        $grid->columns([
-            $grid->column('id', 'ID')->width('80px')->sortable(),
-        ]);
+        $grid = new Grid(new GroupBuyGoods());
+        $grid->column('goodsSku.image', '产品')->align("center")->component(Image::make()->size(50, 50))->width(70);
+        $grid->column('goodsSku.name', ' ');
+        $grid->column('group_buy_number', '几人团')->width(90)->align('center');
+        $grid->column('group_buy_price', '拼团价格')->width(90)->align('center')->itemPrefix("￥");
+        $grid->column('start_time', '开始时间')->width(190);
+        $grid->column('end_time', '结束时间')->width(190);
         return $grid;
     }
-    public function form()
+
+    //表单定义
+    public function form($isEdit = false)
     {
-        $permissionModel = config('admin.database.permissions_model');
-        $roleModel = config('admin.database.roles_model');
-        $form = new Form(new $roleModel());
-        $form->items([
-            $form->item('slug', trans('admin::admin.slug'))->serveRules('required'),
-        ]);
+        $form = new Form(new GroupBuyGoods());
+        $form->item('name', '拼团标题');
+        $form->item('goods_sku_id', "产品")->required()->component(Select::make()->style(['width' => '500px'])->filterable()->remote(route("seckillGoods/searchGoodsSku")));
+        $form->item('group_buy_number', "几人团")->required()->component(InputNumber::make(2)->min(2));
+        $form->item('group_buy_price', "拼团价格")->required()->component(InputNumber::make()->precision(2)->controls(false));
+        $form->item('start_time', "开始时间")->required()->component(DateTimePicker::make());
+        $form->item('end_time', "结束时间")->required()->component(DateTimePicker::make());
         return $form;
     }
 }
 ```
-创建一个控制器继承 `AdminController`。
-
 注册路由
 ```php
- $router->resource('auth/roles', 'RoleController')->names('admin.auth.roles');
+ $router->resource('GroupBu', 'GroupBuyController');
 ```
-添加菜单，菜单的Uri和注册的路由`auth/roles`一样
+添加菜单，菜单的Uri和注册的路由`GroupBu`一样
 
 ## 版本升级
 

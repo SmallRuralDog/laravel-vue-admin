@@ -119,7 +119,27 @@ class FormItem
         return $this;
     }
 
+    /**
+     * @deprecated
+     * @param $component
+     * @return $this
+     */
     public function displayComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->component = call_user_func($component);
+        } else {
+            $this->component = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 设置组件
+     * @param $component
+     * @return $this
+     */
+    public function component($component)
     {
         if ($component instanceof \Closure) {
             $this->component = call_user_func($component);
