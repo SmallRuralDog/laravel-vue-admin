@@ -7,6 +7,8 @@ namespace SmallRuralDog\Admin;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Actions;
 use SmallRuralDog\Admin\Grid\Column;
@@ -35,8 +37,8 @@ class Grid extends Component implements \JsonSerializable
      */
     protected $columns = [];
     protected $rows;
-    public $columnAttributes = [];
-    protected $withs = [];
+    protected $columnAttributes = [];
+
 
     protected $keyName = 'id';
     protected $selection = false;
@@ -47,7 +49,7 @@ class Grid extends Component implements \JsonSerializable
     private $toolbars;
 
 
-    public function __construct(Eloquent $model, Closure $builder = null)
+    public function __construct(Eloquent $model)
     {
         $this->attributes = new Attributes();
         $this->dataUrl = request()->getUri();
@@ -77,23 +79,14 @@ class Grid extends Component implements \JsonSerializable
 
 
     /**
-     * 获取with
-     * @return array
-     */
-    public function getWiths(): array
-    {
-        return $this->withs;
-    }
-
-    /**
      *设置with
      * @param array $withs
      * @return $this
+     * @deprecated
      */
     public function with(array $withs)
     {
-        $this->withs = $withs;
-
+        $this->model()->with($withs);
         return $this;
     }
 
@@ -131,6 +124,10 @@ class Grid extends Component implements \JsonSerializable
      */
     public function column($name, $label = '', $columnKey = null)
     {
+        if (Str::contains($name, '.')) {
+            $this->addRelationColumn($name, $label);
+        }
+
         return $this->addColumn($name, $label, $columnKey);
     }
 
@@ -146,6 +143,29 @@ class Grid extends Component implements \JsonSerializable
         $column->setGrid($this);
         $this->columns[] = $column;
         return $column;
+    }
+
+    /**
+     * Add a relation column to grid.
+     *
+     * @param string $name
+     * @param string $label
+     *
+     * @return $this|bool|Column
+     */
+    protected function addRelationColumn($name, $label = '')
+    {
+        list($relation, $column) = explode('.', $name);
+
+        $model = $this->model()->eloquent();
+
+
+        if (!method_exists($model, $relation) || !$model->{$relation}() instanceof Relations\Relation) {
+        } else {
+            $this->model()->with($relation);
+        }
+
+
     }
 
     /**

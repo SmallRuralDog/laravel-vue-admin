@@ -5,9 +5,11 @@ namespace SmallRuralDog\Admin\Grid;
 
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Grid;
 
@@ -23,6 +25,12 @@ class Model
      * @var EloquentModel|Builder
      */
     protected $model;
+
+
+    /**
+     * @var EloquentModel |Builder
+     */
+    protected $sModel;
 
     /**
      * @var EloquentModel|Builder
@@ -96,6 +104,7 @@ class Model
     public function __construct(EloquentModel $model, Grid $grid = null)
     {
         $this->model = $model;
+        $this->sModel = $model;
         $this->originalModel = $model;
         $this->grid = $grid;
         $this->queries = collect();
@@ -172,19 +181,34 @@ class Model
         $this->queries->push($query);
     }
 
-    /**
-     * 设置预加载
-     */
-    protected function setWith()
+
+    public function with($relations)
     {
-        $with = $this->grid->getWiths();
+        if (is_array($relations)) {
+            if (Arr::isAssoc($relations)) {
+                $relations = array_keys($relations);
+            }
 
-        if ($with) $this->queries->push([
-            'method' => 'with',
-            'arguments' => $with,
-        ]);
+            $this->eagerLoads = array_merge($this->eagerLoads, $relations);
+        }
 
+        if (is_string($relations)) {
+            if (Str::contains($relations, '.')) {
+                $relations = explode('.', $relations)[0];
+            }
 
+            if (Str::contains($relations, ':')) {
+                $relations = explode(':', $relations)[0];
+            }
+
+            if (in_array($relations, $this->eagerLoads)) {
+                return $this;
+            }
+
+            $this->eagerLoads[] = $relations;
+        }
+
+        return $this->__call('with', (array)$relations);
     }
 
 
@@ -313,22 +337,23 @@ class Model
         if ($this->model instanceof LengthAwarePaginator) {
             return $this->model;
         }
-
         if ($this->relation) {
             $this->model = $this->relation->getQuery();
         }
-        $this->setWith();
+
         $this->setSort();
         $this->setPaginate();
 
-        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);
         });
 
+
+        $data = $this->model;
+
         if ($this->model instanceof Collection) {
-            return $this->model;
+            return $data;
         }
 
         if ($this->model instanceof LengthAwarePaginator) {
@@ -337,7 +362,7 @@ class Model
                 'per_page' => $this->model->perPage(),
                 'last_page' => $this->model->lastPage(),
                 'total' => $this->model->total(),
-                'data' => $this->displayData($this->model->getCollection())
+                'data' => $this->displayData($data->items())
             ];
         }
 
