@@ -54,8 +54,6 @@ class Admin
     {
         return self::$metaTitle ? self::$metaTitle : config('admin.title');
     }
-
-
     public function menu()
     {
         if (!empty($this->menu)) {
