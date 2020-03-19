@@ -32,10 +32,10 @@ class PermissionController extends AdminController
 
 
         $grid->column('id', 'ID')->sortable()->width('80px');
-        $grid->column('slug', trans('admin::admin.slug'))->width(120);
-        $grid->column('name', trans('admin::admin.name'))->width(120);
-        $grid->column('http_method', trans('admin::admin.http_method'))->component(Tag::make());
-        $grid->column('http_path', trans('admin::admin.route'))->customValue(function ($row, $value) {
+        $grid->column('slug', "标识")->width(120);
+        $grid->column('name', "名称")->width(120);
+        $grid->column('http_method', "请求方式")->component(Tag::make());
+        $grid->column('http_path', "路由")->customValue(function ($row, $value) {
             return explode("\n", $value);
         })->component(function () {
             return Tag::make();
@@ -56,17 +56,17 @@ class PermissionController extends AdminController
         $form = new Form(new $permissionModel());
 
 
-        $form->item('slug', trans('admin::admin.slug'))->required();
-        $form->item('name', trans('admin::admin.name'))->required();
-        $form->item('http_method', trans('admin::admin.http.method'))
-            ->help(trans('admin::admin.all_methods_if_empty'))
+        $form->item('slug', "标识")->required();
+        $form->item('name', "名称")->required();
+        $form->item('http_method', "请求方式")
+            ->help("为空默认为所有方法")
             ->component(function () {
                 return Select::make()->multiple()
                     ->block()
                     ->clearable()
                     ->options($this->getHttpMethodsOptions());
             });
-        $form->item('http_path', trans('admin::admin.http.path'))->required()->component(Input::make()->textarea(8));
+        $form->item('http_path', "路由")->required()->component(Input::make()->textarea(8));
 
 
         return $form;

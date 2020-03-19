@@ -79,12 +79,6 @@
                   }}</span>
                 </div>
                 <el-dropdown-menu slot="dropdown">
-                  <a>
-                    <el-dropdown-item>
-                      <i class="el-icon-setting" size="18" />
-                      <span>个人设置</span>
-                    </el-dropdown-item>
-                  </a>
                   <a @click="onLogout">
                     <el-dropdown-item>
                       <i class="el-icon-right" size="18" />

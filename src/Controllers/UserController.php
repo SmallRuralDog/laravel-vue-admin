@@ -34,11 +34,11 @@ class UserController extends AdminController
 
         $grid->column('id', "ID")->width(80);
         $grid->column('avatar', '头像')->width(80)->align('center')->component(Avatar::make());
-        $grid->column('username', trans('admin::admin.username'));
+        $grid->column('username', "用户名");
         $grid->column('name', '用户昵称');
-        $grid->column('roles.name', trans('admin::admin.roles'))->component(Tag::make()->effect('dark'));
-        $grid->column('created_at', trans('admin::admin.created_at'));
-        $grid->column('updated_at', trans('admin::admin.updated_at'));
+        $grid->column('roles.name', "角色")->component(Tag::make()->effect('dark'));
+        $grid->column('created_at');
+        $grid->column('updated_at');
 
         return $grid;
     }

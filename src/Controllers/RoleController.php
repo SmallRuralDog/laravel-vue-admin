@@ -21,11 +21,11 @@ class RoleController extends AdminController
         $grid = new Grid(new $roleModel());
 
         $grid->column('id', 'ID')->width('80px')->sortable();
-        $grid->column('slug', trans('admin::admin.slug'));
-        $grid->column('name', trans('admin::admin.name'));
-        $grid->column('permissions.name', trans('admin::admin.permission'))->component(Tag::make()->type('info'));
-        $grid->column('created_at', trans('admin::admin.created_at'));
-        $grid->column('updated_at', trans('admin::admin.updated_at'));
+        $grid->column('slug', "标识");
+        $grid->column('name', "名称");
+        $grid->column('permissions.name', "权限")->component(Tag::make()->type('info'));
+        $grid->column('created_at');
+        $grid->column('updated_at');
 
 
         return $grid;
@@ -37,16 +37,13 @@ class RoleController extends AdminController
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $roleModel());
 
-
-        $form->item('slug', trans('admin::admin.slug'))->required();
-        $form->item('name', trans('admin::admin.name'))->required();
-        $form->item('permissions', trans('admin::admin.permissions'), 'permissions.id')->component(
+        $form->item('slug', "标识")->required();
+        $form->item('name', "名称")->required();
+        $form->item('permissions', "权限", 'permissions.id')->component(
             Transfer::make()->data($permissionModel::get()->map(function ($item) {
                 return TransferData::make($item->id, $item->name);
             }))->titles(['可授权', '已授权'])->filterable()
         );
-
-
         return $form;
     }
 }
