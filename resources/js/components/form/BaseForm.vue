@@ -1,6 +1,6 @@
 <template>
   <div class="form-page">
-    <el-card shadow="never" class="form-card" v-loading="loading">
+    <el-card shadow="never" class="form-card" v-loading="loading" title="创建">
       <el-form
         v-if="formData"
         ref="ruleForm"

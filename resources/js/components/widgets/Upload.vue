@@ -35,7 +35,7 @@
     </div>
     <div
       class="upload-block"
-      :class="{ 'ml-10': attrs.multiple }"
+      :class="{ 'ml-10': list.length > 0 }"
       v-if="list.length < attrs.limit"
     >
       <el-upload
@@ -235,6 +235,8 @@ export default {
     .upload-show-image {
       border: 1px solid #dcdfe6;
       padding: 2px;
+      box-sizing: border-box;
+      border-radius: 3px;
     }
   }
   .upload-block {
@@ -249,7 +251,7 @@ export default {
     }
     .image,
     .file {
-      border-radius: 0;
+
     }
   }
 }

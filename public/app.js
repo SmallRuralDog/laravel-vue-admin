@@ -530,32 +530,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$Loading.start();
-    this.$nextTick(function () {
-      _this.$Loading.finish();
-    });
+    this.$nextTick(function () {});
   },
   methods: {
     onForgetPassword: function onForgetPassword() {
       this.$Message.info("忘记密码请联系管理员");
     },
     handleSubmit: function handleSubmit(name) {
-      var _this2 = this;
+      var _this = this;
 
       this.$refs[name].validate(function (valid) {
         if (valid) {
-          _this2.loading = true;
+          _this.loading = true;
 
-          _this2.$Loading.start();
-
-          _this2.$http.post(_this2.page_data.url.postLogin, _this2.form).then(function () {})["catch"](function () {
-            _this2.$Loading.error();
-          })["finally"](function () {
-            _this2.loading = false;
-
-            _this2.$Loading.finish();
+          _this.$http.post(_this.page_data.url.postLogin, _this.form).then(function () {})["catch"](function () {})["finally"](function () {
+            _this.loading = false;
           });
         }
       });
@@ -1722,7 +1711,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       loading: false,
-      page: 1,
       sort: {},
       tableData: [],
       pageData: {
@@ -1733,8 +1721,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       selectionRows: [],
       quickSearch: null,
-      filterFormData: null,
-      path: "/"
+      filterFormData: null
     };
   },
   mounted: function mounted() {
@@ -1745,7 +1732,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$bus.on("tableReload", function () {
       _this.getData();
     });
-    this.path = this.$route.path;
   },
   destroyed: function destroyed() {
     try {
@@ -1757,7 +1743,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.getData();
     },
     onFilterReset: function onFilterReset() {
-      console.log(this.attrs.filter.filterFormData);
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
       this.getData();
     },
@@ -1820,6 +1805,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: {
+    path: function path() {
+      return this.$route.path;
+    },
     columns: function columns() {
       return this.column_attributes.map(function (attributes) {
         return attributes;
@@ -1835,6 +1823,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var q_search = new Object();
       this.attrs.quickSearch && (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
+    },
+    page: {
+      get: function get() {
+        return this._.get(this.$store.state.grids[this.$route.path], "page", 1);
+      },
+      set: function set(value) {
+        this.$store.commit("setGrids", {
+          key: "page",
+          path: this.$route.path,
+          data: value
+        });
+      }
     }
   }
 });
@@ -6285,7 +6285,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item + .upload-images-item {\n  margin-left: 10px;\n}\n.upload-component .upload-images .upload-images-item {\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-images .upload-show-image {\n  border: 1px solid #dcdfe6;\n  padding: 2px;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}\n.upload-component .upload-block .image,\n.upload-component .upload-block .file {\n  border-radius: 0;\n}", ""]);
+exports.push([module.i, ".upload-component {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images {\n  display: flex;\n  flex-wrap: wrap;\n}\n.upload-component .upload-images .upload-images-item + .upload-images-item {\n  margin-left: 10px;\n}\n.upload-component .upload-images .upload-images-item {\n  position: relative;\n  line-height: 1;\n}\n.upload-component .upload-images .upload-images-item img {\n  line-height: 1;\n  vertical-align: middle;\n}\n.upload-component .upload-images .upload-images-item .el-image {\n  cursor: zoom-in;\n}\n.upload-component .upload-images .upload-images-item .el-icon-document-checked {\n  font-size: 30px;\n}\n.upload-component .upload-images .upload-images-item .mask {\n  position: absolute;\n  transition: all 0.3s ease-in-out;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.3);\n  color: white;\n  font-size: 20px;\n  padding: 5px;\n  top: 50%;\n  left: 50%;\n  cursor: pointer;\n  transform: translate(-50%, -50%);\n}\n.upload-component .upload-images .upload-images-item:hover .mask {\n  opacity: 1;\n}\n.upload-component .upload-images .upload-show-image {\n  border: 1px solid #dcdfe6;\n  padding: 2px;\n  box-sizing: border-box;\n  border-radius: 3px;\n}\n.upload-component .upload-block .el-upload-dragger {\n  width: unset;\n  height: unset;\n  border: none;\n  border-radius: 0;\n}\n.upload-component .upload-block .avatar {\n  border-radius: 50%;\n}", ""]);
 
 // exports
 
@@ -28165,7 +28165,7 @@ var render = function() {
             }
           ],
           staticClass: "form-card",
-          attrs: { shadow: "never" }
+          attrs: { shadow: "never", title: "创建" }
         },
         [
           _vm.formData
@@ -31133,7 +31133,7 @@ var render = function() {
           "div",
           {
             staticClass: "upload-block",
-            class: { "ml-10": _vm.attrs.multiple }
+            class: { "ml-10": _vm.list.length > 0 }
           },
           [
             _c(
@@ -41172,7 +41172,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    contents: {}
+    contents: {},
+    grids: {}
   },
   mutations: {
     registerCentent: function registerCentent(state, path) {
@@ -41182,13 +41183,20 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       var data = _ref.data,
           path = _ref.path;
       state.contents[path] = data;
+    },
+    setGrids: function setGrids(state, _ref2) {
+      var key = _ref2.key,
+          path = _ref2.path,
+          data = _ref2.data;
+
+      window._.set(state.grids, path + '.' + key, data);
     }
   },
   actions: {
-    getCenten: function getCenten(context, _ref2) {
-      var path = _ref2.path,
-          contentUrl = _ref2.contentUrl,
-          params = _ref2.params;
+    getCenten: function getCenten(context, _ref3) {
+      var path = _ref3.path,
+          contentUrl = _ref3.contentUrl,
+          params = _ref3.params;
       return _util_axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(contentUrl, {
         params: params
       }).then(function (data) {

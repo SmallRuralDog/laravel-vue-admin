@@ -92,7 +92,7 @@ class Menu extends Model
         $query = static::query();
 
         if (config('admin.check_menu_roles') !== false) {
-            $query->with('roles');
+            $query->with('roles:id,name,slug');
         }
 
         $all_list = $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();

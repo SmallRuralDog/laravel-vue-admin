@@ -6,7 +6,8 @@ import http from '@/util/axios'
 
 const store = new Vuex.Store({
     state: {
-        contents: {}
+        contents: {},
+        grids: {}
     },
     mutations: {
         registerCentent(state, path) {
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
         },
         setCenten(state, { data, path }) {
             state.contents[path] = data
+        },
+        setGrids(state, { key, path, data }) {
+            window._.set(state.grids, path + '.' + key, data)
         }
     },
     actions: {

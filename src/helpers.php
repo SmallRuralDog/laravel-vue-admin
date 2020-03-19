@@ -65,6 +65,10 @@ if (!function_exists('admin_url')) {
 if (!function_exists('admin_file_url')) {
     function admin_file_url($path)
     {
+        if (\Illuminate\Support\Str::contains($path,"//")){
+            return $path;
+        }
+
         return \Storage::disk(config('admin.upload.disk'))->url($path);
     }
 };

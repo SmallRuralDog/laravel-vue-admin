@@ -226,7 +226,6 @@ export default {
   data() {
     return {
       loading: false,
-      page: 1,
       sort: {},
       tableData: [],
       pageData: {
@@ -237,8 +236,7 @@ export default {
       },
       selectionRows: [],
       quickSearch: null,
-      filterFormData: null,
-      path: "/"
+      filterFormData: null
     };
   },
   mounted() {
@@ -249,7 +247,6 @@ export default {
     this.$bus.on("tableReload", () => {
       this.getData();
     });
-    this.path = this.$route.path;
   },
   destroyed() {
     try {
@@ -261,8 +258,6 @@ export default {
       this.getData();
     },
     onFilterReset() {
-      console.log(this.attrs.filter.filterFormData);
-
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
       this.getData();
     },
@@ -320,6 +315,9 @@ export default {
     }
   },
   computed: {
+    path() {
+      return this.$route.path;
+    },
     columns() {
       return this.column_attributes.map(attributes => {
         return attributes;
@@ -336,6 +334,18 @@ export default {
       this.attrs.quickSearch &&
         (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
+    },
+    page: {
+      get() {
+        return this._.get(this.$store.state.grids[this.$route.path], "page", 1);
+      },
+      set(value) {
+        this.$store.commit("setGrids", {
+          key: "page",
+          path: this.$route.path,
+          data: value
+        });
+      }
     }
   }
 };

@@ -79,9 +79,9 @@ export default {
     };
   },
   mounted() {
-    this.$Loading.start();
+
     this.$nextTick(() => {
-      this.$Loading.finish();
+      
     });
   },
   methods: {
@@ -92,16 +92,16 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.loading = true;
-          this.$Loading.start();
+      
           this.$http
             .post(this.page_data.url.postLogin, this.form)
             .then(() => {})
             .catch(() => {
-              this.$Loading.error();
+            
             })
             .finally(() => {
               this.loading = false;
-              this.$Loading.finish();
+            
             });
         }
       });
