@@ -38,6 +38,8 @@ class Authenticate
         $excepts = config('admin.auth.excepts', [
             'auth/login',
             'auth/logout',
+            'scripts/*',
+            'styles/*',
         ]);
 
         return collect($excepts)

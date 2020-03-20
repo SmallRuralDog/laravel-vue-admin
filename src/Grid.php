@@ -55,11 +55,10 @@ class Grid extends Component implements \JsonSerializable
         $this->dataUrl = request()->getUri();
         $this->model = new Model($model, $this);
         $this->keyName = $model->getKeyName();
-        $this->defaultSort = [
-            'prop' => $model->getKeyName(),
-            'order' => 'desc',
-            'field' => $model->getKeyName()
-        ];
+
+
+        $this->defaultSort($model->getKeyName(), "asc");
+
         $this->isGetData = request('get_data') == "true";
 
         $this->actions = new Actions();

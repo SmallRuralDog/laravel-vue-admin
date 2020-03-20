@@ -17,9 +17,9 @@ trait HasDefaultSort
     public function defaultSort($prop, $order, $field = null)
     {
         $this->defaultSort = [
-            'prop' => $prop,
-            'order' => $order,
-            'field' => $field ? $field : $prop
+            'sort_prop' => $prop,
+            'sort_order' => $order,
+            'sort_field' => $field ? $field : $prop
         ];
         return $this;
     }

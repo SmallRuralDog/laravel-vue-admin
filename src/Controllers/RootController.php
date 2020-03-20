@@ -14,7 +14,11 @@ class RootController extends Controller
         $data = [
             'menu' => Admin::menu(),
             'menuList' => Admin::menuList(),
+            'logoShow' => config('admin.logo_show'),
             'logo' => config('admin.logo'),
+            'logoLight' => config('admin.logo_light'),
+            'logoMini' => config('admin.logo_mini'),
+            'logoMiniLight' => config('admin.logo_mini_light'),
             'name' => config('admin.name'),
             'copyright' => config('admin.copyright'),
             'footerLinks' => config('admin.footerLinks'),

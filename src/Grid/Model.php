@@ -217,18 +217,19 @@ class Model
      */
     protected function setSort()
     {
-        $column = request('sort_prop', null);
+        $column = request('sort_field', null);
+        $sort_field = request('sort_prop', null);
         $type = request('sort_order', null);
-        if ($column && in_array($column, ['asc', 'desc'])) {
+        if ($sort_field && in_array($column, ['asc', 'desc'])) {
             $this->sort = [
-                'column' => $column,
+                'column' => $sort_field,
                 'type' => $type
             ];
         } else {
             $defaultSort = $this->grid->getDefaultSort();
             $this->sort = [
-                'column' => $defaultSort['field'],
-                'type' => $defaultSort['order']
+                'column' => $defaultSort['sort_field'],
+                'type' => $defaultSort['sort_order']
             ];
         }
 

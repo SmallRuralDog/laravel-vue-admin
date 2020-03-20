@@ -53,14 +53,14 @@ axios.interceptors.response.use(
             case 404:
                 Notification.error({
                     title: "请求页面不存在",
-                    desc: response.data.message
+                    message: response.data.message
                 });
                 router.replace('/404')
                 break;
             default:
                 Notification.error({
                     title: "请求错误",
-                    desc: response.data.message
+                    message: response.data.message
                 });
                 break;
         }

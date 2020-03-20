@@ -31,6 +31,11 @@ export default {
       this.query = to.query;
       this.loading = true;
 
+      this.$store.commit("setPath", this.path);
+
+      if (!this.$store.state.pages[this.path]) {
+        this.$store.commit("initPages", this.path);
+      }
       this.$nextTick(() => {
         this.getContent();
       });

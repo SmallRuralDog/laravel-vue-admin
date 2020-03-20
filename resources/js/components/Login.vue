@@ -6,14 +6,22 @@
     <div class="page-account-container">
       <div class="page-account-top">
         <div class="page-account-top-logo">
-          <img :src="page_data.logo" alt="logo" />
-          <h1>{{page_data.name}}</h1>
+          <template v-if='page_data.logoShow'>
+            <img :src="page_data.logo" v-if="page_data.logo" alt="logo" />
+            <img src="../assets/logo.svg" v-else alt="logo" />
+          </template>
+          <h1 v-if="page_data.name">{{ page_data.name }}</h1>
         </div>
 
         <div class="page-account-top-desc">{{ page_data.desc }}</div>
       </div>
       <div class="login-form">
-        <el-form ref="formValidate" :model="form" :rules="ruleValidate" size="medium">
+        <el-form
+          ref="formValidate"
+          :model="form"
+          :rules="ruleValidate"
+          size="large"
+        >
           <el-form-item prop="username">
             <el-input
               autofocus
@@ -33,11 +41,13 @@
               placeholder="请输入密码"
             />
           </el-form-item>
-          <div class="page-account-auto-login">
+          <div class="page-account-auto-login flex-c-sb">
             <el-checkbox v-model="form.remember" size="large"
               >自动登录</el-checkbox
             >
-            <a @click="onForgetPassword">忘记密码</a>
+            <el-button size="mini" type="text" @click="onForgetPassword"
+              >忘记密码</el-button
+            >
           </div>
           <el-form-item>
             <el-button
@@ -65,8 +75,8 @@ export default {
   data() {
     return {
       form: {
-        username: "admin",
-        password: "admin",
+        username: "",
+        password: "",
         remember: true
       },
       loading: false,
@@ -79,29 +89,23 @@ export default {
     };
   },
   mounted() {
-
-    this.$nextTick(() => {
-      
-    });
+    this.$nextTick(() => {});
   },
   methods: {
     onForgetPassword() {
-      this.$Message.info("忘记密码请联系管理员");
+      this.$message.error("忘记密码请联系管理员");
     },
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.loading = true;
-      
+
           this.$http
             .post(this.page_data.url.postLogin, this.form)
             .then(() => {})
-            .catch(() => {
-            
-            })
+            .catch(() => {})
             .finally(() => {
               this.loading = false;
-            
             });
         }
       });
@@ -112,10 +116,10 @@ export default {
 <style lang="scss" scoped>
 @media (min-width: 768px) {
   .page-account {
-    //background-image: url(../img/body.8aa7c4a6.svg);
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: 100%;
+    background: #f0f2f5;
   }
   .page-account-container {
     padding: 32px 0 24px 0;
@@ -132,21 +136,25 @@ export default {
     padding: 32px 0;
     text-align: center;
   }
-  .page-account-top-logo{
+  .page-account-top-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    h1{
-      font-weight: 100;
+    h1 {
+      font-weight: 600;
+      font-size: 33px;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     }
   }
   .page-account-top-logo img {
-    height: 75px;
+    height: 44px;
+    margin-right: 16px;
   }
 
   .page-account-top-desc {
+    color: rgba(0, 0, 0, 0.45);
     font-size: 14px;
-    color: #808695;
+    margin-top: 20px;
   }
 
   .page-account-auto-login {
@@ -160,5 +168,7 @@ export default {
   margin: 48px 0 24px 0;
   padding: 0 16px;
   text-align: center;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
 }
 </style>

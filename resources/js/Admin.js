@@ -23,7 +23,6 @@ Vue.use(VueBus);
 
 
 
-
 export default class VueAdmin {
     constructor(config) {
         this.bootingCallbacks = [];

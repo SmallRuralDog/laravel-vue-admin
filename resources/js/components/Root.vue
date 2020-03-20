@@ -8,8 +8,29 @@
         :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
-          <img :src="page_data.logo" />
-          <h1 v-if="!isCollapsed">{{ page_data.name }}</h1>
+          <template v-if="page_data.logoShow">
+            <template v-if="isDark">
+              <template v-if="page_data.logoLight">
+                <img v-if="isCollapsed" :src="page_data.logoMiniLight" />
+                <img :src="page_data.logoLight" />
+              </template>
+              <template v-else>
+                <img v-if="isCollapsed" src="../assets/logo-mini-light.svg" />
+                <img v-else src="../assets/logo-light.svg" />
+              </template>
+            </template>
+            <template v-else>
+              <template v-if="page_data.logo">
+                <img v-if="isCollapsed" :src="page_data.logoMini" />
+                <img :src="page_data.logo" />
+              </template>
+              <template v-else>
+                <img v-if="isCollapsed" src="../assets/logo-mini.svg" />
+                <img v-else src="../assets/logo.svg" />
+              </template>
+            </template>
+          </template>
+          <h1 v-if="!isCollapsed && page_data.name">{{ page_data.name }}</h1>
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-menu
@@ -298,7 +319,7 @@ $header-bar-height: 55px;
     justify-content: center;
     flex-shrink: 0;
     img {
-      height: 80%;
+      height: 30px;
       object-fit: cover;
       vertical-align: middle;
     }
@@ -485,7 +506,7 @@ $header-bar-height: 55px;
 .admin-footer {
   text-align: center;
   color: #808695;
-  margin: 30px 0;
+  margin: 10px 0;
   .footer-links {
     a {
       color: unset;

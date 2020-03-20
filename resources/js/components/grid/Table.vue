@@ -124,7 +124,7 @@
         <el-table
           :data="tableData"
           :row-key="attrs.attributes.rowKey"
-          :default-sort="attrs.default_sort_get"
+          :default-sort="default_sort_get"
           :height="attrs.attributes.height"
           :max-height="attrs.attributes.maxHeight"
           :stripe="attrs.attributes.stripe"
@@ -209,6 +209,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import ColumnDisplay from "./ColumnDisplay";
 import Actions from "./Actions/Index";
 import BatchActions from "./BatchActions/Index";
@@ -229,34 +230,61 @@ export default {
       sort: {},
       tableData: [],
       pageData: {
-        pageSize: this.per_page,
+        pageSize: this.attrs.perPage,
         total: 0,
         currentPage: 1,
         lastPage: 1
       },
-      selectionRows: [],
+      page: 1,
       quickSearch: null,
+      selectionRows: [],
       filterFormData: null
     };
   },
+
   mounted() {
+    //初始化默认设置值
     this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
+    this.sort = this._.cloneDeep(this.attrs.defaultSort);
 
+    //初始化vuex状态值
+    if (this.$store.getters.thisPage.grids.page) {
+      this.page = this._.cloneDeep(this.$store.getters.thisPage.grids.page);
+
+      this.pageData = this._.cloneDeep(
+        this.$store.getters.thisPage.grids.pageData
+      );
+
+      this.quickSearch = this._.cloneDeep(
+        this.$store.getters.thisPage.grids.quickSearch
+      );
+
+      this.filterFormData = this._.cloneDeep(
+        this.$store.getters.thisPage.grids.filterFormData
+      );
+      
+      this.sort = this._.cloneDeep(this.$store.getters.thisPage.grids.sort);
+    }
+
+    //加载数据
     this.getData();
-
+    //监听属性数据事件
     this.$bus.on("tableReload", () => {
       this.getData();
     });
   },
   destroyed() {
+    //取消监听
     try {
       this.$bus.off("tableReload");
     } catch (e) {}
   },
   methods: {
+    //表单过滤提交
     onFilterSubmit() {
       this.getData();
     },
+    //表单还原
     onFilterReset() {
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
       this.getData();
@@ -282,6 +310,24 @@ export default {
             this.pageData.currentPage = current_page;
             this.pageData.total = total;
             this.pageData.lastPage = last_page;
+
+            //**保存 Grid状态 */
+            this.$store.commit("setGridData", { key: "sort", data: this.sort });
+            this.$store.commit("setGridData", { key: "page", data: this.page });
+            this.$store.commit("setGridData", {
+              key: "pageData",
+              data: this.pageData
+            });
+
+            this.$store.commit("setGridData", {
+              key: "quickSearch",
+              data: this.quickSearch
+            });
+            this.$store.commit("setGridData", {
+              key: "filterFormData",
+              data: this.filterFormData
+            });
+            /** */
           }
         )
         .finally(() => {
@@ -291,7 +337,8 @@ export default {
     //当表格的排序条件发生变化的时候会触发该事件
     onTableSortChange({ column, prop, order }) {
       if (order) {
-        this.sort.sort_prop = column.columnKey;
+        this.sort.sort_field = column.columnKey; //后端排序字段
+        this.sort.sort_prop = column.property; //表格排序字段
         this.sort.sort_order = order == "ascending" ? "asc" : "desc";
       } else {
         this.sort = {};
@@ -315,37 +362,31 @@ export default {
     }
   },
   computed: {
+    //当前路径
     path() {
       return this.$route.path;
     },
+    //
     columns() {
       return this.column_attributes.map(attributes => {
         return attributes;
       });
     },
+    //默认排序
     default_sort_get() {
-      return {
-        prop: this.default_sort.prop,
-        order: this.default_sort.order == "asc" ? "ascending" : "descending"
-      };
+      return this.sort
+        ? {
+            prop: this.sort.sort_prop,
+            order: this.sort.sort_order == "asc" ? "ascending" : "descending"
+          }
+        : {};
     },
+    //搜索处理
     q_search() {
       const q_search = new Object();
       this.attrs.quickSearch &&
         (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
-    },
-    page: {
-      get() {
-        return this._.get(this.$store.state.grids[this.$route.path], "page", 1);
-      },
-      set(value) {
-        this.$store.commit("setGrids", {
-          key: "page",
-          path: this.$route.path,
-          data: value
-        });
-      }
     }
   }
 };

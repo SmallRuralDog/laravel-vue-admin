@@ -153,7 +153,7 @@ body {
     overflow: auto;
 }
 .el-card {
-    border: none;
+    //border: none;
 }
 
 .el-popconfirm__main {
@@ -205,11 +205,11 @@ body {
 
 .fade-transform-enter {
     opacity: 0;
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
 }
 .fade-transform-leave-to {
     opacity: 0;
-    -webkit-transform: translateY(10px);
-    transform: translateY(10px);
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
 }
