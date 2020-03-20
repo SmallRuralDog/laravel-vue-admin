@@ -25,7 +25,6 @@ class Toolbars extends AdminJsonBuilder
     {
         $this->createButton = new CreateButton();
         $this->createButton->content("添加")->icon("el-icon-plus");
-
     }
 
     /**
