@@ -9,7 +9,7 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 只需体验三分钟，你就会爱上这款 游戏
 
 
-[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
+[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/) | [演示地址](https://demo.laravel-vue-admin.com/)  用户名/密码：`demo` / `demo`
 
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
@@ -87,13 +87,13 @@ composer require smallruraldog/laravel-vue-admin
 ```bash
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
- 注意事项
-由于每个版本的静态资源或者语言包都有可能会有更新，所以升级版本之后最好运行下面的命令
+更新资源文件
 ```bash
-// 强制发布静态资源文件
+// 发布静态资源文件(必须)
 php artisan vendor:publish --tag=laravel-vue-admin-assets --force
-
-// 强制发布语言包文件
+```
+```bash
+// 发布语言包文件
 php artisan vendor:publish --tag=laravel-vue-admin-lang --force
 
 // 清理视图缓存
