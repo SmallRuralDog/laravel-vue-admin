@@ -15,6 +15,7 @@ php artisan vendor:publish --provider="SmallRuralDog\Admin\AdminServiceProvider"
 ```
 在该命令会生成配置文件`config/admin.php`，可以在里面修改安装的地址、数据库连接、以及表名，建议都是用默认配置不修改。
 然后运行下面的命令完成安装：
+
 ``` bash
 php artisan admin:install
 ```
@@ -80,19 +81,26 @@ composer require smallruraldog/laravel-vue-admin
 ```bash
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
-### 注意事项
-由于每个版本的静态资源或者语言包都有可能会有更新，所以升级版本之后最好运行下面的命令
-```bash
-// 强制发布静态资源文件
-php artisan vendor:publish --tag=laravel-vue-admin-assets --force
+### 更新资源文件
 
-// 强制发布语言包文件
+
+
+```sh
+// 更新静态资源文件（必须）
+php artisan vendor:publish --tag=laravel-vue-admin-assets --force
+```
+
+
+
+```bash
+
+// 强制发布语言包文件（非必须）
 php artisan vendor:publish --tag=laravel-vue-admin-lang --force
 
-// 清理视图缓存
+// 清理视图缓存（非必须）
 php artisan view:clear
 ```
-最后不要忘记清理浏览器缓存
+最后不要忘记清理浏览器缓存 `ctrl+f5`
 
 
 
