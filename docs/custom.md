@@ -14,8 +14,6 @@ php artisan admin:extend smallruraldog/miss-meijiu-admin
 
 然后会在`Admin/Exends` 下创建一个扩展 `MissMeijiuAdmin`
 
-进入到扩展根目录，就是`MissMeijiuAdmin`这个文件夹
-
 检查你的项目`composer.json`配置文件，记住是项目的，不是扩展包的
 
 ```json
@@ -37,13 +35,15 @@ php artisan admin:extend smallruraldog/miss-meijiu-admin
 }
 ```
 
-## 初始化扩展包
+检查完成后执行
 
-```bash
+```shell
 composer update
 ```
 
-成功后执行
+## 初始化扩展包
+
+进入到扩展根目录
 
 ```bash
 npm install
