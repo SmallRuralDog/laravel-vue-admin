@@ -85,8 +85,10 @@ class UserController extends AdminController
             }
         });
 
-        $form->saved(function () {
-
+        $form->deleting(function (Form $form, $id) {
+            if (\Admin::user()->id == $id) {
+                return \Admin::responseError("删除失败");
+            }
         });
 
         return $form;

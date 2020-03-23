@@ -124,8 +124,8 @@ class Form extends Component implements JsonSerializable
 
     /**
      * 设置字段组
-     * @deprecated
      * @param array $items
+     * @deprecated
      */
     public function items($items = [])
     {
@@ -444,28 +444,27 @@ class Form extends Component implements JsonSerializable
      */
     public function destroy($id)
     {
-        //try {
-        if (($ret = $this->callDeleting($id)) instanceof Response) {
-            return $ret;
-        }
-        collect(explode(',', $id))->each(function ($id) {
-            $builder = $this->model()->newQuery();
-            $relations = $this->getRelations();
-            $this->model = $model = $builder->with($relations)->findOrFail($id);
-            //删除文件
-            $this->deleteFiles($model);
-            //删除关联模型数据
-            $this->deleteRelation($relations);
-            $model->delete();
-        });
-        if (($ret = $this->callDeleted()) instanceof Response) {
-            return $ret;
-        }
-
-        return \Admin::responseMessage(trans('admin::admin.delete_succeeded'));
-        /*} catch (\Exception $exception) {
+        try {
+            if (($ret = $this->callDeleting($id)) instanceof Response) {
+                return $ret;
+            }
+            collect(explode(',', $id))->each(function ($id) {
+                $builder = $this->model()->newQuery();
+                $relations = $this->getRelations();
+                $this->model = $model = $builder->with($relations)->findOrFail($id);
+                //删除文件
+                $this->deleteFiles($model);
+                //删除关联模型数据
+                $this->deleteRelation($relations);
+                $model->delete();
+            });
+            if (($ret = $this->callDeleted()) instanceof Response) {
+                return $ret;
+            }
+            return \Admin::responseMessage(trans('admin::admin.delete_succeeded'));
+        } catch (\Exception $exception) {
             return \Admin::responseError($exception->getMessage() ?: trans('admin::admin.delete_failed'));
-        }*/
+        }
     }
 
     /**

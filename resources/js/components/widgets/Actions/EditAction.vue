@@ -10,7 +10,7 @@
     :autofocus="action.autofocus"
     :loading="loading"
     @click="onHandle"
-    >编辑</el-button
+    >{{action.content}}</el-button
   >
 </template>
 <script>

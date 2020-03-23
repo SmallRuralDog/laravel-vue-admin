@@ -218,9 +218,12 @@ class Model
     protected function setSort()
     {
         $column = request('sort_field', null);
-        $sort_field = request('sort_prop', null);
+        $sort_field = request('sort_field', null);
         $type = request('sort_order', null);
-        if ($sort_field && in_array($column, ['asc', 'desc'])) {
+
+
+
+        if ($sort_field && in_array($type, ['asc', 'desc'])) {
             $this->sort = [
                 'column' => $sort_field,
                 'type' => $type
@@ -232,6 +235,7 @@ class Model
                 'type' => $defaultSort['sort_order']
             ];
         }
+
 
         if (!is_array($this->sort)) {
             return;
@@ -256,6 +260,7 @@ class Model
                 $method = 'orderBy';
                 $arguments = [$column, $this->sort['type']];
             }
+
 
             $this->queries->push([
                 'method' => $method,
@@ -345,6 +350,7 @@ class Model
         $this->setSort();
         $this->setPaginate();
 
+        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);

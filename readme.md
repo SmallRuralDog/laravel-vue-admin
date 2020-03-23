@@ -2,6 +2,12 @@
 
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
+前后端分离，后端控制前端组件，无需编写vue即可创建一个`vue`+`vuex`+`vue-route`+`elment-ui`+`laravel`的项目
+
+丰富的`表单` `表格`组件，强大的自定义组件功能。
+
+只需体验三分钟，你就会爱上这款 游戏
+
 
 [中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
 

@@ -138,7 +138,8 @@ Icon::make()
 ActionButton::make("ActionName")
     ->order(3) //排序 越大越靠前
     ->icon("icon-class-name")//图标
-    >handler("route")
+    ->message("确认操作提示信息")
+    ->handler("route")
     ->uri("WeChat/manage/{app_id}")//路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
 //调用代码
 $grid->actions(function (Grid\Actions $actions) {

@@ -1,5 +1,26 @@
 <template>
+  <el-popconfirm
+    placement="top"
+    :title="action.message"
+    @onConfirm="onClick"
+    v-if="action.message"
+  >
+    <el-button
+      slot="reference"
+      :type="action.type"
+      :size="action.size"
+      :plain="action.plain"
+      :round="action.round"
+      :circle="action.circle"
+      :disabled="action.disabled"
+      :icon="action.icon"
+      :autofocus="action.autofocus"
+      :loading="loading"
+      >{{ action.content }}</el-button
+    >
+  </el-popconfirm>
   <el-button
+    v-else
     :type="action.type"
     :size="action.size"
     :plain="action.plain"
@@ -16,9 +37,9 @@
 <script>
 export default {
   props: {
-    scope: Object,//当前行的字段定义和数据
-    action: Object,//当前主键的属性
-    key_name: String//主键名称
+    scope: Object, //当前行的字段定义和数据
+    action: Object, //当前主键的属性
+    key_name: String //主键名称
   },
   data() {
     return {

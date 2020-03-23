@@ -10,21 +10,14 @@ class BaseRowAction extends BaseAction
 {
     use Button;
 
-    protected $icon;
 
     protected $order = 1;
 
-    /**
-     * @param mixed $icon
-     * @return $this
-     */
-    public function icon($icon)
-    {
-        $this->icon = $icon;
-        return $this;
-    }
+    protected $message;
+
 
     /**
+     * 设置排序越大越靠前
      * @param int $order
      * @return $this
      */
@@ -33,6 +26,19 @@ class BaseRowAction extends BaseAction
         $this->order = $order;
         return $this;
     }
+
+    /**
+     * 确认操作提示信息
+     * @param mixed $message
+     * @return $this
+     */
+    public function message($message)
+    {
+        $this->message = $message;
+        return $this;
+    }
+
+
 
 
 }

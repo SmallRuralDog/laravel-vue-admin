@@ -38,11 +38,16 @@ class Avatar extends GridComponent
      */
     protected $fit = "cover";
 
+
+    protected $defaultSrc;
+
     public function __construct($value = null)
     {
         $this->host = \Storage::disk(config('admin.upload.disk'))->url('/');
 
         $this->componentValue($value);
+
+        $this->defaultSrc = config('admin.default_avatar');
     }
 
 
@@ -130,6 +135,19 @@ class Avatar extends GridComponent
         $this->fit = $fit;
         return $this;
     }
+
+    /**
+     * 设置默认头像
+     * @param string $defaultSrc
+     * @return $this
+     */
+    public function defaultSrc($defaultSrc)
+    {
+        $this->defaultSrc = $defaultSrc;
+        return $this;
+    }
+
+
 
 
 }

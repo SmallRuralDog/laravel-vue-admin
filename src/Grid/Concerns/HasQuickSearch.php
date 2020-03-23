@@ -77,7 +77,7 @@ trait HasQuickSearch
         if (is_array($this->quickSearch->search)) {
             $this->model()->where(function ($queryW) use ($query) {
                 foreach ($this->quickSearch->search as $key => $column) {
-                    $this->addWhereLikeBinding($queryW, $column, false, '%' . $query . '%');
+                    $this->addWhereLikeBinding($queryW, $column, true, '%' . $query . '%');
                 }
             });
 

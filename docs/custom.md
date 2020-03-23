@@ -610,7 +610,17 @@ destroyed() {
 ### 刷新表格
 
 ```js
-this.$bus.emit("tableReload")
+this.$bus.emit("tableReload");
 ```
+
+设置表格加载状态
+
+```php
+this.$bus.emit("tableSetLoading",true);
+
+this.$bus.emit("tableSetLoading",false);
+```
+
+
 
 更多事件正在开发中......

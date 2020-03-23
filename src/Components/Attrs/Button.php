@@ -25,7 +25,6 @@ trait Button
     }
 
 
-
     /**
      * @param mixed $size
      * @return $this
@@ -50,7 +49,7 @@ trait Button
      * @param bool $plain
      * @return $this
      */
-    public function plain(bool $plain)
+    public function plain(bool $plain = true)
     {
         $this->plain = $plain;
         return $this;
@@ -60,7 +59,7 @@ trait Button
      * @param bool $round
      * @return $this
      */
-    public function round(bool $round)
+    public function round(bool $round = true)
     {
         $this->round = $round;
         return $this;
@@ -70,7 +69,7 @@ trait Button
      * @param bool $circle
      * @return $this
      */
-    public function circle(bool $circle)
+    public function circle(bool $circle = true)
     {
         $this->circle = $circle;
         return $this;
@@ -80,7 +79,7 @@ trait Button
      * @param bool $disabled
      * @return $this
      */
-    public function disabled(bool $disabled)
+    public function disabled(bool $disabled = true)
     {
         $this->disabled = $disabled;
         return $this;
@@ -100,16 +99,11 @@ trait Button
      * @param bool $autofocus
      * @return $this
      */
-    public function autofocus(bool $autofocus)
+    public function autofocus(bool $autofocus = true)
     {
         $this->autofocus = $autofocus;
         return $this;
     }
-
-
-
-
-
 
 
 }

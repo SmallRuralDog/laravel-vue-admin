@@ -14,4 +14,6 @@ class EditAction extends BaseRowAction
 
     protected $type = "text";
 
+    protected $content = "编辑";
+
 }

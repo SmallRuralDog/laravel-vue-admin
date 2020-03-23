@@ -1,7 +1,7 @@
 <template>
   <el-dropdown class="mr-10">
-    <el-button :disabled="rows.length<=0">
-      <span>已选择 {{rows.length}} 项</span>
+    <el-button :disabled="rows.length <= 0">
+      <span>已选择 {{ rows.length }} 项</span>
       <i class="el-icon-arrow-down el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown">
@@ -26,17 +26,16 @@ export default {
       )
         .then(() => {
           const deleteUrl = this.routers.resource + "/" + this.keys;
-          const msg = this.$Message.loading({
-            content: "正在删除...",
-            duration: 0
-          });
+
+          this.$bus.emit("tableSetLoading", true);
+
           this.$http
             .delete(deleteUrl)
             .then(({ code }) => {
               code === 200 && this.$bus.emit("tableReload");
             })
             .finally(() => {
-              msg();
+              this.$bus.emit("tableSetLoading", false);
             });
         })
         .catch(() => {});

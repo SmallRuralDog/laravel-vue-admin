@@ -27,7 +27,10 @@ export default {
   mounted() {},
   computed: {
     src() {
-      return getFileUrl(this.attrs.host, this.value);
+      if (this.value) {
+        return getFileUrl(this.attrs.host, this.value);
+      }
+      return this.attrs.defaultSrc;
     }
   }
 };

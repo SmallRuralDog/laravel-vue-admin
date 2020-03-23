@@ -16,7 +16,7 @@
       :autofocus="action.autofocus"
       :loading="loading"
       class="action-button"
-      >删除</el-button
+      >{{action.content}}</el-button
     >
   </el-popconfirm>
 </template>

@@ -96,8 +96,9 @@ return [
         'role_permissions_table' => 'admin_role_permissions',
         'role_menu_table' => 'admin_role_menu',
     ],
+    //操作日志
     'operation_log' => [
-        'enable' => false,
+        'enable' => true,
         /*
          * Only logging allowed methods in the list
          */

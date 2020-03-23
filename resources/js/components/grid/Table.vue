@@ -262,21 +262,26 @@ export default {
       this.filterFormData = this._.cloneDeep(
         this.$store.getters.thisPage.grids.filterFormData
       );
-      
+
       this.sort = this._.cloneDeep(this.$store.getters.thisPage.grids.sort);
     }
 
     //加载数据
     this.getData();
-    //监听属性数据事件
+
+    //监听事件
     this.$bus.on("tableReload", () => {
       this.getData();
+    });
+    this.$bus.on("tableSetLoading", status => {
+      this.loading = status;
     });
   },
   destroyed() {
     //取消监听
     try {
       this.$bus.off("tableReload");
+      this.$bus.off("tableSetLoading");
     } catch (e) {}
   },
   methods: {
@@ -418,9 +423,6 @@ export default {
         }
       }
     }
-  }
-  .el-table .cell {
-    line-height: unset;
   }
   .el-tabs__header {
     padding: 0;
