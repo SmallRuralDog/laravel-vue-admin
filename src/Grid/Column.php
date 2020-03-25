@@ -86,9 +86,9 @@ class Column
 
     /**
      * 设置组件
-     * @deprecated
      * @param $component
      * @return $this
+     * @deprecated
      */
     public function displayComponent($component)
     {

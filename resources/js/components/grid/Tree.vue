@@ -3,14 +3,14 @@
     <el-card shadow="never" :body-style="{ padding: 0 }">
       <div class="grid-top-container">
         <div class="grid-top-container-left">
-          <div class="search-view mr-10">
+          <div class="search-view mr-10" v-if="attrs.quickSearch">
             <el-input
               v-model="quickSearch"
               size="medium"
               :placeholder="attrs.quickSearch.placeholder"
               :clearable="true"
               @clear="getData"
-              v-if="attrs.quickSearch"
+              
               @focus="onQuickSearchFocus"
               @blur="onQuickSearchBlur"
             >

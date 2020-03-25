@@ -7,6 +7,8 @@ namespace SmallRuralDog\Admin\Grid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
@@ -222,7 +224,6 @@ class Model
         $type = request('sort_order', null);
 
 
-
         if ($sort_field && in_array($type, ['asc', 'desc'])) {
             $this->sort = [
                 'column' => $sort_field,
@@ -246,9 +247,10 @@ class Model
         }
 
         if (Str::contains($this->sort['column'], '.')) {
-            //$this->setRelationSort($this->sort['column']);
+            $this->setRelationSort($this->sort['column']);
+
         } else {
-            //$this->resetOrderBy();
+            $this->resetOrderBy();
 
             // get column. if contains "cast", set set column as cast
             if (!empty($this->sort['cast'])) {
@@ -269,10 +271,102 @@ class Model
         }
     }
 
+    /**
+     * @param $column
+     * @throws \Exception
+     */
+    protected function setRelationSort($column)
+    {
+        list($relationName, $relationColumn) = explode('.', $column);
+
+
+        if ($this->queries->contains(function ($query) use ($relationName) {
+            return $query['method'] == 'with' && in_array($relationName, $query['arguments']);
+        })) {
+            $relation = $this->model->$relationName();
+
+
+            $this->queries->push([
+                'method' => 'select',
+                'arguments' => [$this->model->getTable() . '.*'],
+            ]);
+
+
+            $this->queries->push([
+                'method' => 'join',
+                'arguments' => $this->joinParameters($relation),
+            ]);
+
+            $this->resetOrderBy();
+
+            $this->queries->push([
+                'method' => 'orderBy',
+                'arguments' => [
+                    $relation->getRelated()->getTable() . '.' . $relationColumn,
+                    $this->sort['type'],
+                ],
+            ]);
+        }
+    }
+
+    public function resetOrderBy()
+    {
+        $this->queries = $this->queries->reject(function ($query) {
+            return $query['method'] == 'orderBy' || $query['method'] == 'orderByDesc';
+        });
+    }
+
+    /**
+     * @param Relation $relation
+     * @return array
+     * @throws \Exception
+     */
+    protected function joinParameters(Relation $relation)
+    {
+        $relatedTable = $relation->getRelated()->getTable();
+
+        if ($relation instanceof BelongsTo) {
+            $foreignKeyMethod = version_compare(app()->version(), '5.8.0', '<') ? 'getForeignKey' : 'getForeignKeyName';
+
+
+            return [
+                $relatedTable,
+                $relation->{$foreignKeyMethod}(),
+                '=',
+                $relatedTable . '.' . $relation->getRelated()->getKeyName(),
+            ];
+        }
+
+        if ($relation instanceof HasOne) {
+
+            return [
+                $relatedTable, function ($join) use ($relation) {
+                    $join->on($relation->getQualifiedParentKeyName(), "=", $relation->getQualifiedForeignKeyName())
+                        ->where(function (\Illuminate\Database\Query\Builder $query) use ($relation) {
+                            collect($relation->getBaseQuery()->wheres)->filter(function ($item) {
+                                return $item['value'] ?? false;
+                            })->each(function ($item) use ($query) {
+                                $query->where($item['column'], $item['value']);
+                            });
+                        });
+                }
+            ];
+
+            /* return [
+                 $relatedTable,
+                 $relation->getQualifiedParentKeyName(),
+                 '=',
+                 $relation->getQualifiedForeignKeyName(),
+             ];*/
+        }
+
+        throw new \Exception('Related sortable only support `HasOne` and `BelongsTo` relation.');
+    }
+
     protected function handleInvalidPage(LengthAwarePaginator $paginator)
     {
         if ($paginator->lastPage() && $paginator->currentPage() > $paginator->lastPage()) {
-            $lastPageUrl = Request::fullUrlWithQuery([
+            $lastPageUrl = \Request::fullUrlWithQuery([
                 $paginator->getPageName() => $paginator->lastPage(),
             ]);
         }
@@ -298,19 +392,36 @@ class Model
     protected function displayData($data)
     {
         $columcs = $this->grid->getColumns();
+        $items = [];
+        foreach ($data as $row) {
+            $item = collect($row)->toArray();
+            foreach ($columcs as $column) {
+                $n_value = $column->customValueUsing($row, Arr::get($row, $column->getName()));
+                Arr::set($item, $column->getName(), $n_value);
+            }
+            $items[] = $item;
+        }
 
-        $data = collect($data)->map(function ($row) use ($columcs) {
+        return $items;
+
+
+        /*$data = collect($data)->map(function ($row) use ($columcs) {
+
             collect($columcs)->each(function (Column $column) use ($row) {
                 $keys = explode(".", $column->getName());
+
                 $keys = array_filter($keys);
                 $keys = array_unique($keys);
                 if (count($keys) > 0) {
                     $value = $row[$keys[0]];
-                    $row[$keys[0]] = $column->customValueUsing($row, $value);
+                    $n_value = $column->customValueUsing($row, $value);
+                    Arr::set($row, $column->getName(), $n_value);
+
                 }
             });
+
             return $row;
-        })->toArray();
+        })->toArray();*/
 
 
         return $data;
@@ -350,7 +461,6 @@ class Model
         $this->setSort();
         $this->setPaginate();
 
-        //dd($this->queries);
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);
@@ -360,7 +470,7 @@ class Model
         $data = $this->model;
 
         if ($this->model instanceof Collection) {
-            return $data;
+            return $this->displayData($data);
         }
 
         if ($this->model instanceof LengthAwarePaginator) {
