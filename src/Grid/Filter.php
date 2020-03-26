@@ -105,6 +105,7 @@ class Filter
             $conditions[] = $filter->condition($params);
         }
 
+
         return tap(array_filter($conditions), function ($conditions) {
             if (!empty($conditions)) {
                 $this->expand();

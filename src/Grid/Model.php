@@ -339,6 +339,7 @@ class Model
 
         if ($relation instanceof HasOne) {
 
+
             return [
                 $relatedTable, function ($join) use ($relation) {
                     $join->on($relation->getQualifiedParentKeyName(), "=", $relation->getQualifiedForeignKeyName())
@@ -346,18 +347,14 @@ class Model
                             collect($relation->getBaseQuery()->wheres)->filter(function ($item) {
                                 return $item['value'] ?? false;
                             })->each(function ($item) use ($query) {
-                                $query->where($item['column'], $item['value']);
+                                if ($item['type'] == 'Basic') {
+                                    $query->where($item['column'], $item['value']);
+                                }
+
                             });
                         });
                 }
             ];
-
-            /* return [
-                 $relatedTable,
-                 $relation->getQualifiedParentKeyName(),
-                 '=',
-                 $relation->getQualifiedForeignKeyName(),
-             ];*/
         }
 
         throw new \Exception('Related sortable only support `HasOne` and `BelongsTo` relation.');
@@ -391,11 +388,11 @@ class Model
 
     protected function displayData($data)
     {
-        $columcs = $this->grid->getColumns();
+        $columns = $this->grid->getColumns();
         $items = [];
         foreach ($data as $row) {
             $item = collect($row)->toArray();
-            foreach ($columcs as $column) {
+            foreach ($columns as $column) {
                 $n_value = $column->customValueUsing($row, Arr::get($row, $column->getName()));
                 Arr::set($item, $column->getName(), $n_value);
             }
@@ -404,27 +401,6 @@ class Model
 
         return $items;
 
-
-        /*$data = collect($data)->map(function ($row) use ($columcs) {
-
-            collect($columcs)->each(function (Column $column) use ($row) {
-                $keys = explode(".", $column->getName());
-
-                $keys = array_filter($keys);
-                $keys = array_unique($keys);
-                if (count($keys) > 0) {
-                    $value = $row[$keys[0]];
-                    $n_value = $column->customValueUsing($row, $value);
-                    Arr::set($row, $column->getName(), $n_value);
-
-                }
-            });
-
-            return $row;
-        })->toArray();*/
-
-
-        return $data;
     }
 
     public function __call($method, $arguments)

@@ -147,4 +147,12 @@ trait HasGridAttributes
         $this->attributes->draggableUrl = $url;
         return $this;
     }
+
+    public function selection($selection = true)
+    {
+        $this->attributes->selection = $selection;
+        return $this;
+    }
+
+
 }

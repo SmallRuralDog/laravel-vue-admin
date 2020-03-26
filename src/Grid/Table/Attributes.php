@@ -53,4 +53,6 @@ class Attributes
     public $draggable = false;
     public $draggableUrl;
 
+    public $selection = false;
+
 }

@@ -86,14 +86,6 @@
       :body-style="{ padding: 0 }"
       v-loading="loading"
     >
-      <el-tabs v-if="false">
-        <el-tab-pane label="全部" name="first"></el-tab-pane>
-        <el-tab-pane label="代付款" name="second"></el-tab-pane>
-        <el-tab-pane label="代发货" name="third"></el-tab-pane>
-        <el-tab-pane label="待收货" name="third2"></el-tab-pane>
-        <el-tab-pane label="已完成" name="third3"></el-tab-pane>
-        <el-tab-pane label="已关闭" name="third4"></el-tab-pane>
-      </el-tabs>
       <div class="filter-form" v-if="attrs.filter.filters.length > 0">
         <el-form
           :inline="true"
@@ -139,16 +131,10 @@
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
+          <el-table-column v-if='attrs.attributes.selection' align="center" type="selection"></el-table-column>
+
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
-              v-if="column.type == 'selection'"
-              :type="column.type"
-              :width="column.width"
-              :align="column.align"
-              :key="column.prop"
-            ></el-table-column>
-            <el-table-column
-              v-else
               :type="column.type"
               :key="column.prop"
               :column-key="column.columnKey"
@@ -165,8 +151,8 @@
                 <span>{{ scope.column.label }}</span>
                 <el-tooltip
                   placement="top"
-                  v-if="attrs.columnAttributes[scope.$index].help"
-                  :content="attrs.columnAttributes[scope.$index].help"
+                  v-if="column.help"
+                  :content="column.help"
                 >
                   <i class="el-icon-question hover"></i>
                 </el-tooltip>
@@ -238,7 +224,9 @@ export default {
       page: 1,
       quickSearch: null,
       selectionRows: [],
-      filterFormData: null
+      filterFormData: null,
+      tabsSelectdata: {},
+      tabsActiveName: "all"
     };
   },
 
@@ -285,6 +273,12 @@ export default {
     } catch (e) {}
   },
   methods: {
+    onTabClick(e) {
+      const name = this._.split(e.name, "----");
+      this.tabsSelectdata[name[0]] = name[1];
+
+      this.getData();
+    },
     //表单过滤提交
     onFilterSubmit() {
       this.getData();
@@ -305,7 +299,8 @@ export default {
             per_page: this.pageData.pageSize,
             ...this.sort,
             ...this.q_search,
-            ...this.filterFormData
+            ...this.filterFormData,
+            ...this.tabsSelectdata
           }
         })
         .then(

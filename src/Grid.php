@@ -4,7 +4,6 @@
 namespace SmallRuralDog\Admin;
 
 
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations;
@@ -41,7 +40,6 @@ class Grid extends Component implements \JsonSerializable
 
 
     protected $keyName = 'id';
-    protected $selection = false;
     protected $tree = false;
     protected $dataUrl;
     protected $isGetData = false;
@@ -86,18 +84,6 @@ class Grid extends Component implements \JsonSerializable
     public function with(array $withs)
     {
         $this->model()->with($withs);
-        return $this;
-    }
-
-    /**
-     * 设置是否多选
-     * @param bool $selection
-     * @return $this
-     */
-    public function selection($selection = true)
-    {
-        $this->selection = $selection;
-
         return $this;
     }
 
@@ -173,13 +159,13 @@ class Grid extends Component implements \JsonSerializable
      */
     public function columns($columns)
     {
-        if ($this->selection) {
+        /*if ($this->selection) {
             $column = $this->addColumn($this->model->getModel()->getKey());
             $column->type("selection");
             $column->align("center");
             $column->width(50);
             $columns = collect($columns)->prepend($column)->all();
-        }
+        }*/
         $this->columnAttributes = collect($columns)->map(function (Column $column) {
             return $column->getAttributes();
         })->toArray();
@@ -196,6 +182,7 @@ class Grid extends Component implements \JsonSerializable
         $this->applyQuickSearch();
 
         $this->applyFilter(false);
+
     }
 
     /**
@@ -262,7 +249,7 @@ class Grid extends Component implements \JsonSerializable
                 'resource' => url(request()->getPathInfo())
             ];
             $viewData['keyName'] = $this->keyName;
-            $viewData['selection'] = $this->selection;
+            $viewData['selection'] = $this->attributes->selection;
             $viewData['tree'] = $this->tree;
             $viewData['defaultSort'] = $this->defaultSort;
             $viewData['columnAttributes'] = $this->columnAttributes;
