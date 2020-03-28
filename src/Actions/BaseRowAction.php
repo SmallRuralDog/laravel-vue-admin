@@ -15,6 +15,8 @@ class BaseRowAction extends BaseAction
 
     protected $message;
 
+    protected $vif;
+
 
     /**
      * 设置排序越大越靠前
@@ -38,7 +40,16 @@ class BaseRowAction extends BaseAction
         return $this;
     }
 
-
+    /**
+     * 设置操作vif属性算法
+     * @param array $vif
+     * @return $this
+     */
+    public function vif($vif)
+    {
+        $this->vif = $vif;
+        return $this;
+    }
 
 
 }

@@ -59,7 +59,9 @@ class Grid extends Component implements \JsonSerializable
 
         $this->isGetData = request('get_data') == "true";
 
-        $this->actions = new Actions();
+
+        //$this->actions = new Actions();
+
         $this->toolbars = new Toolbars();
         $this->filter = new Filter($this->model);
 
@@ -203,9 +205,24 @@ class Grid extends Component implements \JsonSerializable
      */
     public function actions($closure)
     {
-        call_user_func($closure, $this->actions);
+        $this->actions = $closure;
         return $this;
     }
+
+    /**
+     * 获取行操作
+     * @param $row
+     * @param $key
+     * @return mixed
+     */
+    public function getActions($row, $key)
+    {
+        $actions = new Actions();
+        $actions->row($row)->key($key);
+        if ($this->actions) call_user_func($this->actions, $actions);
+        return $actions->builderActions();
+    }
+
 
     /**
      * 隐藏行操作
@@ -258,7 +275,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
-            $viewData['actions'] = $this->actions->builderActions();
+            //$viewData['actions'] = $this->actions->builderActions();
             $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['quickSearch'] = $this->quickSearch;
             $viewData['filter'] = $this->filter->buildFilter();

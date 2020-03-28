@@ -627,10 +627,33 @@ $grid->column('permissions.roles.administrators.name')->displayComponent(Tag::ma
 
 ```php
  $grid->actions(function (Grid\Actions $actions) {
+    
+    $actions->getKey();//获取当前行的 index v0.1.5 +
+    
+    $actions->getRow();//获取当前行的对象，注意是对象不是数组 v0.1.5 +
+     
  	$actions->hideEditAction();
  	$actions->hideViewAction();
  })
 ```
+
+#### 获取当前行的 index
+
+ v0.1.5 +
+
+```php
+ $actions->getKey();
+```
+
+#### 获取当前行的对象
+
+获取当前行的对象，注意是对象不是数组 v0.1.5 +
+
+```php
+$actions->getRow();
+```
+
+
 
 #### 隐藏所有操作
 

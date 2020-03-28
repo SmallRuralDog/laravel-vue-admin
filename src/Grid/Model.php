@@ -390,12 +390,15 @@ class Model
     {
         $columns = $this->grid->getColumns();
         $items = [];
-        foreach ($data as $row) {
+        foreach ($data as $key => $row) {
             $item = collect($row)->toArray();
             foreach ($columns as $column) {
                 $n_value = $column->customValueUsing($row, Arr::get($row, $column->getName()));
                 Arr::set($item, $column->getName(), $n_value);
             }
+
+            Arr::set($item, 'grid_actions', $this->grid->getActions($row, $key));
+
             $items[] = $item;
         }
 

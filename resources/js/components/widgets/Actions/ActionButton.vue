@@ -60,7 +60,7 @@ export default {
           this.onRequest(this.uri);
           break;
         default:
-          this.$Message.warning("响应类型未定义");
+          this.$message.warning("响应类型未定义");
           break;
       }
     },

@@ -131,7 +131,11 @@
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
-          <el-table-column v-if='attrs.attributes.selection' align="center" type="selection"></el-table-column>
+          <el-table-column
+            v-if="attrs.attributes.selection"
+            align="center"
+            type="selection"
+          ></el-table-column>
 
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
@@ -165,11 +169,14 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column v-if="attrs.actions && !attrs.actions.hide" label="">
+          <el-table-column label="" prop="grid_actions">
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions
-                :action_list="attrs.actions.data"
+                v-if="
+                  scope.row.grid_actions && !scope.row.grid_actions.hide
+                "
+                :action_list="scope.row.grid_actions.data"
                 :scope="scope"
                 :key_name="attrs.keyName"
               />

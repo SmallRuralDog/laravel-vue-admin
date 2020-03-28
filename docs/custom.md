@@ -348,7 +348,7 @@ export default {
   },
   computed: {
     uri() {
-      //替换变量
+      //替换变量 ,新版已经可以在php端获取当前行对象了
       let uri = this.action.uri;
       this._.forEach(this.row, (value, key) => {
         uri = this._.replace(uri, "{" + key + "}", value);

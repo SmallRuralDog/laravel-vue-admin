@@ -32,6 +32,7 @@ trait HasActions
     }
 
     /**
+     * 编辑操作实例
      * @return EditAction
      */
     public function editAction(): EditAction
@@ -40,6 +41,7 @@ trait HasActions
     }
 
     /**
+     * 删除操作实例
      * @return DeleteAction
      */
     public function deleteAction(): DeleteAction

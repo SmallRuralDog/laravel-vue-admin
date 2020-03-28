@@ -25,8 +25,20 @@ export default {
   },
   mounted() {},
   computed: {
-    order_action_list(){
-      return window._.orderBy(this.action_list,['order'],['desc'])
+    order_action_list() {
+      return window._.orderBy(this.action_list, ["order"], ["desc"]);
+    },
+    //当前表格/树形表格的字段定义
+    colum() {
+      return this.scope.colum;
+    },
+    //当前行的值
+    row() {
+      return this.scope.row;
+    },
+    //主键值
+    key() {
+      return this.scope.row[this.key_name];
     }
   }
 };
