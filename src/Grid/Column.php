@@ -17,11 +17,11 @@ class Column
      */
     protected $grid;
     protected $name;
-
     protected $label;
     protected $columnKey;
+    private $columnData;
 
-    private $coulumnData;
+    protected $defaultValue;
 
 
     /**
@@ -152,6 +152,27 @@ class Column
     {
         return $this->columnKey;
     }
+
+    /**
+     * 获取默认值
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * 设置默认值
+     * @param mixed $defaultValue
+     * @return $this
+     */
+    public function defaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+        return $this;
+    }
+
 
 
 }

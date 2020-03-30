@@ -525,6 +525,13 @@ $column->headerAlign('right');
 $column->help('帮助内容');
 ```
 
+### 设置默认值
+
+当获取不到字段值的时候显示的内容，默认为`null`
+
+```php
+$column->defaultValue("-")
+```
 
 ### 显示组件
 
@@ -545,10 +552,23 @@ $column->component(Tag::make()->size("mini")->type("info"));
 支持HTML标签
 
 ```php
+//普通
 $grid->column('name')->customValue(function ($row, $value) {
     return $value;
-})
+});
+//一对一
+$grid->column('user.name')->customValue(function ($row, $value) {
+    //此时的value是name的值
+    return $value;
+});
+//一对多
+$grid->column('roles.name')->customValue(function ($row, $value) {
+    //此时的value是 roles.name的值的数组
+    return $value;
+});
 ```
+
+
 ### 前缀/后缀
 
 会在值的前后以字符串形式拼接
@@ -589,7 +609,7 @@ $grid->column('permissions.name'),
 #### 一对多
 一对多最终得到的是数组，前端会自动循环展示，文本建议使用`Tag`组件，图片建议使用`Avatar`或`Image`组件
 ```php
-$grid->column('permissions.name')->displayComponent(Tag::make()->type('info')),
+$grid->column('permissions.name')->component(Tag::make()->type('info')),
 ```
 
 

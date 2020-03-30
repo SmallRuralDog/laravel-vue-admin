@@ -39,7 +39,7 @@ import ColorPicker from './components/widgets/ColorPicker'
 import TimePicker from './components/widgets/TimePicker'
 import DatePicker from './components/widgets/DatePicker'
 import DateTimePicker from './components/widgets/DateTimePicker'
-import WangEditor from './components/widgets/WangEditor'
+
 
 
 
@@ -58,7 +58,7 @@ Vue.component('ColorPicker', ColorPicker);
 Vue.component('TimePicker', TimePicker);
 Vue.component('DatePicker', DatePicker);
 Vue.component('DateTimePicker', DateTimePicker);
-Vue.component('WangEditor', WangEditor);
+Vue.component('WangEditor', () => import('./components/widgets/WangEditor'));
 
 
 
@@ -118,3 +118,15 @@ Vue.component('Html', Html)
 
 import Alert from './components/widgets/Alert'
 Vue.component('Alert', Alert)
+
+
+
+Vue.component('AntvLine', () => import('./components/antv/AntvLine'))
+
+Vue.component('AntvArea', () => import('./components/antv/AntvArea'))
+
+
+Vue.component('AntvStepLine', () => import('./components/antv/AntvStepLine'))
+
+
+Vue.component('AntvColumn', () => import('./components/antv/AntvColumn'))

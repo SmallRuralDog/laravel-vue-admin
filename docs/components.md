@@ -22,6 +22,8 @@ Card::make()->content();
 
 引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。
 
+![image-20200330135622182](components.assets/image-20200330135622182.png)
+
 ```php
 Steps::make()
 ->simple(false)
@@ -71,6 +73,8 @@ Text::make()->html("我是纯文本");
 ### Alert警告
 
 用于页面中展示重要的提示信息。
+
+![image-20200330135556270](components.assets/image-20200330135556270.png)
 
 ```
 Alert::make("title","desc");
@@ -472,3 +476,86 @@ Transfer::make()->data($permissionModel::get()->map(function ($item) {
 
 
 
+## 统计图表
+
+g2plot 是一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，"g2plot"中的 g2 即意指图形语法 (the Gramma of Graphics)，同时也致敬了 ggplot2。
+
+![image-20200330151604231](components.assets/image-20200330151604231.png)
+
+### Line - 折线图
+
+使用一条折线的线段显示数据在一个具有顺序性的维度上的变化。
+
+![image-20200330154928558](components.assets/image-20200330154928558.png)
+
+```php
+Line::make()
+->data(function () {
+    $data = collect();
+    for ($year = 2010; $year <= 2020; $year++) {
+        $data->push([
+            'year' => (string)$year,
+            'type'=>'type1',
+            'value' => rand(100, 1000)
+        ]);
+        $data->push([
+            'year' => (string)$year,
+            'type'=>'type2',
+            'value' => rand(100, 1000)
+        ]);
+    }
+    return $data;
+})
+->config(function () {
+    return [
+        'title' => [
+            'visible' => true,
+            'text' => '折线图',
+        ],
+        'seriesField'=>'type',
+        'smooth'=>true,
+        'xField' => 'year',
+        'yField' => 'value'
+    ];
+});
+```
+
+具体请参考：https://g2plot.antv.vision/zh/examples/line/basic
+
+### StepLine - 阶梯折图
+
+阶梯线图用于表示连续时间跨度内的数据，它通常用于显示某变量随时间的变化模式：是上升还是下降，是否存在周期性的循环？因此，相对于独立的数据点，折线图关注的是全局趋势。
+
+![image-20200330161859300](components.assets/image-20200330161859300.png)
+
+```php
+ StepLine::make()->data()->config();
+```
+
+具体参数请参考：https://g2plot.antv.vision/zh/examples/step-line/basic
+
+### Area - 面积图
+
+面积图又叫区域图。 它是在折线图的基础之上形成的，它将折线图中折线与自变量坐标轴之间的区域使用颜色或者纹理填充，这样一个填充区域我们叫做面积，颜色的填充可以更好的突出趋势信息。
+
+面积图用于强调数量随时间而变化的程度，也可用于引起人们对总值趋势的注意。他们最常用于表现趋势和关系，而不是传达特定的值。
+
+![image-20200330154940875](components.assets/image-20200330154940875.png)
+
+```php
+Area::make()->data()->config();
+```
+
+具体参数请参考：https://g2plot.antv.vision/zh/examples/area/basic
+
+### Column - 柱状图
+
+柱状图用于描述分类数据之间的对比，如果我们把时间周期，如周、月、年，也理解为一种分类数据 (time category)，那么柱状图也可以用于描述时间周期之间的数值比较。
+
+![image-20200330162019246](components.assets/image-20200330162019246.png)
+
+```php
+Column::make()->data()->config();
+```
+
+具体参数请参考：https://g2plot.antv.vision/zh/examples/column/basic

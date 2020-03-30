@@ -29,15 +29,18 @@ export default {
   },
   computed: {
     value() {
-      if (this.columnKeyPath.length == 1) return this.row[this.columnKey];
+      return this._.get(this.row,this.columnKey,"");
+      /*if (this.columnKeyPath.length == 1) return this.row[this.columnKey];
       try {
         let data = this.row[this.columnKeyPath[0]];
         let allData = getArrayValue(data, this.columnKeyPath, 0);
         allData = this._.flattenDeep(allData);
         return allData;
       } catch (error) {
+        console.error(error);
+        
         return "-";
-      }
+      }*/
     },
     columnAttr() {
       try {

@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
+mix.config.webpackConfig.output = {
+    publicPath: '/vendor/laravel-vue-admin/',
+};
 
 mix
     .js('resources/js/app.js', 'public')

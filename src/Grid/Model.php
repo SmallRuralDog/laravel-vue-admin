@@ -389,20 +389,27 @@ class Model
     protected function displayData($data)
     {
         $columns = $this->grid->getColumns();
-        $items = [];
+        $items = collect();
 
 
         foreach ($data as $key => $row) {
-            $item = collect($row)->toArray();
+            $item = [];
             foreach ($columns as $column) {
 
                 if (Str::contains($column->getName(), '.')) {
                     list($relationName, $relationColumn) = explode('.', $column->getName());
-                    $n_value = $column->customValueUsing($row, data_get($row, $relationName));
-                    data_set($item, $relationName, $n_value);
-
+                    //如果是集合
+                    if (data_get($row, $relationName) instanceof Collection) {
+                        $value = collect(data_get($row, $relationName))->pluck($relationColumn);
+                        $c_value = $column->customValueUsing($row, $value);
+                        data_set($item, $column->getName(), $c_value);
+                    } else {
+                        $value = data_get($row, $column->getName(), $column->getDefaultValue());
+                        $c_value = $column->customValueUsing($row, $value);
+                        data_set($item, $column->getName(), $c_value);
+                    }
                 } else {
-                    $n_value = $column->customValueUsing($row, data_get($row, $column->getName()));
+                    $n_value = $column->customValueUsing($row, data_get($row, $column->getName(), $column->getDefaultValue()));
                     data_set($item, $column->getName(), $n_value);
                 }
             }
@@ -415,12 +422,13 @@ class Model
                 })->all();
                 data_set($item, $this->grid->getTreeChildrenName(), $TreeChildren);
             }
+
             data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
 
-            $items[] = $item;
+            $items->push($item);
         }
 
-        return $items;
+        return $items->all();
 
     }
 
