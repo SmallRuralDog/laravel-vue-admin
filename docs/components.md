@@ -8,6 +8,52 @@
 className('class-1 class-2');
 style(['width'=>'100px']);
 ```
+## 展示组件
+
+### 步骤条
+
+引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。
+
+```php
+Steps::make()
+->simple(false)
+->active($order->orderStep())
+->processStatus("process")
+->alignCenter(true)
+->stepList(function (Collection $list) use ($order) {
+    //下单
+    $xd = Step::make()->title("下单");
+    $xd->description($order->created_at);
+    $list->push($xd);
+    //付款
+    $fk = Step::make()->title("付款");
+    $fk->description($order->pay_time);
+    $list->push($fk);
+    //发货
+    $fh = Step::make()->title("发货");
+    $fh->description($order->delivery_time);
+    $list->push($fh);
+    //收货
+    $sh = Step::make()->title("收货");
+    $sh->description($order->receipt_time);
+    $list->push($sh);
+    //完成
+    $wc = Step::make()->title("完成");
+    $wc->description($order->receipt_time);
+    $list->push($wc);
+}));
+```
+
+### HTML
+
+组件使用`v-html`渲染
+
+```php
+Html::make()->html("<div>......</div>");
+```
+
+
+
 ## 表格组件
 
 ### Tag 标签

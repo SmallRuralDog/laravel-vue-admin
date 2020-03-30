@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="attrs.width">
+  <el-col :span="attrs.width" :style="attrs.style" :class="attrs.className">
     <component
       v-for="(content, index) in attrs.contents"
       :key="index"

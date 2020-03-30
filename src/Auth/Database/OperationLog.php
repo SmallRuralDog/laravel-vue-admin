@@ -21,6 +21,11 @@ class OperationLog extends Model
         'LINK', 'UNLINK', 'COPY', 'HEAD', 'PURGE',
     ];
 
+    protected $casts = [
+        'created_at'=>"Y-m-d H:i:s",
+        'updated_at'=>"Y-m-d H:i:s",
+    ];
+
     /**
      * Create a new Eloquent model instance.
      *

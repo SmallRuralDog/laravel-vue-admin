@@ -106,3 +106,12 @@ Vue.component('ToolButton', ToolButton);
 //Widget
 import Divider from './components/widgets/Divider'
 Vue.component('Divider', Divider)
+
+import Card from './components/widgets/Card'
+Vue.component('Card', Card)
+
+import Steps from './components/widgets/Steps'
+Vue.component('Steps', Steps)
+
+import Html from './components/widgets/Html'
+Vue.component('Html', Html)

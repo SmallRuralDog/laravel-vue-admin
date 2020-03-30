@@ -21,6 +21,11 @@ class Permission extends Model
         'GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD',
     ];
 
+    protected $casts = [
+        'created_at'=>"Y-m-d H:i:s",
+        'updated_at'=>"Y-m-d H:i:s",
+    ];
+
     /**
      * Create a new Eloquent model instance.
      *

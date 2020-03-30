@@ -7,7 +7,7 @@ namespace SmallRuralDog\Admin\Traits;
 class AdminJsonBuilder implements \JsonSerializable
 {
 
-    public $hideAttrs = [];
+    protected $hideAttrs = [];
 
     public function jsonSerialize()
     {

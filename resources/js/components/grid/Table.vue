@@ -1,5 +1,7 @@
 <template>
   <div class="grid-container">
+    <component v-if="attrs.top" :is="attrs.top.componentName" :attrs='attrs.top' />
+
     <el-card shadow="never" :body-style="{ padding: 0 }">
       <div class="grid-top-container">
         <div class="grid-top-container-left">
@@ -127,7 +129,7 @@
           :highlight-current-row="attrs.attributes.highlightCurrentRow"
           :empty-text="attrs.attributes.emptyText"
           :tooltip-effect="attrs.attributes.tooltipEffect"
-          :default-expand-all="true"
+          :default-expand-all="attrs.attributes.defaultExpandAll"
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
@@ -136,7 +138,8 @@
             align="center"
             type="selection"
           ></el-table-column>
-
+          <el-table-column v-if="attrs.tree" align="center" width="50">
+          </el-table-column>
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
               :type="column.type"
@@ -173,9 +176,7 @@
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions
-                v-if="
-                  scope.row.grid_actions && !scope.row.grid_actions.hide
-                "
+                v-if="scope.row.grid_actions && !scope.row.grid_actions.hide"
                 :action_list="scope.row.grid_actions.data"
                 :scope="scope"
                 :key_name="attrs.keyName"
@@ -198,6 +199,7 @@
         />
       </div>
     </el-card>
+    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs='attrs.bottom' />
   </div>
 </template>
 

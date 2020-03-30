@@ -20,31 +20,52 @@ use SmallRuralDog\Admin\Grid\Filter;
 use SmallRuralDog\Admin\Grid\Model;
 use SmallRuralDog\Admin\Grid\Table\Attributes;
 use SmallRuralDog\Admin\Grid\Toolbars;
+use SmallRuralDog\Admin\Layout\Content;
 
 
 class Grid extends Component implements \JsonSerializable
 {
     use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter;
 
+    /**
+     * 组件名称
+     * @var string
+     */
     protected $componentName = 'Grid';
     /**
+     * 组件模型
      * @var Model
      */
     protected $model;
     /**
+     * 组件字段
      * @var Column[]
      */
     protected $columns = [];
     protected $rows;
+    /**
+     * 组件字段属性
+     * @var array
+     */
     protected $columnAttributes = [];
-
-
+    /**
+     * @var string
+     */
     protected $keyName = 'id';
+    /**
+     * @var bool
+     */
     protected $tree = false;
+    /**
+     * 表格数据来源
+     * @var string
+     */
     protected $dataUrl;
     protected $isGetData = false;
     private $actions;
     private $toolbars;
+    private $top;
+    private $bottom;
 
 
     public function __construct(Eloquent $model)
@@ -53,18 +74,10 @@ class Grid extends Component implements \JsonSerializable
         $this->dataUrl = request()->getUri();
         $this->model = new Model($model, $this);
         $this->keyName = $model->getKeyName();
-
-
         $this->defaultSort($model->getKeyName(), "asc");
-
         $this->isGetData = request('get_data') == "true";
-
-
-        //$this->actions = new Actions();
-
         $this->toolbars = new Toolbars();
         $this->filter = new Filter($this->model);
-
     }
 
     /**
@@ -97,7 +110,6 @@ class Grid extends Component implements \JsonSerializable
     public function tree($tree = true)
     {
         $this->tree = $tree;
-        $this->componentName = "Tree";
         return $this;
     }
 
@@ -157,17 +169,9 @@ class Grid extends Component implements \JsonSerializable
 
     /**
      * @param Column[] $columns
-     * @deprecated
      */
-    public function columns($columns)
+    protected function columns($columns)
     {
-        /*if ($this->selection) {
-            $column = $this->addColumn($this->model->getModel()->getKey());
-            $column->type("selection");
-            $column->align("center");
-            $column->width(50);
-            $columns = collect($columns)->prepend($column)->all();
-        }*/
         $this->columnAttributes = collect($columns)->map(function (Column $column) {
             return $column->getAttributes();
         })->toArray();
@@ -234,6 +238,20 @@ class Grid extends Component implements \JsonSerializable
         return $this;
     }
 
+    public function top($closure)
+    {
+        $this->top = new Content();
+        call_user_func($closure, $this->top);
+        return $this;
+    }
+
+    public function bottom($closure)
+    {
+        $this->bottom = new Content();
+        call_user_func($closure, $this->bottom);
+        return $this;
+    }
+
     /**
      * data
      * @return array
@@ -275,10 +293,11 @@ class Grid extends Component implements \JsonSerializable
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
-            //$viewData['actions'] = $this->actions->builderActions();
             $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['quickSearch'] = $this->quickSearch;
             $viewData['filter'] = $this->filter->buildFilter();
+            $viewData['top'] = $this->top;
+            $viewData['bottom'] = $this->bottom;
             return $viewData;
         }
     }

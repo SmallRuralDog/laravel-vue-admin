@@ -137,9 +137,10 @@ trait HasGridAttributes
 
 
     /**
-     * 开启拖拽排序
      * @param $url
      * @return $this
+     * @deprecated
+     * 开启拖拽排序
      */
     public function draggable($url)
     {
@@ -148,6 +149,36 @@ trait HasGridAttributes
         return $this;
     }
 
+    /**
+     * 是否默认展开所有行，当 Table 包含展开行存在或者为树形表格时有效
+     * @param bool $defaultExpandAll
+     * @return $this
+     */
+    public function defaultExpandAll($defaultExpandAll = true)
+    {
+        $this->attributes->defaultExpandAll = $defaultExpandAll;
+        return $this;
+    }
+
+    public function treeProps($hasChildren, $children)
+    {
+        $this->attributes->treeProps = [
+            'hasChildren' => $hasChildren,
+            'children' => $children,
+        ];
+    }
+
+
+    public function getTreeChildrenName()
+    {
+        return $this->attributes->treeProps['children'];
+    }
+
+    /**
+     * 是否开启多选
+     * @param bool $selection
+     * @return $this
+     */
     public function selection($selection = true)
     {
         $this->attributes->selection = $selection;

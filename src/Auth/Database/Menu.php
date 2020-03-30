@@ -29,7 +29,9 @@ class Menu extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'permission' => 'array'
+        'permission' => 'array',
+        'created_at'=>"Y-m-d H:i:s",
+        'updated_at'=>"Y-m-d H:i:s",
     ];
 
     /**

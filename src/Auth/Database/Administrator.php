@@ -21,7 +21,9 @@ class Administrator extends Model implements AuthenticatableContract
     protected $fillable = ['username', 'password', 'name', 'avatar'];
 
     protected $casts = [
-        'images'=>'array'
+        'images'=>'array',
+        'created_at'=>"Y-m-d H:i:s",
+        'updated_at'=>"Y-m-d H:i:s",
     ];
 
     /**

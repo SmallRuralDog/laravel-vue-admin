@@ -16,6 +16,11 @@ class Content extends Component
 
     protected $rows = [];
 
+    public static function make()
+    {
+        return new Content();
+    }
+
 
     public function body($content)
     {
@@ -46,7 +51,7 @@ class Content extends Component
      * @param bool $showHeader
      * @return $this
      */
-    public function showHeader($showHeader=true)
+    public function showHeader($showHeader = true)
     {
         $this->showHeader = $showHeader;
         return $this;
@@ -71,11 +76,6 @@ class Content extends Component
         $this->description = $description;
         return $this;
     }
-
-
-
-
-
 
 
 }

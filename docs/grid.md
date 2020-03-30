@@ -573,55 +573,25 @@ public function children() {
 ```
 以下代码开启树形展示模式
 ```php
-$grid->tree()
+$grid->tree();
+$grid->defaultExpandAll();//是否默认展开所有行
 ```
-开启拖拽排序功能
-```php
-//自定义拖拽完成接受地址
-$grid->tree()->draggable(route('admin.auth.menu.order'))
-```
-后端会接受到三个参数,可参考以下代码示例
-```php
-public function menuOrder(Request $request)
-{
-    try {
-        \Admin::validatorData($request->all(), [
-            'self' => 'required',//当前节点信息
-            'target' => 'required',//目标节点信息
-            'type' => ['required', Rule::in(["before", "after", "inner"])],//放置类型  前 后  插入
-        ]);
-    } catch (\Exception $exception) {
-        return \Admin::responseError($exception->getMessage());
-    }
 
-}
 
-```
 ### 关联模型
 >要成功显示关联模型的值，必须设置`with`的值
 
 要显示关联模型的值，使用`.`来获取关联模型的值，可以多级显示，最后一级为要显示的值
 #### 一对一
 ```php
-$grid->with(['permissions']);
 $grid->column('permissions.name'),
 ```
 #### 一对多
 一对多最终得到的是数组，前端会自动循环展示，文本建议使用`Tag`组件，图片建议使用`Avatar`或`Image`组件
 ```php
-$grid->with(['permissions']);
 $grid->column('permissions.name')->displayComponent(Tag::make()->type('info')),
 ```
-#### 多级显示
-```php
-$grid->with(['permissions','permissions.roles','permissions.roles.administrators']);
 
-$grid->column('permissions.name')->displayComponent(Tag::make()->type('info'));
-
-$grid->column('permissions.roles.name')->displayComponent(Tag::make()->type('info'));
-
-$grid->column('permissions.roles.administrators.name')->displayComponent(Tag::make()->type('info'));
-```
 
 ## 行操作
 
@@ -727,4 +697,26 @@ $toolbars->addRight(new MyRoghtTool());//添加在右侧
 ```
 
 
+
+## 头部内容
+
+可自定义Grid顶部内容，闭包返回一个content组件
+
+```php
+ $grid->top(function (Content $top){
+ 	$top->body(Card::make()->content(Html::make()->html("我是头部内容")));
+ });
+```
+
+
+
+## 底部内容
+
+可自定义Grid底部内容，闭包返回一个content组件
+
+```php
+ $grid->bottom(function (Content $bottom){
+ 	$bottom->body(Card::make()->content(Html::make()->html("我是头部内容")));
+ });
+```
 

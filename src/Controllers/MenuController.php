@@ -72,19 +72,19 @@ class MenuController extends AdminController
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
-        $grid->with(['children', 'roles', 'children.roles']);
-        $grid->pageBackground()
+        $grid->model()->with(['children', 'roles', 'children.roles']);
+        $grid
             ->defaultSort('order', 'asc')
-            ->stripe(true)
             ->tree()
-            ->draggable(route('admin.auth.menu.order'))
             ->emptyText("暂无菜单")
-            ->perPage(10000);
+            ->defaultExpandAll(false);
 
-        $grid->column('icon', "图标")->displayComponent(Icon::make());
+        $grid->column('icon', "图标")->component(Icon::make())->width(80);
         $grid->column('title', "名称");
+        $grid->column('order', "排序");
         $grid->column('uri', "路径");
-        $grid->column('roles.name', "授权角色")->displayComponent(Tag::make());
+        $grid->column('roles.name', "授权角色")->component(Tag::make());
+
 
         return $grid;
     }

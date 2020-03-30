@@ -53,6 +53,10 @@ class Attributes
     public $draggable = false;
     public $draggableUrl;
 
+    public $defaultExpandAll = false;
+
+    public $treeProps = ['hasChildren'=>'hasChildren','children'=>'children'];
+
     public $selection = false;
 
 }

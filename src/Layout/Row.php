@@ -33,6 +33,7 @@ class Row extends Component
         $width = $width < 1 ? round(24 * $width) : $width;
         $column = new Column($content, $width);
         $this->addColumn($column);
+        return $column;
     }
 
 

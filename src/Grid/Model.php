@@ -390,14 +390,32 @@ class Model
     {
         $columns = $this->grid->getColumns();
         $items = [];
+
+
         foreach ($data as $key => $row) {
             $item = collect($row)->toArray();
             foreach ($columns as $column) {
-                $n_value = $column->customValueUsing($row, Arr::get($row, $column->getName()));
-                Arr::set($item, $column->getName(), $n_value);
+
+                if (Str::contains($column->getName(), '.')) {
+                    list($relationName, $relationColumn) = explode('.', $column->getName());
+                    $n_value = $column->customValueUsing($row, data_get($row, $relationName));
+                    data_set($item, $relationName, $n_value);
+
+                } else {
+                    $n_value = $column->customValueUsing($row, data_get($row, $column->getName()));
+                    data_set($item, $column->getName(), $n_value);
+                }
             }
 
-            Arr::set($item, 'grid_actions', $this->grid->getActions($row, $key));
+
+            if ($TreeChildren = data_get($item, $this->grid->getTreeChildrenName())) {
+                $TreeChildren = collect($TreeChildren)->map(function ($t_item) use ($key, $row) {
+                    data_set($t_item, 'grid_actions', $this->grid->getActions($row, $key));
+                    return $t_item;
+                })->all();
+                data_set($item, $this->grid->getTreeChildrenName(), $TreeChildren);
+            }
+            data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
 
             $items[] = $item;
         }

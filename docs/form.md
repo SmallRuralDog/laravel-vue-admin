@@ -229,8 +229,14 @@ $form->saving(function (Form $form) {
     return \Admin::responseError("xxxx");
 });
 $form->saved(function (Form $form) {});
-$form->deleting(function (Form $form) {});
-$form->deleted(function (Form $form) {});
+
+$form->deleting(function (Form $form,$id) {
+    
+});
+
+$form->deleted(function (Form $form) {
+    
+});
 
 //表单验证时回调，用于处理复杂的表单验证
 $form->validating(function (Form $form, $validator) {
