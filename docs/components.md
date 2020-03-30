@@ -8,7 +8,17 @@ style(['width'=>'100px']);
 ```
 ## 展示组件
 
-## Steps 步骤条
+### Card 卡片
+
+将信息聚合在卡片容器中展示。
+
+```php
+Card::make()->content();
+```
+
+
+
+### Steps 步骤条
 
 引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。
 
@@ -48,6 +58,14 @@ Steps::make()
 
 ```php
 Html::make()->html("<div>......</div>");
+```
+
+### Text
+
+组件使用`v-bind`渲染
+
+```php
+Text::make()->html("我是纯文本");
 ```
 
 ### Alert警告

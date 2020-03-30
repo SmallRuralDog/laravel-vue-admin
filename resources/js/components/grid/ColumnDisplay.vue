@@ -36,7 +36,6 @@ export default {
         allData = this._.flattenDeep(allData);
         return allData;
       } catch (error) {
-        console.error("获取数组数据失败:" + error);
         return "-";
       }
     },
@@ -46,7 +45,7 @@ export default {
           return item.prop == this.columnKey;
         })[0];
       } catch (e) {
-        console.error("找不到column，请检查Column 的prop参数设置");
+        console.warn("找不到column，请检查Column 的prop参数设置");
       }
     },
     row() {
