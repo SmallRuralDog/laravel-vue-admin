@@ -35,6 +35,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, this.attrs.config));
     this.antv.render();
   },
+  updated: function updated() {
+    this.antv.changeData(this.attrs.data);
+  },
   destroyed: function destroyed() {//this.antv.destory();
   }
 });

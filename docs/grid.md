@@ -138,7 +138,7 @@ $grid->selection();
 更多使用请查看 [Laravel 预加载](https://learnku.com/docs/laravel/6.x/eloquent-relationships/5177#eager-loading)
 
 ```php
-$grid->with(['roles:id,name', 'roles.permissions', 'roles.menus']);
+$grid->model()->with(['roles:id,name', 'roles.permissions', 'roles.menus']);
 ```
 
 ### 默认排序
@@ -428,9 +428,9 @@ Table 的数据列
 
 ```php
 //基本使用
-$column = $grid->column('prop', 'label','column-key');
+$grid->column('prop', 'label','column-key');
 //属性设置
-$column = $grid->column('prop', 'label','column-key')->width("100");
+$grid->column('prop', 'label','column-key')->width("100");
 ```
 
 ### 属性
@@ -585,7 +585,7 @@ $grid->column('name')->itemSuffix("折")
 
 此功能必须满足以下几点才能正常使用，暂不支持分页，所以不建议展示大量的数据，后期会加入异步加载
 
-定义一个 `hasMany`管理，名称固定为`children`，并预加载所有`children`，设置好排序
+定义一个 `hasMany`管理，名称为`children`，并预加载所有`children`，设置好排序
 ```php
 public function children() {
     return $this->hasMany(get_class($this), 'parent_id' )->orderBy('order')->with( 'children' );
@@ -593,8 +593,9 @@ public function children() {
 ```
 以下代码开启树形展示模式
 ```php
-$grid->tree();
-$grid->defaultExpandAll();//是否默认展开所有行
+$grid->model()->where('parent_id', 0);//设置查询条件
+$grid->tree();//启动树形表格
+$grid->defaultExpandAll();//默认展开所有行
 ```
 
 
@@ -604,12 +605,12 @@ $grid->defaultExpandAll();//是否默认展开所有行
 要显示关联模型的值，使用`.`来获取关联模型的值，可以多级显示，最后一级为要显示的值
 #### 一对一
 ```php
-$grid->column('permissions.name'),
+$grid->column('permissions.name');
 ```
 #### 一对多
 一对多最终得到的是数组，前端会自动循环展示，文本建议使用`Tag`组件，图片建议使用`Avatar`或`Image`组件
 ```php
-$grid->column('permissions.name')->component(Tag::make()->type('info')),
+$grid->column('permissions.name')->component(Tag::make()->type('info'));
 ```
 
 
@@ -627,7 +628,19 @@ $grid->column('permissions.name')->component(Tag::make()->type('info')),
  })
 ```
 
-#### 获取当前行的 index
+#### 操作栏宽度
+
+```php
+$grid->actionWidth(180)
+```
+
+#### 操作栏固定
+
+```php
+$grid->actionFixed('right');// left | right
+```
+
+#### 获取当前行的下标
 
  v0.1.5 +
 
@@ -642,8 +655,6 @@ $grid->column('permissions.name')->component(Tag::make()->type('info')),
 ```php
 $actions->getRow();
 ```
-
-
 
 #### 隐藏所有操作
 

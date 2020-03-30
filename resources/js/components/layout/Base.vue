@@ -10,6 +10,7 @@
         :class="componentData.className"
         :is="componentData.componentName"
         :attrs="componentData"
+        v-loading="reload"
         v-if="!loading"
       />
     </transition>
@@ -22,6 +23,7 @@ export default {
       path: "/",
       query: {},
       loading: false,
+      reload: false,
       componentData: {}
     };
   },
@@ -40,16 +42,23 @@ export default {
         this.getContent();
       });
     });
+
+    this.$bus.on("pageReload", () => {
+      this.reload = true;
+      this.getContent();
+    });
   },
   destroyed() {
     this.$bus.off("route-after");
+    this.$bus.off("pageReload");
   },
   methods: {
     getContent() {
       let componentData = this._.get(this.$store.state.contents, this.path);
-      if (componentData) {
+      if (componentData && !this.reload) {
         this.componentData = componentData;
         this.loading = false;
+        this.reload = false;
       } else {
         this.$store
           .dispatch("getCenten", {
@@ -61,10 +70,11 @@ export default {
           })
           .then(data => {
             this.componentData = data;
-            this.loading = false;
           })
-          .catch(() => {
+          .catch(() => {})
+          .finally(() => {
             this.loading = false;
+            this.reload = false;
           });
       }
     }

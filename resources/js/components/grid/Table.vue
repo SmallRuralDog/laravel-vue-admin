@@ -1,6 +1,10 @@
 <template>
   <div class="grid-container">
-    <component v-if="attrs.top" :is="attrs.top.componentName" :attrs='attrs.top' />
+    <component
+      v-if="attrs.top"
+      :is="attrs.top.componentName"
+      :attrs="attrs.top"
+    />
 
     <el-card shadow="never" :body-style="{ padding: 0 }">
       <div class="grid-top-container">
@@ -172,7 +176,12 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column label="" prop="grid_actions">
+          <el-table-column
+            label="操作"
+            prop="grid_actions"
+            :fixed="attrs.attributes.actionFixed"
+            :width="attrs.attributes.actionWidth"
+          >
             <template slot="header"></template>
             <template slot-scope="scope">
               <Actions
@@ -199,7 +208,11 @@
         />
       </div>
     </el-card>
-    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs='attrs.bottom' />
+    <component
+      v-if="attrs.bottom"
+      :is="attrs.bottom.componentName"
+      :attrs="attrs.bottom"
+    />
   </div>
 </template>
 

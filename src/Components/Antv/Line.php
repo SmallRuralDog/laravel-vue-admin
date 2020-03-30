@@ -25,6 +25,7 @@ class Line extends Component
     }
 
     /**
+     * 设置数据
      * @param mixed $data
      * @return $this
      */
@@ -41,6 +42,7 @@ class Line extends Component
     }
 
     /**
+     * 设置配置信息
      * @param mixed $config
      * @return $this
      */

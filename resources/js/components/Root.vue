@@ -91,6 +91,18 @@
             </div>
           </div>
           <div class="layout-header-r">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="刷新"
+            >
+              <div
+                @click="pageReload"
+                class="layout-header-trigger layout-header-trigger-min hover"
+              >
+                <i class="el-icon-refresh-right icon-btn"></i>
+              </div>
+            </el-tooltip>
             <div class="layout-header-trigger layout-header-trigger-min hover">
               <el-dropdown>
                 <div class="layout-header-user">
@@ -257,6 +269,9 @@ export default {
     }
   },
   methods: {
+    pageReload() {
+      this.$bus.emit("pageReload");
+    },
     collapsedSide() {
       this.isCollapsed = !this.isCollapsed;
     },

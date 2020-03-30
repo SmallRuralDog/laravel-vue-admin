@@ -185,5 +185,25 @@ trait HasGridAttributes
         return $this;
     }
 
+    /**
+     * 操作栏宽度
+     * @param $actionWidth
+     * @return $this
+     */
+    public function actionWidth($actionWidth){
+        $this->attributes->actionWidth = $actionWidth;
+        return $this;
+    }
+
+    /**
+     * 操作栏固定位置
+     * @param $actionFixed
+     * @return $this
+     */
+    public function actionFixed($actionFixed){
+        $this->attributes->actionFixed = $actionFixed;
+        return $this;
+    }
+
 
 }

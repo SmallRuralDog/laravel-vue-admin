@@ -18,7 +18,9 @@ export default {
       ...this.attrs.config
     });
     this.antv.render();
-    
+  },
+  updated() {
+    this.antv.changeData(this.attrs.data);
   },
   destroyed() {
     //this.antv.destory();

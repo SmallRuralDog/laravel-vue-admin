@@ -57,6 +57,9 @@ class Attributes
 
     public $treeProps = ['hasChildren'=>'hasChildren','children'=>'children'];
 
+    public $actionWidth;
+    public $actionFixed;
+
     public $selection = false;
 
 }

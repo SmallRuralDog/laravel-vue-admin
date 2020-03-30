@@ -621,6 +621,12 @@ this.$bus.emit("tableSetLoading",true);
 this.$bus.emit("tableSetLoading",false);
 ```
 
+### 刷新内容区域
+
+```php
+this.$bus.emit("pageReload");
+```
+
 
 
 更多事件正在开发中......
