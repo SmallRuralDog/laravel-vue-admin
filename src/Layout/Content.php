@@ -28,15 +28,18 @@ class Content extends Component
     }
 
 
-    public function row($content)
+    public function row($content, $gutter = 0)
     {
 
         if ($content instanceof Closure) {
             $row = new Row();
+            $row->gutter($gutter);
             call_user_func($content, $row);
             $this->addRow($row);
         } else {
-            $this->addRow(new Row($content));
+            $row = new Row();
+            $row->gutter($gutter);
+            $this->addRow($row);
         }
         return $this;
     }

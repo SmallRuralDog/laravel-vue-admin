@@ -1,5 +1,3 @@
-# 内置组件
-
 ## 公共方法
 
 每个组件都可以设置`class`和`style`
@@ -10,7 +8,7 @@ style(['width'=>'100px']);
 ```
 ## 展示组件
 
-### 步骤条
+## Steps 步骤条
 
 引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步。
 
@@ -52,7 +50,15 @@ Steps::make()
 Html::make()->html("<div>......</div>");
 ```
 
+### Alert警告
 
+用于页面中展示重要的提示信息。
+
+```
+Alert::make("title","desc");
+```
+
+属性请查看 https://element.eleme.cn/#/zh-CN/component/alert
 
 ## 表格组件
 
