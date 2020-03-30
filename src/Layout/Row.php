@@ -18,9 +18,6 @@ class Row extends Component
     protected $gutter = 0;
 
 
-
-
-
     public function __construct($content = '')
     {
         if (!empty($content)) {
@@ -34,16 +31,6 @@ class Row extends Component
         $column = new Column($content, $width);
         $this->addColumn($column);
         return $column;
-    }
-
-
-    public function class($class)
-    {
-        if (is_string($class)) {
-            $class = [$class];
-        }
-        $this->class = $class;
-        return $this;
     }
 
 
@@ -65,9 +52,4 @@ class Row extends Component
         $this->gutter = $gutter;
         return $this;
     }
-
-
-
-
-
 }
