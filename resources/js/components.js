@@ -115,3 +115,6 @@ Vue.component('Steps', Steps)
 
 import Html from './components/widgets/Html'
 Vue.component('Html', Html)
+
+import Alert from './components/widgets/Alert'
+Vue.component('Alert', Alert)

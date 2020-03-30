@@ -6,13 +6,13 @@ namespace SmallRuralDog\Admin\Components;
 
 class Alert extends Component
 {
-    protected $componentValue = "Alert";
+    protected $componentName = "Alert";
 
     protected $title = "";
     protected $type = "info";
     protected $description = "";
     protected $closable = true;
-    protected $center = true;
+    protected $center = false;
     protected $closeText = "";
     protected $showIcon = false;
     protected $effect = "light";
