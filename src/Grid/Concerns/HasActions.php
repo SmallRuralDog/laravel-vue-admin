@@ -50,8 +50,6 @@ trait HasActions
     }
 
 
-
-
     /**
      * 隐藏所有操作
      * @return $this
@@ -99,7 +97,13 @@ trait HasActions
      */
     public function add($action)
     {
-        $this->addActions = collect($this->addActions)->push($action)->all();
+        if ($action instanceof \Closure) {
+            $this->addActions = collect($this->addActions)->push(call_user_func($action))->all();
+        } else {
+            $this->addActions = collect($this->addActions)->push($action)->all();
+        }
+
+
         return $this;
     }
 

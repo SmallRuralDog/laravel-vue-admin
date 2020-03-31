@@ -627,6 +627,12 @@ this.$bus.emit("tableSetLoading",false);
 this.$bus.emit("pageReload");
 ```
 
+关闭Dialog
+
+```php
+this.$bus.emit("closeDialog");
+```
+
 
 
 更多事件正在开发中......

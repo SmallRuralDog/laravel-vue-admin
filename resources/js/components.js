@@ -12,7 +12,7 @@ import Row from './components/layout/Row'
 import Column from './components/layout/Column'
 import Table from './components/grid/Table'
 import Tree from './components/grid/Tree'
-import BaseForm from './components/form/BaseForm'
+import Form from './components/form/Form'
 
 Vue.component('login', Login);
 Vue.component('Root', Root);
@@ -21,7 +21,8 @@ Vue.component('Row', Row);
 Vue.component('Column', Column);
 Vue.component('Grid', Table);
 Vue.component('Tree', Tree);
-Vue.component('Form', BaseForm);
+Vue.component('Form', Form);
+Vue.component('BaseForm', ()=>import('./components/form/BaseForm'));
 
 
 import Input from './components/widgets/Input'
@@ -130,3 +131,5 @@ Vue.component('AntvStepLine', () => import('./components/antv/AntvStepLine'))
 
 
 Vue.component('AntvColumn', () => import('./components/antv/AntvColumn'))
+
+Vue.component('DialogButton', () => import('./components/widgets/DialogButton'))

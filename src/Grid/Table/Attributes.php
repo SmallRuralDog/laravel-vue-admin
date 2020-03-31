@@ -55,11 +55,14 @@ class Attributes
 
     public $defaultExpandAll = false;
 
-    public $treeProps = ['hasChildren'=>'hasChildren','children'=>'children'];
+    public $treeProps = ['hasChildren' => 'hasChildren', 'children' => 'children'];
 
     public $actionWidth;
     public $actionFixed;
+    public $actionAlign = "right";
 
     public $selection = false;
+
+    public $dataVuex = false;
 
 }

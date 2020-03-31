@@ -227,6 +227,18 @@ class FormItem
         return $this;
     }
 
+    /**
+     * 设置默认值
+     * @param mixed $defaultValue
+     * @return $this
+     */
+    public function defaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed

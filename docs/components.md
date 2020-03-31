@@ -6,6 +6,24 @@
 className('class-1 class-2');
 style(['width'=>'100px']);
 ```
+## 基础表单
+
+可实现简单的表单，不带模型
+
+![image-20200331141335210](components.assets/image-20200331141335210.png)
+
+```php
+$baseForm = new BaseForm();//实例化
+$baseForm->action(route("order-express"));//设置表单提交地址，POST请求
+$baseForm->emit("closeDialog");//设置表单提交成功触发事件
+$baseForm->emit("tableReload");
+$baseForm->addValue("order_no", $actions->getRow()->order_no);//添加表单域的值
+$baseForm->item("express_company", "物流公司")->required();//添加可编辑字段，用法模型表单一样
+$baseForm->item("express_no", "物流单号")->required();
+```
+
+
+
 ## 展示组件
 
 ### Card 卡片
@@ -15,8 +33,6 @@ style(['width'=>'100px']);
 ```php
 Card::make()->content();
 ```
-
-
 
 ### Steps 步骤条
 
@@ -85,6 +101,8 @@ Alert::make("title","desc");
 ## 表格组件
 
 ### Tag 标签
+
+更多属性请查看element-ui文档
 
 ```php
 Tag::make();
@@ -181,6 +199,9 @@ Tag::make()->href("http://www.baidu.com");
 #### 图标类名
 
 可直接使用内置 [Icon 图标](https://element.eleme.cn/#/zh-CN/component/icon)，或使用自定义图标
+
+更多属性请查看element-ui文档
+
 ```php
 Tag::make()->icon('el-icon-platform-eleme');
 //OR
@@ -192,21 +213,37 @@ Tag::make()->icon('iconfont my-icon-name');
 Avatar::make();
 ```
 ### Image 图片
-可显示单张或多张图片，支持大图预览
+可显示单张或多张图片，支持大图预览，更多属性请查看element-ui文档
 ```php
 Image::make();
 ```
 ### Icon 图标
+
+更多属性请查看element-ui文档
+
 ```php
 Icon::make()
 ```
+
+### Dialog 对话框
+
+目前此组件不能单独使用，需配合其他组件使用，如`ActionButton`，`ToolbarButton`
+
+```php
+Dialog::make()
+    ->.....//更多属性请查看element-ui文档
+    ->slot(function(Content $content){//弹窗内容组件，闭包传入一个content组件
+
+	});
+```
+
 
 
 ### 操作组件
 
 #### ActionButton
 
-可用于vue路由导航，异步请求，连接跳转 操作
+可用于vue路由导航，异步请求，连接跳转，dialog 操作
 
 ```php
 ActionButton::make("ActionName")
@@ -215,22 +252,65 @@ ActionButton::make("ActionName")
     ->message("确认操作提示信息")
     ->handler("route")
     ->uri("WeChat/manage/{app_id}")//路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
+    ->dialog(function($dialog){//返回dialog实例
+        
+    })
 //调用代码
 $grid->actions(function (Grid\Actions $actions) {
       $actions->add(...);
 });
 ```
 
+
+
+Dialog代码示例
+
+![image-20200331142220245](components.assets/image-20200331142220245.png)
+
+```php
+$actions->add(ActionButton::make("发货")->order(4)->dialog(function (Dialog $dialog) use ($actions) {
+    $dialog->title("订单发货")->showClose(false)->width('500px');
+    $dialog->slot(function (Content $content) use ($actions) {
+        $baseForm = new BaseForm();
+        $baseForm->action(route("order-express"));
+        $baseForm->emit("closeDialog");
+        $baseForm->emit("tableReload");
+        $baseForm->addValue("order_no", $actions->getRow()->order_no);
+        $baseForm->item("express_company", "物流公司")->required();
+        $baseForm->item("express_no", "物流单号")->required();
+        $content->row($baseForm);
+    });
+}));
+```
+
+这里的dialog展示的是一个表单，当然你可以展示任意组件
+
+
+
 ### 工具栏组件
 
 #### ToolButton
 
-可用于vue路由导航，异步请求，连接跳转 操作
+可用于vue路由导航，异步请求，连接跳转 , Dialog 
+
+
+
+普通演示
 
 ```php
 Grid\Tools\ToolButton::make("同步粉丝")
     ->handler("request") // 类型 request|route|link
     ->uri("") //路径
+```
+
+Dialog演示，Dialog属性请参考 
+
+```php
+$toolbars->addRight(Grid\Tools\ToolButton::make("采集")->dialog(function (Dialog $dialog){
+    $dialog->slot(function (Content $content) {
+    	$content->row(Alert::make("123456"));
+    });
+}));
 ```
 
 其他属性可参考 `el-button`
@@ -241,6 +321,8 @@ Grid\Tools\ToolButton::make("同步粉丝")
 
 ### Radio 单选框
 
+更多属性请查看element-ui文档
+
 ```php
 RadioGroup::make(1, [
 	Radio::make(1, "公众号"),
@@ -249,6 +331,8 @@ RadioGroup::make(1, [
 ```
 
 ### Checkbox 多选框
+
+更多属性请查看element-ui文档
 
 ```php
 CheckboxGroup::make()->options([
@@ -259,11 +343,15 @@ CheckboxGroup::make()->options([
 
 ### Input 输入框
 
+更多属性请查看element-ui文档
+
 ```
 Input::make()
 ```
 
 ### InputNumber 计数器
+
+更多属性请查看element-ui文档
 
 ```
 InputNumber::make()
@@ -288,6 +376,8 @@ Select::make()
 ```php
 Select::make()->filterable()->remote($remoteUrl)
 ```
+
+更多属性请查看element-ui文档
 
 ### Cascader 级联选择器
 
@@ -342,11 +432,15 @@ $form->item("goods_class_path", "产品分类")->displayComponent(function () {
 Cascader::make()->panel(true)
 ```
 
+更多属性请查看element-ui文档
+
 ### Switch 开关
 
 ```php
 CSwitch::make()
 ```
+
+更多属性请查看element-ui文档
 
 ### Slider 滑块
 
@@ -354,11 +448,15 @@ CSwitch::make()
 Slider::make()
 ```
 
+更多属性请查看element-ui文档
+
 ### TimePicker 时间选择器
 
 ```php
 TimePicker::make()
 ```
+
+更多属性请查看element-ui文档
 
 ### DatePicker 日期选择器
 
@@ -366,13 +464,18 @@ TimePicker::make()
 DatePicker::make()
 ```
 
+更多属性请查看element-ui文档
+
 ### DateTimePicker 日期时间选择器
 
 ```php
 DateTimePicker::make()
 ```
 
+更多属性请查看element-ui文档
+
 ### Upload 上传
+
 通过以下的调用来生成上传组件
 ```php
 $form->item('avatar', '头像')->displayComponent(Upload::make()->pictureCard()->avatar()->path('avatar')->uniqueName())

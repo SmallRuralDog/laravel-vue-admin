@@ -5,9 +5,11 @@ namespace SmallRuralDog\Admin\Actions;
 
 
 use JsonSerializable;
+use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
 
 class BaseAction implements JsonSerializable
 {
+    use HasDialog;
     protected $componentName = "";
     protected $className;
     protected $style;

@@ -1,12 +1,27 @@
 <template>
-  <el-popconfirm
-    placement="top"
-    :title="action.message"
-    @onConfirm="onClick"
-    v-if="action.message"
-  >
+  <span>
+    <el-popconfirm
+      placement="top"
+      :title="action.message"
+      @onConfirm="onClick"
+      v-if="action.message"
+    >
+      <el-button
+        slot="reference"
+        :type="action.type"
+        :size="action.size"
+        :plain="action.plain"
+        :round="action.round"
+        :circle="action.circle"
+        :disabled="action.disabled"
+        :icon="action.icon"
+        :autofocus="action.autofocus"
+        :loading="loading"
+        >{{ action.content }}</el-button
+      >
+    </el-popconfirm>
     <el-button
-      slot="reference"
+      v-else
       :type="action.type"
       :size="action.size"
       :plain="action.plain"
@@ -16,23 +31,33 @@
       :icon="action.icon"
       :autofocus="action.autofocus"
       :loading="loading"
+      @click="onClick"
       >{{ action.content }}</el-button
     >
-  </el-popconfirm>
-  <el-button
-    v-else
-    :type="action.type"
-    :size="action.size"
-    :plain="action.plain"
-    :round="action.round"
-    :circle="action.circle"
-    :disabled="action.disabled"
-    :icon="action.icon"
-    :autofocus="action.autofocus"
-    :loading="loading"
-    @click="onClick"
-    >{{ action.content }}</el-button
-  >
+    <el-dialog
+      v-if="action.dialog"
+      :title="action.dialog.title"
+      :visible.sync="dialogTableVisible"
+      :width="action.dialog.width"
+      :fullscreen="action.dialog.fullscreen"
+      :top="action.dialog.top"
+      :modal="action.dialog.modal"
+      :lock-scroll="action.dialog.lockScroll"
+      :custom-class="action.dialog.customClass"
+      :show-close="action.dialog.showClose"
+      :center="action.dialog.center"
+      :close-on-click-modal="action.dialog.closeOnClickModal"
+      :close-on-press-escape="action.dialog.closeOnPressEscape"
+      append-to-body
+      destroy-on-close
+    >
+      <component
+        v-if="action.dialog.slot"
+        :is="action.dialog.slot.componentName"
+        :attrs="action.dialog.slot"
+      />
+    </el-dialog>
+  </span>
 </template>
 <script>
 export default {
@@ -43,11 +68,24 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      dialogTableVisible: false
     };
+  },
+  mounted() {
+    this.$bus.on("closeDialog", data => {
+      this.dialogTableVisible = false;
+    });
+  },
+  destroyed() {
+    this.$bus.off("closeDialog");
   },
   methods: {
     onClick() {
+      if (this.action.dialog) {
+        this.dialogTableVisible = true;
+        return;
+      }
       //判断操作响应类型
       switch (this.action.handler) {
         case "route":

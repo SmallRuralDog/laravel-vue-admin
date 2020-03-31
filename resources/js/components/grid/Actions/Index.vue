@@ -1,14 +1,13 @@
 <template>
   <div class="grid-actions">
     <template v-for="(action, index) in order_action_list">
-      <span :key="action.componentName + index">
         <component
           :is="action.componentName"
+          :key="action.componentName + index"
           :scope="scope"
           :action="action"
           :key_name="key_name"
         />
-      </span>
     </template>
   </div>
 </template>
@@ -45,6 +44,7 @@ export default {
 </script>
 <style lang="scss">
 .grid-actions {
+  white-space: nowrap;
   .el-button + .el-button {
     margin-left: 0;
   }

@@ -28,7 +28,7 @@
               >
             </el-input>
           </div>
-          <div>
+          <div class="flex-c">
             <component
               v-for="(component, index) in attrs.toolbars.left"
               :key="component.componentName + index"
@@ -177,10 +177,10 @@
             </el-table-column>
           </template>
           <el-table-column
-            label="操作"
             prop="grid_actions"
             :fixed="attrs.attributes.actionFixed"
-            :width="attrs.attributes.actionWidth"
+            :min-width="attrs.attributes.actionWidth"
+            :align="attrs.attributes.actionAlign"
           >
             <template slot="header"></template>
             <template slot-scope="scope">
@@ -261,6 +261,12 @@ export default {
     if (this.$store.getters.thisPage.grids.page) {
       this.page = this._.cloneDeep(this.$store.getters.thisPage.grids.page);
 
+      if (this.attrs.attributes.dataVuex) {
+        this.tableData = this._.cloneDeep(
+          this.$store.getters.thisPage.grids.tableData
+        );
+      }
+
       this.pageData = this._.cloneDeep(
         this.$store.getters.thisPage.grids.pageData
       );
@@ -277,7 +283,9 @@ export default {
     }
 
     //加载数据
-    this.getData();
+    if (this.tableData.length <= 0 || !this.attrs.attributes.dataVuex) {
+      this.getData();
+    }
 
     //监听事件
     this.$bus.on("tableReload", () => {
@@ -328,12 +336,20 @@ export default {
         .then(
           ({ data: { data, current_page, per_page, total, last_page } }) => {
             this.tableData = data;
+
             this.pageData.pageSize = per_page;
             this.pageData.currentPage = current_page;
             this.pageData.total = total;
             this.pageData.lastPage = last_page;
 
             //**保存 Grid状态 */
+            if (this.attrs.attributes.dataVuex) {
+              this.$store.commit("setGridData", {
+                key: "tableData",
+                data: this.tableData
+              });
+            }
+
             this.$store.commit("setGridData", { key: "sort", data: this.sort });
             this.$store.commit("setGridData", { key: "page", data: this.page });
             this.$store.commit("setGridData", {

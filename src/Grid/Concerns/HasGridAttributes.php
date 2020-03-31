@@ -190,8 +190,21 @@ trait HasGridAttributes
      * @param $actionWidth
      * @return $this
      */
-    public function actionWidth($actionWidth){
+    public function actionWidth($actionWidth)
+    {
         $this->attributes->actionWidth = $actionWidth;
+        return $this;
+    }
+
+    /**
+     * 操作栏对齐
+     * left  right  center
+     * @param $actionAlign
+     * @return $this
+     */
+    public function actionAlign($actionAlign)
+    {
+        $this->attributes->actionAlign = $actionAlign;
         return $this;
     }
 
@@ -200,10 +213,21 @@ trait HasGridAttributes
      * @param $actionFixed
      * @return $this
      */
-    public function actionFixed($actionFixed){
+    public function actionFixed($actionFixed)
+    {
         $this->attributes->actionFixed = $actionFixed;
         return $this;
     }
 
+    /**
+     * 表格数据是否存入vuex
+     * @param $dataVuex
+     * @return $this
+     */
+    public function dataVuex($dataVuex = true)
+    {
+        $this->attributes->dataVuex = $dataVuex;
+        return $this;
+    }
 
 }

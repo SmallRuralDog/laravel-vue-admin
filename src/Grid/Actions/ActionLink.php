@@ -4,31 +4,26 @@
 namespace SmallRuralDog\Admin\Grid\Actions;
 
 
-use SmallRuralDog\Admin\Actions\BaseRowAction;
-use SmallRuralDog\Admin\Components\Attrs\Button;
-use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
+use SmallRuralDog\Admin\Components\Attrs\ElLink;
+use SmallRuralDog\Admin\Components\Component;
 
-class ActionButton extends BaseRowAction
+class ActionLink extends Component
 {
-    use Button;
-    protected $uri;
-    protected $componentName = "ActionButton";
-    protected $handler;
+    use ElLink;
 
+    protected $componentName = "ActionLink";
+    protected $uri;
+    protected $handler;
+    protected $content;
 
     public function __construct($content)
     {
         $this->content = $content;
-        $this->type("text");
     }
 
-    /**
-     * @param string $content 按钮内容
-     * @return ActionButton
-     */
-    public static function make($content)
+    protected static function make($content)
     {
-        return new ActionButton($content);
+        return new ActionLink($content);
     }
 
     /**
@@ -38,6 +33,7 @@ class ActionButton extends BaseRowAction
     public function uri($uri)
     {
         $this->uri = $uri;
+        $this->href = $uri;
         return $this;
     }
 

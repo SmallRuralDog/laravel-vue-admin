@@ -149,6 +149,14 @@ $grid->model()->with(['roles:id,name', 'roles.permissions', 'roles.menus']);
 $grid->defaultSort('id', 'asc');
 ```
 
+### 数据状态保存
+
+把数据存入vue，默认为不保存
+
+```php
+$grid->dataVuex();
+```
+
 ### 分页
 
 设置 Table 的分页属性，默认`[10, 20, 30, 40, 50, 100]`

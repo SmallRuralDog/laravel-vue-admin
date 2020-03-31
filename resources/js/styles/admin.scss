@@ -71,7 +71,7 @@ body {
     margin-top: 50px;
 }
 
-.p-10{
+.p-10 {
     padding: 10px;
 }
 
@@ -156,6 +156,7 @@ body {
     height: 100vh;
     overflow: auto;
 }
+
 .el-card {
     //border: none;
 }
@@ -177,13 +178,23 @@ body {
 .el-select-dropdown__item {
     padding: 0 10px;
 }
-.el-loading-mask{
+
+.el-loading-mask {
     z-index: 99;
 }
-.el-message{
+
+.el-message {
     width: auto;
     min-width: unset;
     padding: 15px 20px;
+}
+
+.el-dialog__body {
+    padding: 20px;
+}
+
+.tool-button+.tool-button {
+    margin-left: 10px;
 }
 
 /*************************************************/
@@ -212,6 +223,7 @@ body {
     -webkit-transform: translateX(-10px);
     transform: translateX(-10px);
 }
+
 .fade-transform-leave-to {
     opacity: 0;
     -webkit-transform: translateX(0px);
