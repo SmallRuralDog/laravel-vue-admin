@@ -1,17 +1,19 @@
 <template>
-  <el-button
-    :type="action.type"
-    :size="action.size"
-    :plain="action.plain"
-    :round="action.round"
-    :circle="action.circle"
-    :disabled="action.disabled"
-    :icon="action.icon"
-    :autofocus="action.autofocus"
-    :loading="loading"
-    @click="onHandle"
-    >{{action.content}}</el-button
-  >
+  <span>
+    <el-button
+      :type="action.type"
+      :size="action.size"
+      :plain="action.plain"
+      :round="action.round"
+      :circle="action.circle"
+      :disabled="action.disabled"
+      :icon="action.icon"
+      :autofocus="action.autofocus"
+      :loading="loading"
+      @click="onHandle"
+      >{{ action.content }}</el-button
+    >
+  </span>
 </template>
 <script>
 export default {

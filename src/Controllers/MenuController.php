@@ -69,6 +69,7 @@ class MenuController extends AdminController
     protected function grid()
     {
 
+
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
@@ -77,6 +78,7 @@ class MenuController extends AdminController
             ->defaultSort('order', 'asc')
             ->tree()
             ->emptyText("暂无菜单")
+            ->quickSearch(["title"])
             ->defaultExpandAll(false);
 
         $grid->column('id', "ID")->width(80);

@@ -1,5 +1,6 @@
 <template>
   <div class="tool-button">
+    <el-tooltip :content="attrs.tooltip" placement="top" :disabled="!attrs.tooltip">
     <el-button
       :type="attrs.type"
       :size="attrs.size"
@@ -12,6 +13,7 @@
       :loading="loading"
       @click="onClick"
       >{{ attrs.content }}</el-button>
+    </el-tooltip>
     <el-dialog
       v-if="attrs.dialog"
       :title="attrs.dialog.title"

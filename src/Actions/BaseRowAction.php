@@ -14,6 +14,7 @@ class BaseRowAction extends BaseAction
     protected $order = 1;
 
     protected $message;
+    protected $tooltip;
 
     protected $vif;
 
@@ -39,6 +40,19 @@ class BaseRowAction extends BaseAction
         $this->message = $message;
         return $this;
     }
+
+    /**
+     * 按钮气泡信息
+     * @param mixed $tooltip
+     * @return $this
+     */
+    public function tooltip($tooltip)
+    {
+        $this->tooltip = $tooltip;
+        return $this;
+    }
+
+
 
     /**
      * 设置操作vif属性算法

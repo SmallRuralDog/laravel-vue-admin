@@ -30,7 +30,7 @@ class PermissionController extends AdminController
 
         $grid->defaultSort('id', 'asc');
 
-
+        $grid->quickSearch(['slug','name']);
         $grid->column('id', 'ID')->sortable()->width('80px');
         $grid->column('slug', "标识")->width(120);
         $grid->column('name', "名称")->width(120);

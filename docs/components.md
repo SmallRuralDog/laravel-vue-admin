@@ -250,6 +250,7 @@ ActionButton::make("ActionName")
     ->order(3) //排序 越大越靠前
     ->icon("icon-class-name")//图标
     ->message("确认操作提示信息")
+    ->tooltip("气泡提示")//无message时生效
     ->handler("route")
     ->uri("WeChat/manage/{app_id}")//路径,{xxx}会被自动替换成当前行的对应值,支持 ?x=x 参数 
     ->dialog(function($dialog){//返回dialog实例
@@ -260,8 +261,6 @@ $grid->actions(function (Grid\Actions $actions) {
       $actions->add(...);
 });
 ```
-
-
 
 Dialog代码示例
 
@@ -380,6 +379,8 @@ Select::make()->filterable()->remote($remoteUrl)
 更多属性请查看element-ui文档
 
 ### Cascader 级联选择器
+
+![image-20200331154059916](components.assets/image-20200331154059916.png)
 
 当一个数据集合有清晰的层级结构时，可通过级联选择器逐级查看并选择
 
@@ -570,6 +571,8 @@ ColorPicker::make()
 ```
 
 ### Transfer 穿梭框
+
+![image-20200331154547211](components.assets/image-20200331154547211.png)
 
 ```php
 Transfer::make()->data($permissionModel::get()->map(function ($item) {

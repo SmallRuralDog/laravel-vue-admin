@@ -133,3 +133,5 @@ Vue.component('AntvStepLine', () => import('./components/antv/AntvStepLine'))
 Vue.component('AntvColumn', () => import('./components/antv/AntvColumn'))
 
 Vue.component('DialogButton', () => import('./components/widgets/DialogButton'))
+
+Vue.component('Tooltip', () => import('./components/widgets/Tooltip'))

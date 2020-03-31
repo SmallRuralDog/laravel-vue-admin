@@ -20,6 +20,8 @@ class RoleController extends AdminController
 
         $grid = new Grid(new $roleModel());
 
+        $grid->quickSearch(['slug','name']);
+
         $grid->column('id', 'ID')->width('80px')->sortable();
         $grid->column('slug', "标识");
         $grid->column('name', "名称");

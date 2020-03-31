@@ -6,12 +6,15 @@ mix.config.webpackConfig.output = {
 
 mix
     .js('resources/js/app.js', 'public')
-    .extract([
-        'axios',
-        'vue',
-        'vue-router',
-        'element-ui'
-    ])
+    .extract(
+        [
+            'axios',
+            'vue',
+            'vuex',
+            'vue-router',
+            'element-ui'
+        ]
+    )
     .setResourceRoot('/vendor/laravel-vue-admin')
     .setPublicPath('public')
     .copy('public', '../../../public/vendor/laravel-vue-admin')

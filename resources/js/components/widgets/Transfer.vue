@@ -18,6 +18,7 @@
 export default {
   props: {
     attrs: Object,
+    form_data:Object,
     value: {
       default: []
     }

@@ -110,7 +110,7 @@ export default {
     };
   },
   mounted() {
-    this.formData = this._.cloneDeep(this.attrs.formItemsValue);
+    this.formData = this._.cloneDeep(this.attrs.formItemsValue)
   },
   methods: {
     submitForm(formName) {
