@@ -79,6 +79,7 @@ class MenuController extends AdminController
             ->emptyText("暂无菜单")
             ->defaultExpandAll(false);
 
+        $grid->column('id', "ID")->width(80);
         $grid->column('icon', "图标")->component(Icon::make())->width(80);
         $grid->column('title', "名称");
         $grid->column('order', "排序");

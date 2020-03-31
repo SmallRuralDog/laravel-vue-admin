@@ -413,18 +413,13 @@ class Model
                     data_set($item, $column->getName(), $n_value);
                 }
             }
-
-
-            if ($TreeChildren = data_get($item, $this->grid->getTreeChildrenName())) {
-                $TreeChildren = collect($TreeChildren)->map(function ($t_item) use ($key, $row) {
-                    data_set($t_item, 'grid_actions', $this->grid->getActions($row, $key));
-                    return $t_item;
-                })->all();
-                data_set($item, $this->grid->getTreeChildrenName(), $TreeChildren);
-            }
-
             data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
 
+            //如果存在下级
+            if ($TreeChildren = data_get($row, $this->grid->getTreeChildrenName())) {
+                //递归处理下级列表
+                data_set($item, $this->grid->getTreeChildrenName(), $this->displayData($TreeChildren));
+            }
             $items->push($item);
         }
 

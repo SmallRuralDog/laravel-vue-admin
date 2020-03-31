@@ -579,7 +579,7 @@ $grid->column('name')->itemSuffix("折")
 
 
 
-### 树形列表
+## 树形列表
 
 >用清晰的层级结构展示信息，可展开或折叠。
 
@@ -595,11 +595,12 @@ public function children() {
 ```php
 $grid->model()->where('parent_id', 0);//设置查询条件
 $grid->tree();//启动树形表格
+$grid->rowKey('id');//设置rowKey，必须存在，默认为ID，如果你的Grid没有定义ID字段就要重新设置其他字段
 $grid->defaultExpandAll();//默认展开所有行
 ```
 
 
-### 关联模型
+## 关联模型
 >要成功显示关联模型的值，必须设置`with`的值
 
 要显示关联模型的值，使用`.`来获取关联模型的值，可以多级显示，最后一级为要显示的值
