@@ -27,7 +27,6 @@ class UserController extends AdminController
             ->quickSearchPlaceholder("用户名 / 名称")
             ->pageBackground()
             ->defaultSort('id', 'asc')
-            ->with(['roles:id,name', 'roles.permissions', 'roles.menus'])
             ->selection()
             ->stripe(true)->emptyText("暂无用户")
             ->perPage(10);

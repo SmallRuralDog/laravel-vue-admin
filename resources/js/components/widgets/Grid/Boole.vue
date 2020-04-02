@@ -5,7 +5,7 @@
   </span>
 </template>
 <script>
-import { GridColumnComponent } from "../../../mixins";
+import { GridColumnComponent } from "@/mixins";
 export default {
   mixins: [GridColumnComponent]
 };

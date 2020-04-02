@@ -17,8 +17,7 @@ class LogController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new OperationLog());
-        $grid->with(['user'])
-            ->perPage(15)
+        $grid->perPage(15)
             ->quickSearch()
             ->selection()
             ->defaultSort('id', 'desc')
