@@ -222,7 +222,74 @@ $form->item("goods_sku", "产品规格")->displayComponent(GoodsSku::make())
 
 ### Grid字段组件
 
-正在编写中....
+自定义表格展现组件
+
+创建组件定义类，下面以Boole组件为例
+
+![image-20200402153922198](custom.assets/image-20200402153922198.png)
+
+```php
+use SmallRuralDog\Admin\Components\Component;
+
+class Boole extends Component
+{
+    protected $componentName = "Boole";
+    public static function make($value = null)
+    {
+        return new Boole($value);
+    }
+
+}
+```
+
+创建组件Vue文件
+
+```vue
+<template>
+  <span>
+    <i class="el-icon-success status" v-if="value"></i>
+    <i class="el-icon-error status" v-else></i>
+  </span>
+</template>
+<script>
+    //引入组件公共定义
+    import { GridColumnComponent } from "@/mixins";
+    export default {
+      	mixins: [GridColumnComponent]//混入
+        //..... 你自己的代码
+    };
+</script>
+<style lang="scss" scoped>
+    .status {
+      font-size: 20px;
+    }
+    .el-icon-success {
+      color: #67c23a;
+    }
+    .el-icon-error {
+      color: #f56c6c;
+    }
+</style>
+```
+
+组件公共部分
+
+```js
+const GridColumnComponent = {
+    props: {
+        attrs: Object,//当前组件的属性，就是你组件定义类的属性
+        row: Object,//当前行数据
+        column_value: {//字段原始值，接口返回什么这里就是什么
+            default: null
+        },
+        value: {//字段值，经过处理（拼接，计算等）
+            default: null
+        }
+    }
+}
+```
+
+
 
 ### Grid字段编辑组件
 
