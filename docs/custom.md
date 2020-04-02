@@ -1,4 +1,4 @@
-# 自定义扩展
+# 自定义组件
 
 可以扩展属于自己业务逻辑的组件
 
@@ -87,6 +87,56 @@ npm run production
 
 当然你还可以创建你的 路由  控制器  Model 等等，开发出一个具有业务逻辑的扩展
 
+## 自定义组件的理解
+
+由于前后端分离的架构，任何一个组件的实现都是先加载组件定义属性，根据属性渲染组件
+
+可以说一切组件皆对象，所有要实现一个组件就必须有组件定义类（后端），Vue文件（前端）
+
+后端定义好一个组件的 属性，前端根据属性去实现相对应的功能
+
+自定义组件完全没限制，比如你可以使用内置已有的包功能，也可以安装新的包
+
+
+
+## 内置已安装的npm包
+
+```json
+"devDependencies": {
+        "@chenfengyuan/vue-qrcode": "^1.0.2",
+        "axios": "^0.19.2",
+        "babel-plugin-component": "^1.1.1",
+        "babel-plugin-import": "^1.13.0",
+        "cross-env": "^5.1",
+        "element-ui": "^2.13.0",//UI
+        "laravel-mix": "^4.1.4",
+        "lodash": "^4.17.15",
+        "popper.js": "^1.12",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.20.1",
+        "sass-loader": "7.*",
+        "vue": "^2.6.11",
+        "vue-bus": "^1.2.1",
+        "vue-clipboard2": "^0.3.1",
+        "vue-dplayer": "0.0.10",
+        "vue-happy-scroll": "^2.1.1",
+        "vue-router": "^3.1.6",
+        "vue-template-compiler": "^2.6.10",
+        "vue-waterfall2": "^1.9.6",
+        "wangeditor": "^3.1.1",
+        "@antv/g2plot": "^1.0.2",
+        "awe-dnd": "^0.3.4",
+        "babel-plugin-dynamic-import-webpack": "^1.1.0",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "nprogress": "^0.2.0",
+        "url-loader": "^3.0.0",
+        "vue-nprogress": "^0.1.5",
+        "vuex": "^3.1.3"
+}
+```
+
+
+
 ## 创建步骤
 
 创建一个自定义组件需要三部
@@ -101,74 +151,46 @@ npm run production
 
 ### Form字段组件
 
-在 `src/components`下创建一个PHP类
+在 `src/components`下创建一个组件定义类，格式如下，必须继承`SmallRuralDog\Admin\Components\Component`
 
 ```php
-namespace Smallruraldog\MissMeijiuAdmin\Components;
 
 use SmallRuralDog\Admin\Components\Component;
 //需要继承 Component
-class GoodsSku extends Component
+class MyInput extends Component
 {
     //组件的名称，等下注册vue组件的时候名称需要一致
-    protected $componentName = "GoodsSku";
-    
-    /** 示例属性 *******************************/
-    
-    //当前所有规格
-    protected $goodsAttrs = [];
-    //添加规格接口
-    protected $addGoodsAttrUrl;
-    protected $addGoodsAttrValueUrl;
-    protected $uploadComponent;
-    protected $imageComponent;
-    /*********************************/
-    
-    //需要隐藏的属性，设置后不会在json中输出
+    protected $componentName = "MyInput";
+
+    //需要隐藏的属性，设置后不会在json中输出，这个功能由父类实现
     public $hideAttrs = [];
     
-    public function __construct($value = [])
-    {
-        //字段初始值
-        $this->componentValue($this->getValue([]));
-        
-        /** 示例代码 *******************************/
-        $goodsAttrModel = new GoodsAttr();
-        $this->goodsAttrs = $goodsAttrModel->allAttrs();
-        $this->addGoodsAttrUrl = route("addGoodsAttr");
-        $this->addGoodsAttrValueUrl = route("addGoodsAttrValue");
-        $this->uploadComponent = Upload::make()->width(130)->height(130);
-        $this->imageComponent = Image::make()->size(30, 30)->className("mr-10");
-        /*********************************/
-    }
-    //定义一个make
-    public static function make($value = [])
+    //定义一个make，这里的$value 是你组件的默认值，类型由你来决定
+    public static function make($value=null)
     {
         return new GoodsSku($value);
     }
     
-    //自定义字段输出值，在表单编辑时使用
+    //自定义字段输出值，在表单编辑时会调用这个方法获取值，如果没定义则使用默认值
     public function getValue($data)
     {
-        return [
-            'goods_attrs' => [],
-            'goods_sku_list' => []
-        ];
+        return $data;
     }
 }
 ```
 
-在`resources\js\components`下创建vue文件，例如`GoodsSku.vue`
+在`resources\js\components`下创建vue文件，例如`MyInput.vue`
+
+
 
 ```vue
 <template>
-  <!--这是属性示例用法-->
+  <!--这是属性示例用法,具体要实现什么功能，自由发挥-->
   <el-input
     :style="attrs.style"
     :class="attrs.className"
-    :validate-event="attrs.validateEvent"
-    :value="value" <!--绑定字段的值-->
-    @input="onChange" <!--改变字段的值-->
+    :value="value"
+    @input="onChange"
   >
   </el-input>
 </template>
@@ -185,10 +207,6 @@ class GoodsSku extends Component
             value: {
                 default: null
             }
-        },
-        data() {
-            return {
-            };
         },
         //上层实现了v-model功能
         model: {
@@ -210,14 +228,14 @@ class GoodsSku extends Component
 ```js
 VueAdmin.booting((Vue, router, store) => {
     //....................
-    Vue.component("GoodsSku", require('./components/GoodsSku').default),
+    Vue.component("MyInput", require('./components/MyInput').default),
 });
 ```
 
 在代码中使用组件
 
 ```php
-$form->item("goods_sku", "产品规格")->displayComponent(GoodsSku::make())
+$form->item("goods_sku", "产品规格")->component(MyInput::make())
 ```
 
 ### Grid字段组件
@@ -289,11 +307,25 @@ const GridColumnComponent = {
 }
 ```
 
+在`extend.js`注册组件
+
+```js
+Vue.component('Boole', require('xxx').default);
+```
+
+打包你的组件
+
+```shell
+npm run production
+```
+
+使用组件
+
+```php
+$grid->column('status', "状态")->width(100)->align("center")->component(Boole::make());
+```
 
 
-### Grid字段编辑组件
-
-正在编写中....
 
 ### Grid操作组件
 
@@ -511,7 +543,7 @@ class ToolButton extends BaseAction
 
 创建vue文件
 
-```php
+```vue
 <template>
   <el-button
     :type="attrs.type"
@@ -595,9 +627,11 @@ $fansListGrid->toolbars(function (Grid\Toolbars $toolbars) use ($app_id) {
 
 
 
-### Page组件
+### 基础组件
 
-如果内置的组件无法满足你的需求，那么就需要自定义了
+基础组件的Vue的props中，只能获取当前组件的属性，没有其他附加的props
+
+> 其实工具栏组件也是基础组件
 
 创建组件定义类
 
@@ -644,6 +678,8 @@ public function index(Content $content)
 ## 组件通信
 
 由于各个组件需要通信，所以需要监听或触发各种事件
+
+当然，在你自定义的组件中也可以开放事件给其他组件调用
 
 ```js
 //监听事件
@@ -694,7 +730,7 @@ this.$bus.emit("tableSetLoading",false);
 this.$bus.emit("pageReload");
 ```
 
-关闭Dialog
+### 关闭Dialog
 
 ```php
 this.$bus.emit("closeDialog");
