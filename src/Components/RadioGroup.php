@@ -69,12 +69,17 @@ class RadioGroup extends Component
     }
 
     /**
-     * @param Radio[] $options
+     * @param Radio[]|\Closure $options
      * @return RadioGroup
      */
-    public function options(array $options)
+    public function options($options)
     {
-        $this->options = $options;
+        if ($options instanceof \Closure) {
+            $this->options = call_user_func($options);
+        } else {
+            $this->options = $options;
+        }
+
         return $this;
     }
 

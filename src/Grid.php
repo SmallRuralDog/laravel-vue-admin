@@ -89,6 +89,16 @@ class Grid extends Component implements \JsonSerializable
         return $this->model;
     }
 
+    /**
+     * @return string
+     */
+    public function getKeyName(): string
+    {
+        return $this->keyName;
+    }
+
+
+
 
     /**
      *设置with

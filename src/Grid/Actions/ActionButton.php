@@ -10,6 +10,11 @@ use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
 
 class ActionButton extends BaseRowAction
 {
+
+    const HANDLER_ROUTE = "route";
+    const HANDLER_LINK = "link";
+    const HANDLER_REQUEST = "request";
+
     use Button;
     protected $uri;
     protected $componentName = "ActionButton";
@@ -47,7 +52,15 @@ class ActionButton extends BaseRowAction
      */
     public function handler($handler)
     {
+        abort_if(!in_array($handler, [self::HANDLER_LINK, self::HANDLER_REQUEST, self::HANDLER_ROUTE]), 400, "ActionButton 事件类型错误");
+
         $this->handler = $handler;
+        return $this;
+    }
+
+    public function route($uri){
+        $this->uri = $uri;
+        $this->handler = self::HANDLER_ROUTE;
         return $this;
     }
 }

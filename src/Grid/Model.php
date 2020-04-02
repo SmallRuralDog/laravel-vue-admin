@@ -414,6 +414,7 @@ class Model
                 }
             }
             data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
+            data_set($item, $this->grid->getKeyName(), data_get($row, $this->grid->getKeyName()));
 
             //如果存在下级
             if ($TreeChildren = data_get($row, $this->grid->getTreeChildrenName())) {

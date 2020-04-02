@@ -1,18 +1,23 @@
 <template>
   <div class="tool-button">
-    <el-tooltip :content="attrs.tooltip" placement="top" :disabled="!attrs.tooltip">
-    <el-button
-      :type="attrs.type"
-      :size="attrs.size"
-      :plain="attrs.plain"
-      :round="attrs.round"
-      :circle="attrs.circle"
-      :disabled="attrs.disabled"
-      :icon="attrs.icon"
-      :autofocus="attrs.autofocus"
-      :loading="loading"
-      @click="onClick"
-      >{{ attrs.content }}</el-button>
+    <el-tooltip
+      :content="attrs.tooltip"
+      placement="top"
+      :disabled="!attrs.tooltip"
+    >
+      <el-button
+        :type="attrs.type"
+        :size="attrs.size"
+        :plain="attrs.plain"
+        :round="attrs.round"
+        :circle="attrs.circle"
+        :disabled="attrs.disabled"
+        :icon="attrs.icon"
+        :autofocus="attrs.autofocus"
+        :loading="loading"
+        @click="onClick"
+        >{{ attrs.content }}</el-button
+      >
     </el-tooltip>
     <el-dialog
       v-if="attrs.dialog"
@@ -37,7 +42,7 @@
         :attrs="attrs.dialog.slot"
       />
     </el-dialog>
-</div>
+  </div>
 </template>
 <script>
 export default {
@@ -75,7 +80,7 @@ export default {
           this.onRequest(this.attrs.uri);
           break;
         default:
-          this.$Message.warning("响应类型未定义");
+          this.$message.warning("响应类型未定义");
           break;
       }
     },

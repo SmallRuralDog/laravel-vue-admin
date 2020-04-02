@@ -78,6 +78,7 @@ Vue.component('Link', Link);
 Vue.component('IText', Text);
 Vue.component('IImage', Image);
 Vue.component('Icon', Icon);
+Vue.component('Boole', require('./components/widgets/Grid/Boole').default);
 
 
 

@@ -26,7 +26,16 @@ export default {
       return this.column_attr.displayComponentAttrs;
     },
     selfValue() {
-      return this.column_attr.itemPrefix + this.value + this.column_attr.itemSuffix;
+      let value = this.value;
+
+      if (this.column_attr.itemPrefix) {
+        value = this.column_attr.itemPrefix + "" + this.value;
+      }
+      if (this.column_attr.itemSuffix) {
+        value = this.value + "" + this.column_attr.itemSuffix;
+      }
+
+      return value;
     },
     componentName() {
       try {
