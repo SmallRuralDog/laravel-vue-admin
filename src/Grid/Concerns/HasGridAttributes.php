@@ -197,6 +197,17 @@ trait HasGridAttributes
     }
 
     /**
+     * 操作栏名称
+     * @param $actionLabel
+     * @return $this
+     */
+    public function actionLabel($actionLabel)
+    {
+        $this->attributes->actionLabel = $actionLabel;
+        return $this;
+    }
+
+    /**
      * 操作栏对齐
      * left  right  center
      * @param $actionAlign

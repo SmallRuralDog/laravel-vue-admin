@@ -158,10 +158,10 @@
           <el-badge type="success" is-dot :hidden="isDark">
             <div>
               <el-tooltip content="亮色菜单风格" placement="top">
-                <el-image
+                <img
                   @click="isDark = false"
                   class="hover"
-                  src="https://gw.alipayobjects.com/zos/antfincdn/NQ%24zoisaD2/jpRkZQMyYRryryPNtyIC.svg"
+                  src="../assets/menu-light.svg"
                 />
               </el-tooltip>
             </div>
@@ -169,10 +169,10 @@
           <el-badge type="success" is-dot :hidden="!isDark">
             <div class="ml-20">
               <el-tooltip content="暗色菜单风格" placement="top">
-                <el-image
+                <img
                   @click="isDark = true"
                   class="hover"
-                  src="https://gw.alipayobjects.com/zos/antfincdn/XwFOFbLkSM/LCkqqYNmvBEbokSDscrm.svg"
+                  src="../assets/menu-dark.svg"
                 />
               </el-tooltip>
             </div>
@@ -182,9 +182,9 @@
           <el-badge type="success" is-dot :hidden="isDarkHeader">
             <div @click="isDarkHeader = false">
               <el-tooltip content="亮色顶栏风格" placement="top">
-                <el-image
+                <img
                   class="hover"
-                  src="https://file.iviewui.com/admin-pro-dist/img/nav-theme-dark.da07f9c2.svg"
+                  src="../assets/nav-light.svg"
                 />
               </el-tooltip>
             </div>
@@ -192,9 +192,9 @@
           <el-badge type="success" is-dot :hidden="!isDarkHeader">
             <div class="ml-20" @click="isDarkHeader = true">
               <el-tooltip content="暗色顶栏风格" placement="top">
-                <el-image
+                <img
                   class="hover"
-                  src="https://file.iviewui.com/admin-pro-dist/img/header-theme-dark.1606ed02.svg"
+                  src="../assets/nav-dark.svg"
                 />
               </el-tooltip>
             </div>
@@ -536,5 +536,8 @@ $header-bar-height: 55px;
   align-items: center;
   justify-content: space-between;
   padding: 12px 0;
+}
+.el-drawer__header{
+  margin-bottom: 0;
 }
 </style>

@@ -33,7 +33,7 @@ class AdminServiceProvider extends ServiceProvider
         'admin' => [
             'admin.auth',
             'admin.log',
-            // 'admin.bootstrap',
+            'admin.bootstrap',
             'admin.permission'
         ],
     ];

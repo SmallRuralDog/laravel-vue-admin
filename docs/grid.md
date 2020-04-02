@@ -637,16 +637,32 @@ $grid->column('permissions.name')->component(Tag::make()->type('info'));
  })
 ```
 
-#### 操作栏宽度
+#### 操作栏
+
+##### 最小宽度
 
 ```php
 $grid->actionWidth(180)
 ```
 
-#### 操作栏固定
+##### 操作栏固定
 
 ```php
 $grid->actionFixed('right');// left | right
+```
+
+##### 操作栏对齐方式
+
+```php
+$grid->actionAlign('right');//left  right  center
+```
+
+##### 操作栏名称
+
+> `v0.1.12 `以上版本
+
+```php
+$grid->actionLabel('操作');
 ```
 
 #### 获取当前行的下标

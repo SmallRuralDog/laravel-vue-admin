@@ -97,18 +97,14 @@ class Grid extends Component implements \JsonSerializable
         return $this->keyName;
     }
 
-
-
-
     /**
-     *设置with
-     * @param array $withs
+     * 自定义数据源路径
+     * @param string $dataUrl
      * @return $this
-     * @deprecated
      */
-    public function with(array $withs)
+    public function dataUrl(string $dataUrl)
     {
-        $this->model()->with($withs);
+        $this->dataUrl = $dataUrl;
         return $this;
     }
 

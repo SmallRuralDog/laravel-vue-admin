@@ -58,8 +58,9 @@ class Attributes
     public $treeProps = ['hasChildren' => 'hasChildren', 'children' => 'children'];
 
     public $actionWidth;
+    public $actionLabel = "操作";
     public $actionFixed;
-    public $actionAlign = "right";
+    public $actionAlign = "left";
 
     public $selection = false;
 

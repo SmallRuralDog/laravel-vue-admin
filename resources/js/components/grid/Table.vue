@@ -177,6 +177,7 @@
             </el-table-column>
           </template>
           <el-table-column
+            :label="attrs.attributes.actionLabel"
             prop="grid_actions"
             :fixed="attrs.attributes.actionFixed"
             :min-width="attrs.attributes.actionWidth"

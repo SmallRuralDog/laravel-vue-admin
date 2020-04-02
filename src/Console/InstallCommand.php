@@ -78,6 +78,7 @@ class InstallCommand extends Command
         $this->createHomeController();
         $this->createAuthController();
 
+        $this->createBootstrapFile();
         $this->createRoutesFile();
     }
 
@@ -116,6 +117,15 @@ class InstallCommand extends Command
     }
 
 
+    protected function createBootstrapFile()
+    {
+        $file = $this->directory.'/bootstrap.php';
+
+        $contents = $this->getStub('bootstrap');
+        $this->laravel['files']->put($file, $contents);
+        $this->line('<info>Bootstrap file was created:</info> '.str_replace(base_path(), '', $file));
+    }
+
     /**
      * Create routes file.
      *
@@ -124,7 +134,6 @@ class InstallCommand extends Command
     protected function createRoutesFile()
     {
         $file = $this->directory.'/routes.php';
-
         $contents = $this->getStub('routes');
         $this->laravel['files']->put($file, str_replace('DummyNamespace', config('admin.route.namespace'), $contents));
         $this->line('<info>Routes file was created:</info> '.str_replace(base_path(), '', $file));

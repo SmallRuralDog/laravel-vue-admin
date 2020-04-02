@@ -16,6 +16,19 @@ class Admin
 
     public static $styles = [];
 
+    public static $css = [];
+
+    public static function css($css = null)
+    {
+        if (!is_null($css)) {
+            return self::$css = array_merge(self::$css, (array)$css);
+        }
+        $css = array_merge(static::$css,[]);
+        $css = array_filter(array_unique($css));
+        return view('admin::partials.css', compact('css'));
+    }
+
+
     public static function script($name, $path)
     {
         static::$scripts[$name] = $path;
@@ -54,20 +67,16 @@ class Admin
     {
         return self::$metaTitle ? self::$metaTitle : config('admin.title');
     }
+
     public function menu()
     {
         if (!empty($this->menu)) {
             return $this->menu;
         }
-
         $menuClass = config('admin.database.menu_model');
-
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
-
         $allNodes = $menuModel->allNodes();
-
-
         return $this->menu = $menuModel->buildNestedArray($allNodes);
     }
 
@@ -76,16 +85,17 @@ class Admin
         if (!empty($this->menuList)) {
             return $this->menuList;
         }
-
         $menuClass = config('admin.database.menu_model');
-
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
-
-
-
         return $this->menuList = $menuModel->get(['uri', 'title']);
 
+    }
+
+
+    public function bootstrap()
+    {
+        require config('admin.bootstrap', admin_path('bootstrap.php'));
     }
 
 
