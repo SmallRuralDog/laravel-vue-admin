@@ -28,7 +28,7 @@ php artisan admin:extend smallruraldog/miss-meijiu-admin
         //....
         "0": {
             "type": "path",
-            //请确认好扩展包的路径，要不然回安装失败
+            //请确认好扩展包的路径，要不然会安装失败
             "url": "app/Admin/Extends/MissMeijiuAdmin"
         }
     }

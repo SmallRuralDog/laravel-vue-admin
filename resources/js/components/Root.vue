@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="admin-main">
     <el-container class="admin-layout">
       <el-aside
         ref="contentSide"
@@ -32,7 +32,7 @@
           </template>
           <h1 v-if="!isCollapsed && page_data.name">{{ page_data.name }}</h1>
         </div>
-        <el-scrollbar wrap-class="scrollbar-wrapper">
+        <el-scrollbar wrap-class="scrollbar-wrapper" wrap-style=" width: 0 ">
           <el-menu
             :default-active="route"
             :collapse="isCollapsed"
@@ -40,7 +40,6 @@
             :text-color="isDark ? '#ffffff' : ''"
             :collapse-transition="false"
             :router="true"
-            unique-opened
           >
             <template v-for="menu in page_data.menu">
               <MenuItem
@@ -91,11 +90,7 @@
             </div>
           </div>
           <div class="layout-header-r">
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="刷新"
-            >
+            <el-tooltip class="item" effect="dark" content="刷新">
               <div
                 @click="pageReload"
                 class="layout-header-trigger layout-header-trigger-min hover"
@@ -182,20 +177,14 @@
           <el-badge type="success" is-dot :hidden="isDarkHeader">
             <div @click="isDarkHeader = false">
               <el-tooltip content="亮色顶栏风格" placement="top">
-                <img
-                  class="hover"
-                  src="../assets/nav-light.svg"
-                />
+                <img class="hover" src="../assets/nav-light.svg" />
               </el-tooltip>
             </div>
           </el-badge>
           <el-badge type="success" is-dot :hidden="!isDarkHeader">
             <div class="ml-20" @click="isDarkHeader = true">
               <el-tooltip content="暗色顶栏风格" placement="top">
-                <img
-                  class="hover"
-                  src="../assets/nav-dark.svg"
-                />
+                <img class="hover" src="../assets/nav-dark.svg" />
               </el-tooltip>
             </div>
           </el-badge>
@@ -223,6 +212,7 @@
 import { flattenDeepChild } from "../utils";
 
 export default {
+
   props: {
     page_data: Object
   },
@@ -361,6 +351,7 @@ $header-bar-height: 55px;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
 }
 .el-container-fixed {
   margin-left: 200px;
@@ -537,7 +528,7 @@ $header-bar-height: 55px;
   justify-content: space-between;
   padding: 12px 0;
 }
-.el-drawer__header{
+.el-drawer__header {
   margin-bottom: 0;
 }
 </style>

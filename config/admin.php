@@ -119,5 +119,6 @@ return [
     'show_version' => true,
     'show_environment' => true,
     'menu_bind_permission' => true,
+    'which-composer' => 'composer'
 
 ];

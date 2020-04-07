@@ -73,7 +73,7 @@ class GroupBuyController extends AdminController implements AdminResource
 
 ### 查看当前版本
 ```bash
-composer show smallruraldog/laravel-vue-admin
+composer show smallruraldog/laravel-vue-admin --latest
 ```
 ### 更新到最新版
 ```bash

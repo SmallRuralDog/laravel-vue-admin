@@ -21,6 +21,15 @@ const FormItemComponent = {
         form_data: Object,
         //当前组件属性
         attrs: Object
+    },
+    model: {
+        prop: "value",
+        event: "change"
+    },
+    methods: {
+        onChange(value) {
+            this.$emit("change", value);
+        }
     }
 }
 

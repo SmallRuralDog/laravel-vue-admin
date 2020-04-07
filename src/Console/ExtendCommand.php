@@ -77,7 +77,7 @@ class ExtendCommand extends Command
 
         $composer['repositories'][] = [
             'type' => 'path',
-            'url' => './' . $this->relativeExtendPath(),
+            'url' => $this->relativeExtendPath(),
         ];
 
         file_put_contents(

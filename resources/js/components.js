@@ -60,6 +60,7 @@ Vue.component('TimePicker', TimePicker);
 Vue.component('DatePicker', DatePicker);
 Vue.component('DateTimePicker', DateTimePicker);
 Vue.component('WangEditor', () => import('./components/widgets/WangEditor'));
+Vue.component('ItemSelect', () => import('./components/widgets/Form/ItemSelect'));
 
 
 

@@ -12,6 +12,7 @@ class RootController extends Controller
     public function index()
     {
         $data = [
+            'isLocal'=>config('app.env')=="local",
             'menu' => Admin::menu(),
             'menuList' => Admin::menuList(),
             'logoShow' => config('admin.logo_show'),
@@ -30,6 +31,9 @@ class RootController extends Controller
         return view('admin::root', ['data' => $data]);
     }
 
+
+
+
     protected function getUserData()
     {
         if (!$user = Admin::user()) {
@@ -42,7 +46,7 @@ class RootController extends Controller
     {
         return [
             'logout' => route('admin.logout'),
-            'setting' => route('admin.setting'),
+            'setting' => route('admin.setting')
         ];
     }
 }
