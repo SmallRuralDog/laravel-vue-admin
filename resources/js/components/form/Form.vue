@@ -114,6 +114,9 @@ export default {
   computed: {
     isEdit() {
       return this.attrs.mode == "edit";
+    },
+    ignoreKey() {
+      return this._.map(this.attrs.formItems.filter(e=>!e.ignoreEmpty) ,'prop')
     }
   },
   data() {
@@ -154,6 +157,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.loading = true;
+          this.formData = this._.pick(this.formData, this.ignoreKey)
           if (this.isEdit) {
             this.$http
               .put(this.attrs.action, this.formData)

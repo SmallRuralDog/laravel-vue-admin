@@ -986,6 +986,11 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isEdit: function isEdit() {
       return this.attrs.mode == "edit";
+    },
+    ignoreKey: function ignoreKey() {
+      return this._.map(this.attrs.formItems.filter(function (e) {
+        return !e.ignoreEmpty;
+      }), 'prop');
     }
   },
   data: function data() {
@@ -1027,6 +1032,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           _this2.loading = true;
+          _this2.formData = _this2._.pick(_this2.formData, _this2.ignoreKey);
 
           if (_this2.isEdit) {
             _this2.$http.put(_this2.attrs.action, _this2.formData).then(function (_ref2) {
@@ -32324,7 +32330,7 @@ module.exports = "/vendor/laravel-vue-admin/images/404.png?3210e18dbf193f9d42afb
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?56883ad1cf6cc0a234232773dc36b141";
+module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7f56c0661a28a4a2786";
 
 /***/ }),
 
@@ -32335,7 +32341,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?56883ad1cf6cc0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?4c0c73512c1208e226d8513d2fd1e1f5";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb897e319feb8e59e1bed96b82";
 
 /***/ }),
 
@@ -32346,7 +32352,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?4c0c73512
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?f088544c92cff88f7b2ab5b17675828f";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21dbcab0825c23bbd40b1";
 
 /***/ }),
 
@@ -32357,7 +32363,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?f088544c92cff88
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo.svg?99edcb36f9285eea841ba52d2f029c1b";
+module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927eca4146f30c3e";
 
 /***/ }),
 
@@ -32368,7 +32374,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo.svg?99edcb36f9285eea841b
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?412ca67ee39f5966ea6f33bb8261b46d";
+module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5afb380efaf57d8c1d4";
 
 /***/ }),
 
@@ -32379,7 +32385,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?412ca67ee39f596
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?4183aad0f450979539478f153b816db0";
+module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c1d84cd1ec6e6f3b760";
 
 /***/ }),
 
@@ -32390,7 +32396,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?4183aad0f45097
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?e796938e6a2e849300f4e6ff74696319";
+module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4c76c7c2ad5e1ee6a";
 
 /***/ }),
 
@@ -32401,7 +32407,7 @@ module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?e796938e6a2e8493
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?f6d512ec0129eebd9e64aae12247551e";
+module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?da07f9c2f262ef49b183fd4e882a5935";
 
 /***/ }),
 
@@ -32512,10 +32518,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('TimePicker', _components_w
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DatePicker', _components_widgets_DatePicker__WEBPACK_IMPORTED_MODULE_23__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DateTimePicker', _components_widgets_DateTimePicker__WEBPACK_IMPORTED_MODULE_24__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('WangEditor', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./components/widgets/WangEditor */ "./resources/js/components/widgets/WangEditor.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ./components/widgets/WangEditor */ "./resources/js/components/widgets/WangEditor.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ItemSelect', function () {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./components/widgets/Form/ItemSelect */ "./resources/js/components/widgets/Form/ItemSelect.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/widgets/Form/ItemSelect */ "./resources/js/components/widgets/Form/ItemSelect.vue"));
 });
 
 
@@ -32559,22 +32565,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Html', _components_widgets
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Alert', _components_widgets_Alert__WEBPACK_IMPORTED_MODULE_42__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AntvLine', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvLine */ "./resources/js/components/antv/AntvLine.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvLine */ "./resources/js/components/antv/AntvLine.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AntvArea', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvArea */ "./resources/js/components/antv/AntvArea.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvArea */ "./resources/js/components/antv/AntvArea.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AntvStepLine', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvStepLine */ "./resources/js/components/antv/AntvStepLine.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvStepLine */ "./resources/js/components/antv/AntvStepLine.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AntvColumn', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvColumn */ "./resources/js/components/antv/AntvColumn.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/antv/AntvColumn */ "./resources/js/components/antv/AntvColumn.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('DialogButton', function () {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/widgets/DialogButton */ "./resources/js/components/widgets/DialogButton.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/widgets/DialogButton */ "./resources/js/components/widgets/DialogButton.vue"));
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('Tooltip', function () {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./components/widgets/Tooltip */ "./resources/js/components/widgets/Tooltip.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./components/widgets/Tooltip */ "./resources/js/components/widgets/Tooltip.vue"));
 });
 
 /***/ }),
@@ -36941,7 +36947,7 @@ function getFileName(path) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\docker\php\miss-meijiu\packages\smallruraldog\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/d/project/l7/laravel-vue-admin/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

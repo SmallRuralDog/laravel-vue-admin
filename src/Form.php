@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SmallRuralDog\Admin;
 
 use Admin;
@@ -47,7 +46,6 @@ class Form extends Component implements JsonSerializable
 
     protected $ignored = [];
 
-
     protected $updates = [];
 
     /**
@@ -72,7 +70,6 @@ class Form extends Component implements JsonSerializable
      */
     public $editData = [];
 
-
     protected $addRule = [];
     protected $addRuleMessage = [];
 
@@ -93,7 +90,6 @@ class Form extends Component implements JsonSerializable
 
         $this->isGetData = request('get_data') == "true";
     }
-
 
     /**
      * 生成字段
@@ -121,7 +117,6 @@ class Form extends Component implements JsonSerializable
         return $item;
     }
 
-
     /**
      * 设置字段组
      * @param array $items
@@ -129,9 +124,10 @@ class Form extends Component implements JsonSerializable
      */
     public function items($items = [])
     {
-
-
-        $this->formItemsAttr = collect($items)->map(function (FormItem $item) {
+        // 根据所处模式抛弃组件
+        $this->formItemsAttr = collect($items)->filter(function (FormItem $item) {
+            return !$this->isMode($item->gethiddenMode());
+        })->map(function (FormItem $item) {
             return $item->getAttrs();
         });
         /**@var FormItem $item */
@@ -170,18 +166,15 @@ class Form extends Component implements JsonSerializable
         return $this;
     }
 
-
     protected function setMode($mode = 'create')
     {
         $this->mode = $mode;
     }
 
-
     public function isMode($mode): bool
     {
         return $this->mode === $mode;
     }
-
 
     public function setResourceId($id)
     {
@@ -211,7 +204,6 @@ class Form extends Component implements JsonSerializable
     {
         return $this->mode;
     }
-
 
     /**
      * 获取模型
@@ -247,7 +239,10 @@ class Form extends Component implements JsonSerializable
             $ruleMessages = [];
             /* @var FormItem $formItem */
             foreach ($this->formItems as $formItem) {
-                if (empty($formItem->getServeRole())) continue;
+                if (empty($formItem->getServeRole())) {
+                    continue;
+                }
+
                 $rules[$formItem->getField()] = $formItem->getServeRole();
                 $messages = $formItem->getServeRulesMessage();
                 if (is_array($messages)) {
@@ -269,10 +264,9 @@ class Form extends Component implements JsonSerializable
             }
             return false;
         } catch (\Exception $exception) {
-            return $exception->getMessage();//\Admin::responseError();
+            return $exception->getMessage(); //\Admin::responseError();
         }
     }
-
 
     public function input($key, $value = null)
     {
@@ -281,7 +275,6 @@ class Form extends Component implements JsonSerializable
         }
         return Arr::set($this->inputs, $key, $value);
     }
-
 
     protected function prepare($data = [])
     {
@@ -300,7 +293,6 @@ class Form extends Component implements JsonSerializable
         //处理关联字段
         $this->relations = $this->getRelationInputs($this->inputs);
 
-
         $this->updates = Arr::except($this->inputs, array_keys($this->relations));
     }
 
@@ -314,7 +306,6 @@ class Form extends Component implements JsonSerializable
     protected function getRelationInputs($inputs = []): array
     {
         $relations = [];
-
 
         foreach ($inputs as $column => $value) {
             $column = \Illuminate\Support\Str::camel($column);
@@ -367,7 +358,6 @@ class Form extends Component implements JsonSerializable
         return array_unique($relations);
     }
 
-
     public function store()
     {
 
@@ -375,19 +365,15 @@ class Form extends Component implements JsonSerializable
             return $result;
         }
 
-
         $data = request()->all();
-
 
         if ($validationMessages = $this->validatorData($data)) {
             return Admin::responseError($validationMessages);
         }
 
-
         if (($response = $this->prepare($data)) instanceof Response) {
             return $response;
         }
-
 
         DB::transaction(function () use ($data) {
             $inserts = $this->prepareInsert($this->updates);
@@ -543,7 +529,6 @@ class Form extends Component implements JsonSerializable
     private function updateRelation($relationsData)
     {
 
-
         foreach ($relationsData as $name => $values) {
             if (!method_exists($this->model, $name)) {
                 continue;
@@ -551,13 +536,12 @@ class Form extends Component implements JsonSerializable
             $relation = $this->model->$name();
 
             $oneToOneRelation = $relation instanceof Relations\HasOne
-                || $relation instanceof Relations\MorphOne
-                || $relation instanceof Relations\BelongsTo;
+            || $relation instanceof Relations\MorphOne
+            || $relation instanceof Relations\BelongsTo;
 
             //$prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
 
             $prepared = [$name => $values];
-
 
             if (empty($prepared)) {
                 continue;
@@ -658,7 +642,6 @@ class Form extends Component implements JsonSerializable
         }
     }
 
-
     /**
      * 获取编辑数据
      * @param $id
@@ -676,15 +659,18 @@ class Form extends Component implements JsonSerializable
         $this->setMode(self::MODE_EDIT);
         $this->setResourceId($id);
         $this->editData = $this->model = $this->model->with($this->getRelations())->findOrFail($this->getResourceId());
-
-
         $data = [];
         /**@var FormItem $formItem */
         foreach ($this->formItems as $formItem) {
             $field = $formItem->getField();
             $prop = $formItem->getProp();
             $component = $formItem->getDisplayComponent();
-            Arr::set($data, $prop, $formItem->getData(Arr::get($this->editData, $prop), $this->model, $component));
+            // 利用model的hidden属性
+            if (in_array($prop, $this->model->getHidden())) {
+                Arr::set($data, $prop, $formItem->getData(null, $this->model, $component));
+            } else {
+                Arr::set($data, $prop, $formItem->getData(Arr::get($this->editData, $prop), $this->model, $component));
+            }
             //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {
@@ -702,7 +688,7 @@ class Form extends Component implements JsonSerializable
 
         return [
             'code' => 200,
-            'data' => $this->editData
+            'data' => $this->editData,
         ];
 
     }
@@ -717,7 +703,10 @@ class Form extends Component implements JsonSerializable
             $this->items($this->formItems);
         }
 
-        if ($this->isGetData) return $this->editData($this->getResourceId());
+        if ($this->isGetData) {
+            return $this->editData($this->getResourceId());
+        }
+
         return [
             'componentName' => $this->componentName,
             'action' => $this->getAction(),

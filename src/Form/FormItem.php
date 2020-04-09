@@ -27,6 +27,8 @@ class FormItem
     protected $copyProp;
     protected $relationName;
     protected $relationValueKey;
+    protected $ignoreEmpty = false;
+    protected $hiddenMode = '';
     /**
      * @var Form
      */
@@ -44,10 +46,9 @@ class FormItem
 
     public $original;
 
-
     protected $vif = [
         'key' => null,
-        'value' => null
+        'value' => null,
     ];
 
     /**
@@ -70,7 +71,6 @@ class FormItem
             $this->relationName = $relationName;
             $this->relationValueKey = $relationValueKey;
         }
-
 
         $this->component = Input::make();
     }
@@ -162,7 +162,6 @@ class FormItem
         return $this->component;
     }
 
-
     public function setForm($form)
     {
         $this->form = $form;
@@ -176,7 +175,6 @@ class FormItem
         return $this->prop;
     }
 
-
     /**
      * @return mixed
      */
@@ -184,7 +182,6 @@ class FormItem
     {
         return $this->field;
     }
-
 
     /**
      * 后端验证规则
@@ -238,8 +235,6 @@ class FormItem
         return $this;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -284,7 +279,6 @@ class FormItem
         }
         return $data;
     }
-
 
     public function getServeRole()
     {
@@ -332,7 +326,6 @@ class FormItem
         return $this->serveRulesMessage;
     }
 
-
     /**
      * 表单域标签的的宽度，例如 '50px'。支持 auto
      * @param mixed $labelWidth
@@ -355,7 +348,6 @@ class FormItem
         return $this;
     }
 
-
     /**
      * 是否必填，如不设置，则会根据校验规则自动生成
      * @param bool $required
@@ -370,7 +362,7 @@ class FormItem
         }
         if (!$this->rules) {
             $this->rules([
-                ['required' => true, "message" => "请填写" . $this->label]
+                ['required' => true, "message" => "请填写" . $this->label],
             ]);
         }
 
@@ -444,7 +436,6 @@ class FormItem
         return $this;
     }
 
-
     /**
      * @param $key
      * @param $value
@@ -454,12 +445,52 @@ class FormItem
     {
         $this->vif = [
             'key' => $key,
-            'value' => $value
+            'value' => $value,
         ];
         return $this;
     }
-
-
+    /**
+     * If Null Dont Return
+     * @return $this
+     */
+    public function ignoreEmpty()
+    {
+        $this->ignoreEmpty = true;
+        return $this;
+    }
+    /**
+     * 传递当前组件所在模式
+     * @param  string $value
+     * @return $this
+     */
+    public function hiddenMode($value = '')
+    {
+        $this->hiddenMode = $value;
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function hiddenInCreate()
+    {
+        $this->hiddenMode = Form::MODE_CREATE;
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function hiddenInEdit()
+    {
+        $this->hiddenMode = Form::MODE_EDIT;
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getHiddenMode()
+    {
+        return $this->hiddenMode;
+    }
     public function getAttrs()
     {
         return [
@@ -480,7 +511,9 @@ class FormItem
             'footerComponent' => $this->footerComponent,
             'relationName' => $this->relationName,
             'relationValueKey' => $this->relationValueKey,
-            'vif' => $this->vif
+            'vif' => $this->vif,
+            'ignoreEmpty' => $this->ignoreEmpty,
+            'hiddenMode' => $this->hiddenMode,
         ];
     }
 

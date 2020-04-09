@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Controllers;
-
 
 use SmallRuralDog\Admin\Components\Avatar;
 use SmallRuralDog\Admin\Components\Input;
@@ -15,7 +13,6 @@ use SmallRuralDog\Admin\Grid;
 
 class UserController extends AdminController
 {
-
 
     protected function grid()
     {
@@ -45,7 +42,6 @@ class UserController extends AdminController
     protected function form()
     {
 
-
         $userModel = config('admin.database.users_model');
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
@@ -54,19 +50,18 @@ class UserController extends AdminController
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');
 
-
         $form->item('username', '用户名')
             ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])
             ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])
             ->component(Input::make());
         $form->item('name', '名称')->component(Input::make()->showWordLimit()->maxlength(20));
         $form->item('avatar', '头像')->component(Upload::make()->avatar()->path('avatar')->uniqueName());
-        $form->item('password', '密码')->serveRules(['required', 'string', 'confirmed'])
+        $form->item('password', '密码')->serveCreationRules(['required', 'string', 'confirmed'])->serveUpdateRules(['confirmed'])->ignoreEmpty()
             ->component(function () {
                 return Input::make()->password()->showPassword();
             });
         $form->item('password_confirmation', '确认密码')
-            ->copyValue('password')
+            ->copyValue('password')->ignoreEmpty()
             ->component(function () {
                 return Input::make()->password()->showPassword();
             });
@@ -76,7 +71,6 @@ class UserController extends AdminController
         $form->item('permissions', '权限')->component(Select::make()->clearable()->block()->multiple()->options($permissionModel::all()->map(function ($role) {
             return SelectOption::make($role->id, $role->name);
         })->toArray()));
-
 
         $form->saving(function (Form $form) {
             if ($form->password && $form->model()->password != $form->password) {
@@ -89,7 +83,6 @@ class UserController extends AdminController
                 return \Admin::responseError("删除失败");
             }
         });
-
         return $form;
     }
 }
