@@ -1,3 +1,5 @@
+
+
 # 模型表格
 
 使用[Elememt 的 Table](https://element.eleme.cn/#/zh-CN/component/table)实现，用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。
@@ -726,12 +728,57 @@ $actions->deleteAction()->message("确定要删除吗，删除不可恢复？");
 $actions->add(new MyAction())
 ```
 
+## 批量操作
+
+```php
+$grid->batchActions(function (Grid\BatchActions $batchActions) {
+    $batchActions->hideDeleteAction();//隐藏批量删除操作
+    $batchActions->add(...);//添加批量操作
+});
+```
+
+#### 获取选择的keys
+
+获取批量选择的keys
+
+> 注意：获取原理为前段字符串替换，后端无法获取具体值
+
+```php
+$batchActions->getKeys();
+```
+
+可以在设置`url`时使用
+
+```php
+$url = $$batchActions->resource . '/' . $$batchActions->getKeys();
+Grid\BatchActions\BatchAction::make("批量删除")->url($url);
+```
+
+可以在设置`dialog`里的`BaseForm`的`action`时使用
+
+```php
+$grid->batchActions(function (Grid\BatchActions $batchActions) {
+        $batchActions->add(Grid\BatchActions\BatchAction::make("加入活动")->dialog(function (Dialog $dialog) use ($batchActions) {
+            $dialog->slot(function (Content $content) use ($batchActions) {
+            $form = new BaseForm();
+                
+            $actionUrl = route('activityJoin', ['keys' => $batchActions->getKeys()]);
+            $form->action($actionUrl);
+                
+            $form->item('activity_id', '活动');
+            $content->row($form);
+        });
+    }));
+});
+```
+
 
 
 ## 工具栏
 
 ```php
 $grid->toolbars(function (Grid\Toolbars $toolbars) {
+
 	$toolbars->hideCreateButton();
     $toolbars->createButton()->content("添加商品");//获取创建组件实例，修改属性
 });

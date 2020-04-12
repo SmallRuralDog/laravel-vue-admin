@@ -5,6 +5,7 @@
       :key="index"
       :is="column.componentName"
       :attrs="column"
+      v-bind="$props"
     />
   </el-row>
 </template>

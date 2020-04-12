@@ -5,9 +5,13 @@
       <i class="el-icon-arrow-down el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown">
-      <a @click="onBatchDelete">
-        <el-dropdown-item>批量删除</el-dropdown-item>
-      </a>
+      <component
+        v-for="(component, index) in actions"
+        :key="component.componentName + index"
+        :is="component.componentName"
+        :action="component"
+        :keys="keys"
+      />
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -16,31 +20,10 @@ export default {
   props: {
     rows: Array,
     routers: Object,
-    key_name: String
+    key_name: String,
+    actions: Array
   },
-  methods: {
-    onBatchDelete() {
-      this.$confirm(
-        "您确定删除这" + this.rows.length + "条数据吗？",
-        "批量删除确认"
-      )
-        .then(() => {
-          const deleteUrl = this.routers.resource + "/" + this.keys;
-
-          this.$bus.emit("tableSetLoading", true);
-
-          this.$http
-            .delete(deleteUrl)
-            .then(({ code }) => {
-              code === 200 && this.$bus.emit("tableReload");
-            })
-            .finally(() => {
-              this.$bus.emit("tableSetLoading", false);
-            });
-        })
-        .catch(() => {});
-    }
-  },
+  methods: {},
   computed: {
     keys() {
       return this.rows

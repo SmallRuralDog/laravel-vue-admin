@@ -10,7 +10,7 @@
       </div>
 
       <el-scrollbar wrap-class="scrollbar-wrapper">
-        <div style="height: 100vh;">132465</div>
+        <div style="height: 100vh;">13246578465</div>
       </el-scrollbar>
     </el-card>
   </div>
@@ -33,8 +33,8 @@ export default {
       padding: 10px;
     }
 
-    .el-card__body{
-        padding: 0;
+    .el-card__body {
+      padding: 0;
     }
     .el-scrollbar {
       .scrollbar-wrapper {

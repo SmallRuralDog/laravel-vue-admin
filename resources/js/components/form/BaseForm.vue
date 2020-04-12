@@ -100,7 +100,8 @@ export default {
     ItemIf
   },
   props: {
-    attrs: Object
+    attrs: Object,
+    keys:String
   },
   data() {
     return {
@@ -112,6 +113,15 @@ export default {
   mounted() {
     this.formData = this._.cloneDeep(this.attrs.formItemsValue)
   },
+  computed:{
+    actionUrl(){
+
+      const keys = this.$store.getters.thisPage.grids.selectionKeys;
+      
+
+      return this._.replace(this.attrs.action, "selectionKeys", keys);
+    }
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -119,7 +129,7 @@ export default {
           this.loading = true;
 
           this.$http
-            .post(this.attrs.action, this.formData)
+            .post(this.actionUrl, this.formData)
             .then(({ data, code, message }) => {
               if (code == 200) {
                 this.attrs.emits.map(item => {

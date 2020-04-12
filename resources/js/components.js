@@ -59,8 +59,8 @@ Vue.component('ColorPicker', ColorPicker);
 Vue.component('TimePicker', TimePicker);
 Vue.component('DatePicker', DatePicker);
 Vue.component('DateTimePicker', DateTimePicker);
-Vue.component('WangEditor', () => import('./components/widgets/WangEditor'));
-Vue.component('ItemSelect', () => import('./components/widgets/Form/ItemSelect'));
+Vue.component('WangEditor', () => import('@/components/widgets/WangEditor'));
+Vue.component('ItemSelect', () => import('@/components/widgets/Form/ItemSelect'));
 
 
 
@@ -98,6 +98,9 @@ Vue.component('EditAction', EditAction);
 Vue.component('DeleteAction', DeleteAction);
 Vue.component('VueRouteAction', VueRouteAction);
 Vue.component('ActionButton', ActionButton);
+
+//BatchAction
+Vue.component('BatchAction',require('@/components/widgets/BatchActions/BatchAction').default)
 
 //Tools
 import GridCreateButton from './components/widgets/Tools/Create'

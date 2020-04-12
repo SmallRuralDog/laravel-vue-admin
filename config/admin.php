@@ -98,7 +98,7 @@ return [
     ],
     //操作日志
     'operation_log' => [
-        'enable' => false,
+        'enable' => true,
         /*
          * Only logging allowed methods in the list
          */
