@@ -193,6 +193,27 @@ $form->item('username', '用户名')->vif("key","value")
 $form->item('username', '用户名')->vif("key.key","value") //支持点操作
 ```
 
+### 忽略空值(留空则不修改)
+
+> 若此字段的值为 ''/null/undefined 或 空对象/空数组 则在提交的表单对象中删除键名
+
+```php
+$form->item('password', '密码')->ignoreEmpty()
+```
+
+### 隐藏组件
+
+> 有些字段在编辑或创建状态下并不一致需要，配合ignoreEmpty使用效果更佳
+
+```php
+## 创建时不输入密码
+$form->item('password', '密码')->hiddenMode('create')
+$form->item('password', '密码')->hiddenInCreate()
+
+## 编辑时不输入密码
+$form->item('password', '密码')->hiddenMode('edit')
+$form->item('password', '密码')->hiddenInEdit()
+```
 
 
 ### 帮助信息

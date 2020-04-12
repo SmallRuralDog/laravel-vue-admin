@@ -70,6 +70,7 @@ import Link from './components/widgets/Link'
 import Text from './components/widgets/Text'
 import Image from './components/widgets/Image'
 import Icon from './components/widgets/Icon'
+import IconChoose from './components/widgets/IconChoose'
 
 
 //Grid
@@ -80,6 +81,7 @@ Vue.component('IText', Text);
 Vue.component('IImage', Image);
 Vue.component('Icon', Icon);
 Vue.component('Boole', require('./components/widgets/Grid/Boole').default);
+Vue.component('IconChoose', IconChoose);
 
 
 

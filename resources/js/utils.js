@@ -57,9 +57,22 @@ function getFileName(path) {
 
 }
 
+function isNull(argument) {
+    const type = typeof argument
+    switch (type) {
+        case 'object':
+            return window._.isEmpty(argument)
+        case 'array':
+            return argument.length
+        default:
+            return argument === "" || argument === null || argument === undefined
+    }
+}
+
 export {
     getArrayValue,
     flattenDeepChild,
     getFileUrl,
-    getFileName
+    getFileName,
+    isNull
 }

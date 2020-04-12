@@ -103,6 +103,7 @@
 <script>
 import ItemDiaplsy from "./ItemDiaplsy";
 import ItemIf from "./ItemIf";
+import { isNull } from "../../utils";
 export default {
   components: {
     ItemDiaplsy,
@@ -116,7 +117,7 @@ export default {
       return this.attrs.mode == "edit";
     },
     ignoreKey() {
-      return this._.map(this.attrs.formItems.filter(e=>!e.ignoreEmpty) ,'prop')
+      return this._.map(this.attrs.formItems.filter(e => !e.ignoreEmpty || !isNull(this.formData[e.prop])) ,'prop')
     }
   },
   data() {
@@ -157,10 +158,11 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.loading = true;
-          this.formData = this._.pick(this.formData, this.ignoreKey)
+          console.log(this.ignoreKey)
+          const formatData = this._.pick(this.formData, this.ignoreKey)
           if (this.isEdit) {
             this.$http
-              .put(this.attrs.action, this.formData)
+              .put(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
                 if (code == 200) {
                   this.formData = this._.cloneDeep(this.attrs.defaultValues);
@@ -172,7 +174,7 @@ export default {
               });
           } else {
             this.$http
-              .post(this.attrs.action, this.formData)
+              .post(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
                 code == 200 && this.$router.go(-1);
               })
