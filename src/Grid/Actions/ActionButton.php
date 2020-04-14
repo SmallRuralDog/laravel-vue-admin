@@ -23,6 +23,8 @@ class ActionButton extends BaseRowAction
 
     public function __construct($content)
     {
+        parent::__construct();
+
         $this->content = $content;
         $this->type("text");
     }

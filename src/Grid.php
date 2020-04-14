@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\Actions;
+use SmallRuralDog\Admin\Grid\BatchActions;
 use SmallRuralDog\Admin\Grid\Column;
 use SmallRuralDog\Admin\Grid\Concerns\HasDefaultSort;
 use SmallRuralDog\Admin\Grid\Concerns\HasFilter;
@@ -63,6 +64,7 @@ class Grid extends Component implements \JsonSerializable
     protected $dataUrl;
     protected $isGetData = false;
     private $actions;
+    private $batchActions;
     private $toolbars;
     private $top;
     private $bottom;
@@ -77,6 +79,7 @@ class Grid extends Component implements \JsonSerializable
         $this->defaultSort($model->getKeyName(), "asc");
         $this->isGetData = request('get_data') == "true";
         $this->toolbars = new Toolbars();
+        $this->batchActions = new BatchActions();
         $this->filter = new Filter($this->model);
     }
 
@@ -220,6 +223,17 @@ class Grid extends Component implements \JsonSerializable
     }
 
     /**
+     * 自定义批量操作
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function batchActions(\Closure $closure)
+    {
+        call_user_func($closure,$this->batchActions);
+        return $this;
+    }
+
+    /**
      * 获取行操作
      * @param $row
      * @param $key
@@ -300,6 +314,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['perPage'] = $this->perPage;
             $viewData['pageBackground'] = $this->pageBackground;
             $viewData['toolbars'] = $this->toolbars->builderData();
+            $viewData['batchActions'] = $this->batchActions->builderActions();
             $viewData['quickSearch'] = $this->quickSearch;
             $viewData['filter'] = $this->filter->buildFilter();
             $viewData['top'] = $this->top;

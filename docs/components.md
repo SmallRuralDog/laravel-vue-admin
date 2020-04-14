@@ -284,6 +284,26 @@ $actions->add(ActionButton::make("发货")->order(4)->dialog(function (Dialog $d
 
 这里的dialog展示的是一个表单，当然你可以展示任意组件
 
+### 批量操作组件
+
+#### BatchAction
+
+可用于vue路由导航，异步请求，连接跳转 , Dialog 
+
+```php
+BatchAction::make("加入活动")
+    ->uri('...')//批量操作路径
+    ->handler(BatchAction::HANDLER_REQUEST)//批量操作响应事件类型
+    ->route('...')//vue路由快捷设置方法
+    ->requestMethod('post')//设置request模式请求类型
+    ->message('...')//确认操作提示信息
+    ->beforeEmit('name','data')//请求前出发事件
+    ->successEmit('name','data')//操作成功后触发事件
+    ->afterEmit('name','data')//操作完成后触发事件，失败成功都会触发
+    ->dialog(Dialog)//设置dialog弹窗
+
+```
+
 
 
 ### 工具栏组件
@@ -291,8 +311,6 @@ $actions->add(ActionButton::make("发货")->order(4)->dialog(function (Dialog $d
 #### ToolButton
 
 可用于vue路由导航，异步请求，连接跳转 , Dialog 
-
-
 
 普通演示
 

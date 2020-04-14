@@ -13,6 +13,7 @@
             :routers="attrs.routers"
             :key_name="attrs.keyName"
             :rows="selectionRows"
+            :actions="attrs.batchActions"
             v-if="attrs.selection"
           />
           <div class="search-view mr-10" v-if="attrs.quickSearch">
@@ -387,6 +388,7 @@ export default {
     //当选择项发生变化时会触发该事件
     onTableselectionChange(selection) {
       this.selectionRows = selection;
+      this.$store.commit("setGridData", { key: "selectionKeys", data: this.keys });
     },
     //每页大小改变时
     onPageSizeChange(per_page) {
@@ -401,6 +403,13 @@ export default {
     }
   },
   computed: {
+    keys() {
+      return this.selectionRows
+        .map(item => {
+          return item[this.attrs.keyName];
+        })
+        .join(",");
+    },
     //当前路径
     path() {
       return this.$route.path;
