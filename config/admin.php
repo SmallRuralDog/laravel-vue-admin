@@ -73,6 +73,8 @@ return [
             'image' => 'images',
             'file' => 'files',
         ],
+        //文件上传类型
+        'mimes'=>'jpeg,bmp,png,gif,jpg',
     ],
     'database' => [
         // Database connection for following tables.

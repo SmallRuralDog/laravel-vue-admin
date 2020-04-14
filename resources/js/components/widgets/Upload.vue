@@ -98,17 +98,21 @@ export default {
     },
     onRemove(file, fileList) {},
     onSuccess(response, file, fileList) {
-      if (!this.attrs.multiple) {
-        this.onChange(response.data.path);
+      if (response.code == 200) {
+        if (!this.attrs.multiple) {
+          this.onChange(response.data.path);
+        } else {
+          let t_value = this._.clone(this.value);
+          t_value = this._.isArray(t_value) ? t_value : [];
+          t_value.push(this.getObject(response.data.path, 0));
+          this.onChange(t_value);
+        }
       } else {
-        let t_value = this._.clone(this.value);
-        t_value = this._.isArray(t_value) ? t_value : [];
-        t_value.push(this.getObject(response.data.path, 0));
-        this.onChange(t_value);
+        this.$message.error(response.message);
       }
     },
     onExceed() {
-      this.$Message.error("超出上传数量");
+      this.$message.error("超出上传数量");
     },
     getObject(path, id) {
       let keyName = this.attrs.keyName;
@@ -251,7 +255,6 @@ export default {
     }
     .image,
     .file {
-
     }
   }
 }
