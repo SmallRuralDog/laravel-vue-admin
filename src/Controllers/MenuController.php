@@ -66,7 +66,6 @@ class MenuController extends AdminController
     protected function grid()
     {
 
-
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
@@ -102,7 +101,6 @@ class MenuController extends AdminController
             })->prepend(SelectOption::make(0, '根目录'));
         }));
         $form->item('title', '名称')->required()->inputWidth(3);
-        $form->item('icon', trans('admin::admin.icon'))->inputWidth(3)->required();
         $form->item('icon', trans('admin::admin.icon'))->displayComponent(IconChoose::make())->inputWidth(3)->required();
 
         $form->item('uri', trans('admin::admin.uri'))->required();
