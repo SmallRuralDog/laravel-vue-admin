@@ -131,6 +131,9 @@ export default {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
     this.isEdit && this.getEditData();
   },
+  destroyed(){
+    this.formData = this._.cloneDeep(this.attrs.defaultValues);
+  },
   methods: {
     getEditData() {
       this.loading = true;
@@ -165,7 +168,7 @@ export default {
               .put(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
                 if (code == 200) {
-                  this.formData = this._.cloneDeep(this.attrs.defaultValues);
+                  
                   this.$router.go(-1);
                 }
               })

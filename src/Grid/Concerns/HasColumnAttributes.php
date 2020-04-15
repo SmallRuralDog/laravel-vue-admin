@@ -63,10 +63,10 @@ trait HasColumnAttributes
 
     /**
      * 对应列的宽度
-     * @param string $width
+     * @param string|int $width
      * @return $this
      */
-    public function width(string $width)
+    public function width($width)
     {
         $this->attributes->width = $width;
         return $this;

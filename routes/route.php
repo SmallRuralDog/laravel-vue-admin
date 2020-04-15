@@ -32,7 +32,8 @@ Route::group([
         $router->resource('auth/menu', 'MenuController')->names('admin.auth.menu');
         $router->post('auth/menu-order', 'MenuController@menuOrder')->name('admin.auth.menu.order');
         $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
-        $router->post('_handle_upload_', 'HandleController@upload')->name('admin.handle-upload');
+        $router->post('_handle_upload_image_', 'HandleController@uploadImage')->name('admin.handle-upload-image');
+        $router->post('_handle_upload_file_', 'HandleController@uploadFile')->name('admin.handle-upload-file');
         $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
         $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
     });

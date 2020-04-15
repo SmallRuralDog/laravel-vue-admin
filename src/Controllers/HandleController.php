@@ -10,31 +10,64 @@ use Illuminate\Http\Request;
 class HandleController extends Controller
 {
 
-    public function upload(Request $request)
+    public function uploadFile(Request $request)
     {
-        $file = $request->file('file');
-        $path = $request->input('path', 'images');
-        $uniqueName = $request->input('uniqueName', false);
-
-        $disk = config('admin.upload.disk');
-
-        $name = $file->getClientOriginalName();
-
-        if ($uniqueName == "true" || $uniqueName == true) {
-            $path = $file->store($path, $disk);
-        } else {
-            $path = $file->storeAs($path, $name, $disk);
+        try {
+            \Admin::validatorData($request->all(), [
+                'file' => 'mimes:'.config('admin.upload.mimes','jpg')
+            ]);
+            return $this->upload($request);
+        } catch (\Exception $exception) {
+            return \Admin::responseError($exception->getMessage());
         }
 
+    }
 
-        $data = [
-            'path' => $path,
-            'name' => $name,
-            'url' => \Storage::disk($disk)->url($path)
-        ];
+    public function uploadImage(Request $request)
+    {
+        try {
+            \Admin::validatorData($request->all(), [
+                'file' => 'image'
+            ]);
+
+            return $this->upload($request);
+
+        } catch (\Exception $exception) {
+            return \Admin::responseError($exception->getMessage());
+        }
+    }
 
 
-        return \Admin::response($data);
+    protected function upload(Request $request)
+    {
+        try {
+            $file = $request->file('file');
+            $type = $request->file('type');
+            $path = $request->input('path', 'images');
+            $uniqueName = $request->input('uniqueName', false);
+
+            \Admin::validatorData($request->all(), [
+                'file' => 'image'
+            ]);
+
+
+            $disk = config('admin.upload.disk');
+            $name = $file->getClientOriginalName();
+            if ($uniqueName == "true" || $uniqueName == true) {
+                $path = $file->store($path, $disk);
+            } else {
+                $path = $file->storeAs($path, $name, $disk);
+            }
+            $data = [
+                'path' => $path,
+                'name' => $name,
+                'url' => \Storage::disk($disk)->url($path)
+            ];
+            return \Admin::response($data);
+        } catch (\Exception $exception) {
+            return \Admin::responseError($exception->getMessage());
+        }
+
     }
 
 }
