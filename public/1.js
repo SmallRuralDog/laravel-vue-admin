@@ -112,7 +112,8 @@ __webpack_require__.r(__webpack_exports__);
     ItemIf: _ItemIf__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
-    attrs: Object
+    attrs: Object,
+    keys: String
   },
   data: function data() {
     return {
@@ -124,6 +125,12 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.formData = this._.cloneDeep(this.attrs.formItemsValue);
   },
+  computed: {
+    actionUrl: function actionUrl() {
+      var keys = this.$store.getters.thisPage.grids.selectionKeys;
+      return this._.replace(this.attrs.action, "selectionKeys", keys);
+    }
+  },
   methods: {
     submitForm: function submitForm(formName) {
       var _this = this;
@@ -132,7 +139,7 @@ __webpack_require__.r(__webpack_exports__);
         if (valid) {
           _this.loading = true;
 
-          _this.$http.post(_this.attrs.action, _this.formData).then(function (_ref) {
+          _this.$http.post(_this.actionUrl, _this.formData).then(function (_ref) {
             var data = _ref.data,
                 code = _ref.code,
                 message = _ref.message;

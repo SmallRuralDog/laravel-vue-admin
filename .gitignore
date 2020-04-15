@@ -20,4 +20,5 @@ storage/*.key
 Homestead.yaml
 Homestead.json
 /.vagrant
+/.vscode
 .phpunit.result.cache
