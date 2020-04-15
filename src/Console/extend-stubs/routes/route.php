@@ -1,19 +1,17 @@
 <?php
+$router = app('router');
 
-Route::group([
+$router->group([
     'prefix' => config('admin.route.prefix'),
     'middleware' => config('admin.route.middleware'),
-], function (Router $router) {
-
+], function ($router) {
 
 });
 
-
 //
-Route::group([
+$router->group([
     'prefix' => config('admin.route.api_prefix'),
     'middleware' => config('admin.route.middleware'),
-], function (Router $router) {
-
+], function ($router) {
 
 });

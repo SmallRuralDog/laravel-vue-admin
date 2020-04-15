@@ -27,6 +27,19 @@ class ExtendServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerRouter(); //
+    }
+    /**
+     * 注册路由
+     *
+     * @author osi
+     */
+    private function registerRouter()
+    {
+        if (strpos($this->app->version(), 'Lumen') === false && !$this->app->routesAreCached()) {
+            app('router')->namespace('{{ namespace }}\Controllers')->group(__DIR__ . '/../routes/route.php');
+        } else {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
+        }
     }
 }

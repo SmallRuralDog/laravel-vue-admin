@@ -1,14 +1,13 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Controllers;
-
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use SmallRuralDog\Admin\Auth\Database\Menu;
 use SmallRuralDog\Admin\Components\Icon;
+use SmallRuralDog\Admin\Components\IconChoose;
 use SmallRuralDog\Admin\Components\InputNumber;
 use SmallRuralDog\Admin\Components\Select;
 use SmallRuralDog\Admin\Components\SelectOption;
@@ -58,17 +57,14 @@ class MenuController extends AdminController
                     break;
             }
 
-
         } catch (\Exception $exception) {
             return \Admin::responseError($exception->getMessage());
         }
 
     }
 
-
     protected function grid()
     {
-
 
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
@@ -88,7 +84,6 @@ class MenuController extends AdminController
         $grid->column('uri', "路径");
         $grid->column('roles.name', "授权角色")->component(Tag::make());
 
-
         return $grid;
     }
 
@@ -106,7 +101,8 @@ class MenuController extends AdminController
             })->prepend(SelectOption::make(0, '根目录'));
         }));
         $form->item('title', '名称')->required()->inputWidth(3);
-        $form->item('icon', trans('admin::admin.icon'))->inputWidth(3)->required();
+        $form->item('icon', trans('admin::admin.icon'))->displayComponent(IconChoose::make())->inputWidth(3)->required();
+
         $form->item('uri', trans('admin::admin.uri'))->required();
         $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make(1)->min(0));
         $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
@@ -122,7 +118,6 @@ class MenuController extends AdminController
                 });
             }));
         };
-
 
         return $form;
 

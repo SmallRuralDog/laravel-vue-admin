@@ -2,12 +2,12 @@
 
 namespace SmallRuralDog\Admin\Auth\Database;
 
-use SmallRuralDog\Admin\Traits\AdminBuilder;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
+use SmallRuralDog\Admin\Traits\AdminBuilder;
 
 /**
  * Class Administrator.
@@ -19,11 +19,12 @@ class Administrator extends Model implements AuthenticatableContract
     use Authenticatable, AdminBuilder, HasPermissions;
 
     protected $fillable = ['username', 'password', 'name', 'avatar'];
+    protected $hidden = ['password'];
 
     protected $casts = [
-        'images'=>'array',
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
+        'images' => 'array',
+        'created_at' => "Y-m-d H:i:s",
+        'updated_at' => "Y-m-d H:i:s",
     ];
 
     /**
@@ -71,7 +72,7 @@ class Administrator extends Model implements AuthenticatableContract
      *
      * @return BelongsToMany
      */
-    public function roles() : BelongsToMany
+    public function roles(): BelongsToMany
     {
         $pivotTable = config('admin.database.role_users_table');
 
@@ -85,7 +86,7 @@ class Administrator extends Model implements AuthenticatableContract
      *
      * @return BelongsToMany
      */
-    public function permissions() : BelongsToMany
+    public function permissions(): BelongsToMany
     {
         $pivotTable = config('admin.database.user_permissions_table');
 

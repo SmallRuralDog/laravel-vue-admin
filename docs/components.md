@@ -336,6 +336,12 @@ $toolbars->addRight(Grid\Tools\ToolButton::make("采集")->dialog(function (Dial
 
 基于element-ui的表单组件实现，基本上所有的组件功能都实现了。使用过程中可查看element-ui的文档，调用的时候`make()->`即可
 
+### IconChoose 图标选择器
+
+```php
+IconChoose::make()
+```
+
 ### Radio 单选框
 
 更多属性请查看element-ui文档
