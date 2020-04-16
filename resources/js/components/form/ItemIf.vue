@@ -14,17 +14,17 @@ export default {
     ifShow() {
       let key = this.form_item.vif.key;
       let value = this.form_item.vif.value;
-
+      let anyValue = this.form_item.vif.anyValue;
       if (key) {
         let cValue = window._.get(this.form_data, key);
-        if (cValue == value) {
+        if (cValue == value || (cValue && anyValue)) {
           return true;
         } else {
           return false;
         }
       }
 
-      return true;
+      return !anyValue;
     }
   }
 };

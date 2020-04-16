@@ -49,6 +49,7 @@ class FormItem
     protected $vif = [
         'key' => null,
         'value' => null,
+        'anyValue' => false,
     ];
 
     /**
@@ -441,11 +442,12 @@ class FormItem
      * @param $value
      * @return $this
      */
-    public function vif($key, $value)
+    public function vif($key, $value, $anyValue = false)
     {
         $this->vif = [
             'key' => $key,
             'value' => $value,
+            'anyValue' => $anyValue,
         ];
         return $this;
     }

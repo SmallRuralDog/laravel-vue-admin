@@ -161,7 +161,6 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.loading = true;
-          console.log(this.ignoreKey)
           const formatData = this._.pick(this.formData, this.ignoreKey)
           if (this.isEdit) {
             this.$http

@@ -190,6 +190,7 @@ $form->item('username', '用户名')->serveRulesMessage(["required" => '必填']
 
 ```php
 $form->item('username', '用户名')->vif("key","value")
+$form->item('username', '用户名')->vif("email",false,true) // 表示填写email任意字符之后才会出现username 注意第二个参数最好不要用null或者可能存在的值
 $form->item('username', '用户名')->vif("key.key","value") //支持点操作
 ```
 
