@@ -10,3 +10,5 @@
 
 ## 全局组件
 
+## 其它扩展
+* [AuthApi](https://github.com/osindex/laravel-auth-api)基于`laravel/sanctum`的API认证方案，支持多用户。
