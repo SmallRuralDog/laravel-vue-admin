@@ -1,13 +1,13 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Components;
 
+use SmallRuralDog\Admin\Components\Attrs\Depend;
 
 class Select extends Component
 {
+    use Depend;
     public $componentName = 'Select';
-
 
     protected $multiple = false;
 
@@ -38,7 +38,7 @@ class Select extends Component
      */
     protected $options = [];
 
-    static public function make($value = null)
+    public static function make($value = null)
     {
         return new Select($value);
     }
@@ -52,13 +52,12 @@ class Select extends Component
     {
         if ($block) {
             $style = collect($this->style)->add([
-                'display' => 'block'
+                'display' => 'block',
             ]);
             $this->style($style);
         }
         return $this;
     }
-
 
     /**
      * 是否多选
@@ -68,7 +67,10 @@ class Select extends Component
     public function multiple($multiple = true)
     {
         $this->multiple = $multiple;
-        if (!$this->componentValue) $this->componentValue([]);
+        if (!$this->componentValue) {
+            $this->componentValue([]);
+        }
+
         return $this;
     }
 
@@ -176,7 +178,7 @@ class Select extends Component
      * @param string $allowCreateUrl 创建新条目Url
      * @return $this
      */
-    public function allowCreate($allowCreateUrl=null)
+    public function allowCreate($allowCreateUrl = null)
     {
         $this->allowCreate = true;
         $this->filterable = true;

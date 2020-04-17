@@ -398,6 +398,17 @@ Select::make()
 
 ```php
 Select::make()->filterable()->remote($remoteUrl)
+Select::make()->filterable()->remote($remoteUrl)->extUrlParams(['type'=>'A']) // 远程搜索带参数
+Select::make()->filterable()->remote($remoteUrl)->depend(['keyA','keyB.0.key']) // 远程搜索带表单值
+Select::make()->filterable()->remote($remoteUrl)->paginate($per_page = 10) // 远程搜索带分页加载
+```
+
+支持
+
+```php
+
+
+
 ```
 
 更多属性请查看element-ui文档
