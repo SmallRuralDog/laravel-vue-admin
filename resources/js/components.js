@@ -5,140 +5,72 @@ import VueDND from 'awe-dnd'
 
 Vue.use(VueDND)
 
-import Login from './components/Login'
-import Root from './components/Root'
-import Content from './components/layout/Content'
-import Row from './components/layout/Row'
-import Column from './components/layout/Column'
-import Table from './components/grid/Table'
-import Tree from './components/grid/Tree'
-import Form from './components/form/Form'
 
-Vue.component('login', Login);
-Vue.component('Root', Root);
-Vue.component('Content', Content);
-Vue.component('Row', Row);
-Vue.component('Column', Column);
-Vue.component('Grid', Table);
-Vue.component('Tree', Tree);
-Vue.component('Form', Form);
-Vue.component('BaseForm', ()=>import('./components/form/BaseForm'));
+Vue.component('login',  require('@/components/Login').default);
+Vue.component('Root', require('@/components/Root').default);
+Vue.component('Content', require('@/components/layout/Content').default);
+Vue.component('Row', require('@/components/layout/Row').default);
+Vue.component('Column', require('@/components/layout/Column').default);
+Vue.component('Grid',  require('@/components/grid/Table').default);
+Vue.component('Tree', require('@/components/grid/Tree').default);
+Vue.component('Form', require('@/components/form/Form').default);
+Vue.component('BaseForm', ()=>import('@/components/form/BaseForm'));
+Vue.component('MenuItem', require('@/components/layout/MenuItem').default);
 
-
-import Input from './components/widgets/Input'
-import RadioGroup from './components/widgets/RadioGroup'
-import Checkbox from './components/widgets/Checkbox'
-import CheckboxGroup from './components/widgets/CheckboxGroup'
-import InputNumber from './components/widgets/InputNumber'
-import Select from './components/widgets/Select'
-import Cascader from './components/widgets/Cascader'
-import Switch from './components/widgets/Switch'
-import Slider from './components/widgets/Slider'
-import Transfer from './components/widgets/Transfer'
-import Upload from './components/widgets/Upload'
-import ColorPicker from './components/widgets/ColorPicker'
-import TimePicker from './components/widgets/TimePicker'
-import DatePicker from './components/widgets/DatePicker'
-import DateTimePicker from './components/widgets/DateTimePicker'
-
-
-
-
-Vue.component('Input', Input);
-Vue.component('RadioGroup', RadioGroup);
-Vue.component('Checkbox', Checkbox);
-Vue.component('CheckboxGroup', CheckboxGroup);
-Vue.component('InputNumber', InputNumber);
-Vue.component('Select', Select);
-Vue.component('Cascader', Cascader);
-Vue.component('CSwitch', Switch);
-Vue.component('Slider', Slider);
-Vue.component('Transfer', Transfer);
-Vue.component('Upload', Upload);
-Vue.component('ColorPicker', ColorPicker);
-Vue.component('TimePicker', TimePicker);
-Vue.component('DatePicker', DatePicker);
-Vue.component('DateTimePicker', DateTimePicker);
-Vue.component('WangEditor', () => import('@/components/widgets/WangEditor'));
+//Form
+Vue.component('Input',  require('@/components/widgets/Form/Input').default);
+Vue.component('RadioGroup',  require('@/components/widgets/Form/RadioGroup').default);
+Vue.component('Checkbox', require('@/components/widgets/Form/Checkbox').default);
+Vue.component('CheckboxGroup', require('@/components/widgets/Form/CheckboxGroup').default);
+Vue.component('InputNumber',  require('@/components/widgets/Form/InputNumber').default);
+Vue.component('Select',  require('@/components/widgets/Form/Select').default);
+Vue.component('Cascader', require('@/components/widgets/Form/Cascader').default);
+Vue.component('CSwitch',  require('@/components/widgets/Form/Switch').default);
+Vue.component('Slider',  require('@/components/widgets/Form/Slider').default);
+Vue.component('Transfer',  require('@/components/widgets/Form/Transfer').default);
+Vue.component('Upload',  require('@/components/widgets/Form/Upload').default);
+Vue.component('ColorPicker', require('@/components/widgets/Form/ColorPicker').default);
+Vue.component('TimePicker', require('@/components/widgets/Form/TimePicker').default);
+Vue.component('DatePicker', require('@/components/widgets/Form/DatePicker').default);
+Vue.component('DateTimePicker', require('@/components/widgets/Form/DateTimePicker').default);
+Vue.component('WangEditor', () => import('@/components/widgets/Form/WangEditor'));
 Vue.component('ItemSelect', () => import('@/components/widgets/Form/ItemSelect'));
-
-
-
-import Avatar from './components/widgets/Avatar'
-import Tag from './components/widgets/Tag'
-import Link from './components/widgets/Link'
-import Text from './components/widgets/Text'
-import Image from './components/widgets/Image'
-import Icon from './components/widgets/Icon'
-import IconChoose from './components/widgets/IconChoose'
-
+Vue.component('IconChoose', require('./components/widgets/Form/IconChoose').default);
 
 //Grid
-Vue.component('Avatar', Avatar);
-Vue.component('Tag', Tag);
-Vue.component('Link', Link);
-Vue.component('IText', Text);
-Vue.component('IImage', Image);
-Vue.component('Icon', Icon);
+Vue.component('Avatar', require('./components/widgets/Grid/Avatar').default);
+Vue.component('Tag', require('./components/widgets/Grid/Tag').default);
+Vue.component('Link',  require('./components/widgets/Grid/Link').default);
+Vue.component('IText', require('./components/widgets/Text').default);
+Vue.component('IImage', require('./components/widgets/Grid/Image').default);
+Vue.component('Icon', require('./components/widgets/Grid/Icon').default);
 Vue.component('Boole', require('./components/widgets/Grid/Boole').default);
-Vue.component('IconChoose', IconChoose);
-
-
-
-
-import MenuItem from './components/layout/MenuItem'
-Vue.component('MenuItem', MenuItem);
-
-
 
 //Actions
-import EditAction from './components/widgets/Actions/EditAction'
-import DeleteAction from './components/widgets/Actions/DeleteAction'
-import VueRouteAction from './components/widgets/Actions/VueRouteAction'
-import ActionButton from './components/widgets/Actions/ActionButton'
-Vue.component('EditAction', EditAction);
-Vue.component('DeleteAction', DeleteAction);
-Vue.component('VueRouteAction', VueRouteAction);
-Vue.component('ActionButton', ActionButton);
+Vue.component('EditAction', require('@/components/widgets/Actions/EditAction').default);
+Vue.component('DeleteAction', require('@/components/widgets/Actions/DeleteAction').default);
+Vue.component('VueRouteAction', require('@/components/widgets/Actions/VueRouteAction').default);
+Vue.component('ActionButton', require('@/components/widgets/Actions/ActionButton').default);
 
 //BatchAction
 Vue.component('BatchAction',require('@/components/widgets/BatchActions/BatchAction').default)
 
 //Tools
-import GridCreateButton from './components/widgets/Tools/Create'
-import ToolButton from './components/widgets/Tools/ToolButton'
-Vue.component('GridCreateButton', GridCreateButton);
-Vue.component('ToolButton', ToolButton);
-
+Vue.component('GridCreateButton',  require('@/components/widgets/Tools/Create').default);
+Vue.component('ToolButton', require('@/components/widgets/Tools/ToolButton').default);
 
 //Widget
-import Divider from './components/widgets/Divider'
-Vue.component('Divider', Divider)
+Vue.component('Divider', require('@/components/widgets/Divider').default)
+Vue.component('Card',  require('@/components/widgets/Card').default)
+Vue.component('Steps', require('@/components/widgets/Steps').default)
+Vue.component('Html',  require('@/components/widgets/Html').default)
+Vue.component('Alert', require('@/components/widgets/Alert').default)
+Vue.component('DialogButton', () => import('@/components/widgets/DialogButton'))
+Vue.component('Tooltip', () => import('@/components/widgets/Tooltip'))
 
-import Card from './components/widgets/Card'
-Vue.component('Card', Card)
+//antv
+Vue.component('AntvLine', () => import('@/components/antv/AntvLine'))
+Vue.component('AntvArea', () => import('@/components/antv/AntvArea'))
+Vue.component('AntvStepLine', () => import('@/components/antv/AntvStepLine'))
+Vue.component('AntvColumn', () => import('@/components/antv/AntvColumn'))
 
-import Steps from './components/widgets/Steps'
-Vue.component('Steps', Steps)
-
-import Html from './components/widgets/Html'
-Vue.component('Html', Html)
-
-import Alert from './components/widgets/Alert'
-Vue.component('Alert', Alert)
-
-
-
-Vue.component('AntvLine', () => import('./components/antv/AntvLine'))
-
-Vue.component('AntvArea', () => import('./components/antv/AntvArea'))
-
-
-Vue.component('AntvStepLine', () => import('./components/antv/AntvStepLine'))
-
-
-Vue.component('AntvColumn', () => import('./components/antv/AntvColumn'))
-
-Vue.component('DialogButton', () => import('./components/widgets/DialogButton'))
-
-Vue.component('Tooltip', () => import('./components/widgets/Tooltip'))

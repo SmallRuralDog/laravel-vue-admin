@@ -11,8 +11,8 @@
   </span>
 </template>
 <script>
-import { getArrayValue } from "../../utils";
-import Value from "../widgets/Column";
+import { getArrayValue } from "@/utils";
+import Value from "./Column";
 export default {
   props: {
     data: Object,

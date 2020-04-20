@@ -12,7 +12,7 @@
   />
 </template>
 <script>
-import { getFileUrl } from "../../utils";
+import { getFileUrl } from "@/utils";
 export default {
   props: {
     attrs: Object,

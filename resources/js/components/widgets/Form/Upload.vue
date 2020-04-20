@@ -65,7 +65,7 @@
   </div>
 </template>
 <script>
-import { getFileUrl, getFileName } from "../../utils";
+import { getFileUrl, getFileName } from "@/utils";
 export default {
   props: ["attrs", "value", "form_data"],
   data() {
