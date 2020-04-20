@@ -4,6 +4,7 @@
 namespace SmallRuralDog\Admin\Components;
 
 /**
+ * @deprecated
  * Class Avatar
  * @package SmallRuralDog\Admin\Components
  */

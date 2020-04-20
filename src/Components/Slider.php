@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Slider
+ * @package SmallRuralDog\Admin\Components
+ */
 class Slider extends Component
 {
     protected $componentName = "Slider";

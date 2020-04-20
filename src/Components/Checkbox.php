@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Checkbox
+ * @package SmallRuralDog\Admin\Components
+ */
 class Checkbox extends Component
 {
     protected $componentName = "Checkbox";

@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Icon
+ * @package SmallRuralDog\Admin\Components
+ */
 class Icon extends GridComponent
 {
     protected $componentName = "Icon";

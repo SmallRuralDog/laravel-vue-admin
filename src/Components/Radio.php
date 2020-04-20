@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Radio
+ * @package SmallRuralDog\Admin\Components
+ */
 class Radio extends Component
 {
     protected $componentName = "Radio";

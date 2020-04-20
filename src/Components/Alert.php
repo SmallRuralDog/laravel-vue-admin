@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Alert
+ * @package SmallRuralDog\Admin\Components
+ */
 class Alert extends Component
 {
     protected $componentName = "Alert";

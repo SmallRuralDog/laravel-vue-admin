@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * Class TimePicker
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class TimePicker extends Component
 {
     protected $componentName = "TimePicker";

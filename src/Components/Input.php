@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Input
+ * @package SmallRuralDog\Admin\Components
+ */
 class Input extends Component
 {
 
@@ -38,7 +42,6 @@ class Input extends Component
     protected $append;
 
 
-
     static public function make($value = "")
     {
         return new Input($value);
@@ -58,7 +61,8 @@ class Input extends Component
     /**
      * @return $this
      */
-    public function password(){
+    public function password()
+    {
         $this->type = "password";
         return $this;
     }
@@ -351,8 +355,6 @@ class Input extends Component
         $this->append = $append;
         return $this;
     }
-
-
 
 
 }

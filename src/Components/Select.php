@@ -4,6 +4,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Components\Attrs\Depend;
 
+/**
+ * @deprecated
+ * Class Select
+ * @package SmallRuralDog\Admin\Components
+ */
 class Select extends Component
 {
     use Depend;

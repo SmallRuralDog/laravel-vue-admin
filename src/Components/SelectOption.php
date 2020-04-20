@@ -6,6 +6,12 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
 
+/**
+ * @deprecated
+ * 即将删除
+ * Class SelectOption
+ * @package SmallRuralDog\Admin\Components
+ */
 class SelectOption extends AdminJsonBuilder
 {
     protected $type = "default";

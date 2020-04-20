@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Tag
+ * @package SmallRuralDog\Admin\Components
+ */
 class Tag extends GridComponent
 {
     protected $componentName = "Tag";
@@ -13,7 +17,7 @@ class Tag extends GridComponent
     protected $hit = false;
     protected $color;
     protected $size = "mini";
-    private $effect = "light";
+    protected $effect = "light";
 
 
     /**

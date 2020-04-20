@@ -5,8 +5,9 @@ namespace SmallRuralDog\Admin\Controllers;
 
 
 use SmallRuralDog\Admin\Auth\Database\OperationLog;
-use SmallRuralDog\Admin\Components\Avatar;
-use SmallRuralDog\Admin\Components\Tag;
+
+use SmallRuralDog\Admin\Components\Grid\Avatar;
+use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 

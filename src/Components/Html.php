@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Html
+ * @package SmallRuralDog\Admin\Components
+ */
 class Html extends Component
 {
     protected $componentName = "Html";

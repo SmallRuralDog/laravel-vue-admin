@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * Class Tooltip
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class Tooltip extends Component
 {
     protected $componentName = "Tooltip";

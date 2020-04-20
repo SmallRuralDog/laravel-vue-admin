@@ -6,6 +6,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Layout\Content;
 
+/**
+ * @deprecated 
+ * Class Card
+ * @package SmallRuralDog\Admin\Components
+ */
 class Card extends Component
 {
     protected $componentName = "Card";

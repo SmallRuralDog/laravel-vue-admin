@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Rate
+ * @package SmallRuralDog\Admin\Components
+ */
 class Rate extends Component
 {
     protected $componentName = "Rate";

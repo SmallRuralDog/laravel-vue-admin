@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * Class Text
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class Text extends Component
 {
 

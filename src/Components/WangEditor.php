@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * Class WangEditor
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class WangEditor extends Component
 {
 

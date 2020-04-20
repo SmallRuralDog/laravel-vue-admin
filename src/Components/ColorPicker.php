@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class ColorPicker
+ * @package SmallRuralDog\Admin\Components
+ */
 class ColorPicker extends Component
 {
     protected $componentName = "ColorPicker";

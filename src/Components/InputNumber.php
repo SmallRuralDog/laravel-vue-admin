@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class InputNumber
+ * @package SmallRuralDog\Admin\Components
+ */
 class InputNumber extends Component
 {
     protected $componentName = 'InputNumber';

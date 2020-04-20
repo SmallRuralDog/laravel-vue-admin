@@ -6,6 +6,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Components\Attrs\ElDialog;
 
+/**
+ * @deprecated
+ * Class Dialog
+ * @package SmallRuralDog\Admin\Components
+ */
 class Dialog extends Component
 {
     use ElDialog;

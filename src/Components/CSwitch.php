@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class CSwitch
+ * @package SmallRuralDog\Admin\Components
+ */
 class CSwitch extends Component
 {
     protected $componentName = "CSwitch";

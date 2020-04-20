@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use SmallRuralDog\Admin\Auth\Database\Menu;
-use SmallRuralDog\Admin\Components\Icon;
-use SmallRuralDog\Admin\Components\IconChoose;
-use SmallRuralDog\Admin\Components\InputNumber;
-use SmallRuralDog\Admin\Components\Select;
-use SmallRuralDog\Admin\Components\SelectOption;
-use SmallRuralDog\Admin\Components\Tag;
+use SmallRuralDog\Admin\Components\Attrs\SelectOption;
+use SmallRuralDog\Admin\Components\Form\IconChoose;
+use SmallRuralDog\Admin\Components\Form\InputNumber;
+use SmallRuralDog\Admin\Components\Form\Select;
+use SmallRuralDog\Admin\Components\Grid\Icon;
+use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
@@ -95,24 +95,24 @@ class MenuController extends AdminController
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $model());
 
-        $form->item('parent_id', '上级目录')->displayComponent(Select::make(0)->options(function () use ($model) {
+        $form->item('parent_id', '上级目录')->component(Select::make(0)->options(function () use ($model) {
             return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
                 return SelectOption::make($item->id, $item->title);
             })->prepend(SelectOption::make(0, '根目录'));
         }));
         $form->item('title', '名称')->required()->inputWidth(3);
-        $form->item('icon', trans('admin::admin.icon'))->displayComponent(IconChoose::make())->inputWidth(3)->required();
+        $form->item('icon', trans('admin::admin.icon'))->component(IconChoose::make())->inputWidth(3)->required();
 
         $form->item('uri', trans('admin::admin.uri'))->required();
-        $form->item('order', trans('admin::admin.order'))->displayComponent(InputNumber::make(1)->min(0));
-        $form->item('roles', trans('admin::admin.roles'))->displayComponent(Select::make()->block()->multiple()->options(function () use ($roleModel) {
+        $form->item('order', trans('admin::admin.order'))->component(InputNumber::make(1)->min(0));
+        $form->item('roles', trans('admin::admin.roles'))->component(Select::make()->block()->multiple()->options(function () use ($roleModel) {
             return $roleModel::all()->map(function ($role) {
                 return SelectOption::make($role->id, $role->name);
             });
         }));
 
         if ((new $model())->withPermission()) {
-            $items = $form->item('permission', trans('admin::admin.permission'))->displayComponent(Select::make()->clearable()->block()->multiple()->options(function () use ($permissionModel) {
+            $form->item('permission', trans('admin::admin.permission'))->component(Select::make()->clearable()->block()->multiple()->options(function () use ($permissionModel) {
                 return $permissionModel::all()->map(function ($role) {
                     return SelectOption::make($role->id, $role->name);
                 });

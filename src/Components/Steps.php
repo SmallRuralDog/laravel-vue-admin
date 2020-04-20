@@ -6,6 +6,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Components\Attrs\Step;
 
+/**
+ * Class Steps
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class Steps extends Component
 {
     protected $componentName = "Steps";

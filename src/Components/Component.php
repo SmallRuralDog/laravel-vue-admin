@@ -6,6 +6,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
 
+/**
+ * 组件基类
+ * Class Component
+ * @package SmallRuralDog\Admin\Components
+ */
 class Component extends AdminJsonBuilder
 {
     protected $componentName = "";
@@ -20,6 +25,7 @@ class Component extends AdminJsonBuilder
     }
 
     /**
+     * class
      * @param mixed $className
      * @return $this
      */
@@ -30,6 +36,7 @@ class Component extends AdminJsonBuilder
     }
 
     /**
+     * style
      * @param mixed $style
      * @return $this
      */

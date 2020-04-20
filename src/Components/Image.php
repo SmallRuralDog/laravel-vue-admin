@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Image
+ * @package SmallRuralDog\Admin\Components
+ */
 class Image extends GridComponent
 {
     protected $componentName = "IImage";

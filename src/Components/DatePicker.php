@@ -6,6 +6,11 @@ namespace SmallRuralDog\Admin\Components;
 
 use Carbon\Traits\Date;
 
+/**
+ * @deprecated
+ * Class DatePicker
+ * @package SmallRuralDog\Admin\Components
+ */
 class DatePicker extends Component
 {
     protected $componentName = "DatePicker";

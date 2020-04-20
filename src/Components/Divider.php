@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Divider
+ * @package SmallRuralDog\Admin\Components
+ */
 class Divider extends Component
 {
     protected $componentName = "Divider";

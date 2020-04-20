@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class CascaderOption
+ * @package SmallRuralDog\Admin\Components
+ */
 class CascaderOption extends SelectOption
 {
     /**

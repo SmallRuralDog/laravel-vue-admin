@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Link
+ * @package SmallRuralDog\Admin\Components
+ */
 class Link extends GridComponent
 {
     protected $componentName = "Link";

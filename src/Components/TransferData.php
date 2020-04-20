@@ -4,7 +4,14 @@
 namespace SmallRuralDog\Admin\Components;
 
 
-class TransferData implements \JsonSerializable
+use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
+
+/**
+ * Class TransferData
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
+class TransferData extends AdminJsonBuilder
 {
 
     protected $key;

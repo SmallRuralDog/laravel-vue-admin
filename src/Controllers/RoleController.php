@@ -4,9 +4,9 @@
 namespace SmallRuralDog\Admin\Controllers;
 
 
-use SmallRuralDog\Admin\Components\Tag;
-use SmallRuralDog\Admin\Components\Transfer;
-use SmallRuralDog\Admin\Components\TransferData;
+use SmallRuralDog\Admin\Components\Attrs\TransferData;
+use SmallRuralDog\Admin\Components\Form\Transfer;
+use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
 
@@ -20,7 +20,7 @@ class RoleController extends AdminController
 
         $grid = new Grid(new $roleModel());
 
-        $grid->quickSearch(['slug','name']);
+        $grid->quickSearch(['slug', 'name']);
 
         $grid->column('id', 'ID')->width('80px')->sortable();
         $grid->column('slug', "标识");

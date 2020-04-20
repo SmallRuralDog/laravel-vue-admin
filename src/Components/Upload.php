@@ -8,6 +8,11 @@ use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Form\FormItem;
 use Storage;
 
+/**
+ * Class Upload
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class Upload extends Component
 {
     protected $componentName = "Upload";

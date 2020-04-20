@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class Cascader
+ * @package SmallRuralDog\Admin\Components
+ */
 class Cascader extends Component
 {
     protected $componentName = "Cascader";

@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * @deprecated
+ * Class CascaderProps
+ * @package SmallRuralDog\Admin\Components
+ */
 class CascaderProps
 {
     public $expandTrigger = 'click';

@@ -3,7 +3,11 @@
 
 namespace SmallRuralDog\Admin\Components;
 
-
+/**
+ * Class Transfer
+ * @package SmallRuralDog\Admin\Components
+ * @deprecated
+ */
 class Transfer extends Component
 {
     protected $componentName = "Transfer";
