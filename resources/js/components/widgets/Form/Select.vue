@@ -48,7 +48,7 @@
       </div>
     </el-option>
     <el-option v-if="attrs.paginate && loadMore && options.length" :value="undefined">
-        <div @click.stop='paginateData($event)'>
+        <div @click.stop='remoteMethod(null,"next")'>
           <i class="el-icon-loading"></i>
           <span>加载更多</span>
         </div>
@@ -85,6 +85,9 @@ export default {
       return _.pick(this.form_data, this.attrs.depend);
     }
   },
+  mounted() {
+      this.setLable()
+  },
   methods: {
     onChange(value) {
       let resValue = value
@@ -96,31 +99,39 @@ export default {
       }
       this.$emit("change", resValue);
     },
-    remoteMethod(query) {
-      this.query = query
-      this.meta.page = 1
-      this.$http
-        .get(this.attrs.remoteUrl, { params: { ...this.meta, query: query, depend: this.depend, extUrlParams: this.extUrlParams } })
-        .then(res => {
-          this.options = res.data;
-          this.meta.page++
-          this.loadMore = true
-        });
-    },
-    paginateData(event) {
+    remoteMethod(query,next = null) {
+      if (!next) {
+        this.options = []
+        this.query = query
+        this.meta.page = 1
+      }
       this.$http
         .get(this.attrs.remoteUrl, { params: { ...this.meta, query: this.query, depend: this.depend, extUrlParams: this.extUrlParams } })
         .then(res => {
-          if (res.data.length) {
-            this.options.push(...res.data)            
+          const total = res.data.total || res.meta.total
+          const data = res.data.data || res.data
+          if (data.length) {
+            this.options.push(...data)            
           }
-          if(this.meta.page < res.meta.to){
-            this.meta.page = res.meta.to
+          if(this.options.length < total){
+            this.meta.page++
             this.loadMore = true
           }else{
             this.loadMore = false
           }
-        })
+        });
+    },
+    setLable(){
+        const label = this.attrs.label
+        if (label && this.form_data[label.key]) {
+          const options = label.value || {value: "value",label: "label"}
+          this.options = [_.transform(options, (result, value, key) => {
+            const tempValue = _.values(_.pick(this.form_data[label.key], value)).join('-')
+            // 数字校验
+            result[key] = (parseFloat(tempValue).toString() == "NaN")?tempValue:parseFloat(tempValue)
+          }, {})]
+          this.loadMore = false
+        }
     }
   }
 };
