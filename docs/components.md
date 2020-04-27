@@ -400,7 +400,21 @@ Select::make()
 Select::make()->filterable()->remote($remoteUrl)
 Select::make()->filterable()->remote($remoteUrl)->extUrlParams(['type'=>'A']) // 远程搜索带参数
 Select::make()->filterable()->remote($remoteUrl)->depend(['keyA','keyB.0.key']) // 远程搜索带表单值
+// 带分页加载的数据反馈接受 
+// {data:{data:[],total:x}} // 优先接受此框架一般返回 或 
+// {data:[],meta:{total:x}} // laravel资源返回
 Select::make()->filterable()->remote($remoteUrl)->paginate($per_page = 10) // 远程搜索带分页加载
+// 远程搜索占位显示
+$label = [
+'key'=>'model', // 模型中支持的方法
+'value' => 
+    [
+    'value'=>'id', //同样支持复合键位
+    'label'=>['title','label']
+    ]
+]
+//注意 $form 一般通过use 传递
+Select::make()->filterable()->remote($remoteUrl)->label($form, $label)
 ```
 
 支持
