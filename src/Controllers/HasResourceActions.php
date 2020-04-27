@@ -7,7 +7,7 @@ trait HasResourceActions
 
     public function update($id)
     {
-        return $this->form()->update($id);
+        return $this->form(true)->update($id);
     }
 
     public function store()

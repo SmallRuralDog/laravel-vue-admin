@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SmallRuralDog\Admin\Components\Component;
-use SmallRuralDog\Admin\Components\Input;
+use SmallRuralDog\Admin\Components\Form\Input;
 use SmallRuralDog\Admin\Form;
 
 class FormItem
