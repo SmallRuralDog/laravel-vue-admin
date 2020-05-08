@@ -4,6 +4,7 @@ use Illuminate\Routing\Router;
 use SmallRuralDog\Admin\Controllers\RootController;
 
 Route::group([
+    'domain'=>config('admin.route.domain'),
     'prefix' => config('admin.route.prefix'),
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
@@ -18,6 +19,7 @@ Route::group([
 
 });
 Route::group([
+    'domain'=>config('admin.route.domain'),
     'prefix' => config('admin.route.api_prefix'),
     'namespace' => '\SmallRuralDog\Admin\Controllers'
 ], function (Router $router) {

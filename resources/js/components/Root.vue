@@ -32,7 +32,7 @@
           </template>
           <h1 v-if="!isCollapsed && page_data.name">{{ page_data.name }}</h1>
         </div>
-        <el-scrollbar wrap-class="scrollbar-wrapper" wrap-style=" width: 0 ">
+        <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-menu
             :default-active="route"
             :collapse="isCollapsed"
