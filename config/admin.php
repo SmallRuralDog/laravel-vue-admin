@@ -69,6 +69,7 @@ return [
     'upload' => [
         // Disk in `config/filesystem.php`.
         'disk' => 'public',
+        'uniqueName'=>false,
         // Image and file upload path under the disk above.
         'directory' => [
             'image' => 'images',
