@@ -1,10 +1,8 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
-
-use SmallRuralDog\Admin\Components\Dialog;
+use SmallRuralDog\Admin\Components\Widgets\Dialog;
 
 trait HasDialog
 {

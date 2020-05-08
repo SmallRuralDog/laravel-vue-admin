@@ -2,10 +2,9 @@
 
 namespace SmallRuralDog\Admin\Grid\Filter;
 
-
 use Illuminate\Support\Arr;
 use SmallRuralDog\Admin\Components\Component;
-use SmallRuralDog\Admin\Components\Input;
+use SmallRuralDog\Admin\Components\Form\Input;
 use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
 
 abstract class AbstractFilter extends AdminJsonBuilder
@@ -21,7 +20,6 @@ abstract class AbstractFilter extends AdminJsonBuilder
     protected $ignore = false;
 
     public $hideAttrs = ['value', 'query', 'ignore'];
-
 
     public function __construct($column, $label = '')
     {
@@ -49,7 +47,6 @@ abstract class AbstractFilter extends AdminJsonBuilder
         }
         return $this;
     }
-
 
     /**
      * @param Component $component
@@ -82,7 +79,6 @@ abstract class AbstractFilter extends AdminJsonBuilder
         return $this->column;
     }
 
-
     public function condition($inputs)
     {
         if ($this->ignore) {
@@ -103,7 +99,6 @@ abstract class AbstractFilter extends AdminJsonBuilder
     protected function buildCondition()
     {
         $column = explode('.', $this->column);
-
 
         if (count($column) == 1) {
             return [$this->query => func_get_args()];
