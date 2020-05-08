@@ -4,7 +4,7 @@ namespace SmallRuralDog\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
 use ReflectionFunction;
-use SmallRuralDog\Admin\Components\Input;
+use SmallRuralDog\Admin\Components\Form\Input;
 
 class Where extends AbstractFilter
 {
@@ -21,7 +21,6 @@ class Where extends AbstractFilter
      * @var mixed
      */
     public $input;
-
 
     public function __construct(\Closure $query, $label, $column = null)
     {
@@ -56,9 +55,7 @@ class Where extends AbstractFilter
     public function condition($inputs)
     {
 
-
         $value = Arr::get($inputs, $this->column ?: static::getQueryHash($this->where, $this->label));
-
 
         if (is_null($value)) {
             return;
