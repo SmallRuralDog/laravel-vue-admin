@@ -12,15 +12,7 @@ class HandleController extends Controller
 
     public function uploadFile(Request $request)
     {
-        try {
-            \Admin::validatorData($request->all(), [
-                'file' => 'mimes:'.config('admin.upload.mimes','jpg')
-            ]);
             return $this->upload($request);
-        } catch (\Exception $exception) {
-            return \Admin::responseError($exception->getMessage());
-        }
-
     }
 
     public function uploadImage(Request $request)
@@ -46,10 +38,11 @@ class HandleController extends Controller
             $path = $request->input('path', 'images');
             $uniqueName = $request->input('uniqueName', false);
 
+            //如果配置了 mimes 则只可以上传 mimes 配置内的文件类型，否则默认只能传 image 类型的文件
+            $mimes = config('admin.upload.mimes');
             \Admin::validatorData($request->all(), [
-                'file' => 'image'
+                'file' => $mimes ? 'mimes:' . $mimes : 'image',
             ]);
-
 
             $disk = config('admin.upload.disk');
             $name = $file->getClientOriginalName();
