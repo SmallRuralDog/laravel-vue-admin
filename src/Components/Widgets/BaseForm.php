@@ -18,6 +18,8 @@ class BaseForm extends Component
     protected $formItems = [];
     protected $formItemsValue = [];
 
+    protected $tabs = [];
+
     protected $action;
 
 
@@ -95,6 +97,12 @@ class BaseForm extends Component
     public function jsonSerialize()
     {
         $items = $this->formItems;
+
+        $this->tabs = collect($items)->map(function (FormItem $item){
+            return $item->getTab();
+        })->unique()->all();
+
+
         /**@var FormItem $item */
         foreach ($items as $item) {
             Arr::set($this->formItemsValue, $item->getProp(), $item->getDefaultValue());

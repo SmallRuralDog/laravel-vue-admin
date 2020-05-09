@@ -19,9 +19,10 @@
     :disabled="attrs.attrs.disabled"
   >
     <el-tabs>
-      <el-tab-pane label="基本信息">
+      <el-tab-pane :label="tab" v-for="tab in attrs.tabs" :key="tab">
         <template v-for="(item, index) in attrs.formItems">
           <ItemIf
+            v-if="tab == item.tab"
             :key="index"
             :form_item="item"
             :form_items="attrs.formItems"

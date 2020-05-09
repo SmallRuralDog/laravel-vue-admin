@@ -317,6 +317,8 @@ BatchAction::make("加入活动")
 ```php
 Grid\Tools\ToolButton::make("同步粉丝")
     ->handler("request") // 类型 request|route|link
+    ->message("确认操作提示信息")
+    ->tooltip("气泡提示")
     ->uri("") //路径
 ```
 

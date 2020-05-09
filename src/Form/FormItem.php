@@ -239,6 +239,9 @@ class FormItem
     public function defaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+
+        if($this->component) $this->component->componentValue($defaultValue);
+
         return $this;
     }
 
