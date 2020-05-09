@@ -29,6 +29,12 @@ class FormItem
     protected $relationValueKey;
     protected $ignoreEmpty = false;
     protected $hiddenMode = '';
+
+    /**
+     * @var string
+     */
+    protected $tab = "基本信息";
+
     /**
      * @var Form
      */
@@ -451,6 +457,26 @@ class FormItem
         ];
         return $this;
     }
+
+    /**
+     * 设置字段所属tab名称
+     * @param string $tab
+     * @return FormItem
+     */
+    public function tab(string $tab)
+    {
+        $this->tab = $tab;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTab(): string
+    {
+        return $this->tab;
+    }
+
     /**
      * If Null Dont Return
      * @return $this
@@ -514,6 +540,7 @@ class FormItem
             'relationName' => $this->relationName,
             'relationValueKey' => $this->relationValueKey,
             'vif' => $this->vif,
+            'tab'=>$this->tab,
             'ignoreEmpty' => $this->ignoreEmpty,
             'hiddenMode' => $this->hiddenMode,
         ];

@@ -20,67 +20,72 @@
         :size="attrs.attrs.size"
         :disabled="attrs.attrs.disabled"
       >
-        <template v-for="(item, index) in attrs.formItems">
-          <ItemIf
-            :key="index"
-            :form_item="item"
-            :form_items="attrs.formItems"
-            :form_data="formData"
-          >
-            <component
-              v-if="item.topComponent"
-              :is="item.topComponent.componentName"
-              :attrs="item.topComponent"
-            />
+        <el-tabs>
+          <el-tab-pane :label="tab" v-for="tab in attrs.tabs" :key="tab">
+            <template v-for="(item, index) in attrs.formItems" >
+              <ItemIf
+                v-if='tab == item.tab'
+                :key="index"
+                :form_item="item"
+                :form_items="attrs.formItems"
+                :form_data="formData"
+              >
+                <component
+                  v-if="item.topComponent"
+                  :is="item.topComponent.componentName"
+                  :attrs="item.topComponent"
+                />
 
-            <el-form-item
-              :label="item.label"
-              :prop="item.prop"
-              :label-width="item.labelWidth"
-              :required="item.required"
-              :rules="item.rules"
-              :error="item.error"
-              :show-message="item.showMessage"
-              :inline-message="item.inlineMessage"
-              :size="item.size"
-            >
-              <template>
-                <el-row>
-                  <el-col :span="item.inputWidth">
-                    <template v-if="item.relationName">
-                      <ItemDiaplsy
-                        v-model="
-                          formData[item.relationName][item.relationValueKey]
-                        "
-                        :form_item="item"
-                        :form_items="attrs.formItems"
-                        :form_data="formData"
-                      />
-                    </template>
-                    <template v-else>
-                      <ItemDiaplsy
-                        v-model="formData[item.prop]"
-                        :form_item="item"
-                        :form_data="formData"
-                      />
-                    </template>
+                <el-form-item
+                  :label="item.label"
+                  :prop="item.prop"
+                  :label-width="item.labelWidth"
+                  :required="item.required"
+                  :rules="item.rules"
+                  :error="item.error"
+                  :show-message="item.showMessage"
+                  :inline-message="item.inlineMessage"
+                  :size="item.size"
+                >
+                  <template>
+                    <el-row>
+                      <el-col :span="item.inputWidth">
+                        <template v-if="item.relationName">
+                          <ItemDiaplsy
+                            v-model="
+                              formData[item.relationName][item.relationValueKey]
+                            "
+                            :form_item="item"
+                            :form_items="attrs.formItems"
+                            :form_data="formData"
+                          />
+                        </template>
+                        <template v-else>
+                          <ItemDiaplsy
+                            v-model="formData[item.prop]"
+                            :form_item="item"
+                            :form_data="formData"
+                          />
+                        </template>
 
-                    <div
-                      v-if="item.help"
-                      class="form-item-help"
-                      v-html="item.help"
-                    ></div>
-                  </el-col>
-                </el-row>
-              </template>
-            </el-form-item>
-            <component
-              v-if="item.footerComponent"
-              :is="item.footerComponent.componentName"
-              :attrs="item.footerComponent"
-            />
-          </ItemIf>
-        </template>
+                        <div
+                          v-if="item.help"
+                          class="form-item-help"
+                          v-html="item.help"
+                        ></div>
+                      </el-col>
+                    </el-row>
+                  </template>
+                </el-form-item>
+                <component
+                  v-if="item.footerComponent"
+                  :is="item.footerComponent.componentName"
+                  :attrs="item.footerComponent"
+                />
+              </ItemIf>
+            </template>
+          </el-tab-pane>
+        </el-tabs>
         <div class="form-bottom-actions">
           <div></div>
           <div>
@@ -107,31 +112,36 @@ import { isNull } from "../../utils";
 export default {
   components: {
     ItemDiaplsy,
-    ItemIf
+    ItemIf,
   },
   props: {
-    attrs: Object
+    attrs: Object,
   },
   computed: {
     isEdit() {
       return this.attrs.mode == "edit";
     },
     ignoreKey() {
-      return this._.map(this.attrs.formItems.filter(e => !e.ignoreEmpty || !isNull(this.formData[e.prop])) ,'prop')
-    }
+      return this._.map(
+        this.attrs.formItems.filter(
+          (e) => !e.ignoreEmpty || !isNull(this.formData[e.prop])
+        ),
+        "prop"
+      );
+    },
   },
   data() {
     return {
       loading: false,
       init: false,
-      formData: null
+      formData: null,
     };
   },
   mounted() {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
     this.isEdit && this.getEditData();
   },
-  destroyed(){
+  destroyed() {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
   },
   methods: {
@@ -141,8 +151,8 @@ export default {
       this.$http
         .get(this.attrs.dataUrl, {
           params: {
-            get_data: true
-          }
+            get_data: true,
+          },
         })
         .then(({ data }) => {
           this.formData = data;
@@ -158,16 +168,15 @@ export default {
         });
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          const formatData = this._.pick(this.formData, this.ignoreKey)
+          const formatData = this._.pick(this.formData, this.ignoreKey);
           if (this.isEdit) {
             this.$http
               .put(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
                 if (code == 200) {
-                  
                   this.$router.go(-1);
                 }
               })
@@ -191,8 +200,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

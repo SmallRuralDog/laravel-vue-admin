@@ -5,7 +5,28 @@
       placement="top"
       :disabled="!attrs.tooltip"
     >
+      <el-popconfirm
+        placement="top"
+        :title="attrs.message"
+        @onConfirm="onClick"
+        v-if="attrs.message"
+      >
+        <el-button
+          slot="reference"
+          :type="attrs.type"
+          :size="attrs.size"
+          :plain="attrs.plain"
+          :round="attrs.round"
+          :circle="attrs.circle"
+          :disabled="attrs.disabled"
+          :icon="attrs.icon"
+          :autofocus="attrs.autofocus"
+          :loading="loading"
+          >{{ attrs.content }}
+        </el-button>
+      </el-popconfirm>
       <el-button
+        v-else
         :type="attrs.type"
         :size="attrs.size"
         :plain="attrs.plain"
@@ -16,8 +37,8 @@
         :autofocus="attrs.autofocus"
         :loading="loading"
         @click="onClick"
-        >{{ attrs.content }}</el-button
-      >
+        >{{ attrs.content }}
+      </el-button>
     </el-tooltip>
     <el-dialog
       v-if="attrs.dialog"
@@ -47,16 +68,16 @@
 <script>
 export default {
   props: {
-    attrs: Object
+    attrs: Object,
   },
   data() {
     return {
       loading: false,
-      dialogTableVisible: false
+      dialogTableVisible: false,
     };
   },
   mounted() {
-    this.$bus.on("closeDialog", data => {
+    this.$bus.on("closeDialog", (data) => {
       this.dialogTableVisible = false;
     });
   },
@@ -88,14 +109,14 @@ export default {
       this.loading = true;
       this.$http
         .get(uri)
-        .then(res => {
+        .then((res) => {
           if (res.code == 200) {
           }
         })
         .finally(() => {
           this.loading = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>

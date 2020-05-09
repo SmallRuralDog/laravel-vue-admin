@@ -18,65 +18,71 @@
     :size="attrs.attrs.size"
     :disabled="attrs.attrs.disabled"
   >
-    <template v-for="(item, index) in attrs.formItems">
-      <ItemIf
-        :key="index"
-        :form_item="item"
-        :form_items="attrs.formItems"
-        :form_data="formData"
-      >
-        <component
-          v-if="item.topComponent"
-          :is="item.topComponent.componentName"
-          :attrs="item.topComponent"
-        />
+    <el-tabs>
+      <el-tab-pane label="基本信息">
+        <template v-for="(item, index) in attrs.formItems">
+          <ItemIf
+            :key="index"
+            :form_item="item"
+            :form_items="attrs.formItems"
+            :form_data="formData"
+          >
+            <component
+              v-if="item.topComponent"
+              :is="item.topComponent.componentName"
+              :attrs="item.topComponent"
+            />
 
-        <el-form-item
-          :label="item.label"
-          :prop="item.prop"
-          :label-width="item.labelWidth"
-          :required="item.required"
-          :rules="item.rules"
-          :error="item.error"
-          :show-message="item.showMessage"
-          :inline-message="item.inlineMessage"
-          :size="item.size"
-        >
-          <template>
-            <el-row>
-              <el-col :span="item.inputWidth">
-                <template v-if="item.relationName">
-                  <ItemDiaplsy
-                    v-model="formData[item.relationName][item.relationValueKey]"
-                    :form_item="item"
-                    :form_items="attrs.formItems"
-                    :form_data="formData"
-                  />
-                </template>
-                <template v-else>
-                  <ItemDiaplsy
-                    v-model="formData[item.prop]"
-                    :form_item="item"
-                    :form_data="formData"
-                  />
-                </template>
+            <el-form-item
+              :label="item.label"
+              :prop="item.prop"
+              :label-width="item.labelWidth"
+              :required="item.required"
+              :rules="item.rules"
+              :error="item.error"
+              :show-message="item.showMessage"
+              :inline-message="item.inlineMessage"
+              :size="item.size"
+            >
+              <template>
+                <el-row>
+                  <el-col :span="item.inputWidth">
+                    <template v-if="item.relationName">
+                      <ItemDiaplsy
+                        v-model="
+                          formData[item.relationName][item.relationValueKey]
+                        "
+                        :form_item="item"
+                        :form_items="attrs.formItems"
+                        :form_data="formData"
+                      />
+                    </template>
+                    <template v-else>
+                      <ItemDiaplsy
+                        v-model="formData[item.prop]"
+                        :form_item="item"
+                        :form_data="formData"
+                      />
+                    </template>
 
-                <div
-                  v-if="item.help"
-                  class="form-item-help"
-                  v-html="item.help"
-                ></div>
-              </el-col>
-            </el-row>
-          </template>
-        </el-form-item>
-        <component
-          v-if="item.footerComponent"
-          :is="item.footerComponent.componentName"
-          :attrs="item.footerComponent"
-        />
-      </ItemIf>
-    </template>
+                    <div
+                      v-if="item.help"
+                      class="form-item-help"
+                      v-html="item.help"
+                    ></div>
+                  </el-col>
+                </el-row>
+              </template>
+            </el-form-item>
+            <component
+              v-if="item.footerComponent"
+              :is="item.footerComponent.componentName"
+              :attrs="item.footerComponent"
+            />
+          </ItemIf>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
     <div class="form-bottom-actions">
       <div></div>
       <div>
@@ -97,34 +103,32 @@ import ItemIf from "./ItemIf";
 export default {
   components: {
     ItemDiaplsy,
-    ItemIf
+    ItemIf,
   },
   props: {
     attrs: Object,
-    keys:String
+    keys: String,
   },
   data() {
     return {
       loading: false,
       isEdit: false,
-      formData: {}
+      formData: {},
     };
   },
   mounted() {
-    this.formData = this._.cloneDeep(this.attrs.formItemsValue)
+    this.formData = this._.cloneDeep(this.attrs.formItemsValue);
   },
-  computed:{
-    actionUrl(){
-
+  computed: {
+    actionUrl() {
       const keys = this.$store.getters.thisPage.grids.selectionKeys;
-      
 
       return this._.replace(this.attrs.action, "selectionKeys", keys);
-    }
+    },
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
 
@@ -132,7 +136,7 @@ export default {
             .post(this.actionUrl, this.formData)
             .then(({ data, code, message }) => {
               if (code == 200) {
-                this.attrs.emits.map(item => {
+                this.attrs.emits.map((item) => {
                   this.$bus.emit(item.name, item.data);
                 });
               }
@@ -145,8 +149,8 @@ export default {
         }
       });
     },
-    resetForm(formName) {}
-  }
+    resetForm(formName) {},
+  },
 };
 </script>
 <style lang="scss" scoped>

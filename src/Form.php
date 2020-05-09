@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use JsonSerializable;
 use SmallRuralDog\Admin\Components\Component;
-use SmallRuralDog\Admin\Components\Upload;
+use SmallRuralDog\Admin\Components\Form\Upload;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\HasHooks;
@@ -36,6 +36,8 @@ class Form extends Component implements JsonSerializable
     protected $formItemsAttr = [];
     protected $formItemsValue = [];
     protected $formItems = [];
+
+    protected $tabs = [];
 
     const MODE_EDIT = 'edit';
     const MODE_CREATE = 'create';
@@ -118,12 +120,15 @@ class Form extends Component implements JsonSerializable
     }
 
     /**
-     * 设置字段组
      * @param array $items
-     * @deprecated
      */
-    public function items($items = [])
+    protected function items($items = [])
     {
+
+        $this->tabs = collect($items)->map(function (FormItem $item){
+            return $item->getTab();
+        })->unique()->all();
+
         // 根据所处模式抛弃组件
         $this->formItemsAttr = collect($items)->filter(function (FormItem $item) {
             return !$this->isMode($item->gethiddenMode());
@@ -714,6 +719,7 @@ class Form extends Component implements JsonSerializable
             'mode' => $this->getMode(),
             'attrs' => $this->attrs,
             'formItems' => $this->formItemsAttr,
+            'tabs'=>$this->tabs,
             'defaultValues' => $this->formItemsValue,
         ];
 
