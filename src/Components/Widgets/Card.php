@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Components\Widgets;
-
 
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Layout\Content;
@@ -22,13 +20,13 @@ class Card extends Component
     }
 
     /**
-     * 设置 header 目前只支持String
+     * 设置 header
      * @param string $header
      * @return $this
      */
-    public function header(string $header)
+    public function header($header)
     {
-        $this->header = $header;
+        $this->header = instance_content($header);
         return $this;
     }
 
@@ -62,17 +60,8 @@ class Card extends Component
      */
     public function content($content)
     {
-        if ($content instanceof \Closure) {
-            $c_content = new Content();
-            call_user_func($content, $c_content);
-            $this->content = $c_content;
-        } else {
-            $this->content = $content;
-        }
-
-
+        $this->content = instance_content($content);
         return $this;
     }
-
 
 }

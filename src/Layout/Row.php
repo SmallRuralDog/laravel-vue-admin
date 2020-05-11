@@ -1,9 +1,9 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Layout;
 
 use SmallRuralDog\Admin\Components\Component;
+use SmallRuralDog\Admin\Components\Widgets\Html;
 
 class Row extends Component
 {
@@ -17,10 +17,12 @@ class Row extends Component
 
     protected $gutter = 0;
 
-
     public function __construct($content = '')
     {
         if (!empty($content)) {
+            if (is_string($content)) {
+                $this->column(24, Html::make()->html($content));
+            }
             $this->column(24, $content);
         }
     }
@@ -32,7 +34,6 @@ class Row extends Component
         $this->addColumn($column);
         return $column;
     }
-
 
     /**
      * @param Column $column
