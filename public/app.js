@@ -3053,7 +3053,7 @@ __webpack_require__.r(__webpack_exports__);
         uri = _this7._.replace(uri, "{" + key + "}", value);
       });
 
-      uri = this._.replace(uri, "{keys}", this.keys);
+      uri = this._.replace(uri, "selectionKeys", this.keys);
       return uri;
     }
   }

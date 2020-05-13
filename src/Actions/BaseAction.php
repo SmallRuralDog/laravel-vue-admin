@@ -10,6 +10,11 @@ use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
 class BaseAction implements JsonSerializable
 {
     use HasDialog;
+
+    const HANDLER_ROUTE = "route";
+    const HANDLER_LINK = "link";
+    const HANDLER_REQUEST = "request";
+
     protected $componentName = "";
     protected $className;
     protected $style;
