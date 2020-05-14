@@ -23,7 +23,7 @@ class Admin
         if (!is_null($css)) {
             return self::$css = array_merge(self::$css, (array)$css);
         }
-        $css = array_merge(static::$css,[]);
+        $css = array_merge(static::$css, []);
         $css = array_filter(array_unique($css));
         return view('admin::partials.css', compact('css'));
     }
@@ -128,11 +128,15 @@ class Admin
 
     public function response($data, $message = '', $code = 200, $headers = [])
     {
-        return \Response::json([
+
+        $re_data = [
             'code' => $code,
             'message' => $message,
-            'data' => $data
-        ], 200, $headers);
+        ];
+        if ($data) {
+            $re_data['data'] = $data;
+        }
+        return \Response::json($re_data, 200, $headers);
     }
 
 
