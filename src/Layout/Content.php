@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SmallRuralDog\Admin\Layout;
 
 use Closure;
@@ -21,12 +20,10 @@ class Content extends Component
         return new Content();
     }
 
-
     public function body($content)
     {
         return $this->row($content);
     }
-
 
     public function row($content)
     {
@@ -46,7 +43,6 @@ class Content extends Component
     {
         $this->rows[] = $row;
     }
-
 
     /**
      * @param bool $showHeader
@@ -77,6 +73,5 @@ class Content extends Component
         $this->description = $description;
         return $this;
     }
-
 
 }

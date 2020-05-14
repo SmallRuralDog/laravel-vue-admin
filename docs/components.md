@@ -31,7 +31,17 @@ $baseForm->item("express_no", "物流单号")->required();
 将信息聚合在卡片容器中展示。
 
 ```php
-Card::make()->content();
+$header = '标题 <a style="float:right;">测试</a>'; //html文本
+$content = new Content; // 对象
+$header = $content->row(function (Row $row) {
+    $row->column(12, Widgets\Text::make('标题'));
+    $row->column(12, Form\CSwitch::make()->style(['float' => 'right']));
+});
+Card::make()->header(function (Content $content)
+{
+    $content->className('mt-10')->body('测试内容'); // 闭包
+})->content();
+// content同理
 ```
 
 ### Steps 步骤条

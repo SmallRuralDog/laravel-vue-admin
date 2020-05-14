@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\MessageBag;
+use SmallRuralDog\Admin\Components\Widgets\Html;
+use SmallRuralDog\Admin\Layout\Content;
 
 if (!function_exists('admin_path')) {
 
@@ -16,7 +18,6 @@ if (!function_exists('admin_path')) {
         return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 }
-
 
 if (!function_exists('admin_base_path')) {
     /**
@@ -65,13 +66,14 @@ if (!function_exists('admin_url')) {
 if (!function_exists('admin_file_url')) {
     function admin_file_url($path)
     {
-        if (\Illuminate\Support\Str::contains($path,"//")){
+        if (\Illuminate\Support\Str::contains($path, "//")) {
             return $path;
         }
 
         return \Storage::disk(config('admin.upload.disk'))->url($path);
     }
-};
+}
+;
 
 if (!function_exists('admin_toastr')) {
 
@@ -100,5 +102,20 @@ if (!function_exists('admin_asset')) {
     function admin_asset($path)
     {
         return (config('admin.https') || config('admin.secure')) ? secure_asset($path) : asset($path);
+    }
+}
+if (!function_exists('instance_content')) {
+
+    function instance_content($content = '')
+    {
+        if (is_string($content)) {
+            return Html::make()->html($content);
+        } elseif ($content instanceof \Closure) {
+            $c_content = new Content();
+            call_user_func($content, $c_content);
+            return $c_content;
+        } else {
+            return $content;
+        }
     }
 }
