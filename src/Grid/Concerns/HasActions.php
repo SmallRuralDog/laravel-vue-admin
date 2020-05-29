@@ -3,6 +3,7 @@
 
 namespace SmallRuralDog\Admin\Grid\Concerns;
 
+use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\Grid\Actions\DeleteAction;
 use SmallRuralDog\Admin\Grid\Actions\EditAction;
 use SmallRuralDog\Admin\Grid\Tools\Action;
@@ -23,9 +24,14 @@ trait HasActions
     protected $editAction;
     protected $deleteAction;
 
+    private $grid;
 
-    public function __construct()
+
+    public function __construct(Grid $grid)
     {
+
+        $this->grid = $grid;
+
         $this->editAction = new EditAction();
         $this->deleteAction = new DeleteAction();
 
@@ -112,6 +118,10 @@ trait HasActions
     {
         $actions = collect($this->actions);
 
+        if ($this->grid->getDialogForm()) {
+            $this->editAction->isDialog(true);
+        }
+
         if (!$this->hideEditAction) {
             $actions->add($this->editAction);
         }
@@ -121,6 +131,7 @@ trait HasActions
         foreach ($this->addActions as $addAction) {
             $actions->add($addAction);
         }
+
 
         return [
             'hide' => $this->hide,

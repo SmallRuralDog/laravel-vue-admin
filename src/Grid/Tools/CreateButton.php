@@ -13,5 +13,20 @@ class CreateButton extends BaseAction
 
     protected $componentName = "GridCreateButton";
 
+    protected $isDialog = false;
+
+    /**
+     * @param bool $isDialog
+     * @return CreateButton
+     */
+    public function isDialog(bool $isDialog)
+    {
+        $this->isDialog = $isDialog;
+        return $this;
+    }
+
+
+
+
 
 }

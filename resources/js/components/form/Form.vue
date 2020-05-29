@@ -1,6 +1,12 @@
 <template>
   <div class="form-page">
-    <el-card shadow="never" class="form-card" v-loading="loading" title="创建">
+    <component
+      :is="attrs.attrs.isDialog ? 'div' : 'el-card'"
+      shadow="never"
+      class="form-card"
+      v-loading="loading"
+      title="创建"
+    >
       <el-form
         v-if="formData"
         ref="ruleForm"
@@ -21,7 +27,6 @@
         :disabled="attrs.attrs.disabled"
       >
         <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'">
-          
           <component
             :is="attrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
             :label="tab"
@@ -102,13 +107,19 @@
               @click="submitForm('ruleForm')"
               >{{ isEdit ? "立即修改" : "立即创建" }}</el-button
             >
-            <el-button class="submit-btn" @click="$router.go(-1)"
+            <el-button
+              v-if="!attrs.attrs.isDialog"
+              class="submit-btn"
+              @click="$router.go(-1)"
               >返回</el-button
+            >
+            <el-button v-else class="submit-btn" @click="closeDialog"
+              >关闭</el-button
             >
           </div>
         </div>
       </el-form>
-    </el-card>
+    </component>
   </div>
 </template>
 <script>
@@ -146,9 +157,17 @@ export default {
   mounted() {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
     this.isEdit && this.getEditData();
+
+    this.$bus.on("resetFormData", () => {
+      this.formData = this._.cloneDeep(this.attrs.defaultValues);
+    });
   },
   destroyed() {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
+    //取消监听
+    try {
+      this.$bus.off("resetFormData");
+    } catch (e) {}
   },
   methods: {
     getEditData() {
@@ -183,7 +202,12 @@ export default {
               .put(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
                 if (code == 200) {
-                  this.$router.go(-1);
+                  if (this.attrs.attrs.isDialog) {
+                    this.closeDialog();
+                    this.$bus.emit("tableReload");
+                  } else {
+                    this.$router.go(-1);
+                  }
                 }
               })
               .finally(() => {
@@ -193,7 +217,14 @@ export default {
             this.$http
               .post(this.attrs.action, formatData)
               .then(({ data, code, message }) => {
-                code == 200 && this.$router.go(-1);
+                if (code == 200) {
+                  if (this.attrs.attrs.isDialog) {
+                    this.closeDialog();
+                    this.$bus.emit("tableReload");
+                  } else {
+                    this.$router.go(-1);
+                  }
+                }
               })
               .finally(() => {
                 this.loading = false;
@@ -206,6 +237,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    closeDialog() {
+      this.$bus.emit("showDialogGridFrom", { isShow: false });
     },
   },
 };

@@ -4,6 +4,7 @@
 namespace SmallRuralDog\Admin\Grid;
 
 
+use SmallRuralDog\Admin\Grid;
 use SmallRuralDog\Admin\Grid\Tools\CreateButton;
 use SmallRuralDog\Admin\Traits\AdminJsonBuilder;
 
@@ -18,12 +19,15 @@ class Toolbars extends AdminJsonBuilder
 
     protected $createButton;
 
-    /**
-     * Toolbars constructor.
-     */
-    public function __construct()
+    protected $grid;
+
+    public function __construct(Grid $grid)
     {
+
+        $this->grid = $grid;
+
         $this->createButton = new CreateButton();
+
         $this->createButton->content("添加")->icon("el-icon-plus");
     }
 
@@ -74,6 +78,10 @@ class Toolbars extends AdminJsonBuilder
 
         foreach ($this->addRight as $addRight) {
             $right->prepend($addRight);
+        }
+
+        if($this->grid->getDialogForm()){
+            $this->createButton->isDialog(true);
         }
 
         return [

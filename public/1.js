@@ -111,6 +111,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -259,11 +264,12 @@ var render = function() {
         },
         [
           _c(
-            "el-tabs",
+            _vm.attrs.attrs.hideTab ? "div" : "el-tabs",
+            { tag: "component" },
             _vm._l(_vm.attrs.tabs, function(tab) {
               return _c(
-                "el-tab-pane",
-                { key: tab, attrs: { label: tab } },
+                _vm.attrs.attrs.hideTab ? "div" : "el-tab-pane",
+                { key: tab, tag: "component", attrs: { label: tab } },
                 [
                   _vm._l(_vm.attrs.formItems, function(item, index) {
                     return [

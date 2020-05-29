@@ -17,12 +17,16 @@
 <script>
 export default {
   props: {
-    attrs: Object
+    attrs: Object,
   },
   methods: {
     onCreate() {
-      this.$router.push(this.$route.path + "/create");
-    }
-  }
+      if (this.attrs.isDialog) {
+        this.$bus.emit("showDialogGridFrom", { isShow: true });
+      } else {
+        this.$router.push(this.$route.path + "/create");
+      }
+    },
+  },
 };
 </script>

@@ -20,17 +20,21 @@ export default {
   props: {
     scope: Object,
     action: Object,
-    key_name: String
+    key_name: String,
   },
   data() {
     return {
-      loading: false
+      loading: false,
     };
   },
   methods: {
     onHandle() {
-      this.$router.push(this.$route.path + "/" + this.key + "/edit");
-    }
+      if (this.action.isDialog) {
+        this.$bus.emit("showDialogGridFrom", { isShow: true, key: this.key });
+      } else {
+        this.$router.push(this.$route.path + "/" + this.key + "/edit");
+      }
+    },
   },
   computed: {
     colum() {
@@ -41,8 +45,8 @@ export default {
     },
     key() {
       return this.scope.row[this.key_name];
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped></style>

@@ -23,4 +23,6 @@ class FormAttrs
 
     public $hideTab = true;
 
+    public $isDialog = false;
+
 }

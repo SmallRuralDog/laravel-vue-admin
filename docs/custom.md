@@ -716,7 +716,7 @@ destroyed() {
 this.$bus.emit("tableReload");
 ```
 
-设置表格加载状态
+### 设置表格加载状态
 
 ```php
 this.$bus.emit("tableSetLoading",true);
@@ -734,6 +734,18 @@ this.$bus.emit("pageReload");
 
 ```php
 this.$bus.emit("closeDialog");
+```
+
+### 重置表单数据
+
+```php
+this.$bus.emit("resetFormData");
+```
+
+### 设置Grid弹窗表单
+
+```php
+this.$bus.emit("showDialogGridFrom", { isShow: true });
 ```
 
 

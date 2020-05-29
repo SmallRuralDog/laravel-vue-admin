@@ -70,6 +70,12 @@ class Grid extends Component implements \JsonSerializable
     private $bottom;
 
 
+    /**
+     * @var Form
+     */
+    protected $dialogForm;
+
+
     public function __construct(Eloquent $model)
     {
         $this->attributes = new Attributes();
@@ -78,7 +84,7 @@ class Grid extends Component implements \JsonSerializable
         $this->keyName = $model->getKeyName();
         $this->defaultSort($model->getKeyName(), "asc");
         $this->isGetData = request('get_data') == "true";
-        $this->toolbars = new Toolbars();
+        $this->toolbars = new Toolbars($this);
         $this->batchActions = new BatchActions();
         $this->filter = new Filter($this->model);
     }
@@ -241,11 +247,32 @@ class Grid extends Component implements \JsonSerializable
      */
     public function getActions($row, $key)
     {
-        $actions = new Actions();
+        $actions = new Actions($this);
         $actions->row($row)->key($key);
         if ($this->actions) call_user_func($this->actions, $actions);
         return $actions->builderActions();
     }
+
+    /**
+     * @param Form $dialogForm
+     * @return Grid
+     */
+    public function dialogForm(Form $dialogForm)
+    {
+        $this->dialogForm = $dialogForm;
+        return $this;
+    }
+
+    /**
+     * @return Form
+     */
+    public function getDialogForm()
+    {
+        return $this->dialogForm;
+    }
+
+
+
 
 
     /**
@@ -319,6 +346,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['filter'] = $this->filter->buildFilter();
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
+            $viewData['dialogForm'] = $this->dialogForm;
             return $viewData;
         }
     }

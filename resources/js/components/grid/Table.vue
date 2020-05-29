@@ -215,6 +215,11 @@
       :is="attrs.bottom.componentName"
       :attrs="attrs.bottom"
     />
+    <DialogForm
+      ref="DialogGridFrom"
+      v-if="attrs.dialogForm"
+      :dialogForm="attrs.dialogForm"
+    />
   </div>
 </template>
 
@@ -224,15 +229,17 @@ import ColumnDisplay from "./ColumnDisplay";
 import Actions from "./Actions/Index";
 import BatchActions from "./BatchActions/Index";
 import ItemDiaplsy from "../form/ItemDiaplsy";
+import DialogForm from "./DialogForm";
 export default {
   components: {
     ColumnDisplay,
     Actions,
     ItemDiaplsy,
-    BatchActions
+    BatchActions,
+    DialogForm,
   },
   props: {
-    attrs: Object
+    attrs: Object,
   },
   data() {
     return {
@@ -243,14 +250,14 @@ export default {
         pageSize: this.attrs.perPage,
         total: 0,
         currentPage: 1,
-        lastPage: 1
+        lastPage: 1,
       },
       page: 1,
       quickSearch: null,
       selectionRows: [],
       filterFormData: null,
       tabsSelectdata: {},
-      tabsActiveName: "all"
+      tabsActiveName: "all",
     };
   },
 
@@ -293,8 +300,13 @@ export default {
     this.$bus.on("tableReload", () => {
       this.getData();
     });
-    this.$bus.on("tableSetLoading", status => {
+    this.$bus.on("tableSetLoading", (status) => {
       this.loading = status;
+    });
+
+    this.$bus.on("showDialogGridFrom", ({ isShow ,key}) => {
+      this.$refs["DialogGridFrom"].dialogVisible = isShow;
+      this.$refs["DialogGridFrom"].key = key;
     });
   },
   destroyed() {
@@ -302,6 +314,7 @@ export default {
     try {
       this.$bus.off("tableReload");
       this.$bus.off("tableSetLoading");
+      this.$bus.off("showDialogGridFrom");
     } catch (e) {}
   },
   methods: {
@@ -332,8 +345,8 @@ export default {
             ...this.sort,
             ...this.q_search,
             ...this.filterFormData,
-            ...this.tabsSelectdata
-          }
+            ...this.tabsSelectdata,
+          },
         })
         .then(
           ({ data: { data, current_page, per_page, total, last_page } }) => {
@@ -348,7 +361,7 @@ export default {
             if (this.attrs.attributes.dataVuex) {
               this.$store.commit("setGridData", {
                 key: "tableData",
-                data: this.tableData
+                data: this.tableData,
               });
             }
 
@@ -356,16 +369,16 @@ export default {
             this.$store.commit("setGridData", { key: "page", data: this.page });
             this.$store.commit("setGridData", {
               key: "pageData",
-              data: this.pageData
+              data: this.pageData,
             });
 
             this.$store.commit("setGridData", {
               key: "quickSearch",
-              data: this.quickSearch
+              data: this.quickSearch,
             });
             this.$store.commit("setGridData", {
               key: "filterFormData",
-              data: this.filterFormData
+              data: this.filterFormData,
             });
             /** */
           }
@@ -388,7 +401,10 @@ export default {
     //当选择项发生变化时会触发该事件
     onTableselectionChange(selection) {
       this.selectionRows = selection;
-      this.$store.commit("setGridData", { key: "selectionKeys", data: this.keys });
+      this.$store.commit("setGridData", {
+        key: "selectionKeys",
+        data: this.keys,
+      });
     },
     //每页大小改变时
     onPageSizeChange(per_page) {
@@ -400,12 +416,12 @@ export default {
     onPageCurrentChange(page) {
       this.page = page;
       this.getData();
-    }
+    },
   },
   computed: {
     keys() {
       return this.selectionRows
-        .map(item => {
+        .map((item) => {
           return item[this.attrs.keyName];
         })
         .join(",");
@@ -416,7 +432,7 @@ export default {
     },
     //
     columns() {
-      return this.column_attributes.map(attributes => {
+      return this.column_attributes.map((attributes) => {
         return attributes;
       });
     },
@@ -425,7 +441,7 @@ export default {
       return this.sort
         ? {
             prop: this.sort.sort_prop,
-            order: this.sort.sort_order == "asc" ? "ascending" : "descending"
+            order: this.sort.sort_order == "asc" ? "ascending" : "descending",
           }
         : {};
     },
@@ -435,8 +451,8 @@ export default {
       this.attrs.quickSearch &&
         (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
-    }
-  }
+    },
+  },
 };
 </script>
 

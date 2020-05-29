@@ -985,6 +985,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1016,15 +1027,24 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
     this.isEdit && this.getEditData();
+    this.$bus.on("resetFormData", function () {
+      _this2.formData = _this2._.cloneDeep(_this2.attrs.defaultValues);
+    });
   },
   destroyed: function destroyed() {
-    this.formData = this._.cloneDeep(this.attrs.defaultValues);
+    this.formData = this._.cloneDeep(this.attrs.defaultValues); //取消监听
+
+    try {
+      this.$bus.off("resetFormData");
+    } catch (e) {}
   },
   methods: {
     getEditData: function getEditData() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.loading = true;
       this.init = false;
@@ -1034,45 +1054,60 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this2.formData = data;
-        _this2.init = true; //发送表单编辑数据加载完毕事件
+        _this3.formData = data;
+        _this3.init = true; //发送表单编辑数据加载完毕事件
 
-        _this2.$nextTick(function () {
-          _this2.$bus.emit("EditDataLoadingCompleted");
+        _this3.$nextTick(function () {
+          _this3.$bus.emit("EditDataLoadingCompleted");
         });
       })["finally"](function () {
-        _this2.loading = false;
+        _this3.loading = false;
       });
     },
     submitForm: function submitForm(formName) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$refs[formName].validate(function (valid) {
         if (valid) {
-          _this3.loading = true;
+          _this4.loading = true;
 
-          var formatData = _this3._.pick(_this3.formData, _this3.ignoreKey);
+          var formatData = _this4._.pick(_this4.formData, _this4.ignoreKey);
 
-          if (_this3.isEdit) {
-            _this3.$http.put(_this3.attrs.action, formatData).then(function (_ref2) {
+          if (_this4.isEdit) {
+            _this4.$http.put(_this4.attrs.action, formatData).then(function (_ref2) {
               var data = _ref2.data,
                   code = _ref2.code,
                   message = _ref2.message;
 
               if (code == 200) {
-                _this3.$router.go(-1);
+                if (_this4.attrs.attrs.isDialog) {
+                  _this4.closeDialog();
+
+                  _this4.$bus.emit("tableReload");
+                } else {
+                  _this4.$router.go(-1);
+                }
               }
             })["finally"](function () {
-              _this3.loading = false;
+              _this4.loading = false;
             });
           } else {
-            _this3.$http.post(_this3.attrs.action, formatData).then(function (_ref3) {
+            _this4.$http.post(_this4.attrs.action, formatData).then(function (_ref3) {
               var data = _ref3.data,
                   code = _ref3.code,
                   message = _ref3.message;
-              code == 200 && _this3.$router.go(-1);
+
+              if (code == 200) {
+                if (_this4.attrs.attrs.isDialog) {
+                  _this4.closeDialog();
+
+                  _this4.$bus.emit("tableReload");
+                } else {
+                  _this4.$router.go(-1);
+                }
+              }
             })["finally"](function () {
-              _this3.loading = false;
+              _this4.loading = false;
             });
           }
         } else {
@@ -1082,6 +1117,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetForm: function resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    closeDialog: function closeDialog() {
+      this.$bus.emit("showDialogGridFrom", {
+        isShow: false
+      });
     }
   }
 });
@@ -1563,6 +1603,69 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    dialogForm: Object
+  },
+  data: function data() {
+    return {
+      dialogVisible: false,
+      showForm: false,
+      key: null,
+      selfDialogForm: {}
+    };
+  },
+  mounted: function mounted() {
+    this.selfDialogForm = this._.cloneDeep(this.dialogForm);
+  },
+  watch: {
+    dialogVisible: function dialogVisible(val) {
+      if (val) {
+        if (this.key) {
+          this.selfDialogForm.mode = "edit";
+          this.selfDialogForm.dataUrl = this.dialogForm.dataUrl + "/" + this.key + "/edit";
+          this.selfDialogForm.action = this.dialogForm.action + "/" + this.key;
+        }
+
+        this.showForm = true;
+      }
+    }
+  },
+  methods: {
+    onClose: function onClose() {
+      this.showForm = false;
+      this.key = null;
+      this.selfDialogForm = this._.cloneDeep(this.dialogForm);
+      this.$bus.emit("resetFormData");
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/grid/Table.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/grid/Table.vue?vue&type=script&lang=js& ***!
@@ -1577,6 +1680,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Actions_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions/Index */ "./resources/js/components/grid/Actions/Index.vue");
 /* harmony import */ var _BatchActions_Index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BatchActions/Index */ "./resources/js/components/grid/BatchActions/Index.vue");
 /* harmony import */ var _form_ItemDiaplsy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../form/ItemDiaplsy */ "./resources/js/components/form/ItemDiaplsy.vue");
+/* harmony import */ var _DialogForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DialogForm */ "./resources/js/components/grid/DialogForm.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1803,6 +1907,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -1813,7 +1923,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ColumnDisplay: _ColumnDisplay__WEBPACK_IMPORTED_MODULE_1__["default"],
     Actions: _Actions_Index__WEBPACK_IMPORTED_MODULE_2__["default"],
     ItemDiaplsy: _form_ItemDiaplsy__WEBPACK_IMPORTED_MODULE_4__["default"],
-    BatchActions: _BatchActions_Index__WEBPACK_IMPORTED_MODULE_3__["default"]
+    BatchActions: _BatchActions_Index__WEBPACK_IMPORTED_MODULE_3__["default"],
+    DialogForm: _DialogForm__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
     attrs: Object
@@ -1869,12 +1980,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.$bus.on("tableSetLoading", function (status) {
       _this.loading = status;
     });
+    this.$bus.on("showDialogGridFrom", function (_ref) {
+      var isShow = _ref.isShow,
+          key = _ref.key;
+      _this.$refs["DialogGridFrom"].dialogVisible = isShow;
+      _this.$refs["DialogGridFrom"].key = key;
+    });
   },
   destroyed: function destroyed() {
     //取消监听
     try {
       this.$bus.off("tableReload");
       this.$bus.off("tableSetLoading");
+      this.$bus.off("showDialogGridFrom");
     } catch (e) {}
   },
   methods: {
@@ -1904,13 +2022,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           page: this.page,
           per_page: this.pageData.pageSize
         }, this.sort, {}, this.q_search, {}, this.filterFormData, {}, this.tabsSelectdata)
-      }).then(function (_ref) {
-        var _ref$data = _ref.data,
-            data = _ref$data.data,
-            current_page = _ref$data.current_page,
-            per_page = _ref$data.per_page,
-            total = _ref$data.total,
-            last_page = _ref$data.last_page;
+      }).then(function (_ref2) {
+        var _ref2$data = _ref2.data,
+            data = _ref2$data.data,
+            current_page = _ref2$data.current_page,
+            per_page = _ref2$data.per_page,
+            total = _ref2$data.total,
+            last_page = _ref2$data.last_page;
         _this2.tableData = data;
         _this2.pageData.pageSize = per_page;
         _this2.pageData.currentPage = current_page;
@@ -1955,10 +2073,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     //当表格的排序条件发生变化的时候会触发该事件
-    onTableSortChange: function onTableSortChange(_ref2) {
-      var column = _ref2.column,
-          prop = _ref2.prop,
-          order = _ref2.order;
+    onTableSortChange: function onTableSortChange(_ref3) {
+      var column = _ref3.column,
+          prop = _ref3.prop,
+          order = _ref3.order;
 
       if (order) {
         this.sort.sort_field = column.columnKey; //后端排序字段
@@ -2800,7 +2918,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onHandle: function onHandle() {
-      this.$router.push(this.$route.path + "/" + this.key + "/edit");
+      if (this.action.isDialog) {
+        this.$bus.emit("showDialogGridFrom", {
+          isShow: true,
+          key: this.key
+        });
+      } else {
+        this.$router.push(this.$route.path + "/" + this.key + "/edit");
+      }
     }
   },
   computed: {
@@ -4851,7 +4976,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onCreate: function onCreate() {
-      this.$router.push(this.$route.path + "/create");
+      if (this.attrs.isDialog) {
+        this.$bus.emit("showDialogGridFrom", {
+          isShow: true
+        });
+      } else {
+        this.$router.push(this.$route.path + "/create");
+      }
     }
   }
 });
@@ -29103,7 +29234,7 @@ var render = function() {
     { staticClass: "form-page" },
     [
       _c(
-        "el-card",
+        _vm.attrs.attrs.isDialog ? "div" : "el-card",
         {
           directives: [
             {
@@ -29113,6 +29244,7 @@ var render = function() {
               expression: "loading"
             }
           ],
+          tag: "component",
           staticClass: "form-card",
           attrs: { shadow: "never", title: "创建" }
         },
@@ -29331,18 +29463,27 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.isEdit ? "立即修改" : "立即创建"))]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "el-button",
-                          {
-                            staticClass: "submit-btn",
-                            on: {
-                              click: function($event) {
-                                return _vm.$router.go(-1)
-                              }
-                            }
-                          },
-                          [_vm._v("返回")]
-                        )
+                        !_vm.attrs.attrs.isDialog
+                          ? _c(
+                              "el-button",
+                              {
+                                staticClass: "submit-btn",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.$router.go(-1)
+                                  }
+                                }
+                              },
+                              [_vm._v("返回")]
+                            )
+                          : _c(
+                              "el-button",
+                              {
+                                staticClass: "submit-btn",
+                                on: { click: _vm.closeDialog }
+                              },
+                              [_vm._v("关闭")]
+                            )
                       ],
                       1
                     )
@@ -29710,6 +29851,54 @@ var render = function() {
           ]
     ],
     2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-dialog",
+    {
+      attrs: {
+        title: "",
+        visible: _vm.dialogVisible,
+        "close-on-click-modal": false
+      },
+      on: {
+        "update:visible": function($event) {
+          _vm.dialogVisible = $event
+        },
+        closed: _vm.onClose
+      }
+    },
+    [
+      _vm.showForm
+        ? _c(_vm.dialogForm.componentName, {
+            tag: "component",
+            attrs: { attrs: _vm.selfDialogForm }
+          })
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -30230,6 +30419,13 @@ var render = function() {
         ? _c(_vm.attrs.bottom.componentName, {
             tag: "component",
             attrs: { attrs: _vm.attrs.bottom }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.attrs.dialogForm
+        ? _c("DialogForm", {
+            ref: "DialogGridFrom",
+            attrs: { dialogForm: _vm.attrs.dialogForm }
           })
         : _vm._e()
     ],
@@ -34238,6 +34434,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ColumnDisplay_vue_vue_type_template_id_3dcff16e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ColumnDisplay_vue_vue_type_template_id_3dcff16e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/grid/DialogForm.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/grid/DialogForm.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DialogForm.vue?vue&type=template&id=bfc6128c& */ "./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c&");
+/* harmony import */ var _DialogForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DialogForm.vue?vue&type=script&lang=js& */ "./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DialogForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/grid/DialogForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DialogForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/grid/DialogForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DialogForm.vue?vue&type=template&id=bfc6128c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/grid/DialogForm.vue?vue&type=template&id=bfc6128c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogForm_vue_vue_type_template_id_bfc6128c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

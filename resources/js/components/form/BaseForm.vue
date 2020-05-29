@@ -18,8 +18,13 @@
     :size="attrs.attrs.size"
     :disabled="attrs.attrs.disabled"
   >
-    <el-tabs>
-      <el-tab-pane :label="tab" v-for="tab in attrs.tabs" :key="tab">
+    <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'">
+      <component
+        :is="attrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
+        :label="tab"
+        v-for="tab in attrs.tabs"
+        :key="tab"
+      >
         <template v-for="(item, index) in attrs.formItems">
           <ItemIf
             v-if="tab == item.tab"
@@ -82,8 +87,8 @@
             />
           </ItemIf>
         </template>
-      </el-tab-pane>
-    </el-tabs>
+      </component>
+    </component>
     <div class="form-bottom-actions">
       <div></div>
       <div>

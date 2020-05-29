@@ -157,9 +157,21 @@ trait TraitFormAttrs
         return $this;
     }
 
+    /**
+     * 隐藏tab
+     * @param bool $hideTab
+     * @return $this
+     */
     public function hideTab(bool $hideTab = true)
     {
         $this->attrs->hideTab = $hideTab;
+        return $this;
+    }
+
+    public function isDialog()
+    {
+        $this->attrs->isDialog = true;
+        $this->action = $this->resource(0);
         return $this;
     }
 }

@@ -823,3 +823,9 @@ $toolbars->addRight(new MyRoghtTool());//添加在右侧
  });
 ```
 
+## 弹窗模式表单
+
+```php
+$grid->dialogForm($this->form()->isDialog());
+```
+

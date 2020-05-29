@@ -46,15 +46,18 @@ class PermissionController extends AdminController
             $actions->hideViewAction();
         });
 
+        $grid->dialogForm($this->form()->isDialog());
+
         return $grid;
     }
 
-    protected function form()
+    protected function form($isEdit = false)
     {
         $permissionModel = config('admin.database.permissions_model');
 
         $form = new Form(new $permissionModel());
 
+        $form->labelPosition("top");
 
 
         $form->item('slug', "标识")->required();
