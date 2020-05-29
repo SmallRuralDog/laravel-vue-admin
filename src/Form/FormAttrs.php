@@ -21,4 +21,6 @@ class FormAttrs
     public $size="small";
     public $disabled = false;
 
+    public $hideTab = true;
+
 }

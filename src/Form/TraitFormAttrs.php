@@ -156,4 +156,10 @@ trait TraitFormAttrs
         $this->attrs->disabled = $disabled;
         return $this;
     }
+
+    public function hideTab(bool $hideTab = true)
+    {
+        $this->attrs->hideTab = $hideTab;
+        return $this;
+    }
 }

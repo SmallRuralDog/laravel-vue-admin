@@ -641,6 +641,22 @@ Transfer::make()->data($permissionModel::get()->map(function ($item) {
 }))->titles(['可授权', '已授权'])->filterable()
 ```
 
+### WangEditor
+
+ 轻量级 web 富文本编辑器
+
+```php
+WangEditor::make()
+    ->menus([])
+    ->zIndex(999)
+    ->uploadImgShowBase64(true)
+    ->uploadImgServer("")
+    ->uploadFileName("file")
+    ->uploadImgHeaders(['xx'=>'xx']);
+```
+
+
+
 
 
 ## 统计图表

@@ -56,6 +56,7 @@ class PermissionController extends AdminController
         $form = new Form(new $permissionModel());
 
 
+
         $form->item('slug', "标识")->required();
         $form->item('name', "名称")->required();
         $form->item('http_method', "请求方式")

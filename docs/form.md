@@ -117,6 +117,8 @@ $form->disabled(true);
 
 ```php
 $form->item('username', '用户名')->tab("用户信息");
+//注意，要开启tab，必须设置
+$form->hideTab(false);
 ```
 
 

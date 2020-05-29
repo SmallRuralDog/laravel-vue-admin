@@ -87,7 +87,7 @@ class WangEditor extends Component
      * @param string $uploadImgServer
      * @return $this
      */
-    public function uploadImgServer($uploadImgServer)
+    public function uploadImgServer(string $uploadImgServer)
     {
         $this->uploadImgServer = $uploadImgServer;
         return $this;
@@ -98,24 +98,22 @@ class WangEditor extends Component
      * @param mixed $uploadFileName
      * @return WangEditor
      */
-    public function uploadFileName($uploadFileName)
+    public function uploadFileName(string $uploadFileName)
     {
         $this->uploadFileName = $uploadFileName;
         return $this;
     }
 
     /**
+     * 自定义 header
      * @param mixed $uploadImgHeaders
      * @return WangEditor
      */
-    public function uploadImgHeaders($uploadImgHeaders)
+    public function uploadImgHeaders(array $uploadImgHeaders)
     {
         $this->uploadImgHeaders = $uploadImgHeaders;
         return $this;
     }
-
-
-
 
 
 }
