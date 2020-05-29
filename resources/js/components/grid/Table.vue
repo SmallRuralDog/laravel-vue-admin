@@ -218,6 +218,7 @@
     <DialogForm
       ref="DialogGridFrom"
       v-if="attrs.dialogForm"
+      :dialogFormWidth='attrs.dialogFormWidth'
       :dialogForm="attrs.dialogForm"
     />
   </div>

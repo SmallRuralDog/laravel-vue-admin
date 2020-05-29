@@ -74,6 +74,10 @@ class Grid extends Component implements \JsonSerializable
      * @var Form
      */
     protected $dialogForm;
+    /**
+     * @var int
+     */
+    protected $dialogFormWidth;
 
 
     public function __construct(Eloquent $model)
@@ -235,7 +239,7 @@ class Grid extends Component implements \JsonSerializable
      */
     public function batchActions(\Closure $closure)
     {
-        call_user_func($closure,$this->batchActions);
+        call_user_func($closure, $this->batchActions);
         return $this;
     }
 
@@ -255,11 +259,13 @@ class Grid extends Component implements \JsonSerializable
 
     /**
      * @param Form $dialogForm
+     * @param int $width
      * @return Grid
      */
-    public function dialogForm(Form $dialogForm)
+    public function dialogForm(Form $dialogForm,int $width = 500)
     {
         $this->dialogForm = $dialogForm;
+        $this->dialogFormWidth = $width;
         return $this;
     }
 
@@ -270,9 +276,6 @@ class Grid extends Component implements \JsonSerializable
     {
         return $this->dialogForm;
     }
-
-
-
 
 
     /**
@@ -347,6 +350,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
             $viewData['dialogForm'] = $this->dialogForm;
+            $viewData['dialogFormWidth'] = $this->dialogFormWidth;
             return $viewData;
         }
     }

@@ -825,7 +825,9 @@ $toolbars->addRight(new MyRoghtTool());//添加在右侧
 
 ## 弹窗模式表单
 
+适用于一些简单的表单需求，复杂多字段的表单不建议使用
+
 ```php
-$grid->dialogForm($this->form()->isDialog());
+$grid->dialogForm($this->form()->isDialog(),500);//500是弹窗的宽度
 ```
 

@@ -1626,9 +1626,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    dialogForm: Object
+    dialogForm: Object,
+    dialogFormWidth: Number | null
   },
   data: function data() {
     return {
@@ -1687,6 +1689,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -29880,6 +29883,7 @@ var render = function() {
     {
       attrs: {
         title: "",
+        width: _vm.dialogFormWidth + "px",
         visible: _vm.dialogVisible,
         "close-on-click-modal": false
       },
@@ -30425,7 +30429,10 @@ var render = function() {
       _vm.attrs.dialogForm
         ? _c("DialogForm", {
             ref: "DialogGridFrom",
-            attrs: { dialogForm: _vm.attrs.dialogForm }
+            attrs: {
+              dialogFormWidth: _vm.attrs.dialogFormWidth,
+              dialogForm: _vm.attrs.dialogForm
+            }
           })
         : _vm._e()
     ],
