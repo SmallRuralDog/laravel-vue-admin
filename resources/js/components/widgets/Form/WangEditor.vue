@@ -7,12 +7,12 @@ export default {
   props: ["value", "attrs", "form_data", "form_items"],
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   data() {
     return {
       editor: null,
-      initHtml: false
+      initHtml: false,
     };
   },
   mounted() {
@@ -20,9 +20,23 @@ export default {
     this.editor.customConfig.menus = this.attrs.menus;
     this.editor.customConfig.zIndex = this.attrs.zIndex;
     this.editor.customConfig.uploadImgShowBase64 = this.attrs.uploadImgShowBase64;
-    if (this.attrs.uploadImgServer)
+    if (this.attrs.uploadImgServer) {
       this.editor.customConfig.uploadImgServer = this.attrs.uploadImgServer;
-    this.editor.customConfig.onchange = html => {
+
+      this.editor.customConfig.uploadImgParams = {
+        _token: Admin.token,
+      };
+    }
+    //自定义 fileName
+    if (this.attrs.uploadFileName) {
+      this.editor.customConfig.uploadFileName = this.attrs.uploadFileName;
+    }
+    //自定义 header
+    if (this.attrs.uploadImgHeaders) {
+      this.editor.customConfig.uploadImgHeaders = this.attrs.uploadImgHeaders;
+    }
+
+    this.editor.customConfig.onchange = (html) => {
       this.onChange(html);
     };
     this.editor.create();
@@ -33,12 +47,12 @@ export default {
         this.initHtml = true;
         this.editor.txt.html(html);
       }
-    }
+    },
   },
   methods: {
     onChange(value) {
       this.$emit("change", value);
-    }
-  }
+    },
+  },
 };
 </script>

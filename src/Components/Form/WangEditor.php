@@ -40,6 +40,10 @@ class WangEditor extends Component
 
     protected $uploadImgServer;
 
+    protected $uploadFileName;
+
+    protected $uploadImgHeaders;
+
     static public function make($value = null)
     {
         return new Wangeditor($value);
@@ -88,4 +92,30 @@ class WangEditor extends Component
         $this->uploadImgServer = $uploadImgServer;
         return $this;
     }
+
+    /**
+     * 自定义 fileName
+     * @param mixed $uploadFileName
+     * @return WangEditor
+     */
+    public function uploadFileName($uploadFileName)
+    {
+        $this->uploadFileName = $uploadFileName;
+        return $this;
+    }
+
+    /**
+     * @param mixed $uploadImgHeaders
+     * @return WangEditor
+     */
+    public function uploadImgHeaders($uploadImgHeaders)
+    {
+        $this->uploadImgHeaders = $uploadImgHeaders;
+        return $this;
+    }
+
+
+
+
+
 }
