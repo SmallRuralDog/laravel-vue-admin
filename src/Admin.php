@@ -3,6 +3,7 @@
 namespace SmallRuralDog\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use SmallRuralDog\Admin\Auth\Database\Administrator;
 use SmallRuralDog\Admin\Auth\Database\Menu;
 
 class Admin
@@ -88,7 +89,14 @@ class Admin
         $menuClass = config('admin.database.menu_model');
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
-        return $this->menuList = $menuModel->get(['uri', 'title']);
+        return  $this->menuList = collect($menuModel->allNodes())->map(function ($item){
+            return [
+              'uri'=>$item['uri'],
+              'title'=>$item['title'],
+              'route'=>$item['route'],
+            ];
+        })->all();
+
 
     }
 
@@ -99,6 +107,9 @@ class Admin
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null|Administrator
+     */
     public function user()
     {
         return $this->guard()->user();

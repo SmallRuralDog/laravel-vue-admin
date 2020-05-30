@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     title=""
-    :width="dialogFormWidth+'px'"
+    :width="dialogFormWidth"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
     @closed="onClose"
@@ -17,7 +17,7 @@
 export default {
   props: {
     dialogForm: Object,
-    dialogFormWidth: Number | null,
+    dialogFormWidth: String,
   },
   data() {
     return {

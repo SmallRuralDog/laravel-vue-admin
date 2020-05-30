@@ -75,7 +75,7 @@ class Grid extends Component implements \JsonSerializable
      */
     protected $dialogForm;
     /**
-     * @var int
+     * @var string
      */
     protected $dialogFormWidth;
 
@@ -259,10 +259,10 @@ class Grid extends Component implements \JsonSerializable
 
     /**
      * @param Form $dialogForm
-     * @param int $width
+     * @param  $width
      * @return Grid
      */
-    public function dialogForm(Form $dialogForm,int $width = 500)
+    public function dialogForm(Form $dialogForm, $width = '500px')
     {
         $this->dialogForm = $dialogForm;
         $this->dialogFormWidth = $width;

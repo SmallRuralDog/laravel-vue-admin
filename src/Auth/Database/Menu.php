@@ -30,8 +30,8 @@ class Menu extends Model
 
     protected $casts = [
         'permission' => 'array',
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
+        'created_at' => "Y-m-d H:i:s",
+        'updated_at' => "Y-m-d H:i:s",
     ];
 
     /**
@@ -88,20 +88,32 @@ class Menu extends Model
     {
         $connection = config('admin.database.connection') ?: config('database.default');
         $orderColumn = DB::connection($connection)->getQueryGrammar()->wrap($this->orderColumn);
-
         $byOrder = 'ROOT ASC,' . $orderColumn;
-
         $query = static::query();
-
         if (config('admin.check_menu_roles') !== false) {
             $query->with('roles:id,name,slug');
         }
-
         $all_list = $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
-
+        if (config('admin.check_route_permission') !== false) {
+            $permissions = config('admin.database.permissions_model')::query()->get();
+            $all_list = collect($all_list)->map(function ($item) use ($permissions) {
+                $permissionIds = collect(Arr::get($item, 'permission', []))->toArray();
+                $permission = collect($permissions)->filter(function ($permissionItem) use ($permissionIds) {
+                    return in_array($permissionItem->id, $permissionIds);
+                })->map(function ($item) {
+                    return $item->slug;
+                })->flatten()->all();
+                Arr::set($item, "permission", $permission);
+                return $item;
+            })->all();
+        }
         return collect($all_list)->filter(function ($item) {
-            return Admin::user()->visible(Arr::get($item, 'roles', [])) && Admin::user()->can(Arr::get($item, 'permission'));
-        })->toArray();
+            $checkRoles = Admin::user()->visible(Arr::get($item, 'roles', []));
+            $checkPermission = collect(Arr::get($item, 'permission', []))->filter(function ($permissionSlug) {
+                    return Admin::user()->can($permissionSlug);
+                })->count() > 0;
+            return $checkRoles || $checkPermission;
+        })->merge([])->toArray();
     }
 
     /**
