@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title=""
+    :title="key==null?'添加':'编辑'"
     :width="dialogFormWidth"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
