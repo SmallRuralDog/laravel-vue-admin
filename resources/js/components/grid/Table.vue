@@ -220,6 +220,7 @@
       v-if="attrs.dialogForm"
       :dialogFormWidth='attrs.dialogFormWidth'
       :dialogForm="attrs.dialogForm"
+      :dialogTitle="attrs.dialogTitle"
     />
   </div>
 </template>

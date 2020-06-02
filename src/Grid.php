@@ -78,6 +78,7 @@ class Grid extends Component implements \JsonSerializable
      * @var string
      */
     protected $dialogFormWidth;
+    protected $dialogTitle = ['添加', '修改'];
 
 
     public function __construct(Eloquent $model)
@@ -260,12 +261,14 @@ class Grid extends Component implements \JsonSerializable
     /**
      * @param Form $dialogForm
      * @param  $width
+     * @param  $title
      * @return Grid
      */
-    public function dialogForm(Form $dialogForm, $width = '500px')
+    public function dialogForm(Form $dialogForm, $width = '500px', $title = ['添加', '修改'])
     {
         $this->dialogForm = $dialogForm;
         $this->dialogFormWidth = $width;
+        $this->dialogTitle = $title;
         return $this;
     }
 
@@ -351,6 +354,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['bottom'] = $this->bottom;
             $viewData['dialogForm'] = $this->dialogForm;
             $viewData['dialogFormWidth'] = $this->dialogFormWidth;
+            $viewData['dialogTitle'] = $this->dialogTitle;
             return $viewData;
         }
     }
