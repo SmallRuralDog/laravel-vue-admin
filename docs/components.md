@@ -652,8 +652,16 @@ WangEditor::make()
     ->uploadImgShowBase64(true)
     ->uploadImgServer("")
     ->uploadFileName("file")
-    ->uploadImgHeaders(['xx'=>'xx']);
+    ->uploadImgHeaders(['xx'=>'xx'])
+    ->style("height:600px;")//设置高度
+    ->component(Html::make()->html("123456789"));//添加工具栏与编辑区域中间的自定义组件
 ```
+
+自定义组件有两个props
+
+- `attrs`：当前组件属性对象
+
+- `editor`：当前编辑器对象，可以使用`this.editor`调用各种方法
 
 
 

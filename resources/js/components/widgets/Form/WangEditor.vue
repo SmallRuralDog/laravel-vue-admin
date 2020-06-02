@@ -1,5 +1,11 @@
 <template>
-  <div ref="editor" :style="attrs.style" :class="attrs.className"></div>
+  <div class="wangeditor-main">
+    <div ref="toolbar" class="toolbar"></div>
+    <div v-if='attrs.component'>
+      <component :is="attrs.component.componentName" :attrs='attrs.component' :editor.sync='editor' />
+    </div>
+    <div ref="editor" :style="attrs.style" :class="attrs.className"></div>
+  </div>
 </template>
 <script>
 import E from "wangeditor";
@@ -13,10 +19,13 @@ export default {
     return {
       editor: null,
       initHtml: false,
+      defaultValue: "",
     };
   },
   mounted() {
-    this.editor = new E(this.$refs.editor);
+    this.defaultValue = this._.cloneDeep(this.value);
+
+    this.editor = new E(this.$refs.toolbar, this.$refs.editor);
     this.editor.customConfig.menus = this.attrs.menus;
     this.editor.customConfig.zIndex = this.attrs.zIndex;
     this.editor.customConfig.uploadImgShowBase64 = this.attrs.uploadImgShowBase64;
@@ -39,7 +48,10 @@ export default {
     this.editor.customConfig.onchange = (html) => {
       this.onChange(html);
     };
-    this.editor.create();
+    this.$nextTick(() => {
+      this.editor.create();
+      this.editor.txt.html(this.defaultValue);
+    });
   },
   watch: {
     value(html) {
@@ -56,3 +68,11 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.wangeditor-main {
+  border: 1px solid #dcdcdc;
+  .toolbar {
+    background: #f7f7f7;
+  }
+}
+</style>

@@ -44,6 +44,8 @@ class WangEditor extends Component
 
     protected $uploadImgHeaders;
 
+    protected $component;
+
     static public function make($value = null)
     {
         return new Wangeditor($value);
@@ -114,6 +116,18 @@ class WangEditor extends Component
         $this->uploadImgHeaders = $uploadImgHeaders;
         return $this;
     }
+
+    /**
+     * @param mixed $component
+     * @return WangEditor
+     */
+    public function component($component)
+    {
+        $this->component = $component;
+        return $this;
+    }
+
+
 
 
 }

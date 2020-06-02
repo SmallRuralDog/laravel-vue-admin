@@ -43,7 +43,7 @@ composer update
 
 ## 初始化扩展包
 
-进入到扩展根目录
+注意：先进入到扩展根目录
 
 ```bash
 npm install

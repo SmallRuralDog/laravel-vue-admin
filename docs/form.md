@@ -144,6 +144,14 @@ $form->buttonWidth("200px");
  $form->item('username', '用户名')
 ```
 
+### 默认值
+
+新增时生效
+
+```php
+$form->item()->defaultValue();
+```
+
 ### 设置TAB栏
 
 用于分割表单字段，默认为`基本信息`
