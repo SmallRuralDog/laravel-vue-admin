@@ -828,6 +828,8 @@ $toolbars->addRight(new MyRoghtTool());//添加在右侧
 适用于一些简单的表单需求，复杂多字段的表单不建议使用
 
 ```php
-$grid->dialogForm($this->form()->isDialog(),500);//500是弹窗的宽度
+//500px是弹窗的宽度，标题只支持纯文字
+$grid->dialogForm($this->form()->isDialog(),'500px',['创建标题','编辑标题']);
+
 ```
 
