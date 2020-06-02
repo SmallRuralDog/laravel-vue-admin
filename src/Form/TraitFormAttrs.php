@@ -168,6 +168,49 @@ trait TraitFormAttrs
         return $this;
     }
 
+    /**
+     * 创建按钮名称
+     * @param $createButtonName
+     * @return $this
+     */
+    public function createButtonName($createButtonName)
+    {
+        $this->attrs->createButtonName = $createButtonName;
+        return $this;
+    }
+
+    /**
+     * 修改按钮名称
+     * @param $updateButtonName
+     * @return $this
+     */
+    public function updateButtonName($updateButtonName)
+    {
+        $this->attrs->updateButtonName = $updateButtonName;
+        return $this;
+    }
+
+    /**
+     * 返回按钮名称
+     * @param $backButtonName
+     * @return $this
+     */
+    public function backButtonName($backButtonName)
+    {
+        $this->attrs->backButtonName = $backButtonName;
+        return $this;
+    }
+
+    public function buttonWidth($buttonWidth)
+    {
+        $this->attrs->buttonWidth = $buttonWidth;
+        return $this;
+    }
+
+    /**
+     * 弹窗模式
+     * @return $this
+     */
     public function isDialog()
     {
         $this->attrs->isDialog = true;

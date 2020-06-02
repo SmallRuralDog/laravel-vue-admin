@@ -58,6 +58,8 @@ class FormItem
         'anyValue' => false,
     ];
 
+    protected $vifEval;
+
     /**
      * FormItem constructor.
      * @param $prop
@@ -127,9 +129,9 @@ class FormItem
     }
 
     /**
-     * @deprecated
      * @param $component
      * @return $this
+     * @deprecated
      */
     public function displayComponent($component)
     {
@@ -240,7 +242,7 @@ class FormItem
     {
         $this->defaultValue = $defaultValue;
 
-        if($this->component) $this->component->componentValue($defaultValue);
+        if ($this->component) $this->component->componentValue($defaultValue);
 
         return $this;
     }
@@ -449,6 +451,7 @@ class FormItem
     /**
      * @param $key
      * @param $value
+     * @param bool $anyValue
      * @return $this
      */
     public function vif($key, $value, $anyValue = false)
@@ -460,6 +463,21 @@ class FormItem
         ];
         return $this;
     }
+
+    /**
+     * @param \Closure $closure
+     * @return FormItem
+     */
+    public function vifEval(\Closure $closure)
+    {
+        $vifEval = new Form\Utils\VIfEval();
+
+        call_user_func($closure, $vifEval);
+
+        $this->vifEval = $vifEval->build();
+        return $this;
+    }
+
 
     /**
      * 设置字段所属tab名称
@@ -489,9 +507,10 @@ class FormItem
         $this->ignoreEmpty = true;
         return $this;
     }
+
     /**
      * 传递当前组件所在模式
-     * @param  string $value
+     * @param string $value
      * @return $this
      */
     public function hiddenMode($value = '')
@@ -499,6 +518,7 @@ class FormItem
         $this->hiddenMode = $value;
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -507,6 +527,7 @@ class FormItem
         $this->hiddenMode = Form::MODE_CREATE;
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -515,6 +536,7 @@ class FormItem
         $this->hiddenMode = Form::MODE_EDIT;
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -522,6 +544,7 @@ class FormItem
     {
         return $this->hiddenMode;
     }
+
     public function getAttrs()
     {
         return [
@@ -543,7 +566,8 @@ class FormItem
             'relationName' => $this->relationName,
             'relationValueKey' => $this->relationValueKey,
             'vif' => $this->vif,
-            'tab'=>$this->tab,
+            'vifEval' => $this->vifEval,
+            'tab' => $this->tab,
             'ignoreEmpty' => $this->ignoreEmpty,
             'hiddenMode' => $this->hiddenMode,
         ];

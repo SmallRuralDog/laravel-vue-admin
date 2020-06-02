@@ -25,4 +25,9 @@ class FormAttrs
 
     public $isDialog = false;
 
+    public $createButtonName = "立即添加";
+    public $updateButtonName = "立即修改";
+    public $backButtonName = "返回";
+    public $buttonWidth;
+
 }

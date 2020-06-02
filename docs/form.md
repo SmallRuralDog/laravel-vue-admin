@@ -99,6 +99,41 @@ $form->size("small");
 $form->disabled(true);
 ```
 
+### 弹窗模式
+
+在Grid中使用
+
+```php
+$form->isDialog();
+$grid->dialogForm($this->form()->isDialog());
+```
+
+### 创建按钮名称
+
+```php
+ $form->createButtonName("创建");
+```
+
+### 更新按钮名称
+
+```php
+ $form->updateButtonName("更新");
+```
+
+### 取消/返回按钮名称
+
+```php
+ $form->backButtonName("取消");
+```
+
+### 按钮宽度
+
+```php
+$form->buttonWidth("200px");
+```
+
+
+
 ## 字段使用
 
 提供各种丰富的表单字段
@@ -207,6 +242,46 @@ $form->item('username', '用户名')->vif("key","value")
 $form->item('username', '用户名')->vif("email",false,true) // 表示填写email任意字符之后才会出现username 注意第二个参数最好不要用null或者可能存在的值
 $form->item('username', '用户名')->vif("key.key","value") //支持点操作
 ```
+
+#### 表达式方式
+
+基于`eval`实现
+
+```php
+ $form->item('username', '用户名')->vifEval(function (Form\Utils\VIfEval $eval) {
+     //需要监听的字段，必须是数组
+     $eval->props(['is_rec', 'is_hot']);
+     //表达式字符串
+     $eval->functionStr("console.log(this.form_data)");
+     //读取js文件，文件地址随意，这个优先级大于functionStr
+     $eval->functionPath(admin_path('Script/demo.js'));
+ });
+```
+
+##### js表达式模板
+
+建议在`Admin`目录下创建一个`Script`文件夹
+
+```javascript
+(function (form_item, form_items, form_data) {
+    console.log(form_item,form_items,form_data);
+    return true;
+})(this.form_item, this.form_items, this.form_data);
+//----------可复制上面的代码，下面是说明
+
+//必须返回true或false
+
+//内置lodash对象，可调用所有方法，文档：https://www.html.cn/doc/lodash/
+window._
+//当前字段属性
+form_item
+//当前所有表单字段属性
+form_items
+//当前表单的值
+form_data
+```
+
+
 
 ### 忽略空值(留空则不修改)
 

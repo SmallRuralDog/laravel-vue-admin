@@ -101,20 +101,30 @@
           <div></div>
           <div>
             <el-button
-              :loading="loading"
-              class="submit-btn"
-              type="primary"
-              @click="submitForm('ruleForm')"
-              >{{ isEdit ? "立即修改" : "立即创建" }}</el-button
-            >
-            <el-button
               v-if="!attrs.attrs.isDialog"
               class="submit-btn"
               @click="$router.go(-1)"
-              >返回</el-button
+              :style="{ width: attrs.attrs.buttonWidth }"
+              >{{ attrs.attrs.backButtonName }}</el-button
             >
-            <el-button v-else class="submit-btn" @click="closeDialog"
-              >关闭</el-button
+            <el-button
+              v-else
+              class="submit-btn"
+              @click="closeDialog"
+              :style="{ width: attrs.attrs.buttonWidth }"
+              >{{ attrs.attrs.backButtonName }}</el-button
+            >
+            <el-button
+              :loading="loading"
+              class="submit-btn"
+              type="primary"
+              :style="{ width: attrs.attrs.buttonWidth }"
+              @click="submitForm('ruleForm')"
+              >{{
+                isEdit
+                  ? attrs.attrs.updateButtonName
+                  : attrs.attrs.createButtonName
+              }}</el-button
             >
           </div>
         </div>
@@ -256,9 +266,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .submit-btn {
-      width: 120px;
-    }
   }
   .form-item-help {
     color: #999;
