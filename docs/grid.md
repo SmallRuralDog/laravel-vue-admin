@@ -644,7 +644,7 @@ $grid->column('permissions.name')->component(Tag::make()->type('info'));
 ##### 最小宽度
 
 ```php
-$grid->actionWidth(180)
+$grid->actionWidth(180);
 ```
 
 ##### 操作栏固定
@@ -661,15 +661,17 @@ $grid->actionAlign('right');//left  right  center
 
 ##### 操作栏名称
 
-> `v0.1.12 `以上版本
-
 ```php
 $grid->actionLabel('操作');
 ```
 
-#### 获取当前行的下标
+##### 隐藏所有操作
 
- v0.1.5 +
+```php
+$grid->hideActions();
+```
+
+#### 获取当前行的下标
 
 ```php
  $actions->getKey();
@@ -681,12 +683,6 @@ $grid->actionLabel('操作');
 
 ```php
 $actions->getRow();
-```
-
-#### 隐藏所有操作
-
-```php
-$actions->hideActions()
 ```
 
 #### 隐藏详情操作
@@ -718,14 +714,12 @@ $actions->editAction()->disabled(true);//获取编辑操作实例，并置属性
 $actions->deleteAction()->message("确定要删除吗，删除不可恢复？");//获取删除操作实例
 ```
 
-
-
 #### 添加自定义操作
 
 创建自定义操作请查看 [如何创建自定义操作](./custom?id=%e8%a1%a8%e6%a0%bc%e6%93%8d%e4%bd%9c%e7%bb%84%e4%bb%b6)
 
 ```php
-$actions->add(new MyAction())
+$actions->add(ActionButton::make("操作名称")->...);
 ```
 
 ## 批量操作

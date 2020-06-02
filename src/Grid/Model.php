@@ -413,7 +413,11 @@ class Model
                     data_set($item, $column->getName(), $n_value);
                 }
             }
-            data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
+            if (!$this->grid->getHideActions()) {
+                data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
+            }
+
+
             data_set($item, $this->grid->getKeyName(), data_get($row, $this->grid->getKeyName()));
 
             //如果存在下级

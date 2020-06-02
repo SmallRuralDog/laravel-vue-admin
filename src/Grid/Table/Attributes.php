@@ -48,7 +48,7 @@ class Attributes
     public $rowKey = 'id';
 
 
-    public $hideCreateButton = false;
+    protected $hideCreateButton = false;
 
     public $draggable = false;
     public $draggableUrl;
@@ -57,6 +57,8 @@ class Attributes
 
     public $treeProps = ['hasChildren' => 'hasChildren', 'children' => 'children'];
 
+
+    public $hideActions=false;
     public $actionWidth;
     public $actionLabel = "操作";
     public $actionFixed;

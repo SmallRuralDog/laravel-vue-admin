@@ -231,6 +231,21 @@ trait HasGridAttributes
     }
 
     /**
+     * 隐藏操作栏
+     * @return $this
+     */
+    public function hideActions()
+    {
+        $this->attributes->hideActions = true;
+        return $this;
+    }
+    public function getHideActions()
+    {
+        return $this->attributes->hideActions;
+
+    }
+
+    /**
      * 表格数据是否存入vuex
      * @param $dataVuex
      * @return $this

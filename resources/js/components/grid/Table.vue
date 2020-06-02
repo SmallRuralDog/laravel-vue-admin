@@ -178,6 +178,7 @@
             </el-table-column>
           </template>
           <el-table-column
+            v-if="!attrs.attributes.hideActions"
             :label="attrs.attributes.actionLabel"
             prop="grid_actions"
             :fixed="attrs.attributes.actionFixed"
@@ -218,7 +219,7 @@
     <DialogForm
       ref="DialogGridFrom"
       v-if="attrs.dialogForm"
-      :dialogFormWidth='attrs.dialogFormWidth'
+      :dialogFormWidth="attrs.dialogFormWidth"
       :dialogForm="attrs.dialogForm"
       :dialogTitle="attrs.dialogTitle"
     />
@@ -306,7 +307,7 @@ export default {
       this.loading = status;
     });
 
-    this.$bus.on("showDialogGridFrom", ({ isShow ,key}) => {
+    this.$bus.on("showDialogGridFrom", ({ isShow, key }) => {
       this.$refs["DialogGridFrom"].dialogVisible = isShow;
       this.$refs["DialogGridFrom"].key = key;
     });

@@ -281,16 +281,6 @@ class Grid extends Component implements \JsonSerializable
     }
 
 
-    /**
-     * 隐藏行操作
-     * @return $this
-     */
-    public function hideActions()
-    {
-        $this->actions->hideActions();
-        return $this;
-    }
-
     public function top($closure)
     {
         $this->top = new Content();
