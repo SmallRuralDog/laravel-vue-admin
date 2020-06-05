@@ -19,6 +19,7 @@ class Component extends AdminJsonBuilder
     protected $componentValue;
 
 
+
     public function __construct($value = null)
     {
         $this->componentValue($value);

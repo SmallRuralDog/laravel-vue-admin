@@ -32,7 +32,7 @@ class ExtendCommand extends Command
 
 
         $this->replace('{{ namespace }}', $this->extendNamespace(), $this->extendPath() . '/src/ExtendServiceProvider.stub');
-        $this->replace('{{ component }}', $this->extendName(), $this->extendPath() . '/src/ExtendServiceProvider.stub');
+        $this->replace('{{ component }}', $this->extendVendor()."-".$this->extendName(), $this->extendPath() . '/src/ExtendServiceProvider.stub');
 
         (new Filesystem)->move(
             $this->extendPath() . '/src/ExtendServiceProvider.stub',

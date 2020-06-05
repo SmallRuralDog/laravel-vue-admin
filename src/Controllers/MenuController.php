@@ -75,7 +75,8 @@ class MenuController extends AdminController
             ->tree()
             ->emptyText("暂无菜单")
             ->quickSearch(["title"])
-            ->defaultExpandAll(false);
+            ->defaultExpandAll(false)
+        ->dialogForm($this->form()->isDialog()->labelPosition("top")->backButtonName("关闭"));
 
         $grid->column('id', "ID")->width(80);
         $grid->column('icon', "图标")->component(Icon::make())->width(80);
@@ -100,10 +101,10 @@ class MenuController extends AdminController
                 return SelectOption::make($item->id, $item->title);
             })->prepend(SelectOption::make(0, '根目录'));
         }));
-        $form->item('title', '名称')->required()->inputWidth(4);
+        $form->item('title', '名称')->required();
         $form->item('icon', trans('admin::admin.icon'))->component(IconChoose::make())->inputWidth(3)->required();
 
-        $form->item('uri', trans('admin::admin.uri'))->required()->inputWidth(4);
+        $form->item('uri', trans('admin::admin.uri'))->required();
         $form->item('order', trans('admin::admin.order'))->component(InputNumber::make(1)->min(0));
         $form->item('roles', trans('admin::admin.roles'))->component(Select::make()->block()->multiple()->options(function () use ($roleModel) {
             return $roleModel::all()->map(function ($role) {

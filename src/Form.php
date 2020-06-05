@@ -50,6 +50,8 @@ class Form extends Component implements JsonSerializable
 
     protected $updates = [];
 
+    protected $isEdit = false;
+
     /**
      * Data for save to model's relations from input.
      *
@@ -220,6 +222,16 @@ class Form extends Component implements JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isEdit()
+    {
+        return $this->isEdit;
+    }
+
+
+
+    /**
      * 添加表单验证规则
      * @param $rules
      * @param $message
@@ -284,10 +296,7 @@ class Form extends Component implements JsonSerializable
     protected function prepare($data = [])
     {
 
-        //触发表单提交前事件
-        if (($response = $this->callSubmitted()) instanceof Response) {
-            return $response;
-        }
+
         //处理要过滤的字段
         $this->inputs = array_merge($this->removeIgnoredFields($data), $this->inputs);
         //处理表单提交时事件
@@ -466,6 +475,8 @@ class Form extends Component implements JsonSerializable
      */
     public function update($id, $data = null)
     {
+        $this->isEdit = true;
+
         if (($result = $this->callSubmitted()) instanceof Response) {
             return $result;
         }
