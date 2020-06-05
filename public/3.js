@@ -20,6 +20,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["value", "attrs", "form_data", "form_items"],
@@ -37,7 +41,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.defaultValue = this._.cloneDeep(this.value);
+    this.defaultValue = this._.cloneDeep(this.attrs.componentValue);
     this.editor = new wangeditor__WEBPACK_IMPORTED_MODULE_0___default.a(this.$refs.toolbar, this.$refs.editor);
     this.editor.customConfig.menus = this.attrs.menus;
     this.editor.customConfig.zIndex = this.attrs.zIndex;
@@ -60,23 +64,15 @@ __webpack_require__.r(__webpack_exports__);
       this.editor.customConfig.uploadImgHeaders = this.attrs.uploadImgHeaders;
     }
 
-    this.editor.customConfig.onchange = function (html) {
-      _this.onChange(html);
-    };
-
     this.$nextTick(function () {
       _this.editor.create();
 
       _this.editor.txt.html(_this.defaultValue);
+
+      _this.editor.customConfig.onchange = function (html) {
+        _this.onChange(html);
+      };
     });
-  },
-  watch: {
-    value: function value(html) {
-      if (!this.initHtml) {
-        this.initHtml = true;
-        this.editor.txt.html(html);
-      }
-    }
   },
   methods: {
     onChange: function onChange(value) {

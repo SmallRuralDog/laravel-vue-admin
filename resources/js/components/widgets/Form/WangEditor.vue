@@ -1,8 +1,12 @@
 <template>
   <div class="wangeditor-main">
     <div ref="toolbar" class="toolbar"></div>
-    <div v-if='attrs.component'>
-      <component :is="attrs.component.componentName" :attrs='attrs.component' :editor.sync='editor' />
+    <div v-if="attrs.component">
+      <component
+        :is="attrs.component.componentName"
+        :attrs="attrs.component"
+        :editor.sync="editor"
+      />
     </div>
     <div ref="editor" :style="attrs.style" :class="attrs.className"></div>
   </div>
@@ -22,8 +26,10 @@ export default {
       defaultValue: "",
     };
   },
+
   mounted() {
-    this.defaultValue = this._.cloneDeep(this.value);
+    this.defaultValue = this._.cloneDeep(this.attrs.componentValue);
+
 
     this.editor = new E(this.$refs.toolbar, this.$refs.editor);
     this.editor.customConfig.menus = this.attrs.menus;
@@ -45,21 +51,15 @@ export default {
       this.editor.customConfig.uploadImgHeaders = this.attrs.uploadImgHeaders;
     }
 
-    this.editor.customConfig.onchange = (html) => {
-      this.onChange(html);
-    };
     this.$nextTick(() => {
       this.editor.create();
       this.editor.txt.html(this.defaultValue);
+
+      this.editor.customConfig.onchange = (html) => {
+        this.onChange(html);
+      };
     });
-  },
-  watch: {
-    value(html) {
-      if (!this.initHtml) {
-        this.initHtml = true;
-        this.editor.txt.html(html);
-      }
-    },
+
   },
   methods: {
     onChange(value) {
