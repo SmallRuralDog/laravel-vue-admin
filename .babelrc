@@ -1,12 +1,5 @@
 {
-    "plugins": [
-
-        [
-            "import",
-            {
-                "libraryName": "view-design",
-                "libraryDirectory": "src/components"
-            }
-        ]
-    ]
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import"
+  ]
 }

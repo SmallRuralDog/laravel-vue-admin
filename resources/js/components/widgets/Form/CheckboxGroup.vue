@@ -34,12 +34,17 @@ export default {
   },
   data() {
     return {
-      vm: []
+      vm: this._.clone(this.value),
     };
   },
   model: {
     prop: "value",
     event: "change"
+  },
+  watch: {
+    value(value) {
+      this.vm = value;
+    }
   },
   methods: {
     onChange(value) {

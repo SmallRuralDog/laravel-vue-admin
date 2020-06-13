@@ -30,7 +30,6 @@ export default {
   mounted() {
     this.defaultValue = this._.cloneDeep(this.attrs.componentValue);
 
-
     this.editor = new E(this.$refs.toolbar, this.$refs.editor);
     this.editor.customConfig.menus = this.attrs.menus;
     this.editor.customConfig.zIndex = this.attrs.zIndex;
@@ -51,15 +50,23 @@ export default {
       this.editor.customConfig.uploadImgHeaders = this.attrs.uploadImgHeaders;
     }
 
+    this.editor.customConfig.onchange = (html) => {
+      this.onChange(html);
+    };
+
     this.$nextTick(() => {
       this.editor.create();
       this.editor.txt.html(this.defaultValue);
-
-      this.editor.customConfig.onchange = (html) => {
-        this.onChange(html);
-      };
     });
-
+    //编辑数据加载完毕设置编辑器的值
+    this.$bus.on("EditDataLoadingCompleted", () => {
+      this.editor && this.editor.txt.html(this.value);
+    });
+  },
+  destroyed() {
+    try {
+      this.$bus.off("EditDataLoadingCompleted");
+    } catch (e) {}
   },
   methods: {
     onChange(value) {

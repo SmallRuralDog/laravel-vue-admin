@@ -16,21 +16,27 @@ class AdminController extends Controller
 
     public function index(Content $content)
     {
-
+        //可以重写这里，实现自定义布局
         $content->body($this->grid())->className("m-10");
+
+        //这里必须这样写
         return $this->isGetData() ? $this->grid() : $content;
     }
 
 
     public function create(Content $content)
     {
+        //可以重写这里，实现自定义布局
         $content->body($this->form())->className("m-10");
+        //这里必须这样写
         return $this->isGetData() ? $this->form() : $content;
     }
 
     public function edit($id, Content $content)
     {
+        //可以重写这里，实现自定义布局
         $content->body($this->form(true)->edit($id))->className("m-10");
+        //这里必须这样写
         return $this->isGetData() ? $this->form(true)->edit($id) : $content;
     }
 

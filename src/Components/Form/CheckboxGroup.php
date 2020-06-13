@@ -18,7 +18,7 @@ class CheckboxGroup extends Component
     /**
      * @var int
      */
-    public $min;
+    public $min = 0;
     /**
      * @var int
      */
@@ -109,6 +109,9 @@ class CheckboxGroup extends Component
     public function options(array $options)
     {
         $this->options = $options;
+        if (!$this->max) {
+            $this->max = count($options);
+        }
         return $this;
     }
 

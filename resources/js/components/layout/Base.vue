@@ -21,22 +21,33 @@ export default {
   data() {
     return {
       path: "/",
+      pathKey: "/",
       query: {},
       loading: false,
       reload: false,
-      componentData: {}
+      componentData: {},
     };
   },
   mounted() {
-    this.$bus.on("route-after", to => {
+    this.$bus.on("route-after", (to) => {
       this.path = to.path;
       this.query = to.query;
       this.loading = true;
 
-      this.$store.commit("setPath", this.path);
+      let queryKey = "";
 
-      if (!this.$store.state.pages[this.path]) {
-        this.$store.commit("initPages", this.path);
+      _.forEach(this.query, function(value, key) {
+        queryKey += key + value;
+      });
+
+      this.pathKey = this.path + queryKey;
+
+      console.log(this.pathKey);
+
+      this.$store.commit("setPath", this.pathKey);
+
+      if (!this.$store.state.pages[this.pathKey]) {
+        this.$store.commit("initPages", this.pathKey);
       }
       this.$nextTick(() => {
         this.getContent();
@@ -54,7 +65,7 @@ export default {
   },
   methods: {
     getContent() {
-      let componentData = this._.get(this.$store.state.contents, this.path);
+      let componentData = this._.get(this.$store.state.contents, this.pathKey);
       if (componentData && !this.reload) {
         this.componentData = componentData;
         this.loading = false;
@@ -62,13 +73,13 @@ export default {
       } else {
         this.$store
           .dispatch("getCenten", {
-            path: this.path,
+            path: this.pathKey,
             contentUrl: window.config.apiRoot + this.path,
             params: {
-              ...this.query
-            }
+              ...this.query,
+            },
           })
-          .then(data => {
+          .then((data) => {
             this.componentData = data;
           })
           .catch(() => {})
@@ -77,7 +88,7 @@ export default {
             this.reload = false;
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>

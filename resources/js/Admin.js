@@ -13,7 +13,7 @@ Vue.use(ElementUI, { size: 'small' });
 
 
 
-import './styles/admin.scss';
+
 
 
 Vue.prototype.$http = axios;
