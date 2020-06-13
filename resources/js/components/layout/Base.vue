@@ -42,7 +42,6 @@ export default {
 
       this.pathKey = this.path + queryKey;
 
-      console.log(this.pathKey);
 
       this.$store.commit("setPath", this.pathKey);
 
