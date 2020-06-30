@@ -10,7 +10,7 @@ mix
   .extract(["axios", "vue", "vuex", "vue-router", "element-ui"])
   .setResourceRoot("/vendor/laravel-vue-admin")
   .setPublicPath("public")
-  .copy("public", "../public/vendor/laravel-vue-admin")
+  .copy("public", "../laravel-vue-admin-main/public/vendor/laravel-vue-admin")
   .webpackConfig({
     resolve: {
       alias: {
