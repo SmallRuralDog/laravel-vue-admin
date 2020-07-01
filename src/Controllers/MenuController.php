@@ -76,7 +76,7 @@ class MenuController extends AdminController
             ->emptyText("暂无菜单")
             ->quickSearch(["title"])
             ->defaultExpandAll(false)
-        ->dialogForm($this->form()->isDialog()->labelPosition("top")->backButtonName("关闭"));
+        ->dialogForm($this->form()->isDialog()->labelPosition("top")->backButtonName("关闭")->className('p-15'));
 
         $grid->column('id', "ID")->width(80);
         $grid->column('icon', "图标")->component(Icon::make())->width(80);

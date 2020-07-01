@@ -20,9 +20,9 @@ return [
     //登录页面背景
     'login_background_image' => 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg',
     //登录框默认用户
-    'auto_user'=>[
-        'username'=>'admin',
-        'password'=>'admin'
+    'auto_user' => [
+        'username' => 'demo',
+        'password' => 'demo'
     ],
     //底部菜单
     'footerLinks' => [
@@ -37,7 +37,7 @@ return [
     ],
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
-        'domain'=>null,
+        'domain' => null,
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
         'api_prefix' => env('ADMIN_ROUTE_PREFIX', 'admin-api'),
         'namespace' => 'App\\Admin\\Controllers',
@@ -74,14 +74,14 @@ return [
     'upload' => [
         // Disk in `config/filesystem.php`.
         'disk' => 'public',
-        'uniqueName'=>false,
+        'uniqueName' => false,
         // Image and file upload path under the disk above.
         'directory' => [
             'image' => 'images',
             'file' => 'files',
         ],
         //文件上传类型
-        'mimes'=>'jpeg,bmp,png,gif,jpg',
+        'mimes' => 'jpeg,bmp,png,gif,jpg',
     ],
     'database' => [
         // Database connection for following tables.

@@ -46,7 +46,7 @@ class PermissionController extends AdminController
             $actions->hideViewAction();
         });
 
-        $grid->dialogForm($this->form()->isDialog(), '500px', ['添加权限', '编辑权限']);
+        $grid->dialogForm($this->form()->isDialog()->className('p-15'), '500px', ['添加权限', '编辑权限']);
 
         return $grid;
     }

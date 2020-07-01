@@ -28,8 +28,7 @@ class RoleController extends AdminController
         $grid->column('permissions.name', "权限")->component(Tag::make()->type('info'));
         $grid->column('created_at');
         $grid->column('updated_at');
-
-
+        $grid->dialogForm($this->form()->isDialog()->labelPosition("top")->className('p-15'), '600px', ['添加角色', '编辑角色']);
         return $grid;
     }
 
