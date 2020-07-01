@@ -14,7 +14,7 @@ class BatchAction extends BaseAction
     protected $content;
     protected $uri;
     protected $handler;
-    protected $requestMethod = "get";
+
     protected $keys = "selectionKeys";
     protected $message;
 
@@ -82,16 +82,7 @@ class BatchAction extends BaseAction
         return $this;
     }
 
-    /**
-     * 设置request模式请求类型
-     * @param string $requestMethod
-     * @return $this
-     */
-    public function requestMethod(string $requestMethod)
-    {
-        $this->requestMethod = $requestMethod;
-        return $this;
-    }
+
 
     /**
      * 获取批量选择key

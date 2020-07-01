@@ -246,9 +246,14 @@ export default {
         }
       });
     });
+
+    this.$bus.on("message",({type,message})=>{
+      this.$message[type](message)
+    })
   },
   destroyed() {
     this.$bus.off("route-after");
+    this.$bus.off("message");
   },
   computed: {
     menuitemClasses() {

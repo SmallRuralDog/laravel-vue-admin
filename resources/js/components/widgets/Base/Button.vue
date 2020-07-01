@@ -1,11 +1,6 @@
 <template>
   <span>
-    <el-popconfirm
-      placement="top"
-      :title="attrs.message"
-      @onConfirm="onClick"
-      v-if="attrs.message"
-    >
+    <el-popconfirm placement="top" :title="attrs.message" @onConfirm="onClick" v-if="attrs.message">
       <el-button
         slot="reference"
         :type="attrs.type"
@@ -17,14 +12,15 @@
         :icon="attrs.icon"
         :autofocus="attrs.autofocus"
         :loading="loading"
-        >{{ attrs.content }}</el-button
       >
+        <template v-if="attrs.content">{{ attrs.content }}</template>
+      </el-button>
     </el-popconfirm>
     <el-tooltip
       :content="attrs.tooltip"
       placement="top"
       :disabled="!attrs.tooltip"
-      v-else
+      v-else-if="attrs.tooltip"
     >
       <el-button
         :type="attrs.type"
@@ -37,9 +33,25 @@
         :autofocus="attrs.autofocus"
         :loading="loading"
         @click="onClick"
-        >{{ attrs.content }}</el-button
       >
+        <template v-if="attrs.content">{{ attrs.content }}</template>
+      </el-button>
     </el-tooltip>
+    <el-button
+      v-else
+      :type="attrs.type"
+      :size="attrs.size"
+      :plain="attrs.plain"
+      :round="attrs.round"
+      :circle="attrs.circle"
+      :disabled="attrs.disabled"
+      :icon="attrs.icon"
+      :autofocus="attrs.autofocus"
+      :loading="loading"
+      @click="onClick"
+    >
+      <template v-if="attrs.content">{{ attrs.content }}</template>
+    </el-button>
     <el-dialog
       v-if="attrs.dialog"
       :title="attrs.dialog.title"
@@ -68,16 +80,16 @@
 <script>
 export default {
   props: {
-    attrs: Object,
+    attrs: Object
   },
   data() {
     return {
       loading: false,
-      dialogTableVisible: false,
+      dialogTableVisible: false
     };
   },
   mounted() {
-    this.$bus.on("closeDialog", (data) => {
+    this.$bus.on("closeDialog", data => {
       this.dialogTableVisible = false;
     });
   },
@@ -108,23 +120,40 @@ export default {
     },
     onRequest(uri) {
       this.loading = true;
-      this.$http
-        .get(uri)
-        .then((res) => {
+      this.beforeEmit();
+      this.$http[this.attrs.requestMethod](uri)
+        .then(res => {
           if (res.code == 200) {
+            this.successEmit();
           }
         })
         .finally(() => {
           this.loading = false;
+          this.afterEmit();
         });
     },
+    beforeEmit() {
+      this.attrs.beforeEmit.map(item => {
+        this.$bus.emit(item.eventName, item.eventData);
+      });
+    },
+    afterEmit() {
+      this.attrs.afterEmit.map(item => {
+        this.$bus.emit(item.eventName, item.eventData);
+      });
+    },
+    successEmit() {
+      this.attrs.successEmit.map(item => {
+        this.$bus.emit(item.eventName, item.eventData);
+      });
+    }
   },
   computed: {
     uri() {
       //替换变量
       let uri = this.attrs.uri;
       return uri;
-    },
-  },
+    }
+  }
 };
 </script>

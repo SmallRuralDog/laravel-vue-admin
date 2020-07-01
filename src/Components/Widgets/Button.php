@@ -32,7 +32,7 @@ class Button extends BaseAction
      * @param string $content 按钮内容
      * @return $this
      */
-    public static function make($content)
+    public static function make($content=null)
     {
         return new Button($content);
     }

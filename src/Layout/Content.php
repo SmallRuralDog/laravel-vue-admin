@@ -39,6 +39,8 @@ class Content extends Component
         return $this;
     }
 
+    
+
     protected function addRow(Row $row)
     {
         $this->rows[] = $row;

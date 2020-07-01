@@ -27,6 +27,16 @@ class Row extends Component
         }
     }
 
+    public function item($item)
+    {
+        if ($item instanceof \Closure) {
+            $this->addColumn(call_user_func($item));
+        }else{
+            $this->addColumn($item);
+        }
+
+    }
+
     public function column($width, $content)
     {
         $width = $width < 1 ? round(24 * $width) : $width;
@@ -35,10 +45,8 @@ class Row extends Component
         return $column;
     }
 
-    /**
-     * @param Column $column
-     */
-    protected function addColumn(Column $column)
+
+    protected function addColumn($column)
     {
         $this->columns[] = $column;
     }

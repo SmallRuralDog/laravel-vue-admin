@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Actions;
 
 
 use JsonSerializable;
+use SmallRuralDog\Admin\Grid\BatchActions\BatchAction;
 use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
 
 class BaseAction implements JsonSerializable
@@ -23,6 +24,8 @@ class BaseAction implements JsonSerializable
     protected $message;
     protected $tooltip;
 
+    protected $requestMethod = "get";
+
     protected $beforeEmit = [];
     protected $afterEmit = [];
     protected $successEmit = [];
@@ -35,6 +38,17 @@ class BaseAction implements JsonSerializable
     public function __construct()
     {
         $this->resource = url(request()->getPathInfo());
+    }
+
+    /**
+     * 设置request模式请求类型
+     * @param string $requestMethod
+     * @return $this
+     */
+    public function requestMethod(string $requestMethod)
+    {
+        $this->requestMethod = $requestMethod;
+        return $this;
     }
 
     /**
@@ -102,6 +116,8 @@ class BaseAction implements JsonSerializable
     {
         return $this->resource;
     }
+
+
 
 
 
