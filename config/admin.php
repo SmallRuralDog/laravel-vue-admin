@@ -35,6 +35,8 @@ return [
             'title' => '文档'
         ]
     ],
+    //是否只保持一个子菜单的展开
+    'unique_opened' => false,
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
         'domain' => null,

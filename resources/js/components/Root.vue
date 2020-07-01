@@ -39,6 +39,7 @@
             :background-color="isDark ? '#1d1e23' : ''"
             :text-color="isDark ? '#ffffff' : ''"
             :collapse-transition="false"
+            :unique-opened='page_data.uniqueOpened'
             :router="true"
           >
             <template v-for="menu in page_data.menu">

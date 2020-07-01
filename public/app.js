@@ -1991,6 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -30552,6 +30553,7 @@ var render = function() {
                         "background-color": _vm.isDark ? "#1d1e23" : "",
                         "text-color": _vm.isDark ? "#ffffff" : "",
                         "collapse-transition": false,
+                        "unique-opened": _vm.page_data.uniqueOpened,
                         router: true
                       }
                     },

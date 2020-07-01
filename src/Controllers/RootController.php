@@ -23,6 +23,7 @@ class RootController extends Controller
             'name' => config('admin.name'),
             'copyright' => config('admin.copyright'),
             'footerLinks' => config('admin.footerLinks'),
+            'uniqueOpened' => config('admin.unique_opened',false),
             'user' => $this->getUserData(),
             'url' => $this->getUrls()
         ];
