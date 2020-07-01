@@ -346,6 +346,9 @@ $header-bar-height: 55px;
     }
   }
 }
+.el-aside{
+  z-index: 1000;
+}
 .content-side-fixed {
   position: fixed;
   top: 0;
