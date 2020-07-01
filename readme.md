@@ -9,7 +9,9 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 只需体验三分钟，你就会爱上这款 游戏
 
 
-[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/)
+
+
+[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/) | [演示地址](https://laravel-vue-admin.com/admin) 用户名/密码：`demo` / `demo`
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 
