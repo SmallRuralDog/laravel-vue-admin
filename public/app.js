@@ -1972,26 +1972,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2005,7 +1985,8 @@ __webpack_require__.r(__webpack_exports__);
       isDark: localStorage.getItem("isDark") ? localStorage.getItem("isDark") == "true" : true,
       isDarkHeader: localStorage.getItem("isDarkHeader") ? localStorage.getItem("isDarkHeader") == "true" : true,
       showAdminSet: false,
-      route: "/"
+      route: "/",
+      query: {}
     };
   },
   mounted: function mounted() {
@@ -2013,12 +1994,26 @@ __webpack_require__.r(__webpack_exports__);
 
     this.$bus.on("route-after", function (to) {
       _this.route = to.path;
+      _this.query = to.query;
+      var queryKey = [];
 
-      _this.menuRoutes.map(function (item) {
-        if (to.path.indexOf(item) >= 0) {
-          _this.route = item;
-        }
+      _.forEach(_this.query, function (value, key) {
+        queryKey.push(key + "=" + value);
       });
+
+      _this.route = _this.route + (queryKey.length > 0 ? "?" : "") + queryKey.join("&");
+
+      var checkLength = _this.menuRoutes.filter(function (item) {
+        return _this.route == item;
+      }).length;
+
+      if (checkLength <= 0) {
+        _this.menuRoutes.map(function (item) {
+          if (to.path.indexOf(item) >= 0) {
+            _this.route = item;
+          }
+        });
+      }
     });
     this.$bus.on("message", function (_ref) {
       var type = _ref.type,
@@ -30697,7 +30692,13 @@ var render = function() {
                                   _c(
                                     "span",
                                     { staticClass: "layout-header-user-name" },
-                                    [_vm._v(_vm._s(_vm.page_data.user.name))]
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(_vm.page_data.user.name) +
+                                          "\n                "
+                                      )
+                                    ]
                                   )
                                 ],
                                 1

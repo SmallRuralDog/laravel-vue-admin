@@ -39,15 +39,11 @@
             :background-color="isDark ? '#1d1e23' : ''"
             :text-color="isDark ? '#ffffff' : ''"
             :collapse-transition="false"
-            :unique-opened='page_data.uniqueOpened'
+            :unique-opened="page_data.uniqueOpened"
             :router="true"
           >
             <template v-for="menu in page_data.menu">
-              <MenuItem
-                :menu="menu"
-                :key="menu.id"
-                :is_collapsed="isCollapsed"
-              />
+              <MenuItem :menu="menu" :key="menu.id" :is_collapsed="isCollapsed" />
             </template>
           </el-menu>
         </el-scrollbar>
@@ -70,22 +66,13 @@
         >
           <div class="layout-header-l">
             <div class="layout-header-trigger hover" @click="collapsedSide">
-              <i
-                class="el-icon-s-fold fs-20 menu-icon"
-                :class="{ 'rotate-icon': isCollapsed }"
-              />
+              <i class="el-icon-s-fold fs-20 menu-icon" :class="{ 'rotate-icon': isCollapsed }" />
             </div>
             <div class="layout-header-breadcrumb">
               <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/' }"
-                  >首页</el-breadcrumb-item
-                >
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                 <template v-for="menu in page_data.menuList">
-                  <el-breadcrumb-item
-                    v-if="menu.route == route"
-                    :key="menu.route"
-                    >{{ menu.title }}</el-breadcrumb-item
-                  >
+                  <el-breadcrumb-item v-if="menu.route == route" :key="menu.route">{{ menu.title }}</el-breadcrumb-item>
                 </template>
               </el-breadcrumb>
             </div>
@@ -103,9 +90,11 @@
               <el-dropdown>
                 <div class="layout-header-user">
                   <el-avatar :src="page_data.user.avatar" :size="25" />
-                  <span class="layout-header-user-name">{{
+                  <span class="layout-header-user-name">
+                    {{
                     page_data.user.name
-                  }}</span>
+                    }}
+                  </span>
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <a @click="onLogout">
@@ -139,8 +128,7 @@
               :href="item.href"
               target="_blank"
               :underline="false"
-              >{{ item.title }}</el-link
-            >
+            >{{ item.title }}</el-link>
           </div>
           <div v-html="page_data.copyright"></div>
         </el-footer>
@@ -154,22 +142,14 @@
           <el-badge type="success" is-dot :hidden="isDark">
             <div>
               <el-tooltip content="亮色菜单风格" placement="top">
-                <img
-                  @click="isDark = false"
-                  class="hover"
-                  src="../assets/menu-light.svg"
-                />
+                <img @click="isDark = false" class="hover" src="../assets/menu-light.svg" />
               </el-tooltip>
             </div>
           </el-badge>
           <el-badge type="success" is-dot :hidden="!isDark">
             <div class="ml-20">
               <el-tooltip content="暗色菜单风格" placement="top">
-                <img
-                  @click="isDark = true"
-                  class="hover"
-                  src="../assets/menu-dark.svg"
-                />
+                <img @click="isDark = true" class="hover" src="../assets/menu-dark.svg" />
               </el-tooltip>
             </div>
           </el-badge>
@@ -213,7 +193,6 @@
 import { flattenDeepChild } from "../utils";
 
 export default {
-
   props: {
     page_data: Object
   },
@@ -235,22 +214,41 @@ export default {
         ? localStorage.getItem("isDarkHeader") == "true"
         : true,
       showAdminSet: false,
-      route: "/"
+      route: "/",
+      query: {}
     };
   },
   mounted() {
     this.$bus.on("route-after", to => {
       this.route = to.path;
-      this.menuRoutes.map(item => {
-        if (to.path.indexOf(item) >= 0) {
-          this.route = item;
-        }
+
+      this.query = to.query;
+
+      let queryKey = [];
+
+      _.forEach(this.query, function(value, key) {
+        queryKey.push(key + "=" + value);
       });
+
+      this.route =
+        this.route + (queryKey.length > 0 ? "?" : "") + queryKey.join("&");
+
+      let checkLength = this.menuRoutes.filter(item => {
+        return this.route == item;
+      }).length;
+
+      if (checkLength <= 0) {
+        this.menuRoutes.map(item => {
+          if (to.path.indexOf(item) >= 0) {
+            this.route = item;
+          }
+        });
+      }
     });
 
-    this.$bus.on("message",({type,message})=>{
-      this.$message[type](message)
-    })
+    this.$bus.on("message", ({ type, message }) => {
+      this.$message[type](message);
+    });
   },
   destroyed() {
     this.$bus.off("route-after");
@@ -352,7 +350,7 @@ $header-bar-height: 55px;
     }
   }
 }
-.el-aside{
+.el-aside {
   z-index: 1000;
 }
 .content-side-fixed {
