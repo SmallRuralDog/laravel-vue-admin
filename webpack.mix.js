@@ -11,7 +11,6 @@ mix
   .setResourceRoot("/vendor/laravel-vue-admin")
   .setPublicPath("public")
   .copy("public", "../public/vendor/laravel-vue-admin")
-  .copy("docs", "../resources/docs")
   .webpackConfig({
     resolve: {
       alias: {

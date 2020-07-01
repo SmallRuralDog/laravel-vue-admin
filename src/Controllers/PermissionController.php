@@ -32,7 +32,7 @@ class PermissionController extends AdminController
 
         $grid->quickSearch(['slug', 'name']);
         $grid->column('id', 'ID')->sortable()->width('80px');
-        $grid->column('slug', "标识")->width(120);
+        $grid->column('slug', "标识")->width(300);
         $grid->column('name', "名称")->width(120);
         $grid->column('http_method', "请求方式")->component(Tag::make());
         $grid->column('http_path', "路由")->customValue(function ($row, $value) {
