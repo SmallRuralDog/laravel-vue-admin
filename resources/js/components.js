@@ -113,6 +113,7 @@ Vue.component(
 );
 
 //Widget
+Vue.component("Button", require("@/components/widgets/Base/Button").default);
 Vue.component("Divider", require("@/components/widgets/Base/Divider").default);
 Vue.component("Card", require("@/components/widgets/Base/Card").default);
 Vue.component("Steps", require("@/components/widgets/Base/Steps").default);
@@ -123,7 +124,7 @@ Vue.component(
     require("@/components/widgets/Base/DialogButton").default
 );
 Vue.component("Tooltip", require("@/components/widgets/Tooltip").default);
-
+Vue.component("Markdown", () => import("@/components/widgets/Base/Markdown"));
 //antv
 Vue.component("AntvLine", () => import("@/components/antv/AntvLine"));
 Vue.component("AntvArea", () => import("@/components/antv/AntvArea"));

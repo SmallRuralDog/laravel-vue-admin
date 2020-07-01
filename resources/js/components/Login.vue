@@ -6,7 +6,7 @@
     <div class="page-account-container">
       <div class="page-account-top">
         <div class="page-account-top-logo">
-          <template v-if='page_data.logoShow'>
+          <template v-if="page_data.logoShow">
             <img :src="page_data.logo" v-if="page_data.logo" alt="logo" />
             <img src="../assets/logo.svg" v-else alt="logo" />
           </template>
@@ -70,25 +70,27 @@
 <script>
 export default {
   props: {
-    page_data: Object
+    page_data: Object,
   },
   data() {
     return {
       form: {
         username: "",
         password: "",
-        remember: true
+        remember: true,
       },
       loading: false,
       ruleValidate: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      }
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      },
     };
   },
   mounted() {
+    this.form.username = this.page_data.auto_user.username;
+    this.form.password = this.page_data.auto_user.password;
     this.$nextTick(() => {});
   },
   methods: {
@@ -96,7 +98,7 @@ export default {
       this.$message.error("忘记密码请联系管理员");
     },
     handleSubmit(name) {
-      this.$refs[name].validate(valid => {
+      this.$refs[name].validate((valid) => {
         if (valid) {
           this.loading = true;
 
@@ -109,8 +111,8 @@ export default {
             });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

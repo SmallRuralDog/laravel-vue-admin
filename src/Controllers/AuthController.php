@@ -35,8 +35,10 @@ class AuthController extends AdminController
         $data['logo'] = config('admin.logo');
         $data['name'] = config('admin.name');
         $data['desc'] = config('admin.loginDesc');
+        $data['auto_user'] = config('admin.auto_user');
 
         $data['url']['postLogin'] = route('admin.post.login');
+
 
         return view($this->loginView, ['data' => $data]);
     }

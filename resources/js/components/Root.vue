@@ -457,10 +457,10 @@ $header-bar-height: 55px;
     color: white;
   }
   .el-breadcrumb__inner {
-    color: #ffffffb3;
+    color: #ffffffb3 !important;
   }
   .el-breadcrumb__item:last-child .el-breadcrumb__inner {
-    color: white;
+    color: white !important;
   }
   .hover {
     &:hover {

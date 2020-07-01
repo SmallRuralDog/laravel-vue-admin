@@ -32,4 +32,15 @@ class Column extends Component
         return $this;
     }
 
+    public function row($content)
+    {
+        if ($content instanceof \Closure) {
+            $row = new Row();
+            call_user_func($content, $row);
+        } else {
+            $row = new Row($content);
+        }
+        $this->append($row);
+    }
+
 }

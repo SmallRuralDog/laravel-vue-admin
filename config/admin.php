@@ -19,6 +19,11 @@ return [
     'default_avatar' => 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     //登录页面背景
     'login_background_image' => 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg',
+    //登录框默认用户
+    'auto_user'=>[
+        'username'=>'admin',
+        'password'=>'admin'
+    ],
     //底部菜单
     'footerLinks' => [
         [

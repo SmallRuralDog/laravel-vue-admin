@@ -79,7 +79,7 @@ class UserController extends AdminController
         });
 
         $form->deleting(function (Form $form, $id) {
-            if (\Admin::user()->id == $id) {
+            if (\Admin::user()->id == $id || $id == 1) {
                 return \Admin::responseError("删除失败");
             }
         });

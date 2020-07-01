@@ -36,5 +36,8 @@
         "url-loader": "^3.0.0",
         "vue-nprogress": "^0.1.5",
         "vuex": "^3.4.0"
+    },
+    "dependencies": {
+        "mavon-editor": "^2.9.0"
     }
 }

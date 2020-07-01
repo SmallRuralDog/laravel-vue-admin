@@ -12,9 +12,16 @@ class Html extends Component
 
     protected $html = "";
 
-    public static function make()
+
+    public function __construct(string $html)
     {
-        return new Html();
+        $this->html = $html;
+    }
+
+
+    public static function make($html = "")
+    {
+        return new Html($html);
     }
 
     /**
