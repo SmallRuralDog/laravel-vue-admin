@@ -56,7 +56,7 @@
               type="primary"
               style="width: 100%;"
               long
-              >登陆
+              >登录
             </el-button>
           </el-form-item>
         </el-form>
