@@ -36,9 +36,6 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_1__["BaseComponent"]],
   props: {
     attrs: Object
-  },
-  mounted: function mounted() {
-    console.log(this.attrs);
   }
 });
 

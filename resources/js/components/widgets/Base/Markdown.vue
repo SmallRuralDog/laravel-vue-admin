@@ -22,8 +22,5 @@ export default {
   props: {
     attrs: Object,
   },
-  mounted() {
-    console.log(this.attrs);
-  },
 };
 </script>
