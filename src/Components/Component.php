@@ -78,16 +78,23 @@ class Component extends AdminJsonBuilder
     }
 
     /**
-     * @param mixed $ref
+     * 注册ref
+     * @param string $ref
      * @return Component
      */
-    public function ref($ref)
+    public function ref(string $ref)
     {
         $this->ref = $ref;
         return $this;
     }
 
 
+    /**
+     * ref动态注入
+     * @param string $ref
+     * @param string $refData
+     * @return $this
+     */
     public function refData(string $ref, string $refData)
     {
         $this->refData = [
