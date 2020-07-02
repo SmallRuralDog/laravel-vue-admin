@@ -6,6 +6,7 @@
   >
     <transition name="fade-transform" mode="out-in">
       <component
+        :ref="componentData.componentName"
         :style="componentData.style"
         :class="componentData.className"
         :is="componentData.componentName"
@@ -41,7 +42,6 @@ export default {
       });
 
       this.pathKey = this.path + queryKey;
-
 
       this.$store.commit("setPath", this.pathKey);
 

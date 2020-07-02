@@ -1,5 +1,5 @@
 <template>
-  <div>
+
     <mavon-editor
       :style="attrs.style"
       :class="attrs.className"
@@ -10,7 +10,8 @@
       :toolbarsFlag="false"
       :boxShadow="false"
     />
-  </div>
+
+
 </template>
 <script>
 import { mavonEditor } from "mavon-editor";
@@ -22,5 +23,8 @@ export default {
   props: {
     attrs: Object,
   },
+  mounted(){
+      console.log(this.attrs);    
+  }
 };
 </script>

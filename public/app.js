@@ -3875,6 +3875,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4483,6 +4484,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -4562,10 +4564,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     attrs: Object
   },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["BaseComponent"]],
   data: function data() {
     return {
       loading: false,
@@ -4586,6 +4595,11 @@ __webpack_require__.r(__webpack_exports__);
     onClick: function onClick() {
       if (this.attrs.dialog) {
         this.dialogTableVisible = true;
+        return;
+      }
+
+      if (this.attrs.refData) {
+        this.$bus.emit(this.attrs.refData.ref, this.attrs.refData.data);
         return;
       } //判断操作响应类型
 
@@ -32842,6 +32856,7 @@ var render = function() {
                     expression: "reload"
                   }
                 ],
+                ref: _vm.componentData.componentName,
                 tag: "component",
                 class: _vm.componentData.className,
                 style: _vm.componentData.style,
@@ -35652,6 +35667,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
   size: 'small'
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = _util_axios__WEBPACK_IMPORTED_MODULE_2__["default"];
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.axios = _util_axios__WEBPACK_IMPORTED_MODULE_2__["default"];
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype._ = lodash__WEBPACK_IMPORTED_MODULE_3___default.a;
 window._ = lodash__WEBPACK_IMPORTED_MODULE_3___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_bus__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -35743,7 +35759,7 @@ module.exports = "/vendor/laravel-vue-admin/images/404.png?3210e18dbf193f9d42afb
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7f56c0661a28a4a2786";
+module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?56883ad1cf6cc0a234232773dc36b141";
 
 /***/ }),
 
@@ -35754,7 +35770,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb897e319feb8e59e1bed96b82";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?4c0c73512c1208e226d8513d2fd1e1f5";
 
 /***/ }),
 
@@ -35765,7 +35781,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb8
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21dbcab0825c23bbd40b1";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?f088544c92cff88f7b2ab5b17675828f";
 
 /***/ }),
 
@@ -35776,7 +35792,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21db
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927eca4146f30c3e";
+module.exports = "/vendor/laravel-vue-admin/images/logo.svg?99edcb36f9285eea841ba52d2f029c1b";
 
 /***/ }),
 
@@ -35787,7 +35803,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927e
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5afb380efaf57d8c1d4";
+module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?412ca67ee39f5966ea6f33bb8261b46d";
 
 /***/ }),
 
@@ -35798,7 +35814,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c1d84cd1ec6e6f3b760";
+module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?4183aad0f450979539478f153b816db0";
 
 /***/ }),
 
@@ -35809,7 +35825,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4c76c7c2ad5e1ee6a";
+module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?e796938e6a2e849300f4e6ff74696319";
 
 /***/ }),
 
@@ -35820,7 +35836,7 @@ module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?da07f9c2f262ef49b183fd4e882a5935";
+module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?f6d512ec0129eebd9e64aae12247551e";
 
 /***/ }),
 
@@ -40380,13 +40396,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************!*\
   !*** ./resources/js/mixins.js ***!
   \********************************/
-/*! exports provided: GridColumnComponent, FormItemComponent */
+/*! exports provided: GridColumnComponent, FormItemComponent, BaseComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GridColumnComponent", function() { return GridColumnComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormItemComponent", function() { return FormItemComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseComponent", function() { return BaseComponent; });
 var GridColumnComponent = {
   props: {
     attrs: Object,
@@ -40417,6 +40434,23 @@ var FormItemComponent = {
   methods: {
     onChange: function onChange(value) {
       this.$emit("change", value);
+    }
+  }
+};
+var BaseComponent = {
+  mounted: function mounted() {
+    var _this2 = this;
+
+    if (this.attrs && this.attrs.ref) {
+      this.$bus.on(this.attrs.ref, function (evalData) {
+        var _this = _this2;
+        new Function('ref', evalData)(_this);
+      });
+    }
+  },
+  destroyed: function destroyed() {
+    if (this.attrs && this.attrs.ref) {
+      this.$bus.off(this.attrs.ref);
     }
   }
 };
@@ -40899,7 +40933,7 @@ function isNull(argument) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/E/PHPProjects/laravel-vue-admin-main/laravel-vue-admin/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\docker\php\lva\laravel-vue-admin-main\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -33,7 +33,25 @@ const FormItemComponent = {
     }
 }
 
+const BaseComponent = {
+    mounted() {
+
+        if (this.attrs && this.attrs.ref) {
+            this.$bus.on(this.attrs.ref, (evalData) => {
+                let _this = this;
+                new Function('ref',evalData)(_this)
+            })
+        }
+    },
+    destroyed() {
+        if (this.attrs && this.attrs.ref) {
+            this.$bus.off(this.attrs.ref);
+        }
+    },
+}
+
 export {
     GridColumnComponent,
-    FormItemComponent
+    FormItemComponent,
+    BaseComponent
 }

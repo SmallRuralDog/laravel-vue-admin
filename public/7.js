@@ -27,6 +27,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -35,6 +36,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     attrs: Object
+  },
+  mounted: function mounted() {
+    console.log(this.attrs);
   }
 });
 
@@ -55,24 +59,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("mavon-editor", {
-        class: _vm.attrs.className,
-        style: _vm.attrs.style,
-        attrs: {
-          value: _vm.attrs.content,
-          editable: false,
-          subfield: false,
-          defaultOpen: "preview",
-          toolbarsFlag: false,
-          boxShadow: false
-        }
-      })
-    ],
-    1
-  )
+  return _c("mavon-editor", {
+    class: _vm.attrs.className,
+    style: _vm.attrs.style,
+    attrs: {
+      value: _vm.attrs.content,
+      editable: false,
+      subfield: false,
+      defaultOpen: "preview",
+      toolbarsFlag: false,
+      boxShadow: false
+    }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true

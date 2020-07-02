@@ -19,6 +19,10 @@ class Component extends AdminJsonBuilder
     protected $componentValue;
 
 
+    protected $ref;
+
+    protected $refData;
+
 
     public function __construct($value = null)
     {
@@ -63,6 +67,34 @@ class Component extends AdminJsonBuilder
     public function getComponentValue()
     {
         return $this->componentValue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRef()
+    {
+        return $this->ref;
+    }
+
+    /**
+     * @param mixed $ref
+     * @return Component
+     */
+    public function ref($ref)
+    {
+        $this->ref = $ref;
+        return $this;
+    }
+
+
+    public function refData(string $ref, string $refData)
+    {
+        $this->refData = [
+            'ref' => $ref,
+            "data" => $refData
+        ];
+        return $this;
     }
 
 

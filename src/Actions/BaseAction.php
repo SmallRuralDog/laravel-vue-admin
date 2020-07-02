@@ -5,10 +5,11 @@ namespace SmallRuralDog\Admin\Actions;
 
 
 use JsonSerializable;
+use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Grid\BatchActions\BatchAction;
 use SmallRuralDog\Admin\Grid\Concerns\HasDialog;
 
-class BaseAction implements JsonSerializable
+class BaseAction extends Component implements JsonSerializable
 {
     use HasDialog;
 

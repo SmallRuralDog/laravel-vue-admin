@@ -17,6 +17,7 @@ Vue.use(ElementUI, { size: 'small' });
 
 
 Vue.prototype.$http = axios;
+Vue.prototype.axios = axios;
 Vue.prototype._ = lodash;
 window._ = lodash;
 Vue.use(VueBus);
