@@ -1,5 +1,6 @@
 <template>
   <el-alert
+    :ref="attrs.ref || 'alert'"
     :style="attrs.style"
     :class="attrs.className"
     :title="attrs.title"
@@ -13,9 +14,12 @@
   />
 </template>
 <script>
+import { BaseComponent } from "@/mixins.js";
+
 export default {
+  mixins: [BaseComponent],
   props: {
-    attrs: Object
-  }
+    attrs: Object,
+  },
 };
 </script>

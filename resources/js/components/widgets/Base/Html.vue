@@ -6,7 +6,9 @@
   ></span>
 </template>
 <script>
+import { BaseComponent } from "@/mixins.js";
 export default {
+   mixins: [BaseComponent],
   props: {
     attrs: Object
   }

@@ -73,7 +73,7 @@ Vue.component(
 Vue.component("Avatar", require("./components/widgets/Grid/Avatar").default);
 Vue.component("Tag", require("./components/widgets/Grid/Tag").default);
 Vue.component("Link", require("./components/widgets/Grid/Link").default);
-Vue.component("IText", require("./components/widgets/Text").default);
+
 Vue.component("IImage", require("./components/widgets/Grid/Image").default);
 Vue.component("Icon", require("./components/widgets/Grid/Icon").default);
 Vue.component("Boole", require("./components/widgets/Grid/Boole").default);
@@ -113,6 +113,7 @@ Vue.component(
 );
 
 //Widget
+Vue.component("IText", require("./components/widgets/Base/Text").default);
 Vue.component("Button", require("@/components/widgets/Base/Button").default);
 Vue.component("Divider", require("@/components/widgets/Base/Divider").default);
 Vue.component("Card", require("@/components/widgets/Base/Card").default);
@@ -123,7 +124,7 @@ Vue.component(
     "DialogButton",
     require("@/components/widgets/Base/DialogButton").default
 );
-Vue.component("Tooltip", require("@/components/widgets/Tooltip").default);
+Vue.component("Tooltip", require("@/components/widgets/Base/Tooltip").default);
 Vue.component("Markdown", () => import("@/components/widgets/Base/Markdown"));
 //antv
 Vue.component("AntvLine", () => import("@/components/antv/AntvLine"));

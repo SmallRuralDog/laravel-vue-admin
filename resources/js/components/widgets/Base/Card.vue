@@ -1,5 +1,6 @@
 <template>
   <el-card
+    :ref="attrs.ref || 'card'"
     :style="attrs.style"
     :class="attrs.className"
     :body-style="attrs.bodyStyle"
@@ -20,9 +21,11 @@
   </el-card>
 </template>
 <script>
+import { BaseComponent } from "@/mixins.js";
 export default {
+  mixins: [BaseComponent],
   props: {
-    attrs: Object
-  }
+    attrs: Object,
+  },
 };
 </script>

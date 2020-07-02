@@ -38,6 +38,7 @@ const BaseComponent = {
 
         if (this.attrs && this.attrs.ref) {
             this.$bus.on(this.attrs.ref, (evalData) => {
+                
                 let _this = this;
                 new Function('ref',evalData)(_this)
             })
