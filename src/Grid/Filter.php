@@ -51,25 +51,25 @@ class Filter
 
     protected static $supports = [
         'equal' => Filter\Equal::class,
-        'notEqual'   => Filter\NotEqual::class,
-        'ilike'      => Filter\Ilike::class,
+        'notEqual' => Filter\NotEqual::class,
+        'ilike' => Filter\Ilike::class,
         'like' => Filter\Like::class,
-        'gt'         => Filter\Gt::class,
-        'lt'         => Filter\Lt::class,
-        'between'    => Filter\Between::class,
-        'where'      => Filter\Where::class,
-        'in'         => Filter\In::class,
-        'notIn'      => Filter\NotIn::class,
-        'date'       => Filter\Date::class,
-        'day'        => Filter\Day::class,
-        'month'      => Filter\Month::class,
-        'year'       => Filter\Year::class,
-        'contains'   => Filter\Like::class,
+        'gt' => Filter\Gt::class,
+        'lt' => Filter\Lt::class,
+        'between' => Filter\Between::class,
+        'where' => Filter\Where::class,
+        'in' => Filter\In::class,
+        'notIn' => Filter\NotIn::class,
+        'date' => Filter\Date::class,
+        'day' => Filter\Day::class,
+        'month' => Filter\Month::class,
+        'year' => Filter\Year::class,
+        'contains' => Filter\Like::class,
         'startsWith' => Filter\StartsWith::class,
-        'endsWith'   => Filter\EndsWith::class,
+        'endsWith' => Filter\EndsWith::class,
     ];
 
-    public function __construct(Model $model)
+    public function __construct($model)
     {
         $this->model = $model;
 
@@ -147,7 +147,6 @@ class Filter
             $this->conditions(),
             $this->scopeConditions()
         );
-
 
 
         return $this->model->addConditions($conditions)->buildData($toArray);

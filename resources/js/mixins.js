@@ -37,10 +37,9 @@ const BaseComponent = {
     mounted() {
 
         if (this.attrs && this.attrs.ref) {
-            this.$bus.on(this.attrs.ref, (evalData) => {
-                
+            this.$bus.on(this.attrs.ref, ({data,self}) => {
                 let _this = this;
-                new Function('ref',evalData)(_this)
+                new Function('ref','self',data)(_this,self)
             })
         }
     },

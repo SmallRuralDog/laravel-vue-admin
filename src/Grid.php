@@ -62,6 +62,9 @@ class Grid extends Component implements \JsonSerializable
      * @var string
      */
     protected $dataUrl;
+
+    protected $customData;
+
     protected $isGetData = false;
     private $actions;
     private $batchActions;
@@ -81,13 +84,17 @@ class Grid extends Component implements \JsonSerializable
     protected $dialogTitle = ['添加', '修改'];
 
 
-    public function __construct(Eloquent $model)
+    public function __construct(Eloquent $model = null)
     {
         $this->attributes = new Attributes();
         $this->dataUrl = request()->getUri();
         $this->model = new Model($model, $this);
-        $this->keyName = $model->getKeyName();
-        $this->defaultSort($model->getKeyName(), "asc");
+        if ($model) {
+            $this->keyName = $model->getKeyName();
+            $this->defaultSort($model->getKeyName(), "asc");
+        }
+
+
         $this->isGetData = request('get_data') == "true";
         $this->toolbars = new Toolbars($this);
         $this->batchActions = new BatchActions();
@@ -121,6 +128,15 @@ class Grid extends Component implements \JsonSerializable
         $this->dataUrl = $dataUrl;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isGetData(): bool
+    {
+        return $this->isGetData;
+    }
+
 
     /**
      * 设置树形表格
@@ -174,16 +190,15 @@ class Grid extends Component implements \JsonSerializable
      */
     protected function addRelationColumn($name, $label = '')
     {
-        list($relation, $column) = explode('.', $name);
+        if ($this->model) {
+            list($relation, $column) = explode('.', $name);
+            $model = $this->model()->eloquent();
+            if (!method_exists($model, $relation) || !$model->{$relation}() instanceof Relations\Relation) {
+            } else {
+                $this->model()->with($relation);
+            }
 
-        $model = $this->model()->eloquent();
-
-
-        if (!method_exists($model, $relation) || !$model->{$relation}() instanceof Relations\Relation) {
-        } else {
-            $this->model()->with($relation);
         }
-
 
     }
 
@@ -295,12 +310,42 @@ class Grid extends Component implements \JsonSerializable
         return $this;
     }
 
+
+    /**
+     * 自定义数据
+     * @param $data
+     * @param $current_page
+     * @param $per_page
+     * @param $last_page
+     * @param $total
+     * @return $this
+     */
+    public function customData($data, $current_page, $per_page, $last_page, $total)
+    {
+        $this->customData = [
+            'current_page' => (int)$current_page,
+            'per_page' => (int)$per_page,
+            'last_page' => (int)$last_page,
+            'total' => (int)$total,
+            'data' => $data,
+        ];
+        return $this;
+    }
+
+
     /**
      * data
      * @return array
      */
     protected function data()
     {
+        if ($this->customData) {
+            $this->customData['data'] = $this->model()->displayData($this->customData['data']);
+            return [
+                'code' => 200,
+                'data' => $this->customData
+            ];
+        }
 
         $this->applyQuery();
 
@@ -345,6 +390,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['dialogForm'] = $this->dialogForm;
             $viewData['dialogFormWidth'] = $this->dialogFormWidth;
             $viewData['dialogTitle'] = $this->dialogTitle;
+            $viewData['ref'] = $this->getRef();
             return $viewData;
         }
     }

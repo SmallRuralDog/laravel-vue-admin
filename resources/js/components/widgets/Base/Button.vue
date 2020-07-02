@@ -7,6 +7,8 @@
       v-if="attrs.message"
     >
       <el-button
+        :style="attrs.style"
+        :class="attrs.className"
         slot="reference"
         :type="attrs.type"
         :size="attrs.size"
@@ -28,6 +30,8 @@
       v-else-if="attrs.tooltip"
     >
       <el-button
+        :style="attrs.style"
+        :class="attrs.className"
         :type="attrs.type"
         :size="attrs.size"
         :plain="attrs.plain"
@@ -44,6 +48,8 @@
     </el-tooltip>
     <el-button
       v-else
+      :style="attrs.style"
+      :class="attrs.className"
       :type="attrs.type"
       :size="attrs.size"
       :plain="attrs.plain"
@@ -59,6 +65,7 @@
     </el-button>
     <el-dialog
       v-if="attrs.dialog"
+      :ref="attrs.dialog.ref || 'dialog'"
       :title="attrs.dialog.title"
       :visible.sync="dialogTableVisible"
       :width="attrs.dialog.width"
@@ -111,7 +118,10 @@ export default {
       }
 
       if (this.attrs.refData) {
-        this.$bus.emit(this.attrs.refData.ref, this.attrs.refData.data);
+        this.$bus.emit(this.attrs.refData.ref, {
+          data: this.attrs.refData.data,
+          self: this,
+        });
         return;
       }
 

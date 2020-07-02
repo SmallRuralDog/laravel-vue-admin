@@ -21,6 +21,8 @@ class Toolbars extends AdminJsonBuilder
 
     protected $grid;
 
+    protected $show = true;
+
     public function __construct(Grid $grid)
     {
 
@@ -38,6 +40,17 @@ class Toolbars extends AdminJsonBuilder
     {
         return $this->createButton;
     }
+
+    /**
+     * 隐藏工具栏
+     * @return Toolbars
+     */
+    public function hide()
+    {
+        $this->show = false;
+        return $this;
+    }
+
 
 
     /**
@@ -85,6 +98,7 @@ class Toolbars extends AdminJsonBuilder
         }
 
         return [
+            "show"=>$this->show,
             "left" => $left,
             "right" => $right
         ];

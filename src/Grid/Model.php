@@ -103,7 +103,7 @@ class Model
     protected $eagerLoads = [];
 
 
-    public function __construct(EloquentModel $model, Grid $grid = null)
+    public function __construct(EloquentModel $model=null, Grid $grid = null)
     {
         $this->model = $model;
         $this->sModel = $model;
@@ -386,7 +386,7 @@ class Model
         return $this->data;
     }
 
-    protected function displayData($data)
+    public function displayData($data)
     {
         $columns = $this->grid->getColumns();
         $items = collect();
@@ -399,7 +399,7 @@ class Model
                 if (Str::contains($column->getName(), '.')) {
                     list($relationName, $relationColumn) = explode('.', $column->getName());
                     //如果是集合
-                    if (data_get($row, $relationName) instanceof Collection) {
+                    if (data_get($row, $relationName) instanceof Collection || is_array(data_get($row, $relationName))) {
                         $value = collect(data_get($row, $relationName))->pluck($relationColumn);
                         $c_value = $column->customValueUsing($row, $value);
                         data_set($item, $column->getName(), $c_value);

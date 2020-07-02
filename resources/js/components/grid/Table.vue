@@ -6,7 +6,7 @@
       :attrs="attrs.top"
     />
 
-    <el-card shadow="never" :body-style="{ padding: 0 }">
+    <el-card shadow="never" :body-style="{ padding: 0 }" v-if='attrs.toolbars.show'>
       <div class="grid-top-container">
         <div class="grid-top-container-left">
           <BatchActions
@@ -121,6 +121,7 @@
 
       <div>
         <el-table
+          :ref="attrs.ref || 'table'"
           :data="tableData"
           :row-key="attrs.attributes.rowKey"
           :default-sort="default_sort_get"
@@ -227,6 +228,7 @@
 </template>
 
 <script>
+import { BaseComponent } from "@/mixins.js";
 import { mapState } from "vuex";
 import ColumnDisplay from "./ColumnDisplay";
 import Actions from "./Actions/Index";
@@ -234,6 +236,7 @@ import BatchActions from "./BatchActions/Index";
 import ItemDiaplsy from "../form/ItemDiaplsy";
 import DialogForm from "./DialogForm";
 export default {
+  mixins: [BaseComponent],
   components: {
     ColumnDisplay,
     Actions,
@@ -246,19 +249,19 @@ export default {
   },
   data() {
     return {
-      loading: false,
-      sort: {},
-      tableData: [],
+      loading: false,//是否加载
+      sort: {},//排序对象
+      tableData: [],//表格数据
       pageData: {
         pageSize: this.attrs.perPage,
         total: 0,
         currentPage: 1,
         lastPage: 1,
       },
-      page: 1,
-      quickSearch: null,
-      selectionRows: [],
-      filterFormData: null,
+      page: 1,//当前页
+      quickSearch: null,//快捷搜索内容
+      selectionRows: [],//已选择的row
+      filterFormData: null,//表单搜索数据
       tabsSelectdata: {},
       tabsActiveName: "all",
     };
