@@ -14,14 +14,15 @@
     <el-checkbox
       :style="checkbox.style"
       :class="checkbox.className"
-      v-for="(checkbox,index) in attrs.options"
+      v-for="(checkbox, index) in attrs.options"
       :key="index"
       :label="checkbox.label"
       :disabled="checkbox.disabled"
       :border="checkbox.border"
       :size="checkbox.size"
       :indeterminate="checkbox.indeterminate"
-    >{{checkbox.title}}</el-checkbox>
+      >{{ checkbox.title }}</el-checkbox
+    >
   </el-checkbox-group>
 </template>
 <script>
@@ -29,27 +30,27 @@ export default {
   props: {
     attrs: Object,
     value: {
-      default: null
-    }
+      default: [],
+    },
   },
   data() {
     return {
-      vm: this._.clone(this.value),
+      vm: this._.cloneDeep(this.value),
     };
   },
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   watch: {
     value(value) {
-      this.vm = value;
-    }
+      //this.vm = value;
+    },
   },
   methods: {
     onChange(value) {
       this.$emit("change", value);
-    }
-  }
+    },
+  },
 };
 </script>

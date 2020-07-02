@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
-use JsonSerializable;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Components\Form\Upload;
 use SmallRuralDog\Admin\Form\FormAttrs;
@@ -19,7 +18,7 @@ use SmallRuralDog\Admin\Form\TraitFormAttrs;
 use Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class Form extends Component implements JsonSerializable
+class Form extends Component
 {
     use TraitFormAttrs, HasHooks;
 
@@ -82,14 +81,11 @@ class Form extends Component implements JsonSerializable
      */
     protected $validator;
 
-    /**
-     * Form constructor.
-     * @param $model
-     */
-    public function __construct($model)
+
+    public function __construct($model = null)
     {
         $this->attrs = new FormAttrs();
-        $this->model = new $model;
+        $this->model = $model;
         $this->dataUrl = request()->getUri();
 
         $this->isGetData = request('get_data') == "true";
@@ -127,7 +123,7 @@ class Form extends Component implements JsonSerializable
     protected function items($items = [])
     {
 
-        $this->tabs = collect($items)->map(function (FormItem $item){
+        $this->tabs = collect($items)->map(function (FormItem $item) {
             return $item->getTab();
         })->unique()->all();
 
@@ -228,7 +224,6 @@ class Form extends Component implements JsonSerializable
     {
         return $this->isEdit;
     }
-
 
 
     /**
@@ -552,8 +547,8 @@ class Form extends Component implements JsonSerializable
             $relation = $this->model->$name();
 
             $oneToOneRelation = $relation instanceof Relations\HasOne
-            || $relation instanceof Relations\MorphOne
-            || $relation instanceof Relations\BelongsTo;
+                || $relation instanceof Relations\MorphOne
+                || $relation instanceof Relations\BelongsTo;
 
             //$prepared = $this->prepareUpdate([$name => $values], $oneToOneRelation);
 
@@ -730,7 +725,7 @@ class Form extends Component implements JsonSerializable
             'mode' => $this->getMode(),
             'attrs' => $this->attrs,
             'formItems' => $this->formItemsAttr,
-            'tabs'=>$this->tabs,
+            'tabs' => $this->tabs,
             'defaultValues' => $this->formItemsValue,
         ];
 

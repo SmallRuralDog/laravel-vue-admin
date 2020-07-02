@@ -83,7 +83,7 @@ return [
             'file' => 'files',
         ],
         //文件上传类型
-        'mimes' => 'jpeg,bmp,png,gif,jpg',
+        'mimes' => 'jpeg,bmp,png,gif,jpg,jks',
     ],
     'database' => [
         // Database connection for following tables.
@@ -109,7 +109,7 @@ return [
     ],
     //操作日志
     'operation_log' => [
-        'enable' => false,
+        'enable' => true,
         /*
          * Only logging allowed methods in the list
          */
@@ -122,6 +122,8 @@ return [
          */
         'except' => [
             'admin/auth/logs*',
+            'admin-api/auth/logs*',
+            'admin'
         ],
     ],
     'check_route_permission' => true,

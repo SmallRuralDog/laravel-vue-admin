@@ -31,7 +31,7 @@ class CheckboxGroup extends Component
      */
     protected $options = [];
 
-    static public function make($value = null, $options = [])
+    static public function make($value = [], $options = [])
     {
         return (new CheckboxGroup($value))->options($options);
     }

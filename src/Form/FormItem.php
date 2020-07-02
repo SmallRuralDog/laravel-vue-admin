@@ -363,9 +363,11 @@ class FormItem
     /**
      * 是否必填，如不设置，则会根据校验规则自动生成
      * @param bool $required
+     * @param string $type
+     * @param string $trigger
      * @return $this
      */
-    public function required(bool $required = true)
+    public function required(bool $required = true, $type = "string", $trigger = "blur")
     {
         $this->required = $required;
         if (!$this->serveRules) {
@@ -374,7 +376,7 @@ class FormItem
         }
         if (!$this->rules) {
             $this->rules([
-                ['required' => true, "message" => "请填写" . $this->label],
+                ['type' => $type, 'required' => true, "message" => "请填写" . $this->label, "trigger" => $trigger],
             ]);
         }
 
