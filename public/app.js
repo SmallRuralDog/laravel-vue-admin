@@ -1972,6 +1972,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3344,6 +3380,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3386,7 +3434,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       filterFormData: null,
       //表单搜索数据
       tabsSelectdata: {},
-      tabsActiveName: "all"
+      tabsActiveName: "all",
+      topViewHeight: 0
     };
   },
   mounted: function mounted() {
@@ -3426,6 +3475,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           key = _ref.key;
       _this.$refs["DialogGridFrom"].dialogVisible = isShow;
       _this.$refs["DialogGridFrom"].key = key;
+    });
+    this.$nextTick(function () {
+      _this.topViewHeight = _this.$refs.topView.offsetHeight;
     });
   },
   destroyed: function destroyed() {
@@ -3581,6 +3633,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var q_search = new Object();
       this.attrs.quickSearch && (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
+    },
+    gridHeight: function gridHeight() {
+      if (this.attrs.attributes.height == "auto") {
+        return window.innerHeight - 55 - 120 - this.topViewHeight - 40;
+      }
+
+      return this.attrs.attributes.height;
     }
   }
 });
@@ -4056,13 +4115,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     menu: Object,
     is_collapsed: Boolean
-  },
-  name: "menu-item-c",
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -8921,7 +8983,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}\n.grid-container .el-tabs__header {\n  padding: 0;\n  margin: 0;\n}\n.grid-container .el-tabs__item {\n  padding: 0 15px;\n  height: 50px;\n  line-height: 50px;\n}\n.grid-container .el-tabs--top .el-tabs__item.is-top:nth-child(2) {\n  padding-left: 15px;\n}\n.grid-container .el-tabs__nav-wrap::after {\n  height: 1px;\n  background-color: #ebeef5;\n}\n.grid-container .filter-form {\n  padding: 10px;\n  border-bottom: 1px solid #ebeef5;\n}\n.grid-container .filter-form .el-form-item {\n  margin-bottom: 0px;\n}\n.grid-container .filter-form .el-form-item .el-form-item__label {\n  padding: 0;\n}", ""]);
+exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}\n.grid-container .el-tabs__header {\n  padding: 0;\n  margin: 0;\n}\n.grid-container .el-tabs__item {\n  padding: 0 15px;\n  height: 50px;\n  line-height: 50px;\n}\n.grid-container .el-tabs--top .el-tabs__item.is-top:nth-child(2) {\n  padding-left: 15px;\n}\n.grid-container .el-tabs__nav-wrap::after {\n  height: 1px;\n  background-color: #ebeef5;\n}\n.grid-container .filter-form {\n  padding: 10px;\n  background-color: #ffffff;\n}\n.grid-container .filter-form .el-form-item {\n  margin-bottom: 0px;\n}\n.grid-container .filter-form .el-form-item .el-form-item__label {\n  padding: 0;\n}", ""]);
 
 // exports
 
@@ -30609,10 +30671,67 @@ var render = function() {
                     [
                       _vm._l(_vm.page_data.menu, function(menu) {
                         return [
-                          _c("MenuItem", {
-                            key: menu.id,
-                            attrs: { menu: menu, is_collapsed: _vm.isCollapsed }
-                          })
+                          menu.children && menu.children.length > 0
+                            ? _c(
+                                "el-submenu",
+                                { key: menu.id, attrs: { index: menu.route } },
+                                [
+                                  _c("template", { slot: "title" }, [
+                                    menu.icon
+                                      ? _c("i", {
+                                          class: menu.icon,
+                                          attrs: { size: "16" }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      {
+                                        attrs: { slot: "title" },
+                                        slot: "title"
+                                      },
+                                      [_vm._v(_vm._s(menu.title))]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(menu.children, function(children) {
+                                    return [
+                                      _c("MenuItem", {
+                                        key: children.id,
+                                        attrs: {
+                                          menu: children,
+                                          is_collapsed: _vm.isCollapsed
+                                        }
+                                      })
+                                    ]
+                                  })
+                                ],
+                                2
+                              )
+                            : _c(
+                                "el-menu-item",
+                                {
+                                  key: menu.id,
+                                  attrs: {
+                                    index: menu.route,
+                                    route: menu.route
+                                  }
+                                },
+                                [
+                                  menu.icon
+                                    ? _c("i", {
+                                        class: menu.icon,
+                                        attrs: { size: "16" }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    { attrs: { slot: "title" }, slot: "title" },
+                                    [_vm._v(_vm._s(menu.title))]
+                                  )
+                                ]
+                              )
                         ]
                       })
                     ],
@@ -32052,241 +32171,351 @@ var render = function() {
     "div",
     { staticClass: "grid-container" },
     [
-      _vm.attrs.top
-        ? _c(_vm.attrs.top.componentName, {
-            tag: "component",
-            attrs: { attrs: _vm.attrs.top }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.attrs.toolbars.show
-        ? _c(
-            "el-card",
-            { attrs: { shadow: "never", "body-style": { padding: 0 } } },
-            [
-              _c("div", { staticClass: "grid-top-container" }, [
-                _c(
-                  "div",
-                  { staticClass: "grid-top-container-left" },
-                  [
-                    _vm.attrs.selection
-                      ? _c("BatchActions", {
-                          attrs: {
-                            routers: _vm.attrs.routers,
-                            key_name: _vm.attrs.keyName,
-                            rows: _vm.selectionRows,
-                            actions: _vm.attrs.batchActions
-                          }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.attrs.quickSearch
-                      ? _c(
-                          "div",
-                          { staticClass: "search-view mr-10" },
-                          [
-                            _c(
-                              "el-input",
-                              {
-                                attrs: {
-                                  placeholder:
-                                    _vm.attrs.quickSearch.placeholder,
-                                  clearable: true
-                                },
-                                on: { clear: _vm.getData },
-                                nativeOn: {
-                                  keyup: function($event) {
-                                    if (
-                                      !$event.type.indexOf("key") &&
-                                      _vm._k(
-                                        $event.keyCode,
-                                        "enter",
-                                        13,
-                                        $event.key,
-                                        "Enter"
-                                      )
-                                    ) {
-                                      return null
-                                    }
-                                    return _vm.getData($event)
-                                  }
-                                },
-                                model: {
-                                  value: _vm.quickSearch,
-                                  callback: function($$v) {
-                                    _vm.quickSearch = $$v
-                                  },
-                                  expression: "quickSearch"
-                                }
-                              },
+      _c(
+        "div",
+        { ref: "topView" },
+        [
+          _vm.attrs.top
+            ? _c(_vm.attrs.top.componentName, {
+                tag: "component",
+                attrs: { attrs: _vm.attrs.top }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.attrs.toolbars.show
+            ? _c(
+                "el-card",
+                { attrs: { shadow: "never", "body-style": { padding: 0 } } },
+                [
+                  _c("div", { staticClass: "grid-top-container" }, [
+                    _c(
+                      "div",
+                      { staticClass: "grid-top-container-left" },
+                      [
+                        _vm.attrs.selection
+                          ? _c("BatchActions", {
+                              attrs: {
+                                routers: _vm.attrs.routers,
+                                key_name: _vm.attrs.keyName,
+                                rows: _vm.selectionRows,
+                                actions: _vm.attrs.batchActions
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.attrs.quickSearch
+                          ? _c(
+                              "div",
+                              { staticClass: "search-view mr-10" },
                               [
                                 _c(
-                                  "el-button",
+                                  "el-input",
                                   {
                                     attrs: {
-                                      slot: "append",
-                                      loading: _vm.loading
+                                      placeholder:
+                                        _vm.attrs.quickSearch.placeholder,
+                                      clearable: true
                                     },
-                                    on: { click: _vm.getData },
-                                    slot: "append"
+                                    on: { clear: _vm.getData },
+                                    nativeOn: {
+                                      keyup: function($event) {
+                                        if (
+                                          !$event.type.indexOf("key") &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "enter",
+                                            13,
+                                            $event.key,
+                                            "Enter"
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        return _vm.getData($event)
+                                      }
+                                    },
+                                    model: {
+                                      value: _vm.quickSearch,
+                                      callback: function($$v) {
+                                        _vm.quickSearch = $$v
+                                      },
+                                      expression: "quickSearch"
+                                    }
                                   },
-                                  [_vm._v("搜索")]
+                                  [
+                                    _c(
+                                      "el-button",
+                                      {
+                                        attrs: {
+                                          slot: "append",
+                                          loading: _vm.loading
+                                        },
+                                        on: { click: _vm.getData },
+                                        slot: "append"
+                                      },
+                                      [_vm._v("搜索")]
+                                    )
+                                  ],
+                                  1
                                 )
                               ],
                               1
                             )
-                          ],
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "flex-c" },
+                          _vm._l(_vm.attrs.toolbars.left, function(
+                            component,
+                            index
+                          ) {
+                            return _c(component.componentName, {
+                              key: component.componentName + index,
+                              tag: "component",
+                              attrs: { attrs: component }
+                            })
+                          }),
                           1
                         )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex-c" },
-                      _vm._l(_vm.attrs.toolbars.left, function(
-                        component,
-                        index
-                      ) {
-                        return _c(component.componentName, {
-                          key: component.componentName + index,
-                          tag: "component",
-                          attrs: { attrs: component }
-                        })
-                      }),
+                      ],
                       1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "grid-top-container-right" },
-                  [
-                    _vm._l(_vm.attrs.toolbars.right, function(
-                      component,
-                      index
-                    ) {
-                      return _c(component.componentName, {
-                        key: component.componentName + index,
-                        tag: "component",
-                        attrs: { attrs: component }
-                      })
-                    }),
-                    _vm._v(" "),
-                    !_vm.attrs.attributes.hideCreateButton
-                      ? _c("el-divider", { attrs: { direction: "vertical" } })
-                      : _vm._e(),
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "icon-actions" },
+                      { staticClass: "grid-top-container-right" },
                       [
+                        _vm._l(_vm.attrs.toolbars.right, function(
+                          component,
+                          index
+                        ) {
+                          return _c(component.componentName, {
+                            key: component.componentName + index,
+                            tag: "component",
+                            attrs: { attrs: component }
+                          })
+                        }),
+                        _vm._v(" "),
+                        !_vm.attrs.attributes.hideCreateButton
+                          ? _c("el-divider", {
+                              attrs: { direction: "vertical" }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
                         _c(
-                          "el-dropdown",
-                          { attrs: { trigger: "click" } },
+                          "div",
+                          { staticClass: "icon-actions" },
                           [
+                            _c(
+                              "el-dropdown",
+                              { attrs: { trigger: "click" } },
+                              [
+                                _c(
+                                  "el-tooltip",
+                                  {
+                                    staticClass: "item",
+                                    attrs: {
+                                      effect: "dark",
+                                      content: "密度",
+                                      placement: "top"
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "el-icon-rank hover"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-dropdown-menu",
+                                  {
+                                    attrs: { slot: "dropdown" },
+                                    slot: "dropdown"
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.attrs.attributes.size = null
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("el-dropdown-item", [_vm._v("正常")])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.attrs.attributes.size = "medium"
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("el-dropdown-item", [_vm._v("中等")])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.attrs.attributes.size = "small"
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("el-dropdown-item", [_vm._v("紧凑")])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.attrs.attributes.size = "mini"
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("el-dropdown-item", [_vm._v("迷你")])
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
                             _c(
                               "el-tooltip",
                               {
                                 staticClass: "item",
                                 attrs: {
                                   effect: "dark",
-                                  content: "密度",
+                                  content: "刷新",
                                   placement: "top"
                                 }
                               },
-                              [_c("i", { staticClass: "el-icon-rank hover" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "el-dropdown-menu",
-                              { attrs: { slot: "dropdown" }, slot: "dropdown" },
                               [
-                                _c(
-                                  "a",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        _vm.attrs.attributes.size = null
-                                      }
-                                    }
-                                  },
-                                  [_c("el-dropdown-item", [_vm._v("正常")])],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        _vm.attrs.attributes.size = "medium"
-                                      }
-                                    }
-                                  },
-                                  [_c("el-dropdown-item", [_vm._v("中等")])],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        _vm.attrs.attributes.size = "small"
-                                      }
-                                    }
-                                  },
-                                  [_c("el-dropdown-item", [_vm._v("紧凑")])],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        _vm.attrs.attributes.size = "mini"
-                                      }
-                                    }
-                                  },
-                                  [_c("el-dropdown-item", [_vm._v("迷你")])],
-                                  1
-                                )
+                                _c("i", {
+                                  staticClass: "el-icon-refresh hover",
+                                  on: { click: _vm.getData }
+                                })
                               ]
                             )
                           ],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "el-tooltip",
-                          {
-                            staticClass: "item",
-                            attrs: {
-                              effect: "dark",
-                              content: "刷新",
-                              placement: "top"
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "el-icon-refresh hover",
-                              on: { click: _vm.getData }
-                            })
-                          ]
                         )
                       ],
-                      1
+                      2
                     )
-                  ],
-                  2
-                )
-              ])
-            ]
-          )
-        : _vm._e(),
+                  ])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.attrs.filter.filters.length > 0
+            ? _c(
+                "el-card",
+                {
+                  staticClass: "mt-10",
+                  attrs: { shadow: "never", "body-style": { padding: 0 } }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "filter-form" },
+                    [
+                      _vm.filterFormData
+                        ? _c(
+                            "el-form",
+                            {
+                              attrs: {
+                                inline: true,
+                                "label-suffix": "：",
+                                model: _vm.filterFormData
+                              }
+                            },
+                            [
+                              _vm._l(_vm.attrs.filter.filters, function(
+                                item,
+                                index
+                              ) {
+                                return _c(
+                                  "el-form-item",
+                                  { key: index, attrs: { label: item.label } },
+                                  [
+                                    _c("ItemDiaplsy", {
+                                      attrs: {
+                                        form_item: item,
+                                        form_items: _vm.attrs.filters,
+                                        form_data: _vm.filterFormData
+                                      },
+                                      model: {
+                                        value: _vm.filterFormData[item.column],
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.filterFormData,
+                                            item.column,
+                                            $$v
+                                          )
+                                        },
+                                        expression:
+                                          "filterFormData[item.column]"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                [
+                                  _c(
+                                    "el-button",
+                                    {
+                                      attrs: { type: "primary" },
+                                      on: { click: _vm.onFilterSubmit }
+                                    },
+                                    [_vm._v("搜索")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "el-button",
+                                    { on: { click: _vm.onFilterReset } },
+                                    [_vm._v("重置")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "el-card",
@@ -32303,82 +32532,6 @@ var render = function() {
           attrs: { shadow: "never", "body-style": { padding: 0 } }
         },
         [
-          _vm.attrs.filter.filters.length > 0
-            ? _c(
-                "div",
-                { staticClass: "filter-form" },
-                [
-                  _vm.filterFormData
-                    ? _c(
-                        "el-form",
-                        {
-                          attrs: {
-                            inline: true,
-                            "label-suffix": "：",
-                            model: _vm.filterFormData
-                          }
-                        },
-                        [
-                          _vm._l(_vm.attrs.filter.filters, function(
-                            item,
-                            index
-                          ) {
-                            return _c(
-                              "el-form-item",
-                              { key: index, attrs: { label: item.label } },
-                              [
-                                _c("ItemDiaplsy", {
-                                  attrs: {
-                                    form_item: item,
-                                    form_items: _vm.attrs.filters,
-                                    form_data: _vm.filterFormData
-                                  },
-                                  model: {
-                                    value: _vm.filterFormData[item.column],
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.filterFormData,
-                                        item.column,
-                                        $$v
-                                      )
-                                    },
-                                    expression: "filterFormData[item.column]"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "el-form-item",
-                            [
-                              _c(
-                                "el-button",
-                                {
-                                  attrs: { type: "primary" },
-                                  on: { click: _vm.onFilterSubmit }
-                                },
-                                [_vm._v("搜索")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "el-button",
-                                { on: { click: _vm.onFilterReset } },
-                                [_vm._v("重置")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        2
-                      )
-                    : _vm._e()
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "div",
             [
@@ -32390,7 +32543,7 @@ var render = function() {
                     data: _vm.tableData,
                     "row-key": _vm.attrs.attributes.rowKey,
                     "default-sort": _vm.default_sort_get,
-                    height: _vm.attrs.attributes.height,
+                    height: _vm.gridHeight,
                     "max-height": _vm.attrs.attributes.maxHeight,
                     stripe: _vm.attrs.attributes.stripe,
                     border: _vm.attrs.attributes.border,
@@ -33048,14 +33201,18 @@ var render = function() {
         { attrs: { index: _vm.menu.route } },
         [
           _c("template", { slot: "title" }, [
-            _c("i", { class: _vm.menu.icon, attrs: { size: "16" } }),
+            _vm.menu.icon
+              ? _c("i", { class: _vm.menu.icon, attrs: { size: "16" } })
+              : _vm._e(),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.menu.title))])
+            _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+              _vm._v(_vm._s(_vm.menu.title))
+            ])
           ]),
           _vm._v(" "),
           _vm._l(_vm.menu.children, function(children) {
             return [
-              _c("menu-item-c", {
+              _c("MenuItem", {
                 key: children.id,
                 attrs: { menu: children, is_collapsed: _vm.is_collapsed }
               })
@@ -33065,22 +33222,17 @@ var render = function() {
         2
       )
     : _c(
-        "a",
-        { attrs: { "data-href": _vm.menu.url } },
+        "el-menu-item",
+        { attrs: { index: _vm.menu.route, route: _vm.menu.route } },
         [
-          _c(
-            "el-menu-item",
-            { attrs: { index: _vm.menu.route, route: _vm.menu.route } },
-            [
-              _c("i", { class: _vm.menu.icon, attrs: { size: "16" } }),
-              _vm._v(" "),
-              _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                _vm._v(_vm._s(_vm.menu.title))
-              ])
-            ]
-          )
-        ],
-        1
+          _vm.menu.icon
+            ? _c("i", { class: _vm.menu.icon, attrs: { size: "16" } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+            _vm._v(_vm._s(_vm.menu.title))
+          ])
+        ]
       )
 }
 var staticRenderFns = []

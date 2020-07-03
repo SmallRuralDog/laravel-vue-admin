@@ -43,7 +43,27 @@
             :router="true"
           >
             <template v-for="menu in page_data.menu">
-              <MenuItem :menu="menu" :key="menu.id" :is_collapsed="isCollapsed" />
+              <el-submenu
+                :index="menu.route"
+                :key='menu.id'
+                v-if="menu.children && menu.children.length > 0"
+              >
+                <template slot="title">
+                  <i :class="menu.icon" v-if="menu.icon" size="16"></i>
+                  <span slot="title">{{ menu.title }}</span>
+                </template>
+                <template v-for="children in menu.children">
+                  <MenuItem
+                    :menu="children"
+                    :key="children.id"
+                    :is_collapsed="isCollapsed"
+                  />
+                </template>
+              </el-submenu>
+              <el-menu-item :index="menu.route" :key='menu.id' :route="menu.route" v-else>
+                <i :class="menu.icon" v-if="menu.icon" size="16"></i>
+                <span slot="title">{{ menu.title }}</span>
+              </el-menu-item>
             </template>
           </el-menu>
         </el-scrollbar>
@@ -51,7 +71,7 @@
       <el-container
         :class="{
           'el-container-fixed': fixedSide,
-          'el-container-fixed-collapsed': isCollapsed
+          'el-container-fixed-collapsed': isCollapsed,
         }"
       >
         <el-header
@@ -60,19 +80,28 @@
           :class="{
             'layout-header-bar-dark': isDarkHeader,
             'layout-header-bar-fixed': fixedHeader,
-            'layout-header-bar-fixed-collapsed': isCollapsed
+            'layout-header-bar-fixed-collapsed': isCollapsed,
           }"
           height="55px"
         >
           <div class="layout-header-l">
             <div class="layout-header-trigger hover" @click="collapsedSide">
-              <i class="el-icon-s-fold fs-20 menu-icon" :class="{ 'rotate-icon': isCollapsed }" />
+              <i
+                class="el-icon-s-fold fs-20 menu-icon"
+                :class="{ 'rotate-icon': isCollapsed }"
+              />
             </div>
             <div class="layout-header-breadcrumb">
               <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/' }"
+                  >首页</el-breadcrumb-item
+                >
                 <template v-for="menu in page_data.menuList">
-                  <el-breadcrumb-item v-if="menu.route == route" :key="menu.route">{{ menu.title }}</el-breadcrumb-item>
+                  <el-breadcrumb-item
+                    v-if="menu.route == route"
+                    :key="menu.route"
+                    >{{ menu.title }}</el-breadcrumb-item
+                  >
                 </template>
               </el-breadcrumb>
             </div>
@@ -91,9 +120,7 @@
                 <div class="layout-header-user">
                   <el-avatar :src="page_data.user.avatar" :size="25" />
                   <span class="layout-header-user-name">
-                    {{
-                    page_data.user.name
-                    }}
+                    {{ page_data.user.name }}
                   </span>
                 </div>
                 <el-dropdown-menu slot="dropdown">
@@ -128,7 +155,8 @@
               :href="item.href"
               target="_blank"
               :underline="false"
-            >{{ item.title }}</el-link>
+              >{{ item.title }}</el-link
+            >
           </div>
           <div v-html="page_data.copyright"></div>
         </el-footer>
@@ -142,14 +170,22 @@
           <el-badge type="success" is-dot :hidden="isDark">
             <div>
               <el-tooltip content="亮色菜单风格" placement="top">
-                <img @click="isDark = false" class="hover" src="../assets/menu-light.svg" />
+                <img
+                  @click="isDark = false"
+                  class="hover"
+                  src="../assets/menu-light.svg"
+                />
               </el-tooltip>
             </div>
           </el-badge>
           <el-badge type="success" is-dot :hidden="!isDark">
             <div class="ml-20">
               <el-tooltip content="暗色菜单风格" placement="top">
-                <img @click="isDark = true" class="hover" src="../assets/menu-dark.svg" />
+                <img
+                  @click="isDark = true"
+                  class="hover"
+                  src="../assets/menu-dark.svg"
+                />
               </el-tooltip>
             </div>
           </el-badge>
@@ -194,7 +230,7 @@ import { flattenDeepChild } from "../utils";
 
 export default {
   props: {
-    page_data: Object
+    page_data: Object,
   },
   data() {
     return {
@@ -215,11 +251,11 @@ export default {
         : true,
       showAdminSet: false,
       route: "/",
-      query: {}
+      query: {},
     };
   },
   mounted() {
-    this.$bus.on("route-after", to => {
+    this.$bus.on("route-after", (to) => {
       this.route = to.path;
 
       this.query = to.query;
@@ -233,12 +269,12 @@ export default {
       this.route =
         this.route + (queryKey.length > 0 ? "?" : "") + queryKey.join("&");
 
-      let checkLength = this.menuRoutes.filter(item => {
+      let checkLength = this.menuRoutes.filter((item) => {
         return this.route == item;
       }).length;
 
       if (checkLength <= 0) {
-        this.menuRoutes.map(item => {
+        this.menuRoutes.map((item) => {
           if (to.path.indexOf(item) >= 0) {
             this.route = item;
           }
@@ -260,7 +296,7 @@ export default {
     },
     menuRoutes() {
       return flattenDeepChild(this.page_data.menu, "children", "route");
-    }
+    },
   },
   methods: {
     pageReload() {
@@ -273,7 +309,7 @@ export default {
       this.$confirm("您确定退出登录当前账户吗？", "退出登陆确认").then(() => {
         window.location.href = this.page_data.url.logout;
       });
-    }
+    },
   },
   watch: {
     fixedSide(val) {
@@ -290,8 +326,8 @@ export default {
     },
     isDarkHeader(val) {
       localStorage.setItem("isDarkHeader", val);
-    }
-  }
+    },
+  },
 };
 </script>
 

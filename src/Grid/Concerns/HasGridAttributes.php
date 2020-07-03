@@ -24,6 +24,15 @@ trait HasGridAttributes
         return $this;
     }
 
+    /**
+     * js计算页面高度，使表格高度撑满窗口
+     * @return $this
+     */
+    public function autoHeight(){
+        $this->attributes->height = 'auto';
+        return $this;
+    }
+
 
     /**
      * Table 的最大高度。合法的值为数字或者单位为 px 的高度。

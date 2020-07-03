@@ -1,131 +1,143 @@
 <template>
   <div class="grid-container">
-    <component
-      v-if="attrs.top"
-      :is="attrs.top.componentName"
-      :attrs="attrs.top"
-    />
+    <div ref="topView">
+      <component
+        v-if="attrs.top"
+        :is="attrs.top.componentName"
+        :attrs="attrs.top"
+      />
 
-    <el-card shadow="never" :body-style="{ padding: 0 }" v-if='attrs.toolbars.show'>
-      <div class="grid-top-container">
-        <div class="grid-top-container-left">
-          <BatchActions
-            :routers="attrs.routers"
-            :key_name="attrs.keyName"
-            :rows="selectionRows"
-            :actions="attrs.batchActions"
-            v-if="attrs.selection"
-          />
-          <div class="search-view mr-10" v-if="attrs.quickSearch">
-            <el-input
-              v-model="quickSearch"
-              :placeholder="attrs.quickSearch.placeholder"
-              :clearable="true"
-              @clear="getData"
-              @keyup.enter.native="getData"
-            >
-              <el-button @click="getData" :loading="loading" slot="append"
-                >搜索</el-button
+      <el-card
+        shadow="never"
+        :body-style="{ padding: 0 }"
+        v-if="attrs.toolbars.show"
+      >
+        <div class="grid-top-container">
+          <div class="grid-top-container-left">
+            <BatchActions
+              :routers="attrs.routers"
+              :key_name="attrs.keyName"
+              :rows="selectionRows"
+              :actions="attrs.batchActions"
+              v-if="attrs.selection"
+            />
+            <div class="search-view mr-10" v-if="attrs.quickSearch">
+              <el-input
+                v-model="quickSearch"
+                :placeholder="attrs.quickSearch.placeholder"
+                :clearable="true"
+                @clear="getData"
+                @keyup.enter.native="getData"
               >
-            </el-input>
+                <el-button @click="getData" :loading="loading" slot="append"
+                  >搜索</el-button
+                >
+              </el-input>
+            </div>
+            <div class="flex-c">
+              <component
+                v-for="(component, index) in attrs.toolbars.left"
+                :key="component.componentName + index"
+                :is="component.componentName"
+                :attrs="component"
+              />
+            </div>
           </div>
-          <div class="flex-c">
+          <div class="grid-top-container-right">
             <component
-              v-for="(component, index) in attrs.toolbars.left"
+              v-for="(component, index) in attrs.toolbars.right"
               :key="component.componentName + index"
               :is="component.componentName"
               :attrs="component"
             />
-          </div>
-        </div>
-        <div class="grid-top-container-right">
-          <component
-            v-for="(component, index) in attrs.toolbars.right"
-            :key="component.componentName + index"
-            :is="component.componentName"
-            :attrs="component"
-          />
-          <el-divider
-            direction="vertical"
-            v-if="!attrs.attributes.hideCreateButton"
-          ></el-divider>
-          <div class="icon-actions">
-            <el-dropdown trigger="click">
+            <el-divider
+              direction="vertical"
+              v-if="!attrs.attributes.hideCreateButton"
+            ></el-divider>
+            <div class="icon-actions">
+              <el-dropdown trigger="click">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="密度"
+                  placement="top"
+                >
+                  <i class="el-icon-rank hover"></i>
+                </el-tooltip>
+                <el-dropdown-menu slot="dropdown">
+                  <a @click="attrs.attributes.size = null">
+                    <el-dropdown-item>正常</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'medium'">
+                    <el-dropdown-item>中等</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'small'">
+                    <el-dropdown-item>紧凑</el-dropdown-item>
+                  </a>
+                  <a @click="attrs.attributes.size = 'mini'">
+                    <el-dropdown-item>迷你</el-dropdown-item>
+                  </a>
+                </el-dropdown-menu>
+              </el-dropdown>
+
               <el-tooltip
                 class="item"
                 effect="dark"
-                content="密度"
+                content="刷新"
                 placement="top"
               >
-                <i class="el-icon-rank hover"></i>
+                <i class="el-icon-refresh hover" @click="getData"></i>
               </el-tooltip>
-              <el-dropdown-menu slot="dropdown">
-                <a @click="attrs.attributes.size = null">
-                  <el-dropdown-item>正常</el-dropdown-item>
-                </a>
-                <a @click="attrs.attributes.size = 'medium'">
-                  <el-dropdown-item>中等</el-dropdown-item>
-                </a>
-                <a @click="attrs.attributes.size = 'small'">
-                  <el-dropdown-item>紧凑</el-dropdown-item>
-                </a>
-                <a @click="attrs.attributes.size = 'mini'">
-                  <el-dropdown-item>迷你</el-dropdown-item>
-                </a>
-              </el-dropdown-menu>
-            </el-dropdown>
-
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="刷新"
-              placement="top"
-            >
-              <i class="el-icon-refresh hover" @click="getData"></i>
-            </el-tooltip>
+            </div>
           </div>
         </div>
-      </div>
-    </el-card>
+      </el-card>
+      <el-card
+        shadow="never"
+        class="mt-10"
+        :body-style="{ padding: 0 }"
+        v-if="attrs.filter.filters.length > 0"
+      >
+        <div class="filter-form">
+          <el-form
+            :inline="true"
+            label-suffix="："
+            :model="filterFormData"
+            v-if="filterFormData"
+          >
+            <el-form-item
+              v-for="(item, index) in attrs.filter.filters"
+              :key="index"
+              :label="item.label"
+            >
+              <ItemDiaplsy
+                v-model="filterFormData[item.column]"
+                :form_item="item"
+                :form_items="attrs.filters"
+                :form_data="filterFormData"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
+              <el-button @click="onFilterReset">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
+    </div>
     <el-card
       class="mt-10"
       shadow="never"
       :body-style="{ padding: 0 }"
       v-loading="loading"
     >
-      <div class="filter-form" v-if="attrs.filter.filters.length > 0">
-        <el-form
-          :inline="true"
-          label-suffix="："
-          :model="filterFormData"
-          v-if="filterFormData"
-        >
-          <el-form-item
-            v-for="(item, index) in attrs.filter.filters"
-            :key="index"
-            :label="item.label"
-          >
-            <ItemDiaplsy
-              v-model="filterFormData[item.column]"
-              :form_item="item"
-              :form_items="attrs.filters"
-              :form_data="filterFormData"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onFilterSubmit">搜索</el-button>
-            <el-button @click="onFilterReset">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-
       <div>
         <el-table
           :ref="attrs.ref || 'table'"
           :data="tableData"
           :row-key="attrs.attributes.rowKey"
           :default-sort="default_sort_get"
-          :height="attrs.attributes.height"
+          :height="gridHeight"
           :max-height="attrs.attributes.maxHeight"
           :stripe="attrs.attributes.stripe"
           :border="attrs.attributes.border"
@@ -249,21 +261,22 @@ export default {
   },
   data() {
     return {
-      loading: false,//是否加载
-      sort: {},//排序对象
-      tableData: [],//表格数据
+      loading: false, //是否加载
+      sort: {}, //排序对象
+      tableData: [], //表格数据
       pageData: {
         pageSize: this.attrs.perPage,
         total: 0,
         currentPage: 1,
         lastPage: 1,
       },
-      page: 1,//当前页
-      quickSearch: null,//快捷搜索内容
-      selectionRows: [],//已选择的row
-      filterFormData: null,//表单搜索数据
+      page: 1, //当前页
+      quickSearch: null, //快捷搜索内容
+      selectionRows: [], //已选择的row
+      filterFormData: null, //表单搜索数据
       tabsSelectdata: {},
       tabsActiveName: "all",
+      topViewHeight: 0,
     };
   },
 
@@ -313,6 +326,10 @@ export default {
     this.$bus.on("showDialogGridFrom", ({ isShow, key }) => {
       this.$refs["DialogGridFrom"].dialogVisible = isShow;
       this.$refs["DialogGridFrom"].key = key;
+    });
+
+    this.$nextTick(() => {
+      this.topViewHeight = this.$refs.topView.offsetHeight;
     });
   },
   destroyed() {
@@ -458,6 +475,12 @@ export default {
         (q_search[this.attrs.quickSearch.searchKey] = this.quickSearch);
       return q_search;
     },
+    gridHeight() {
+      if (this.attrs.attributes.height == "auto") {
+        return window.innerHeight - 55 - 120 - this.topViewHeight - 40;
+      }
+      return this.attrs.attributes.height;
+    },
   },
 };
 </script>
@@ -507,7 +530,7 @@ export default {
   }
   .filter-form {
     padding: 10px;
-    border-bottom: 1px solid #ebeef5;
+    background-color: #ffffff;
     .el-form-item {
       margin-bottom: 0px;
       .el-form-item__label {
