@@ -35,6 +35,7 @@ class Form extends Component
     protected $formItemsAttr = [];
     protected $formItemsValue = [];
     protected $formRules = [];
+    protected $formItemRows = [];
     protected $formItems = [];
 
     protected $tabs = [];
@@ -102,6 +103,11 @@ class Form extends Component
     public function item($prop, $label = '', $field = '')
     {
         return $this->addItem($prop, $label, $field);
+    }
+
+    public function row(){
+
+        return $this;
     }
 
     /**

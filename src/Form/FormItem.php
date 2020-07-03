@@ -13,6 +13,7 @@ class FormItem
 {
     protected $prop;
     protected $label;
+    protected $hideLabel=false;
     protected $field;
     protected $labelWidth;
     protected $inputWidth = 24;
@@ -99,6 +100,19 @@ class FormItem
     }
 
     /**
+     * 隐藏Label
+     * @return $this
+     */
+    public function hideLabel()
+    {
+        $this->labelWidth("auto");
+        $this->hideLabel = true;
+        return $this;
+    }
+
+
+
+    /**
      * 设置头部组件
      * @param $component
      * @return $this
@@ -129,21 +143,6 @@ class FormItem
     }
 
     /**
-     * @param $component
-     * @return $this
-     * @deprecated
-     */
-    public function displayComponent($component)
-    {
-        if ($component instanceof \Closure) {
-            $this->component = call_user_func($component);
-        } else {
-            $this->component = $component;
-        }
-        return $this;
-    }
-
-    /**
      * 设置组件
      * @param $component
      * @return $this
@@ -156,11 +155,6 @@ class FormItem
             $this->component = $component;
         }
         return $this;
-    }
-
-    public function getDisplayComponent()
-    {
-        return $this->component;
     }
 
     /**
@@ -578,6 +572,7 @@ class FormItem
             'prop' => $this->prop,
             'label' => $this->label,
             'field' => $this->field,
+            'hideLabel' => $this->hideLabel,
             'labelWidth' => $this->labelWidth,
             'inputWidth' => $this->inputWidth,
             'required' => $this->required,
