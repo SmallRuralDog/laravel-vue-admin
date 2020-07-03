@@ -10,6 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@antv/g2plot": "^1.1.6",
         "@chenfengyuan/vue-qrcode": "^1.0.2",
         "axios": "^0.19.2",
         "babel-plugin-component": "^1.1.1",
@@ -18,26 +19,25 @@
         "element-ui": "^2.13.2",
         "laravel-mix": "^5.0.4",
         "lodash": "^4.17.15",
+        "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.26.8",
         "sass-loader": "7.*",
+        "url-loader": "^3.0.0",
         "vue": "^2.6.11",
         "vue-bus": "^1.2.1",
         "vue-clipboard2": "^0.3.1",
         "vue-dplayer": "0.0.10",
         "vue-happy-scroll": "^2.1.1",
-        "vue-router": "^3.3.3",
+        "vue-nprogress": "^0.1.5",
         "vue-template-compiler": "^2.6.10",
         "vue-waterfall2": "^1.9.6",
-        "wangeditor": "^3.1.1",
-        "@antv/g2plot": "^1.1.6",
-        "nprogress": "^0.2.0",
-        "url-loader": "^3.0.0",
-        "vue-nprogress": "^0.1.5",
-        "vuex": "^3.4.0"
+        "vuex": "^3.4.0",
+        "wangeditor": "^3.1.1"
     },
     "dependencies": {
-        "mavon-editor": "^2.9.0"
+        "mavon-editor": "^2.9.0",
+        "vue-router": "^3.0.7"
     }
 }
