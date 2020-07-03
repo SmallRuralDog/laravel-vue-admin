@@ -41,12 +41,16 @@ export default {
   },
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   methods: {
     onChange(value) {
+      if (this.attrs.type == "number") {
+        value = Number(value);
+      }
+
       this.$emit("change", value);
-    }
-  }
+    },
+  },
 };
 </script>

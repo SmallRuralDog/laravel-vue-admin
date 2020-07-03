@@ -11,35 +11,36 @@
   </div>
 </template>
 <script>
+import { BaseComponent } from "@/mixins.js";
 import { getArrayValue } from "../../utils";
 export default {
+  mixins: [BaseComponent],
   props: {
     value: {
-      default: null
+      default: null,
     },
     form_items: Array,
     //fromItem数据
     form_item: Object,
     //当前表单数据
-    form_data: Object
+    form_data: Object,
   },
   data() {
     return {};
   },
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   computed: {
     attrs() {
       return this.form_item.component;
-    }
+    },
   },
   methods: {
     onChange(value) {
-      
       this.$emit("change", value);
-    }
-  }
+    },
+  },
 };
 </script>

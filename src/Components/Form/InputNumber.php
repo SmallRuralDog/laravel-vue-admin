@@ -51,7 +51,7 @@ class InputNumber extends Component
      */
     protected $placeholder;
 
-    static public function make($value = null)
+    static public function make($value = 0)
     {
         return new InputNumber($value);
     }

@@ -34,6 +34,7 @@ class Form extends Component
 
     protected $formItemsAttr = [];
     protected $formItemsValue = [];
+    protected $formRules = [];
     protected $formItems = [];
 
     protected $tabs = [];
@@ -136,6 +137,7 @@ class Form extends Component
         /**@var FormItem $item */
         foreach ($items as $item) {
             Arr::set($this->formItemsValue, $item->getProp(), $item->getDefaultValue());
+            Arr::set($this->formRules, $item->getProp(), $item->getRules());
         }
 
     }
@@ -727,6 +729,9 @@ class Form extends Component
             'formItems' => $this->formItemsAttr,
             'tabs' => $this->tabs,
             'defaultValues' => $this->formItemsValue,
+            'formRules' => $this->formRules,
+            'ref'=>$this->ref,
+            'refData'=>$this->refData
         ];
 
     }

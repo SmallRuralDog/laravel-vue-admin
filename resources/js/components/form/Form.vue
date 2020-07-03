@@ -9,11 +9,11 @@
     >
       <el-form
         v-if="formData"
-        ref="ruleForm"
+        :ref="attrs.ref || 'form'"
         :model="formData"
         :class="attrs.attrs.className"
         :style="attrs.attrs.style"
-        :rules="attrs.attrs.rules"
+        :rules="attrs.formRules"
         :inline="attrs.attrs.inline"
         :label-position="attrs.attrs.labelPosition"
         :label-width="attrs.attrs.labelWidth"
@@ -51,8 +51,6 @@
                   :label="item.label"
                   :prop="item.prop"
                   :label-width="item.labelWidth"
-                  :required="item.required"
-                  :rules="item.rules"
                   :error="item.error"
                   :show-message="item.showMessage"
                   :inline-message="item.inlineMessage"
@@ -119,7 +117,7 @@
               class="submit-btn"
               type="primary"
               :style="{ width: attrs.attrs.buttonWidth }"
-              @click="submitForm('ruleForm')"
+              @click="submitForm(attrs.ref || 'form')"
               >{{
                 isEdit
                   ? attrs.attrs.updateButtonName
@@ -133,10 +131,12 @@
   </div>
 </template>
 <script>
+import { BaseComponent } from "@/mixins.js";
 import ItemDiaplsy from "./ItemDiaplsy";
 import ItemIf from "./ItemIf";
 import { isNull } from "../../utils";
 export default {
+  mixins: [BaseComponent],
   components: {
     ItemDiaplsy,
     ItemIf,

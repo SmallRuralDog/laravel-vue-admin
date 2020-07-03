@@ -363,36 +363,61 @@ class FormItem
     /**
      * 是否必填，如不设置，则会根据校验规则自动生成
      * @param bool $required
+     * @param null $message
      * @param string $type
      * @param string $trigger
      * @return $this
      */
-    public function required(bool $required = true, $type = "string", $trigger = "blur")
+    public function required(bool $required = true, $type = "string", $message = null, $trigger = "blur")
     {
         $this->required = $required;
+        $message = $message ?? '请填写' . $this->label;
         if (!$this->serveRules) {
             $this->serveRules('required');
-            $this->serveRulesMessage(['required' => '请填写' . $this->label]);
+            $this->serveRulesMessage(['required' => $message]);
         }
         if (!$this->rules) {
-            $this->rules([
-                ['type' => $type, 'required' => true, "message" => "请填写" . $this->label, "trigger" => $trigger],
-            ]);
+            $this->vueRule($required, $type, $message, $trigger);
         }
 
         return $this;
     }
 
     /**
-     * 表单验证规则
      * @param mixed $rules
      * @return $this
+     * @deprecated
+     * 表单验证规则, 请使用 vueRule ，多条规则可设置多次
      */
     public function rules($rules)
     {
         $this->rules = $rules;
         return $this;
     }
+
+    /**
+     * 表单验证规则，多条规则可设置多次
+     * @param bool $required
+     * @param string $type
+     * @param null $message
+     * @param string $trigger
+     * @return $this
+     */
+    public function vueRule(bool $required = true, $type = "string", $message = null, $trigger = "blur")
+    {
+        $rule = ['type' => $type, 'required' => true, "message" => $message, "trigger" => $trigger];
+        $this->rules = collect($this->rules)->add($rule)->all();
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
 
     /**
      * 表单域验证错误信息, 设置该值会使表单验证状态变为error，并显示该错误信息
@@ -556,7 +581,7 @@ class FormItem
             'labelWidth' => $this->labelWidth,
             'inputWidth' => $this->inputWidth,
             'required' => $this->required,
-            'rules' => $this->rules,
+            //'rules' => $this->rules,
             'error' => $this->error,
             'showMessage' => $this->showMessage,
             'inlineMessage' => $this->inlineMessage,
