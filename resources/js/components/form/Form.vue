@@ -1,6 +1,11 @@
 <template>
   <div class="form-page">
     <component
+        v-if="attrs.top"
+        :is="attrs.top.componentName"
+        :attrs="attrs.top"
+      />
+    <component
       :is="attrs.attrs.isDialog ? 'div' : 'el-card'"
       shadow="never"
       class="form-card"
@@ -74,6 +79,7 @@
                         <ItemDiaplsy
                           v-model="formData[item.prop]"
                           :form_item="item"
+                          :form_items="attrs.formItems"
                           :form_data="formData"
                         />
                       </template>
@@ -128,6 +134,11 @@
         </div>
       </el-form>
     </component>
+    <component
+      v-if="attrs.bottom"
+      :is="attrs.bottom.componentName"
+      :attrs="attrs.bottom"
+    />
   </div>
 </template>
 <script>

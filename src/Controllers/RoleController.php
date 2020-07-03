@@ -28,7 +28,7 @@ class RoleController extends AdminController
         $grid->column('permissions.name', "权限")->component(Tag::make()->type('info'));
         $grid->column('created_at');
         $grid->column('updated_at');
-        $grid->dialogForm($this->form()->isDialog()->labelPosition("top")->className('p-15'), '600px', ['添加角色', '编辑角色']);
+        $grid->dialogForm($this->form()->isDialog()->labelWidth("auto")->className('p-15'), '700px', ['添加角色', '编辑角色']);
         return $grid;
     }
 
@@ -38,8 +38,8 @@ class RoleController extends AdminController
         $roleModel = config('admin.database.roles_model');
         $form = new Form(new $roleModel());
 
-        $form->item('slug', "标识")->required();
-        $form->item('name', "名称")->required();
+        $form->item('slug', "标识")->required()->inputWidth(8);
+        $form->item('name', "名称")->required()->inputWidth(8);
         $form->item('permissions', "权限", 'permissions.id')->component(
             Transfer::make()->data($permissionModel::get()->map(function ($item) {
                 return TransferData::make($item->id, $item->name);

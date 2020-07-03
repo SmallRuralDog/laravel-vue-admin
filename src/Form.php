@@ -15,6 +15,7 @@ use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\HasHooks;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
+use SmallRuralDog\Admin\Layout\Content;
 use Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -84,6 +85,10 @@ class Form extends Component
     protected $validator;
 
 
+    private $top;
+    private $bottom;
+
+
     public function __construct($model = null)
     {
         $this->attrs = new FormAttrs();
@@ -105,7 +110,8 @@ class Form extends Component
         return $this->addItem($prop, $label, $field);
     }
 
-    public function row(){
+    public function row()
+    {
 
         return $this;
     }
@@ -146,6 +152,30 @@ class Form extends Component
             Arr::set($this->formRules, $item->getProp(), $item->getRules());
         }
 
+    }
+
+    /**
+     * 表单头部组件
+     * @param $closure
+     * @return $this
+     */
+    public function top($closure)
+    {
+        $this->top = new Content();
+        call_user_func($closure, $this->top);
+        return $this;
+    }
+
+    /**
+     * 表单底部组件
+     * @param $closure
+     * @return $this
+     */
+    public function bottom($closure)
+    {
+        $this->bottom = new Content();
+        call_user_func($closure, $this->bottom);
+        return $this;
     }
 
     /**
@@ -683,7 +713,7 @@ class Form extends Component
         foreach ($this->formItems as $formItem) {
             $field = $formItem->getField();
             $prop = $formItem->getProp();
-            $component = $formItem->getDisplayComponent();
+            $component = $formItem->getComponent();
             // 利用model的hidden属性
             if (in_array($prop, $this->model->getHidden())) {
                 Arr::set($data, $prop, $formItem->getData(null, $this->model, $component));
@@ -736,8 +766,10 @@ class Form extends Component
             'tabs' => $this->tabs,
             'defaultValues' => $this->formItemsValue,
             'formRules' => $this->formRules,
-            'ref'=>$this->ref,
-            'refData'=>$this->refData
+            'ref' => $this->ref,
+            'refData' => $this->refData,
+            'top' => $this->top,
+            'bottom' => $this->bottom
         ];
 
     }

@@ -13,7 +13,7 @@ class FormItem
 {
     protected $prop;
     protected $label;
-    protected $hideLabel=false;
+    protected $hideLabel = false;
     protected $field;
     protected $labelWidth;
     protected $inputWidth = 24;
@@ -50,6 +50,11 @@ class FormItem
     protected $component;
     protected $topComponent;
     protected $footerComponent;
+
+    protected $componentTopComponent;
+    protected $componentLeftComponent;
+    protected $componentRightComponent;
+    protected $componentBottomComponent;
 
     public $original;
 
@@ -111,7 +116,6 @@ class FormItem
     }
 
 
-
     /**
      * 设置头部组件
      * @param $component
@@ -126,6 +130,67 @@ class FormItem
         }
         return $this;
     }
+
+    /**
+     * 表单域组件上面附加组件
+     * @param $component
+     * @return $this
+     */
+    public function componentTopComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->componentTopComponent = call_user_func($component);
+        } else {
+            $this->componentTopComponent = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 表单域组件下面附加组件
+     * @param $component
+     * @return $this
+     */
+    public function componentBottomComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->componentBottomComponent = call_user_func($component);
+        } else {
+            $this->componentBottomComponent = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 表单域组件左边附加组件
+     * @param $component
+     * @return $this
+     */
+    public function componentLeftComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->componentLeftComponent = call_user_func($component);
+        } else {
+            $this->componentLeftComponent = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 表单域组件右边附加组件
+     * @param $component
+     * @return $this
+     */
+    public function componentRightComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->componentRightComponent = call_user_func($component);
+        } else {
+            $this->componentRightComponent = $component;
+        }
+        return $this;
+    }
+
 
     /**
      * 设置底部组件
@@ -583,6 +648,10 @@ class FormItem
             'size' => $this->size,
             'help' => $this->help,
             'component' => $this->component,
+            'componentTopComponent' => $this->componentTopComponent,
+            'componentBottomComponent' => $this->componentBottomComponent,
+            'componentLeftComponent' => $this->componentLeftComponent,
+            'componentRightComponent' => $this->componentRightComponent,
             'topComponent' => $this->topComponent,
             'footerComponent' => $this->footerComponent,
             'relationName' => $this->relationName,

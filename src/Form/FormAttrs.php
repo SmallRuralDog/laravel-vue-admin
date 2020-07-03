@@ -18,7 +18,7 @@ class FormAttrs
     public $inlineMessage = false;
     public $statusIcon = false;
     public $validateOnRuleChange = true;
-    public $size="small";
+    public $size;
     public $disabled = false;
 
     public $hideTab = true;
