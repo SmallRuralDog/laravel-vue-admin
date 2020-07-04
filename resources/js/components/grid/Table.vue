@@ -1,17 +1,9 @@
 <template>
   <div class="grid-container">
     <div ref="topView">
-      <component
-        v-if="attrs.top"
-        :is="attrs.top.componentName"
-        :attrs="attrs.top"
-      />
+      <component v-if="attrs.top" :is="attrs.top.componentName" :attrs="attrs.top" />
 
-      <el-card
-        shadow="never"
-        :body-style="{ padding: 0 }"
-        v-if="attrs.toolbars.show"
-      >
+      <el-card shadow="never" :body-style="{ padding: 0 }" v-if="attrs.toolbars.show">
         <div class="grid-top-container">
           <div class="grid-top-container-left">
             <BatchActions
@@ -29,9 +21,7 @@
                 @clear="getData"
                 @keyup.enter.native="getData"
               >
-                <el-button @click="getData" :loading="loading" slot="append"
-                  >搜索</el-button
-                >
+                <el-button @click="getData" :loading="loading" slot="append">搜索</el-button>
               </el-input>
             </div>
             <div class="flex-c">
@@ -50,18 +40,10 @@
               :is="component.componentName"
               :attrs="component"
             />
-            <el-divider
-              direction="vertical"
-              v-if="!attrs.attributes.hideCreateButton"
-            ></el-divider>
+            <el-divider direction="vertical" v-if="!attrs.attributes.hideCreateButton"></el-divider>
             <div class="icon-actions">
               <el-dropdown trigger="click">
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="密度"
-                  placement="top"
-                >
+                <el-tooltip class="item" effect="dark" content="密度" placement="top">
                   <i class="el-icon-rank hover"></i>
                 </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
@@ -80,12 +62,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
 
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="刷新"
-                placement="top"
-              >
+              <el-tooltip class="item" effect="dark" content="刷新" placement="top">
                 <i class="el-icon-refresh hover" @click="getData"></i>
               </el-tooltip>
             </div>
@@ -99,12 +76,7 @@
         v-if="attrs.filter.filters.length > 0"
       >
         <div class="filter-form">
-          <el-form
-            :inline="true"
-            label-suffix="："
-            :model="filterFormData"
-            v-if="filterFormData"
-          >
+          <el-form :inline="true" label-suffix="：" :model="filterFormData" v-if="filterFormData">
             <el-form-item
               v-for="(item, index) in attrs.filter.filters"
               :key="index"
@@ -125,12 +97,7 @@
         </div>
       </el-card>
     </div>
-    <el-card
-      class="mt-10"
-      shadow="never"
-      :body-style="{ padding: 0 }"
-      v-loading="loading"
-    >
+    <el-card class="mt-10" shadow="never" :body-style="{ padding: 0 }" v-loading="loading">
       <div>
         <el-table
           :ref="attrs.ref || 'table'"
@@ -151,13 +118,8 @@
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
-          <el-table-column
-            v-if="attrs.attributes.selection"
-            align="center"
-            type="selection"
-          ></el-table-column>
-          <el-table-column v-if="attrs.tree" align="center" width="50">
-          </el-table-column>
+          <el-table-column v-if="attrs.attributes.selection" align="center" type="selection"></el-table-column>
+          <el-table-column v-if="attrs.tree" align="center" width="50"></el-table-column>
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
               :type="column.type"
@@ -174,19 +136,12 @@
             >
               <template slot="header" slot-scope="scope">
                 <span>{{ scope.column.label }}</span>
-                <el-tooltip
-                  placement="top"
-                  v-if="column.help"
-                  :content="column.help"
-                >
+                <el-tooltip placement="top" v-if="column.help" :content="column.help">
                   <i class="el-icon-question hover"></i>
                 </el-tooltip>
               </template>
               <template slot-scope="scope">
-                <ColumnDisplay
-                  :scope="scope"
-                  :columns="attrs.columnAttributes"
-                />
+                <ColumnDisplay :scope="scope" :columns="attrs.columnAttributes" />
               </template>
             </el-table-column>
           </template>
@@ -224,11 +179,7 @@
         />
       </div>
     </el-card>
-    <component
-      v-if="attrs.bottom"
-      :is="attrs.bottom.componentName"
-      :attrs="attrs.bottom"
-    />
+    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs="attrs.bottom" />
     <DialogForm
       ref="DialogGridFrom"
       v-if="attrs.dialogForm"
@@ -254,10 +205,10 @@ export default {
     Actions,
     ItemDiaplsy,
     BatchActions,
-    DialogForm,
+    DialogForm
   },
   props: {
-    attrs: Object,
+    attrs: Object
   },
   data() {
     return {
@@ -268,7 +219,7 @@ export default {
         pageSize: this.attrs.perPage,
         total: 0,
         currentPage: 1,
-        lastPage: 1,
+        lastPage: 1
       },
       page: 1, //当前页
       quickSearch: null, //快捷搜索内容
@@ -276,7 +227,7 @@ export default {
       filterFormData: null, //表单搜索数据
       tabsSelectdata: {},
       tabsActiveName: "all",
-      topViewHeight: 0,
+      topViewHeight: 0
     };
   },
 
@@ -319,7 +270,7 @@ export default {
     this.$bus.on("tableReload", () => {
       this.getData();
     });
-    this.$bus.on("tableSetLoading", (status) => {
+    this.$bus.on("tableSetLoading", status => {
       this.loading = status;
     });
 
@@ -368,8 +319,8 @@ export default {
             ...this.sort,
             ...this.q_search,
             ...this.filterFormData,
-            ...this.tabsSelectdata,
-          },
+            ...this.tabsSelectdata
+          }
         })
         .then(
           ({ data: { data, current_page, per_page, total, last_page } }) => {
@@ -384,7 +335,7 @@ export default {
             if (this.attrs.attributes.dataVuex) {
               this.$store.commit("setGridData", {
                 key: "tableData",
-                data: this.tableData,
+                data: this.tableData
               });
             }
 
@@ -392,16 +343,16 @@ export default {
             this.$store.commit("setGridData", { key: "page", data: this.page });
             this.$store.commit("setGridData", {
               key: "pageData",
-              data: this.pageData,
+              data: this.pageData
             });
 
             this.$store.commit("setGridData", {
               key: "quickSearch",
-              data: this.quickSearch,
+              data: this.quickSearch
             });
             this.$store.commit("setGridData", {
               key: "filterFormData",
-              data: this.filterFormData,
+              data: this.filterFormData
             });
             /** */
           }
@@ -426,7 +377,7 @@ export default {
       this.selectionRows = selection;
       this.$store.commit("setGridData", {
         key: "selectionKeys",
-        data: this.keys,
+        data: this.keys
       });
     },
     //每页大小改变时
@@ -439,12 +390,12 @@ export default {
     onPageCurrentChange(page) {
       this.page = page;
       this.getData();
-    },
+    }
   },
   computed: {
     keys() {
       return this.selectionRows
-        .map((item) => {
+        .map(item => {
           return item[this.attrs.keyName];
         })
         .join(",");
@@ -455,7 +406,7 @@ export default {
     },
     //
     columns() {
-      return this.column_attributes.map((attributes) => {
+      return this.column_attributes.map(attributes => {
         return attributes;
       });
     },
@@ -464,7 +415,7 @@ export default {
       return this.sort
         ? {
             prop: this.sort.sort_prop,
-            order: this.sort.sort_order == "asc" ? "ascending" : "descending",
+            order: this.sort.sort_order == "asc" ? "ascending" : "descending"
           }
         : {};
     },
@@ -477,11 +428,17 @@ export default {
     },
     gridHeight() {
       if (this.attrs.attributes.height == "auto") {
-        return window.innerHeight - 55 - 120 - this.topViewHeight - 40;
+        return (
+          window.innerHeight -
+          55 -
+          window.rootFooterHeight -
+          this.topViewHeight -
+          40
+        );
       }
       return this.attrs.attributes.height;
-    },
-  },
+    }
+  }
 };
 </script>
 

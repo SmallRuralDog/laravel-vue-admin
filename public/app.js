@@ -1986,28 +1986,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2028,6 +2006,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    //监听路由变动
     this.$bus.on("route-after", function (to) {
       _this.route = to.path;
       _this.query = to.query;
@@ -2050,12 +2029,16 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
-    });
+    }); //监听message事件
+
     this.$bus.on("message", function (_ref) {
       var type = _ref.type,
           message = _ref.message;
 
       _this.$message[type](message);
+    });
+    this.$nextTick(function () {
+      window.rootFooterHeight = _this.$refs.rootFooter.offsetHeight + 60;
     });
   },
   destroyed: function destroyed() {
@@ -3377,55 +3360,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3670,7 +3604,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     gridHeight: function gridHeight() {
       if (this.attrs.attributes.height == "auto") {
-        return window.innerHeight - 55 - 120 - this.topViewHeight - 40;
+        return window.innerHeight - 55 - window.rootFooterHeight - this.topViewHeight - 40;
       }
 
       return this.attrs.attributes.height;
@@ -30878,13 +30812,7 @@ var render = function() {
                                   _c(
                                     "span",
                                     { staticClass: "layout-header-user-name" },
-                                    [
-                                      _vm._v(
-                                        "\n                  " +
-                                          _vm._s(_vm.page_data.user.name) +
-                                          "\n                "
-                                      )
-                                    ]
+                                    [_vm._v(_vm._s(_vm.page_data.user.name))]
                                   )
                                 ],
                                 1
@@ -30949,32 +30877,38 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("el-footer", { staticClass: "admin-footer" }, [
-                _c(
-                  "div",
-                  { staticClass: "footer-links" },
-                  _vm._l(_vm.page_data.footerLinks, function(item, index) {
-                    return _c(
-                      "el-link",
-                      {
-                        key: index,
-                        attrs: {
-                          type: "text",
-                          href: item.href,
-                          target: "_blank",
-                          underline: false
-                        }
-                      },
-                      [_vm._v(_vm._s(item.title))]
-                    )
-                  }),
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", {
-                  domProps: { innerHTML: _vm._s(_vm.page_data.copyright) }
-                })
-              ])
+              _c(
+                "el-footer",
+                { staticClass: "admin-footer", attrs: { height: "auto" } },
+                [
+                  _c("div", { ref: "rootFooter" }, [
+                    _c(
+                      "div",
+                      { staticClass: "footer-links" },
+                      _vm._l(_vm.page_data.footerLinks, function(item, index) {
+                        return _c(
+                          "el-link",
+                          {
+                            key: index,
+                            attrs: {
+                              type: "text",
+                              href: item.href,
+                              target: "_blank",
+                              underline: false
+                            }
+                          },
+                          [_vm._v(_vm._s(item.title))]
+                        )
+                      }),
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", {
+                      domProps: { innerHTML: _vm._s(_vm.page_data.copyright) }
+                    })
+                  ])
+                ]
+              )
             ],
             1
           )
