@@ -196,8 +196,24 @@ class FormItem
      * 设置底部组件
      * @param $component
      * @return $this
+     * @deprecated
      */
     public function footerComponent($component)
+    {
+        if ($component instanceof \Closure) {
+            $this->footerComponent = call_user_func($component);
+        } else {
+            $this->footerComponent = $component;
+        }
+        return $this;
+    }
+
+    /**
+     * 设置底部组件
+     * @param $component
+     * @return $this
+     */
+    public function bottomComponent($component)
     {
         if ($component instanceof \Closure) {
             $this->footerComponent = call_user_func($component);
