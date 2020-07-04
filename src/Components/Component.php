@@ -80,7 +80,7 @@ class Component extends AdminJsonBuilder
     /**
      * 注册ref
      * @param string $ref
-     * @return Component
+     * @return $this
      */
     public function ref(string $ref)
     {
@@ -92,15 +92,21 @@ class Component extends AdminJsonBuilder
     /**
      * ref动态注入
      * @param string $ref 选择已注册的ref组件
-     * @param string $refData 目标组件注入的js代码
+     * @param string|\Closure $refData 目标组件注入的js代码
      * @param string $event 当前组件触发什么事件进行注入 click
      * @return $this
      */
-    public function refData(string $ref, string $refData,string $event = "click")
+    public function refData(string $ref, $refData, string $event = "click")
     {
+        if ($refData instanceof \Closure) {
+            $data = call_user_func($refData);
+        } else {
+            $data = $refData;
+        }
+
         $this->refData = [
             'ref' => $ref,
-            "data" => $refData
+            "data" => $data
         ];
         return $this;
     }

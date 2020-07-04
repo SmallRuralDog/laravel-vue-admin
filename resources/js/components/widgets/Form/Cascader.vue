@@ -39,14 +39,9 @@
   />
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    value: {
-      default: null
-    },
-    form_data: Object
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       props: {},
@@ -60,14 +55,7 @@ export default {
     }
     this.options = this.attrs.options;
   },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    },
     onLazyLoad(node, resolve) {
       this.$http
         .post(this.props.lazyUrl, {

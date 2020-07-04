@@ -15,25 +15,8 @@
   ></el-transfer>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    form_data:Object,
-    value: {
-      default: []
-    }
-  },
-  data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins: [FormItemComponent]
 };
 </script>

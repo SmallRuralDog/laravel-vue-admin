@@ -17,32 +17,17 @@
     :height="attrs.height"
     :label="attrs.label"
     :tooltip-class="attrs.tooltipClass"
-   
     @input="onChange"
   ></el-slider>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    value: {
-      default: 0
-    }
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       options: this.attrs.options
     };
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange(value) {
-    
-      this.$emit("change", value);
-    }
   }
 };
 </script>

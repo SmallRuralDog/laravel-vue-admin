@@ -11,6 +11,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var wangeditor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! wangeditor */ "./node_modules/wangeditor/release/wangEditor.js");
 /* harmony import */ var wangeditor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(wangeditor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -25,12 +26,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_1__["FormItemComponent"]],
   data: function data() {
     return {
       editor: null,
@@ -82,11 +80,6 @@ __webpack_require__.r(__webpack_exports__);
     try {
       this.$bus.off("EditDataLoadingCompleted");
     } catch (e) {}
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
   }
 });
 

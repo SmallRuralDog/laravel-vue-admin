@@ -10,18 +10,10 @@
 </template>
 
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  name: "IconChoose",
-  // 设置绑定参数
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [FormItemComponent],
   props: {
-    attrs: Object,
-    value: {
-      default: true
-    },
     // 选项数据，图标类名数组
     options: {
       type: Array,
@@ -307,150 +299,6 @@ export default {
         "el-icon-eleme"
       ]
     }
-  },
-
-  data() {
-    return {};
-  },
-
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    }
   }
 };
 </script>
-
-<style lang="scss">
-@import "~element-ui/packages/theme-chalk/src/common/var.scss";
-.icon-flex {
-  display: flex;
-  align-items: center;
-}
-.icon-select-icon {
-  $size: 32px;
-  $col-count: 8;
-  $row-count: 4;
-  $scope: 5px;
-
-  position: relative;
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border: 1px dashed $--border-color-base;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-
-  // 菜单打开状态
-  &.is-opened,
-  &:hover {
-    border-color: $--color-primary;
-  }
-  // 禁用状态
-  &.is-disabled:hover {
-    border-color: $--border-color-base !important;
-  }
-  &.is-disabled,
-  &.is-disabled > .icon-item,
-  &.is-disabled > .btn-clear {
-    background-color: $--background-color-base;
-  }
-  // 已选状态
-  &.is-active {
-    border-style: solid;
-    border-radius: 0;
-    > .icon-item {
-      padding: $scope;
-      text-align: center;
-      cursor: pointer;
-      > i {
-        display: block;
-        width: 100%;
-        height: 100%;
-        line-height: $size - ($scope * 2);
-        color: $--color-white;
-        background-color: $--color-primary;
-      }
-    }
-  }
-  > .icon-item > i {
-    font-size: ($size / 2);
-  }
-  > .icon-item > iel-icon-plus {
-    width: 100%;
-    line-height: $size;
-    font-size: ($size / 2);
-    font-weight: bold;
-    color: $--color-info;
-    cursor: inherit;
-  }
-
-  // 清空按钮
-  .btn-clear {
-    width: 0;
-    height: 0;
-    border-width: ($size / 2) 0 0 ($size / 2);
-    border-style: solid;
-    border-color: $--color-danger transparent transparent transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    > iel-icon-close {
-      position: absolute;
-      top: -($size / 2);
-      right: 0;
-      color: $--color-white;
-      font-size: 0.7em;
-      &:hover {
-        color: darken($--color-white, 5%);
-      }
-    }
-  }
-
-  // 弹出内容
-  @at-root .el-popover.el-popper.pupop-select-icon {
-    display: block;
-    padding: 0;
-    width: ($size + $scope * 2) * $col-count + 2px;
-    height: ($size + $scope * 2) * $row-count;
-
-    > .el-scrollbar {
-      height: 100%;
-    }
-    .el-scrollbar__view {
-    }
-
-    .icon-item {
-      float: left;
-      width: $size;
-      height: $size;
-      line-height: $size;
-      margin: $scope;
-      padding: $scope;
-      text-align: center;
-      cursor: pointer;
-      &:hover {
-        background-color: $--color-info-light;
-      }
-      &.is-active {
-        background-color: $--color-success-light;
-      }
-      > i {
-        display: block;
-        width: 100%;
-        height: 100%;
-        font-size: ($size / 2);
-        line-height: $size;
-        color: $--color-white;
-        background-color: $--color-primary;
-      }
-    }
-  }
-}
-.icon-button {
-  padding: 7px !important;
-}
-</style>

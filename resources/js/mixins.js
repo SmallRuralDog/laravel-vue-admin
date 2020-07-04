@@ -16,9 +16,9 @@ const FormItemComponent = {
         value: {
             default: null
         },
-        form_items: Array,
+        formItems: Array,
         //当前表单数据
-        form_data: Object,
+        formData: Object,
         //当前组件属性
         attrs: Object
     },
@@ -42,10 +42,20 @@ const BaseComponent = {
                 new Function('ref','self',data)(_this,self)
             })
         }
+
+        if (this.formItem && this.formItem.ref) {
+            this.$bus.on(this.formItem.ref, ({data,self}) => {
+                let _this = this;
+                new Function('ref','self',data)(_this,self)
+            })
+        }
     },
     destroyed() {
         if (this.attrs && this.attrs.ref) {
             this.$bus.off(this.attrs.ref);
+        }
+        if (this.formItem && this.formItem.ref) {
+            this.$bus.off(this.formItem.ref);
         }
     },
 }

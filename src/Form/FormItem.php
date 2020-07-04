@@ -9,7 +9,7 @@ use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Components\Form\Input;
 use SmallRuralDog\Admin\Form;
 
-class FormItem
+class FormItem extends Component
 {
     protected $prop;
     protected $label;
@@ -677,6 +677,8 @@ class FormItem
             'tab' => $this->tab,
             'ignoreEmpty' => $this->ignoreEmpty,
             'hiddenMode' => $this->hiddenMode,
+            'ref'=>$this->ref,
+            'refData'=>$this->refData
         ];
     }
 

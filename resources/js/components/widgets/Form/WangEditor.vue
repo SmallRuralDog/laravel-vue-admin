@@ -13,20 +13,16 @@
 </template>
 <script>
 import E from "wangeditor";
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change",
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       editor: null,
       initHtml: false,
-      defaultValue: "",
+      defaultValue: ""
     };
   },
-
   mounted() {
     this.defaultValue = this._.cloneDeep(this.attrs.componentValue);
 
@@ -38,7 +34,7 @@ export default {
       this.editor.customConfig.uploadImgServer = this.attrs.uploadImgServer;
 
       this.editor.customConfig.uploadImgParams = {
-        _token: Admin.token,
+        _token: Admin.token
       };
     }
     //自定义 fileName
@@ -50,7 +46,7 @@ export default {
       this.editor.customConfig.uploadImgHeaders = this.attrs.uploadImgHeaders;
     }
 
-    this.editor.customConfig.onchange = (html) => {
+    this.editor.customConfig.onchange = html => {
       this.onChange(html);
     };
 
@@ -67,12 +63,7 @@ export default {
     try {
       this.$bus.off("EditDataLoadingCompleted");
     } catch (e) {}
-  },
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    },
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

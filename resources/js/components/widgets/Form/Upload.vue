@@ -20,16 +20,8 @@
             fit="cover"
             icon="el-icon-document-checked"
           />
-          <el-avatar
-            v-else-if="attrs.type == 'avatar'"
-            :size="attrs.width"
-            :src="item.url"
-          />
-          <i
-            @click="onDelete(index)"
-            class="mask el-icon-close"
-            title="删除图片"
-          ></i>
+          <el-avatar v-else-if="attrs.type == 'avatar'" :size="attrs.width" :src="item.url" />
+          <i @click="onDelete(index)" class="mask el-icon-close" title="删除图片"></i>
         </div>
       </template>
     </div>
@@ -58,16 +50,16 @@
           plain
           :class="attrs.type"
           :style="{ width: attrs.width + 'px', height: attrs.height + 'px' }"
-          >上传</el-button
-        >
+        >上传</el-button>
       </el-upload>
     </div>
   </div>
 </template>
 <script>
 import { getFileUrl, getFileName } from "@/utils";
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: ["attrs", "value", "form_data"],
+  mixins: [FormItemComponent],
   data() {
     return {
       data: {
@@ -77,16 +69,9 @@ export default {
       fileList: []
     };
   },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   mounted() {},
   destroyed() {},
   methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    },
     onDelete(index) {
       if (this._.isArray(this.value)) {
         let t_value = this._.clone(this.value);

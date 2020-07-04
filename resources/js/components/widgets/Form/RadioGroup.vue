@@ -15,19 +15,13 @@
       :disabled="radio.disabled"
       :border="radio.border"
       :size="radio.size"
-      >{{ radio.title }}</el-radio
-    >
+    >{{ radio.title }}</el-radio>
   </el-radio-group>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    form_data: Object,
-    value: {
-      default: null
-    }
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       vm: this._.clone(this.value)
@@ -36,15 +30,6 @@ export default {
   watch: {
     value(value) {
       this.vm = value;
-    }
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
     }
   }
 };

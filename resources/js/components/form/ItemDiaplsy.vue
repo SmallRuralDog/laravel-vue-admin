@@ -1,35 +1,36 @@
 <template>
   <div>
     <component
-      v-if="form_item.componentTopComponent"
-      :is="form_item.componentTopComponent.componentName"
-      :attrs="form_item.componentTopComponent"
+      v-if="formItem.componentTopComponent"
+      :is="formItem.componentTopComponent.componentName"
+      :attrs="formItem.componentTopComponent"
     />
     <div class="flex align-center input-view">
       <component
-        v-if="form_item.componentLeftComponent"
-        :is="form_item.componentLeftComponent.componentName"
-        :attrs="form_item.componentLeftComponent"
+        v-if="formItem.componentLeftComponent"
+        :is="formItem.componentLeftComponent.componentName"
+        :attrs="formItem.componentLeftComponent"
       />
       <component
         v-if="attrs"
         :value="value"
         :is="attrs.componentName"
         :attrs="attrs"
-        :form_data="form_data"
-        :form_items="form_items"
+        :formData="formData"
+        :formItems="formItems"
+        :formItem="formItem"
         @change="onChange"
       />
       <component
-        v-if="form_item.componentRightComponent"
-        :is="form_item.componentRightComponent.componentName"
-        :attrs="form_item.componentRightComponent"
+        v-if="formItem.componentRightComponent"
+        :is="formItem.componentRightComponent.componentName"
+        :attrs="formItem.componentRightComponent"
       />
     </div>
     <component
-      v-if="form_item.componentBottomComponent"
-      :is="form_item.componentBottomComponent.componentName"
-      :attrs="form_item.componentBottomComponent"
+      v-if="formItem.componentBottomComponent"
+      :is="formItem.componentBottomComponent.componentName"
+      :attrs="formItem.componentBottomComponent"
     />
   </div>
 </template>
@@ -42,11 +43,11 @@ export default {
     value: {
       default: null
     },
-    form_items: Array,
+    formItems: Array,
     //fromItem数据
-    form_item: Object,
+    formItem: Object,
     //当前表单数据
-    form_data: Object
+    formData: Object
   },
   data() {
     return {};
@@ -57,18 +58,30 @@ export default {
   },
   computed: {
     attrs() {
-      return this.form_item.component;
+      return this.formItem.component;
     }
   },
   methods: {
     onChange(value) {
       this.$emit("change", value);
+
+
+      //触发动态注入
+      this.$nextTick(() => {
+        if (this.formItem.refData) {
+          this.$bus.emit(this.formItem.refData.ref, {
+            data: this.formItem.refData.data,
+            self: this
+          });
+          return;
+        }
+      });
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-.el-form-item__content{
+.el-form-item__content {
   .input-view {
     min-height: 40px;
   }

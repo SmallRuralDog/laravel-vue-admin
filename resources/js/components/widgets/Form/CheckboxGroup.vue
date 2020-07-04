@@ -21,36 +21,17 @@
       :border="checkbox.border"
       :size="checkbox.size"
       :indeterminate="checkbox.indeterminate"
-      >{{ checkbox.title }}</el-checkbox
-    >
+    >{{ checkbox.title }}</el-checkbox>
   </el-checkbox-group>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    value: {
-      default: [],
-    },
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
-      vm: this._.cloneDeep(this.value),
+      vm: this._.cloneDeep(this.value)
     };
-  },
-  model: {
-    prop: "value",
-    event: "change",
-  },
-  watch: {
-    value(value) {
-      //this.vm = value;
-    },
-  },
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    },
-  },
+  }
 };
 </script>

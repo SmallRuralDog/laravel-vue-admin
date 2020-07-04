@@ -36,34 +36,24 @@
     >
       <div class="flex-c-sb">
         <div class="flex-c">
-          <el-avatar
-            v-if="item.avatar"
-            :size="25"
-            :src="item.avatar"
-            class="mr-5"
-          />
+          <el-avatar v-if="item.avatar" :size="25" :src="item.avatar" class="mr-5" />
           <span>{{ item.label }}</span>
         </div>
         <div class="flex-c" v-if="item.desc" v-html="item.desc"></div>
       </div>
     </el-option>
     <el-option v-if="attrs.paginate && loadMore && options.length" :value="undefined">
-        <div @click.stop='remoteMethod(null,"next")'>
-          <i class="el-icon-loading"></i>
-          <span>加载更多</span>
-        </div>
+      <div @click.stop="remoteMethod(null,"next")">
+        <i class="el-icon-loading"></i>
+        <span>加载更多</span>
+      </div>
     </el-option>
   </el-select>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: {
-    attrs: Object,
-    form_data: Object,
-    value: {
-      default: null
-    }
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       options: this.attrs.options,
@@ -76,62 +66,76 @@ export default {
       }
     };
   },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   computed: {
     depend() {
       return _.pick(this.form_data, this.attrs.depend);
     }
   },
   mounted() {
-      this.setLable()
+    this.setLable();
   },
   methods: {
     onChange(value) {
-      let resValue = value
-      if(typeof value === 'object'){
+      let resValue = value;
+      if (typeof value === "object") {
         // 排除value = 0
-        resValue = value.filter(e=> e !== undefined)
-      }else if(value === undefined){
-        resValue = null
+        resValue = value.filter(e => e !== undefined);
+      } else if (value === undefined) {
+        resValue = null;
       }
       this.$emit("change", resValue);
     },
-    remoteMethod(query,next = null) {
+    remoteMethod(query, next = null) {
       if (!next) {
-        this.options = []
-        this.query = query
-        this.meta.page = 1
+        this.options = [];
+        this.query = query;
+        this.meta.page = 1;
       }
       this.$http
-        .get(this.attrs.remoteUrl, { params: { ...this.meta, query: this.query, depend: this.depend, extUrlParams: this.extUrlParams } })
-        .then(res => {
-          const total = res.data.total || res.meta.total
-          const data = res.data.data || res.data
-          if (data.length) {
-            this.options.push(...data)            
+        .get(this.attrs.remoteUrl, {
+          params: {
+            ...this.meta,
+            query: this.query,
+            depend: this.depend,
+            extUrlParams: this.extUrlParams
           }
-          if(this.options.length < total){
-            this.meta.page++
-            this.loadMore = true
-          }else{
-            this.loadMore = false
+        })
+        .then(res => {
+          const total = res.data.total || res.meta.total;
+          const data = res.data.data || res.data;
+          if (data.length) {
+            this.options.push(...data);
+          }
+          if (this.options.length < total) {
+            this.meta.page++;
+            this.loadMore = true;
+          } else {
+            this.loadMore = false;
           }
         });
     },
-    setLable(){
-        const label = this.attrs.label
-        if (label && this.form_data[label.key]) {
-          const options = label.value || {value: "value",label: "label"}
-          this.options = [_.transform(options, (result, value, key) => {
-            const tempValue = _.values(_.pick(this.form_data[label.key], value)).join('-')
-            // 数字校验
-            result[key] = (parseFloat(tempValue).toString() == "NaN")?tempValue:parseFloat(tempValue)
-          }, {})]
-          this.loadMore = false
-        }
+    setLable() {
+      const label = this.attrs.label;
+      if (label && this.form_data[label.key]) {
+        const options = label.value || { value: "value", label: "label" };
+        this.options = [
+          _.transform(
+            options,
+            (result, value, key) => {
+              const tempValue = _.values(
+                _.pick(this.form_data[label.key], value)
+              ).join("-");
+              // 数字校验
+              result[key] =
+                parseFloat(tempValue).toString() == "NaN"
+                  ? tempValue
+                  : parseFloat(tempValue);
+            },
+            {}
+          )
+        ];
+        this.loadMore = false;
+      }
     }
   }
 };

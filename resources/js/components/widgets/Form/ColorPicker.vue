@@ -13,21 +13,8 @@
   ></el-color-picker>
 </template>
 <script>
+import {FormItemComponent} from '@/mixins.js'
 export default {
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  data() {
-    return {};
-  },
-  mounted() {},
-
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins:[FormItemComponent],
 };
 </script>

@@ -58,30 +58,21 @@
   ></el-time-select>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
       vm: "",
       init: false
     };
   },
-  mounted() {},
   watch: {
     value(value) {
       if (!this.init) {
         this.vm = value;
         this.init = true;
       }
-    }
-  },
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
     }
   }
 };

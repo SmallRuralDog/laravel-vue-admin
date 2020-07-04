@@ -34,23 +34,17 @@
   </el-input>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
+  mixins: [FormItemComponent],
   props: ["attrs", "value", "form_data"],
-  data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change",
-  },
   methods: {
     onChange(value) {
       if (this.attrs.type == "number") {
         value = Number(value);
       }
-
       this.$emit("change", value);
-    },
-  },
+    }
+  }
 };
 </script>

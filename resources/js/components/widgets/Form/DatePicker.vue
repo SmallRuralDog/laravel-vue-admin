@@ -23,28 +23,18 @@
   ></el-date-picker>
 </template>
 <script>
+import { FormItemComponent } from "@/mixins.js";
 export default {
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [FormItemComponent],
   data() {
     return {
-      vm: this._.clone(this.value),
+      vm: this._.cloneDeep(this.value),
       init: false
     };
   },
-
   watch: {
     value(value) {
       this.vm = value;
-    }
-  },
-  mounted() {},
-  methods: {
-    onChange(value) {
-      this.$emit("change", value);
     }
   }
 };

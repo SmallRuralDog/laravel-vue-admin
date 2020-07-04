@@ -2600,6 +2600,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2608,11 +2609,11 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       "default": null
     },
-    form_items: Array,
+    formItems: Array,
     //fromItem数据
-    form_item: Object,
+    formItem: Object,
     //当前表单数据
-    form_data: Object
+    formData: Object
   },
   data: function data() {
     return {};
@@ -2623,12 +2624,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     attrs: function attrs() {
-      return this.form_item.component;
+      return this.formItem.component;
     }
   },
   methods: {
     onChange: function onChange(value) {
-      this.$emit("change", value);
+      var _this = this;
+
+      this.$emit("change", value); //触发动态注入
+
+      this.$nextTick(function () {
+        if (_this.formItem.refData) {
+          _this.$bus.emit(_this.formItem.refData.ref, {
+            data: _this.formItem.refData.data,
+            self: _this
+          });
+
+          return;
+        }
+      });
     }
   }
 });
@@ -4840,10 +4854,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["BaseComponent"]],
@@ -5113,6 +5123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5159,14 +5170,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": null
-    },
-    form_data: Object
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       props: {},
@@ -5182,14 +5188,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     this.options = this.attrs.options;
   },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    },
     onLazyLoad: function onLazyLoad(node, resolve) {
       this.$http.post(this.props.lazyUrl, {
         params: _objectSpread({}, node.data)
@@ -5213,6 +5212,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5228,25 +5228,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": null
-    }
-  },
-  data: function data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]]
 });
 
 /***/ }),
@@ -5260,6 +5244,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5286,31 +5271,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": []
-    }
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       vm: this._.cloneDeep(this.value)
     };
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  watch: {
-    value: function value(_value) {//this.vm = value;
-    }
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
   }
 });
 
@@ -5325,6 +5292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5339,21 +5307,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]]
 });
 
 /***/ }),
@@ -5367,6 +5323,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5391,27 +5348,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
-      vm: this._.clone(this.value),
+      vm: this._.cloneDeep(this.value),
       init: false
     };
   },
   watch: {
     value: function value(_value) {
       this.vm = _value;
-    }
-  },
-  mounted: function mounted() {},
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
     }
   }
 });
@@ -5427,6 +5375,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5451,15 +5400,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
-      vm: "",
+      vm: this._.cloneDeep(this.value),
       init: false
     };
   },
@@ -5470,11 +5416,6 @@ __webpack_require__.r(__webpack_exports__);
         this.vm = _value;
         this.init = true;
       }
-    }
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
     }
   }
 });
@@ -5490,6 +5431,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5501,32 +5443,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "IconChoose",
-  // 设置绑定参数
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   props: {
-    attrs: Object,
-    value: {
-      "default": true
-    },
     // 选项数据，图标类名数组
     options: {
       type: Array,
       "default": function _default() {
         return ["el-icon-ice-cream-round", "el-icon-ice-cream-square", "el-icon-lollipop", "el-icon-potato-strips", "el-icon-milk-tea", "el-icon-ice-drink", "el-icon-ice-tea", "el-icon-coffee", "el-icon-orange", "el-icon-pear", "el-icon-apple", "el-icon-cherry", "el-icon-watermelon", "el-icon-grape", "el-icon-refrigerator", "el-icon-goblet-square-full", "el-icon-goblet-square", "el-icon-goblet-full", "el-icon-goblet", "el-icon-cold-drink", "el-icon-coffee-cup", "el-icon-water-cup", "el-icon-hot-water", "el-icon-ice-cream", "el-icon-dessert", "el-icon-sugar", "el-icon-tableware", "el-icon-burger", "el-icon-knife-fork", "el-icon-fork-spoon", "el-icon-chicken", "el-icon-food", "el-icon-dish-1", "el-icon-dish", "el-icon-moon-night", "el-icon-moon", "el-icon-cloudy-and-sunny", "el-icon-partly-cloudy", "el-icon-cloudy", "el-icon-sunny", "el-icon-sunset", "el-icon-sunrise-1", "el-icon-sunrise", "el-icon-heavy-rain", "el-icon-lightning", "el-icon-light-rain", "el-icon-wind-power", "el-icon-baseball", "el-icon-soccer", "el-icon-football", "el-icon-basketball", "el-icon-ship", "el-icon-truck", "el-icon-bicycle", "el-icon-mobile-phone", "el-icon-service", "el-icon-key", "el-icon-unlock", "el-icon-lock", "el-icon-watch", "el-icon-watch-1", "el-icon-timer", "el-icon-alarm-clock", "el-icon-map-location", "el-icon-delete-location", "el-icon-add-location", "el-icon-location-information", "el-icon-location-outline", "el-icon-location", "el-icon-place", "el-icon-discover", "el-icon-first-aid-kit", "el-icon-trophy-1", "el-icon-trophy", "el-icon-medal", "el-icon-medal-1", "el-icon-stopwatch", "el-icon-mic", "el-icon-copy-document", "el-icon-full-screen", "el-icon-switch-button", "el-icon-aim", "el-icon-crop", "el-icon-odometer", "el-icon-time", "el-icon-bangzhu", "el-icon-close-notification", "el-icon-microphone", "el-icon-turn-off-microphone", "el-icon-position", "el-icon-postcard", "el-icon-message", "el-icon-chat-line-square", "el-icon-chat-dot-square", "el-icon-chat-dot-round", "el-icon-chat-square", "el-icon-chat-line-round", "el-icon-chat-round", "el-icon-set-up", "el-icon-turn-off", "el-icon-open", "el-icon-connection", "el-icon-link", "el-icon-cpu", "el-icon-thumb", "el-icon-female", "el-icon-male", "el-icon-guide", "el-icon-news", "el-icon-price-tag", "el-icon-discount", "el-icon-wallet", "el-icon-coin", "el-icon-money", "el-icon-bank-card", "el-icon-box", "el-icon-present", "el-icon-sell", "el-icon-sold-out", "el-icon-shopping-bag-2", "el-icon-shopping-bag-1", "el-icon-shopping-cart-2", "el-icon-shopping-cart-1", "el-icon-shopping-cart-full", "el-icon-smoking", "el-icon-no-smoking", "el-icon-house", "el-icon-table-lamp", "el-icon-school", "el-icon-office-building", "el-icon-toilet-paper", "el-icon-notebook-2", "el-icon-notebook-1", "el-icon-files", "el-icon-collection", "el-icon-receiving", "el-icon-suitcase-1", "el-icon-suitcase", "el-icon-film", "el-icon-collection-tag", "el-icon-data-analysis", "el-icon-pie-chart", "el-icon-data-board", "el-icon-data-line", "el-icon-reading", "el-icon-magic-stick", "el-icon-coordinate", "el-icon-mouse", "el-icon-brush", "el-icon-headset", "el-icon-umbrella", "el-icon-scissors", "el-icon-mobile", "el-icon-attract", "el-icon-monitor", "el-icon-search", "el-icon-takeaway-box", "el-icon-paperclip", "el-icon-printer", "el-icon-document-add", "el-icon-document", "el-icon-document-checked", "el-icon-document-copy", "el-icon-document-delete", "el-icon-document-remove", "el-icon-tickets", "el-icon-folder-checked", "el-icon-folder-delete", "el-icon-folder-remove", "el-icon-folder-add", "el-icon-folder-opened", "el-icon-folder", "el-icon-edit-outline", "el-icon-edit", "el-icon-date", "el-icon-c-scale-to-original", "el-icon-view", "el-icon-loading", "el-icon-rank", "el-icon-sort-down", "el-icon-sort-up", "el-icon-sort", "el-icon-finished", "el-icon-refresh-left", "el-icon-refresh-right", "el-icon-refresh", "el-icon-video-play", "el-icon-video-pause", "el-icon-d-arrow-right", "el-icon-d-arrow-left", "el-icon-arrow-up", "el-icon-arrow-down", "el-icon-arrow-right", "el-icon-arrow-left", "el-icon-top-right", "el-icon-top-left", "el-icon-top", "el-icon-bottom", "el-icon-right", "el-icon-back", "el-icon-bottom-right", "el-icon-bottom-left", "el-icon-caret-top", "el-icon-caret-bottom", "el-icon-caret-right", "el-icon-caret-left", "el-icon-d-caret", "el-icon-share", "el-icon-menu", "el-icon-s-grid", "el-icon-s-check", "el-icon-s-data", "el-icon-s-opportunity", "el-icon-s-custom", "el-icon-s-claim", "el-icon-s-finance", "el-icon-s-comment", "el-icon-s-flag", "el-icon-s-marketing", "el-icon-s-shop", "el-icon-s-open", "el-icon-s-management", "el-icon-s-ticket", "el-icon-s-release", "el-icon-s-home", "el-icon-s-promotion", "el-icon-s-operation", "el-icon-s-unfold", "el-icon-s-fold", "el-icon-s-platform", "el-icon-s-order", "el-icon-s-cooperation", "el-icon-bell", "el-icon-message-solid", "el-icon-video-camera", "el-icon-video-camera-solid", "el-icon-camera", "el-icon-camera-solid", "el-icon-download", "el-icon-upload2", "el-icon-upload", "el-icon-picture-outline-round", "el-icon-picture-outline", "el-icon-picture", "el-icon-close", "el-icon-check", "el-icon-plus", "el-icon-minus", "el-icon-help", "el-icon-s-help", "el-icon-circle-close", "el-icon-circle-check", "el-icon-circle-plus-outline", "el-icon-remove-outline", "el-icon-zoom-out", "el-icon-zoom-in", "el-icon-error", "el-icon-success", "el-icon-circle-plus", "el-icon-remove", "el-icon-info", "el-icon-question", "el-icon-warning-outline", "el-icon-warning", "el-icon-goods", "el-icon-s-goods", "el-icon-star-off", "el-icon-star-on", "el-icon-more-outline", "el-icon-more", "el-icon-phone-outline", "el-icon-phone", "el-icon-user", "el-icon-user-solid", "el-icon-setting", "el-icon-s-tools", "el-icon-delete", "el-icon-delete-solid", "el-icon-eleme"];
       }
-    }
-  },
-  data: function data() {
-    return {};
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
     }
   }
 });
@@ -5542,6 +5468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5577,15 +5504,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   props: ["attrs", "value", "form_data"],
-  data: function data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   methods: {
     onChange: function onChange(value) {
       if (this.attrs.type == "number") {
@@ -5608,6 +5530,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5628,25 +5551,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": 0
-    }
-  },
-  data: function data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]]
 });
 
 /***/ }),
@@ -5699,6 +5606,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5719,15 +5627,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    form_data: Object,
-    value: {
-      "default": null
-    }
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       vm: this._.clone(this.value)
@@ -5736,15 +5638,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     value: function value(_value) {
       this.vm = _value;
-    }
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
     }
   }
 });
@@ -5760,6 +5653,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -5832,19 +5726,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    form_data: Object,
-    value: {
-      "default": null
-    }
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       options: this.attrs.options,
@@ -5856,10 +5740,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         per_page: this.attrs.paginate
       }
     };
-  },
-  model: {
-    prop: "value",
-    event: "change"
   },
   computed: {
     depend: function depend() {
@@ -5873,7 +5753,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     onChange: function onChange(value) {
       var resValue = value;
 
-      if (_typeof(value) === 'object') {
+      if (_typeof(value) === "object") {
         // 排除value = 0
         resValue = value.filter(function (e) {
           return e !== undefined;
@@ -5930,7 +5810,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           label: "label"
         };
         this.options = [_.transform(options, function (result, value, key) {
-          var tempValue = _.values(_.pick(_this2.form_data[label.key], value)).join('-'); // 数字校验
+          var tempValue = _.values(_.pick(_this2.form_data[label.key], value)).join("-"); // 数字校验
 
 
           result[key] = parseFloat(tempValue).toString() == "NaN" ? tempValue : parseFloat(tempValue);
@@ -5952,6 +5832,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -5974,27 +5855,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": 0
-    }
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       options: this.attrs.options
     };
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
   }
 });
 
@@ -6009,6 +5876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -6029,26 +5897,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    value: {
-      "default": true
-    }
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       options: this.attrs.options
     };
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
   }
 });
 
@@ -6063,6 +5918,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -6122,30 +5978,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["value", "attrs", "form_data", "form_items"],
-  model: {
-    prop: "value",
-    event: "change"
-  },
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]],
   data: function data() {
     return {
       vm: "",
       init: false
     };
   },
-  mounted: function mounted() {},
   watch: {
     value: function value(_value) {
       if (!this.init) {
         this.vm = _value;
         this.init = true;
       }
-    }
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
     }
   }
 });
@@ -6161,6 +6008,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 //
 //
 //
@@ -6177,26 +6025,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    attrs: Object,
-    form_data: Object,
-    value: {
-      "default": []
-    }
-  },
-  data: function data() {
-    return {};
-  },
-  model: {
-    prop: "value",
-    event: "change"
-  },
-  methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    }
-  }
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_0__["FormItemComponent"]]
 });
 
 /***/ }),
@@ -6211,6 +6042,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils */ "./resources/js/utils.js");
+/* harmony import */ var _mixins_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/mixins.js */ "./resources/js/mixins.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -6274,18 +6106,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["attrs", "value", "form_data"],
+  mixins: [_mixins_js__WEBPACK_IMPORTED_MODULE_1__["FormItemComponent"]],
   data: function data() {
     return {
       data: _objectSpread({
@@ -6294,16 +6118,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       fileList: []
     };
   },
-  model: {
-    prop: "value",
-    event: "change"
-  },
   mounted: function mounted() {},
   destroyed: function destroyed() {},
   methods: {
-    onChange: function onChange(value) {
-      this.$emit("change", value);
-    },
     onDelete: function onDelete(index) {
       if (this._.isArray(this.value)) {
         var t_value = this._.clone(this.value);
@@ -8939,25 +8756,6 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".tree-display-column {\n  vertical-align: middle;\n  display: inline-block;\n  line-height: 1;\n}\n.tree-display-column .el-tag {\n  margin-bottom: 2px;\n  margin-top: 2px;\n  margin-right: 4px;\n}\n.tree-display-column + .tree-display-column {\n  margin-left: 10px;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* Element Chalk Variables */\n/* Transition\n-------------------------- */\n/* Color\n-------------------------- */\n/* 53a8ff */\n/* 66b1ff */\n/* 79bbff */\n/* 8cc5ff */\n/* a0cfff */\n/* b3d8ff */\n/* c6e2ff */\n/* d9ecff */\n/* ecf5ff */\n/* Link\n-------------------------- */\n/* Border\n-------------------------- */\n/* Fill\n-------------------------- */\n/* Typography\n-------------------------- */\n/* Size\n-------------------------- */\n/* z-index\n-------------------------- */\n/* Disable base\n-------------------------- */\n/* Icon\n-------------------------- */\n/* Checkbox\n-------------------------- */\n/* Radio\n-------------------------- */\n/* Select\n-------------------------- */\n/* Alert\n-------------------------- */\n/* MessageBox\n-------------------------- */\n/* Message\n-------------------------- */\n/* Notification\n-------------------------- */\n/* Input\n-------------------------- */\n/* Cascader\n-------------------------- */\n/* Group\n-------------------------- */\n/* Tab\n-------------------------- */\n/* Button\n-------------------------- */\n/* cascader\n-------------------------- */\n/* Switch\n-------------------------- */\n/* Dialog\n-------------------------- */\n/* Table\n-------------------------- */\n/* Pagination\n-------------------------- */\n/* Popup\n-------------------------- */\n/* Popover\n-------------------------- */\n/* Tooltip\n-------------------------- */\n/* Tag\n-------------------------- */\n/* Tree\n-------------------------- */\n/* Dropdown\n-------------------------- */\n/* Badge\n-------------------------- */\n/* Card\n--------------------------*/\n/* Slider\n--------------------------*/\n/* Steps\n--------------------------*/\n/* Menu\n--------------------------*/\n/* Rate\n--------------------------*/\n/* DatePicker\n--------------------------*/\n/* Loading\n--------------------------*/\n/* Scrollbar\n--------------------------*/\n/* Carousel\n--------------------------*/\n/* Collapse\n--------------------------*/\n/* Transfer\n--------------------------*/\n/* Header\n  --------------------------*/\n/* Footer\n--------------------------*/\n/* Main\n--------------------------*/\n/* Timeline\n--------------------------*/\n/* Backtop\n--------------------------*/\n/* Link\n--------------------------*/\n/* Calendar\n--------------------------*/\n/* Form\n-------------------------- */\n/* Avatar\n--------------------------*/\n/* Break-point\n--------------------------*/\n.icon-flex {\n  display: flex;\n  align-items: center;\n}\n.icon-select-icon {\n  position: relative;\n  display: inline-block;\n  width: 32px;\n  height: 32px;\n  border: 1px dashed #DCDFE6;\n  border-radius: 5px;\n  text-align: center;\n  cursor: pointer;\n  outline: none;\n}\n.icon-select-icon.is-opened, .icon-select-icon:hover {\n  border-color: #409EFF;\n}\n.icon-select-icon.is-disabled:hover {\n  border-color: #DCDFE6 !important;\n}\n.icon-select-icon.is-disabled, .icon-select-icon.is-disabled > .icon-item, .icon-select-icon.is-disabled > .btn-clear {\n  background-color: #F5F7FA;\n}\n.icon-select-icon.is-active {\n  border-style: solid;\n  border-radius: 0;\n}\n.icon-select-icon.is-active > .icon-item {\n  padding: 5px;\n  text-align: center;\n  cursor: pointer;\n}\n.icon-select-icon.is-active > .icon-item > i {\n  display: block;\n  width: 100%;\n  height: 100%;\n  line-height: 22px;\n  color: #FFFFFF;\n  background-color: #409EFF;\n}\n.icon-select-icon > .icon-item > i {\n  font-size: 16px;\n}\n.icon-select-icon > .icon-item > iel-icon-plus {\n  width: 100%;\n  line-height: 32px;\n  font-size: 16px;\n  font-weight: bold;\n  color: #909399;\n  cursor: inherit;\n}\n.icon-select-icon .btn-clear {\n  width: 0;\n  height: 0;\n  border-width: 16px 0 0 16px;\n  border-style: solid;\n  border-color: #F56C6C transparent transparent transparent;\n  position: absolute;\n  top: 0;\n  right: 0;\n  cursor: pointer;\n}\n.icon-select-icon .btn-clear > iel-icon-close {\n  position: absolute;\n  top: -16px;\n  right: 0;\n  color: #FFFFFF;\n  font-size: 0.7em;\n}\n.icon-select-icon .btn-clear > iel-icon-close:hover {\n  color: #f2f2f2;\n}\n.el-popover.el-popper.pupop-select-icon {\n  display: block;\n  padding: 0;\n  width: 338px;\n  height: 168px;\n}\n.el-popover.el-popper.pupop-select-icon > .el-scrollbar {\n  height: 100%;\n}\n.el-popover.el-popper.pupop-select-icon .icon-item {\n  float: left;\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  margin: 5px;\n  padding: 5px;\n  text-align: center;\n  cursor: pointer;\n}\n.el-popover.el-popper.pupop-select-icon .icon-item:hover {\n  background-color: #e9e9eb;\n}\n.el-popover.el-popper.pupop-select-icon .icon-item.is-active {\n  background-color: #e1f3d8;\n}\n.el-popover.el-popper.pupop-select-icon .icon-item > i {\n  display: block;\n  width: 100%;\n  height: 100%;\n  font-size: 16px;\n  line-height: 32px;\n  color: #FFFFFF;\n  background-color: #409EFF;\n}\n.icon-button {\n  padding: 7px !important;\n}", ""]);
 
 // exports
 
@@ -29311,36 +29109,6 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--6-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IconChoose.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/ItemSelect.vue?vue&type=style&index=0&lang=scss&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/Form/ItemSelect.vue?vue&type=style&index=0&lang=scss& ***!
@@ -31525,10 +31293,10 @@ var render = function() {
                                                   ? [
                                                       _c("ItemDiaplsy", {
                                                         attrs: {
-                                                          form_item: item,
-                                                          form_items:
+                                                          "form-item": item,
+                                                          "form-items":
                                                             _vm.attrs.formItems,
-                                                          form_data:
+                                                          "form-data":
                                                             _vm.formData
                                                         },
                                                         model: {
@@ -31559,10 +31327,10 @@ var render = function() {
                                                   : [
                                                       _c("ItemDiaplsy", {
                                                         attrs: {
-                                                          form_item: item,
-                                                          form_items:
+                                                          "form-item": item,
+                                                          "form-items":
                                                             _vm.attrs.formItems,
-                                                          form_data:
+                                                          "form-data":
                                                             _vm.formData
                                                         },
                                                         model: {
@@ -31727,10 +31495,10 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.form_item.componentTopComponent
-        ? _c(_vm.form_item.componentTopComponent.componentName, {
+      _vm.formItem.componentTopComponent
+        ? _c(_vm.formItem.componentTopComponent.componentName, {
             tag: "component",
-            attrs: { attrs: _vm.form_item.componentTopComponent }
+            attrs: { attrs: _vm.formItem.componentTopComponent }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -31738,10 +31506,10 @@ var render = function() {
         "div",
         { staticClass: "flex align-center input-view" },
         [
-          _vm.form_item.componentLeftComponent
-            ? _c(_vm.form_item.componentLeftComponent.componentName, {
+          _vm.formItem.componentLeftComponent
+            ? _c(_vm.formItem.componentLeftComponent.componentName, {
                 tag: "component",
-                attrs: { attrs: _vm.form_item.componentLeftComponent }
+                attrs: { attrs: _vm.formItem.componentLeftComponent }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -31751,27 +31519,28 @@ var render = function() {
                 attrs: {
                   value: _vm.value,
                   attrs: _vm.attrs,
-                  form_data: _vm.form_data,
-                  form_items: _vm.form_items
+                  formData: _vm.formData,
+                  formItems: _vm.formItems,
+                  formItem: _vm.formItem
                 },
                 on: { change: _vm.onChange }
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.form_item.componentRightComponent
-            ? _c(_vm.form_item.componentRightComponent.componentName, {
+          _vm.formItem.componentRightComponent
+            ? _c(_vm.formItem.componentRightComponent.componentName, {
                 tag: "component",
-                attrs: { attrs: _vm.form_item.componentRightComponent }
+                attrs: { attrs: _vm.formItem.componentRightComponent }
               })
             : _vm._e()
         ],
         1
       ),
       _vm._v(" "),
-      _vm.form_item.componentBottomComponent
-        ? _c(_vm.form_item.componentBottomComponent.componentName, {
+      _vm.formItem.componentBottomComponent
+        ? _c(_vm.formItem.componentBottomComponent.componentName, {
             tag: "component",
-            attrs: { attrs: _vm.form_item.componentBottomComponent }
+            attrs: { attrs: _vm.formItem.componentBottomComponent }
           })
         : _vm._e()
     ],
@@ -34800,22 +34569,10 @@ var render = function() {
       _vm._v(" "),
       _vm.attrs.paginate && _vm.loadMore && _vm.options.length
         ? _c("el-option", { attrs: { value: undefined } }, [
-            _c(
-              "div",
-              {
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    return _vm.remoteMethod(null, "next")
-                  }
-                }
-              },
-              [
-                _c("i", { staticClass: "el-icon-loading" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("加载更多")])
-              ]
-            )
+            _vm._v('")">\n      '),
+            _c("i", { staticClass: "el-icon-loading" }),
+            _vm._v(" "),
+            _c("span", [_vm._v("加载更多")])
           ])
         : _vm._e()
     ],
@@ -39148,9 +38905,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _IconChoose_vue_vue_type_template_id_97309680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IconChoose.vue?vue&type=template&id=97309680& */ "./resources/js/components/widgets/Form/IconChoose.vue?vue&type=template&id=97309680&");
 /* harmony import */ var _IconChoose_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IconChoose.vue?vue&type=script&lang=js& */ "./resources/js/components/widgets/Form/IconChoose.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IconChoose.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -39158,7 +38913,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _IconChoose_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _IconChoose_vue_vue_type_template_id_97309680___WEBPACK_IMPORTED_MODULE_0__["render"],
   _IconChoose_vue_vue_type_template_id_97309680___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -39187,22 +38942,6 @@ component.options.__file = "resources/js/components/widgets/Form/IconChoose.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IconChoose.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--6-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IconChoose.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/Form/IconChoose.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_sass_loader_dist_cjs_js_ref_6_3_node_modules_vue_loader_lib_index_js_vue_loader_options_IconChoose_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -40549,9 +40288,9 @@ var FormItemComponent = {
     value: {
       "default": null
     },
-    form_items: Array,
+    formItems: Array,
     //当前表单数据
-    form_data: Object,
+    formData: Object,
     //当前组件属性
     attrs: Object
   },
@@ -40577,10 +40316,23 @@ var BaseComponent = {
         new Function('ref', 'self', data)(_this, self);
       });
     }
+
+    if (this.formItem && this.formItem.ref) {
+      this.$bus.on(this.formItem.ref, function (_ref2) {
+        var data = _ref2.data,
+            self = _ref2.self;
+        var _this = _this2;
+        new Function('ref', 'self', data)(_this, self);
+      });
+    }
   },
   destroyed: function destroyed() {
     if (this.attrs && this.attrs.ref) {
       this.$bus.off(this.attrs.ref);
+    }
+
+    if (this.formItem && this.formItem.ref) {
+      this.$bus.off(this.formItem.ref);
     }
   }
 };
