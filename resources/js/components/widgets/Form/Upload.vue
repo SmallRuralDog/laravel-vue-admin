@@ -238,9 +238,6 @@ export default {
     .avatar {
       border-radius: 50%;
     }
-    .image,
-    .file {
-    }
   }
 }
 </style>

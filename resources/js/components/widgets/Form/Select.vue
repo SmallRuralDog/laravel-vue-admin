@@ -43,7 +43,7 @@
       </div>
     </el-option>
     <el-option v-if="attrs.paginate && loadMore && options.length" :value="undefined">
-      <div @click.stop="remoteMethod(null,"next")">
+      <div @click.stop="remoteMethod(null,'next')">
         <i class="el-icon-loading"></i>
         <span>加载更多</span>
       </div>

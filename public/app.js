@@ -34569,10 +34569,22 @@ var render = function() {
       _vm._v(" "),
       _vm.attrs.paginate && _vm.loadMore && _vm.options.length
         ? _c("el-option", { attrs: { value: undefined } }, [
-            _vm._v('")">\n      '),
-            _c("i", { staticClass: "el-icon-loading" }),
-            _vm._v(" "),
-            _c("span", [_vm._v("加载更多")])
+            _c(
+              "div",
+              {
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    return _vm.remoteMethod(null, "next")
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "el-icon-loading" }),
+                _vm._v(" "),
+                _c("span", [_vm._v("加载更多")])
+              ]
+            )
           ])
         : _vm._e()
     ],
