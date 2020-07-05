@@ -40314,6 +40314,13 @@ var FormItemComponent = {
     onChange: function onChange(value) {
       this.$emit("change", value);
     }
+  },
+  watch: {
+    value: function value(_value) {
+      try {
+        this.vm = _value;
+      } catch (error) {}
+    }
   }
 };
 var BaseComponent = {

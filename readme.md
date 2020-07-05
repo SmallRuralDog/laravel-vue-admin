@@ -10,7 +10,7 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
 如果你熟悉`vue`，那么你可以说一声WOCAONIUB
 
-放弃jQuery，拥抱vue，是Laravel-Vue-Admin对自定义与vue特性的追求，使用Laravel-Vue-Admin一定要领会到精髓，感兴趣的可以加入Laravel-Vue-Admin的大家庭一起研究讨论哦。
+放弃jQuery，拥抱vue，是Laravel-Vue-Admin对`自定义`与`vue生态`的追求，使用Laravel-Vue-Admin一定要领会到精髓
 
 
 
