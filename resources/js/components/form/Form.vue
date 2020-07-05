@@ -10,7 +10,6 @@
       shadow="never"
       class="form-card"
       v-loading="loading"
-      title="创建"
     >
       <el-form
         v-if="formData"

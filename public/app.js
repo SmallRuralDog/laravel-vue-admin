@@ -2419,7 +2419,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -31199,7 +31198,7 @@ var render = function() {
           ],
           tag: "component",
           staticClass: "form-card",
-          attrs: { shadow: "never", title: "创建" }
+          attrs: { shadow: "never" }
         },
         [
           _vm.formData
@@ -32228,9 +32227,9 @@ var render = function() {
                                   [
                                     _c("ItemDiaplsy", {
                                       attrs: {
-                                        form_item: item,
-                                        form_items: _vm.attrs.filters,
-                                        form_data: _vm.filterFormData
+                                        "form-item": item,
+                                        "form-items": _vm.attrs.filters,
+                                        "form-data": _vm.filterFormData
                                       },
                                       model: {
                                         value: _vm.filterFormData[item.column],

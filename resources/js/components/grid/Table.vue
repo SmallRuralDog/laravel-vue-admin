@@ -84,9 +84,9 @@
             >
               <ItemDiaplsy
                 v-model="filterFormData[item.column]"
-                :form_item="item"
-                :form_items="attrs.filters"
-                :form_data="filterFormData"
+                :form-item="item"
+                :form-items="attrs.filters"
+                :form-data="filterFormData"
               />
             </el-form-item>
             <el-form-item>
