@@ -6,12 +6,15 @@ Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
 丰富的`表单` `表格`组件，强大的自定义组件功能。
 
-只需体验三分钟，你就会爱上这款 游戏
+如果你用过 `laravel-admin`、`nova`、`dcat-admin` ，那么你一定会喜欢上这款扩展的。
+
+如果你熟悉`vue`，那么你可以说一声WOCAONIUB
+
+放弃jQuery，拥抱vue，是Laravel-Vue-Admin对自定义与vue特性的追求，使用Laravel-Vue-Admin一定要领会到精髓，感兴趣的可以加入Laravel-Vue-Admin的大家庭一起研究讨论哦。
 
 
 
-
-[中文文档](https://smallruraldog.github.io/laravel-vue-admin/#/) | [演示地址](https://laravel-vue-admin.com/admin) 用户名/密码：`demo` / `demo`
+[中文文档](https://www.yuque.com/smallruraldog/laravel-vue-admin/overview) | [演示地址](https://laravel-vue-admin.com/admin) 用户名/密码：`demo` / `demo`
 ## 安装
 首先确保安装好了laravel，并且数据库连接设置正确。
 
@@ -29,50 +32,6 @@ php artisan vendor:publish --provider="SmallRuralDog\Admin\AdminServiceProvider"
 php artisan admin:install
 ```
 启动服务后，在浏览器打开 `/admin` ,使用用户名 admin 和密码 admin登录.
-## 开始使用
-下面是一个简单使用的代码示例
-
-
-创建资源控制器 继承`AdminController`，并实现`AdminResource`
-
-```php
-use SmallRuralDog\Admin\Controllers\AdminController;
-use SmallRuralDog\Admin\Controllers\AdminResource;
-
-class GroupBuyController extends AdminController implements AdminResource
-{
-
-    //表格定义
-    public function grid()
-    {
-        $grid = new Grid(new GroupBuyGoods());
-        $grid->column('goodsSku.image')->align("center")->component(Image::make()->size(50, 50));
-        $grid->column('goodsSku.name');
-        $grid->column('group_buy_number')->width(90)->align('center');
-        $grid->column('group_buy_price')->width(90)->align('center')->itemPrefix("￥");
-        $grid->column('start_time')->width(190);
-        $grid->column('end_time')->width(190);
-        return $grid;
-    }
-
-    //表单定义
-    public function form($isEdit = false)
-    {
-        $form = new Form(new GroupBuyGoods());
-        $form->item('name');
-        $form->item('group_buy_number')->required()->component(InputNumber::make(2)->min(2));
-        $form->item('group_buy_price')->required()->component(InputNumber::make()->precision(2));
-        $form->item('start_time')->required()->component(DateTimePicker::make());
-        $form->item('end_time')->required()->component(DateTimePicker::make());
-        return $form;
-    }
-}
-```
-注册路由
-```php
- $router->resource('GroupBu', 'GroupBuyController');
-```
-添加菜单，菜单的Uri和注册的路由`GroupBu`一样
 
 ## 版本升级
 
@@ -89,8 +48,9 @@ composer require smallruraldog/laravel-vue-admin
 composer require smallruraldog/laravel-vue-admin:dev-master
 ```
 更新资源文件
+
+发布静态资源文件(必须)
 ```bash
-// 发布静态资源文件(必须)
 php artisan vendor:publish --tag=laravel-vue-admin-assets --force
 ```
 ```bash
