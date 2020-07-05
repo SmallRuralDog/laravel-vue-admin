@@ -31519,9 +31519,9 @@ var render = function() {
                 attrs: {
                   value: _vm.value,
                   attrs: _vm.attrs,
-                  formData: _vm.formData,
-                  formItems: _vm.formItems,
-                  formItem: _vm.formItem
+                  "form-data": _vm.formData,
+                  "form-items": _vm.formItems,
+                  "form-item": _vm.formItem
                 },
                 on: { change: _vm.onChange }
               })
@@ -35638,7 +35638,7 @@ module.exports = "/vendor/laravel-vue-admin/images/404.png?3210e18dbf193f9d42afb
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7f56c0661a28a4a2786";
+module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?56883ad1cf6cc0a234232773dc36b141";
 
 /***/ }),
 
@@ -35649,7 +35649,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb897e319feb8e59e1bed96b82";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?4c0c73512c1208e226d8513d2fd1e1f5";
 
 /***/ }),
 
@@ -35660,7 +35660,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb8
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21dbcab0825c23bbd40b1";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?f088544c92cff88f7b2ab5b17675828f";
 
 /***/ }),
 
@@ -35671,7 +35671,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21db
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927eca4146f30c3e";
+module.exports = "/vendor/laravel-vue-admin/images/logo.svg?99edcb36f9285eea841ba52d2f029c1b";
 
 /***/ }),
 
@@ -35682,7 +35682,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927e
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5afb380efaf57d8c1d4";
+module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?412ca67ee39f5966ea6f33bb8261b46d";
 
 /***/ }),
 
@@ -35693,7 +35693,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c1d84cd1ec6e6f3b760";
+module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?4183aad0f450979539478f153b816db0";
 
 /***/ }),
 
@@ -35704,7 +35704,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4c76c7c2ad5e1ee6a";
+module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?e796938e6a2e849300f4e6ff74696319";
 
 /***/ }),
 
@@ -35715,7 +35715,7 @@ module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?da07f9c2f262ef49b183fd4e882a5935";
+module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?f6d512ec0129eebd9e64aae12247551e";
 
 /***/ }),
 
@@ -40301,6 +40301,7 @@ var FormItemComponent = {
       "default": null
     },
     formItems: Array,
+    formItem: Object,
     //当前表单数据
     formData: Object,
     //当前组件属性
@@ -40827,7 +40828,7 @@ function isNull(argument) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/E/PHPProjects/laravel-vue-admin-main/laravel-vue-admin/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\docker\php\lva\laravel-vue-admin-main\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

@@ -1,5 +1,5 @@
 <template>
-  <div class="wangeditor-main">
+  <div class="wangeditor-main flex-sub">
     <div ref="toolbar" class="toolbar"></div>
     <div v-if="attrs.component">
       <component

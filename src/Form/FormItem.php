@@ -437,22 +437,22 @@ class FormItem extends Component
 
     /**
      * 是否必填，如不设置，则会根据校验规则自动生成
-     * @param bool $required
+
      * @param null $message
      * @param string $type
      * @param string $trigger
      * @return $this
      */
-    public function required(bool $required = true, $type = "string", $message = null, $trigger = "blur")
+    public function required( $type = "string", $message = null, $trigger = "blur")
     {
-        $this->required = $required;
+        $this->required = true;
         $message = $message ?? '请填写' . $this->label;
         if (!$this->serveRules) {
             $this->serveRules('required');
             $this->serveRulesMessage(['required' => $message]);
         }
         if (!$this->rules) {
-            $this->vueRule($required, $type, $message, $trigger);
+            $this->vueRule(true, $type, $message, $trigger);
         }
 
         return $this;

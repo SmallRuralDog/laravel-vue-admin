@@ -16,9 +16,9 @@
         :value="value"
         :is="attrs.componentName"
         :attrs="attrs"
-        :formData="formData"
-        :formItems="formItems"
-        :formItem="formItem"
+        :form-data="formData"
+        :form-items="formItems"
+        :form-item="formItem"
         @change="onChange"
       />
       <component
@@ -41,43 +41,42 @@ export default {
   mixins: [BaseComponent],
   props: {
     value: {
-      default: null
+      default: null,
     },
     formItems: Array,
     //fromItem数据
     formItem: Object,
     //当前表单数据
-    formData: Object
+    formData: Object,
   },
   data() {
     return {};
   },
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   computed: {
     attrs() {
       return this.formItem.component;
-    }
+    },
   },
   methods: {
     onChange(value) {
       this.$emit("change", value);
-
 
       //触发动态注入
       this.$nextTick(() => {
         if (this.formItem.refData) {
           this.$bus.emit(this.formItem.refData.ref, {
             data: this.formItem.refData.data,
-            self: this
+            self: this,
           });
           return;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -149,7 +149,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "wangeditor-main" }, [
+  return _c("div", { staticClass: "wangeditor-main flex-sub" }, [
     _c("div", { ref: "toolbar", staticClass: "toolbar" }),
     _vm._v(" "),
     _vm.attrs.component
