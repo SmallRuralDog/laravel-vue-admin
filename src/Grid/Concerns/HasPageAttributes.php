@@ -9,7 +9,22 @@ trait HasPageAttributes
     protected $pageSizes = [10, 15, 20, 30, 50, 100];
     protected $perPage = 15;
 
+    protected $pageLayout = "total, sizes,->,prev, pager, next, jumper";
+
     protected $pageBackground = true;
+
+    /**
+     * 设置分页布局，子组件名用逗号分隔
+     * prev, pager, next, jumper, ->, total
+     * @param string $layout
+     * @return $this
+     */
+    public function pageLayout(string $layout)
+    {
+        $this->pageLayout = $layout;
+        return $this;
+    }
+
 
     /**
      * 每页显示个数选择器的选项设置

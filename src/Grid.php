@@ -24,7 +24,7 @@ use SmallRuralDog\Admin\Grid\Toolbars;
 use SmallRuralDog\Admin\Layout\Content;
 
 
-class Grid extends Component implements \JsonSerializable
+class Grid extends Component
 {
     use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter;
 
@@ -380,6 +380,7 @@ class Grid extends Component implements \JsonSerializable
             $viewData['dataUrl'] = $this->dataUrl;
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;
+            $viewData['pageLayout'] = $this->pageLayout;
             $viewData['pageBackground'] = $this->pageBackground;
             $viewData['toolbars'] = $this->toolbars->builderData();
             $viewData['batchActions'] = $this->batchActions->builderActions();

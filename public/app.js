@@ -32461,7 +32461,7 @@ var render = function() {
             [
               _c("el-pagination", {
                 attrs: {
-                  layout: "prev, pager, next, jumper,->,total, sizes",
+                  layout: _vm.attrs.pageLayout,
                   "hide-on-single-page": false,
                   total: _vm.pageData.total,
                   "page-size": _vm.pageData.pageSize,

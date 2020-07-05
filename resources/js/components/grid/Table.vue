@@ -167,7 +167,7 @@
       </div>
       <div class="table-page">
         <el-pagination
-          layout="prev, pager, next, jumper,->,total, sizes"
+          :layout="attrs.pageLayout"
           :hide-on-single-page="false"
           :total="pageData.total"
           :page-size="pageData.pageSize"
