@@ -12,6 +12,11 @@ const GridColumnComponent = {
 }
 
 const FormItemComponent = {
+    data() {
+        return {
+            vm: this._.cloneDeep(this.value)
+        }
+    },
     props: {
         value: {
             default: null
@@ -37,9 +42,9 @@ const FormItemComponent = {
             try {
                 this.vm = value;
             } catch (error) {
-                
+
             }
-            
+
         }
     }
 }

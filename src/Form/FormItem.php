@@ -437,13 +437,12 @@ class FormItem extends Component
 
     /**
      * 是否必填，如不设置，则会根据校验规则自动生成
-
      * @param null $message
      * @param string $type
      * @param string $trigger
      * @return $this
      */
-    public function required( $type = "string", $message = null, $trigger = "blur")
+    public function required($type = "string", $message = null, $trigger = "blur")
     {
         $this->required = true;
         $message = $message ?? '请填写' . $this->label;
@@ -482,6 +481,17 @@ class FormItem extends Component
     {
         $rule = ['type' => $type, 'required' => true, "message" => $message, "trigger" => $trigger];
         $this->rules = collect($this->rules)->add($rule)->all();
+        return $this;
+    }
+
+    /**
+     * 表单验证规则原生写法，多条规则可设置多次
+     * @param array $raw
+     * @return $this
+     */
+    public function vueRuleRaw(array $raw)
+    {
+        $this->rules = collect($this->rules)->add($raw)->all();
         return $this;
     }
 
@@ -677,8 +687,8 @@ class FormItem extends Component
             'tab' => $this->tab,
             'ignoreEmpty' => $this->ignoreEmpty,
             'hiddenMode' => $this->hiddenMode,
-            'ref'=>$this->ref,
-            'refData'=>$this->refData
+            'ref' => $this->ref,
+            'refData' => $this->refData
         ];
     }
 
