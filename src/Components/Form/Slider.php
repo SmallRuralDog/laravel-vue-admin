@@ -145,10 +145,10 @@ class Slider extends Component
     /**
      * 是否竖向模式
      * @param bool $vertical
-     * @param int $height
+     * @param string $height
      * @return $this
      */
-    public function vertical($vertical = true, $height = 100)
+    public function vertical($vertical = true, $height = "100px")
     {
         $this->vertical = $vertical;
         $this->height = $height;

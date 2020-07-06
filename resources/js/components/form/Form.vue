@@ -1,10 +1,6 @@
 <template>
   <div class="form-page">
-    <component
-        v-if="attrs.top"
-        :is="attrs.top.componentName"
-        :attrs="attrs.top"
-      />
+    <component v-if="attrs.top" :is="attrs.top.componentName" :attrs="attrs.top" />
     <component
       :is="attrs.attrs.isDialog ? 'div' : 'el-card'"
       shadow="never"
@@ -59,9 +55,11 @@
                   :inline-message="item.inlineMessage"
                   :size="item.size"
                 >
-                  <span slot="label" v-if="!item.hideLabel">{{
+                  <span slot="label" v-if="!item.hideLabel">
+                    {{
                     item.label
-                  }}</span>
+                    }}
+                  </span>
                   <template>
                     <el-col :span="item.inputWidth">
                       <template v-if="item.relationName">
@@ -83,11 +81,7 @@
                         />
                       </template>
 
-                      <div
-                        v-if="item.help"
-                        class="form-item-help"
-                        v-html="item.help"
-                      ></div>
+                      <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
                     </el-col>
                   </template>
                 </el-form-item>
@@ -108,36 +102,31 @@
               class="submit-btn"
               @click="$router.go(-1)"
               :style="{ width: attrs.attrs.buttonWidth }"
-              >{{ attrs.attrs.backButtonName }}</el-button
-            >
+            >{{ attrs.attrs.backButtonName }}</el-button>
             <el-button
               v-else
               class="submit-btn"
               @click="closeDialog"
               :style="{ width: attrs.attrs.buttonWidth }"
-              >{{ attrs.attrs.backButtonName }}</el-button
-            >
+            >{{ attrs.attrs.backButtonName }}</el-button>
             <el-button
               :loading="loading"
               class="submit-btn"
               type="primary"
               :style="{ width: attrs.attrs.buttonWidth }"
               @click="submitForm(attrs.ref || 'form')"
-              >{{
-                isEdit
-                  ? attrs.attrs.updateButtonName
-                  : attrs.attrs.createButtonName
-              }}</el-button
             >
+              {{
+              isEdit
+              ? attrs.attrs.updateButtonName
+              : attrs.attrs.createButtonName
+              }}
+            </el-button>
           </div>
         </div>
       </el-form>
     </component>
-    <component
-      v-if="attrs.bottom"
-      :is="attrs.bottom.componentName"
-      :attrs="attrs.bottom"
-    />
+    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs="attrs.bottom" />
   </div>
 </template>
 <script>
@@ -149,10 +138,10 @@ export default {
   mixins: [BaseComponent],
   components: {
     ItemDiaplsy,
-    ItemIf,
+    ItemIf
   },
   props: {
-    attrs: Object,
+    attrs: Object
   },
   computed: {
     isEdit() {
@@ -161,17 +150,17 @@ export default {
     ignoreKey() {
       return this._.map(
         this.attrs.formItems.filter(
-          (e) => !e.ignoreEmpty || !isNull(this.formData[e.prop])
+          e => !e.ignoreEmpty || !isNull(this.formData[e.prop])
         ),
         "prop"
       );
-    },
+    }
   },
   data() {
     return {
       loading: false,
       init: false,
-      formData: null,
+      formData: null
     };
   },
   mounted() {
@@ -196,8 +185,8 @@ export default {
       this.$http
         .get(this.attrs.dataUrl, {
           params: {
-            get_data: true,
-          },
+            get_data: true
+          }
         })
         .then(({ data }) => {
           this.formData = data;
@@ -213,7 +202,7 @@ export default {
         });
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           this.loading = true;
           const formatData = this._.pick(this.formData, this.ignoreKey);
@@ -226,7 +215,7 @@ export default {
                     this.closeDialog();
                     this.$bus.emit("tableReload");
                   } else {
-                    this.$router.go(-1);
+                    this.successRefData();
                   }
                 }
               })
@@ -242,7 +231,7 @@ export default {
                     this.closeDialog();
                     this.$bus.emit("tableReload");
                   } else {
-                    this.$router.go(-1);
+                    this.successRefData();
                   }
                 }
               })
@@ -255,13 +244,23 @@ export default {
         }
       });
     },
+    successRefData() {
+      if (this.attrs.formRefData.successRefData) {
+        this.$bus.emit(this.attrs.formRefData.successRefData.ref, {
+          data: this.attrs.formRefData.successRefData.data,
+          self: this,
+        });
+      } else {
+        this.$router.go(-1);
+      }
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
     closeDialog() {
       this.$bus.emit("showDialogGridFrom", { isShow: false });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

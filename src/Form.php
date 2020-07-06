@@ -14,6 +14,7 @@ use SmallRuralDog\Admin\Components\Form\Upload;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\HasHooks;
+use SmallRuralDog\Admin\Form\HasRef;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
 use SmallRuralDog\Admin\Layout\Content;
 use Str;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Form extends Component
 {
-    use TraitFormAttrs, HasHooks;
+    use TraitFormAttrs, HasHooks, HasRef;
 
     protected $componentName = "Form";
 
@@ -198,6 +199,19 @@ class Form extends Component
     }
 
     /**
+     * 设置表单编辑模式获取编辑数据地址
+     * @param string $dataUrl
+     * @return $this
+     */
+    public function dataUrl(string $dataUrl)
+    {
+        $this->dataUrl = $dataUrl;
+        return $this;
+    }
+
+
+    /**
+     * 设置表单提交地址
      * @param string $action
      * @return $this
      */
@@ -256,6 +270,7 @@ class Form extends Component
     }
 
     /**
+     * 获取表单是否是编辑模式
      * @return bool
      */
     public function isEdit()
@@ -444,9 +459,8 @@ class Form extends Component
      * 编辑
      * @param $id
      * @return array|string
-     * @throws \Throwable
      */
-    public function edit($id)
+    public function edit($id = 0)
     {
         $this->isEdit = true;
 
@@ -768,6 +782,7 @@ class Form extends Component
             'formRules' => $this->formRules,
             'ref' => $this->ref,
             'refData' => $this->refData,
+            'formRefData'=>$this->FormRefDataBuild(),
             'top' => $this->top,
             'bottom' => $this->bottom
         ];

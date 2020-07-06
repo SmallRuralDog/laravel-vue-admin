@@ -3,6 +3,7 @@
     :value="value"
     :style="attrs.style"
     :class="attrs.className"
+    class="flex-sub"
     :min="attrs.min"
     :max="attrs.max"
     :disabled="attrs.disabled"

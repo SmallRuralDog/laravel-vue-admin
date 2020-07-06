@@ -135,6 +135,7 @@ class TimePicker extends Component
     public function isRange($isRange = true)
     {
         $this->isRange = $isRange;
+        $this->type = "picker";
         return $this;
     }
 

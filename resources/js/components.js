@@ -50,6 +50,10 @@ Vue.component(
     require("@/components/widgets/Form/TimePicker").default
 );
 Vue.component(
+    "Rate",
+    require("@/components/widgets/Form/Rate").default
+);
+Vue.component(
     "DatePicker",
     require("@/components/widgets/Form/DatePicker").default
 );
