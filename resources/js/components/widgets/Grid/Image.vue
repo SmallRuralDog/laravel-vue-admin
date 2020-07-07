@@ -18,7 +18,7 @@ export default {
       default: null
     },
     row: Object,
-    column_value: {
+    columnValue: {
       default: null
     }
   },
@@ -29,12 +29,12 @@ export default {
     },
     previewSrcList() {
       if (!this.attrs.preview) return [];
-      if (this._.isArray(this.column_value)) {
-        return this.column_value.map(item => {
+      if (this._.isArray(this.columnValue)) {
+        return this.columnValue.map(item => {
           return getFileUrl(this.attrs.host, item);
         });
       } else {
-        return [getFileUrl(this.attrs.host, this.column_value)];
+        return [getFileUrl(this.attrs.host, this.columnValue)];
       }
     }
   }
