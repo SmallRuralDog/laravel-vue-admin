@@ -2987,25 +2987,25 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       "default": null
     },
-    column_attr: Object,
+    columnAttr: Object,
     row: Object,
-    column_value: {
+    columnValue: {
       "default": null
     }
   },
   computed: {
     attrs: function attrs() {
-      return this.column_attr.displayComponentAttrs;
+      return this.columnAttr.displayComponentAttrs;
     },
     selfValue: function selfValue() {
       var value = this.value;
 
-      if (this.column_attr.itemPrefix) {
-        value = this.column_attr.itemPrefix + "" + this.value;
+      if (this.columnAttr.itemPrefix) {
+        value = this.columnAttr.itemPrefix + "" + this.value;
       }
 
-      if (this.column_attr.itemSuffix) {
-        value = this.value + "" + this.column_attr.itemSuffix;
+      if (this.columnAttr.itemSuffix) {
+        value = this.value + "" + this.columnAttr.itemSuffix;
       }
 
       return value;
@@ -8561,7 +8561,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-
+exports.i(__webpack_require__(/*! -!../../../node_modules/css-loader!./base.scss */ "./node_modules/css-loader/index.js!./resources/js/styles/base.scss"), "");
 
 // module
 exports.push([module.i, "@charset \"UTF-8\";\n#app,\nbody,\nhtml {\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nbody {\n  background-color: #f7f7f7;\n  font-size: 14px;\n}\n\n.ml-2 {\n  margin-left: 2px;\n}\n\n.ml-5 {\n  margin-left: 5px;\n}\n\n.mr-5 {\n  margin-right: 5px;\n}\n\n.mt-5 {\n  margin-top: 5px;\n}\n\n.m-10 {\n  margin: 10px;\n}\n\n.ml-10 {\n  margin-left: 10px;\n}\n\n.mr-10 {\n  margin-right: 10px;\n}\n\n.mb-10 {\n  margin-bottom: 10px;\n}\n\n.mt-10 {\n  margin-top: 10px;\n}\n\n.m-15 {\n  margin: 15px;\n}\n\n.mb-15 {\n  margin-bottom: 15px;\n}\n\n.mt-15 {\n  margin-top: 15px;\n}\n\n.ml-20 {\n  margin-left: 20px;\n}\n\n.mt-30 {\n  margin-top: 30px;\n}\n\n.mt-50 {\n  margin-top: 50px;\n}\n\n.p-10 {\n  padding: 10px;\n}\n\n.p-15 {\n  padding: 15px;\n}\n\n.fs-12 {\n  font-size: 12px;\n}\n\n.fs-14 {\n  font-size: 14px;\n}\n\n.fs-16 {\n  font-size: 16px;\n}\n\n.fs-18 {\n  font-size: 18px;\n}\n\n.fs-20 {\n  font-size: 20px;\n}\n\n.fs-22 {\n  font-size: 22px;\n}\n\n.fs-24 {\n  font-size: 24px;\n}\n\n.fs-25 {\n  font-size: 25px;\n}\n\n.hover {\n  cursor: pointer;\n}\n\n.flex {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.flex-s {\n  display: flex;\n  align-items: flex-start;\n  flex-wrap: wrap;\n}\n\n.flex-c {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-c {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n\n.flex-c-sb {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.flex-1 {\n  flex: 1;\n}\n\n.hide-x {\n  overflow-x: hidden;\n}\n\n/**********************************/\n.page-account {\n  display: flex;\n  flex-direction: column;\n  height: 100vh;\n  overflow: auto;\n}\n\n.el-popconfirm__main {\n  margin: 10px 0;\n}\n\n.el-image-viewer__close {\n  color: white;\n}\n\n.el-upload-list__item img {\n  object-fit: cover;\n}\n\n.el-select-dropdown__item {\n  padding: 0 10px;\n}\n\n.el-loading-mask {\n  z-index: 99;\n}\n\n.el-message {\n  width: auto;\n  min-width: unset;\n  padding: 15px 20px;\n}\n\n.el-dialog__body {\n  padding: 0px;\n}\n\n.tool-button + .tool-button {\n  margin-left: 10px;\n}\n\n.el-main {\n  padding: 0;\n}\n\n/*************************************************/\n/*fade*/\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.1s;\n  transition: opacity 0.1s;\n}\n\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n\n/*fade-transform*/\n.fade-transform-leave-active,\n.fade-transform-enter-active {\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n\n.fade-transform-enter {\n  opacity: 0;\n  -webkit-transform: translateX(-10px);\n  transform: translateX(-10px);\n}\n\n.fade-transform-leave-to {\n  opacity: 0;\n  -webkit-transform: translateX(0px);\n  transform: translateX(0px);\n}\n\n/* ==================\n          布局\n ==================== */\n/*  -- flex弹性布局 -- */\n.flex {\n  display: flex;\n}\n\n.basis-xs {\n  flex-basis: 20%;\n}\n\n.basis-sm {\n  flex-basis: 40%;\n}\n\n.basis-df {\n  flex-basis: 50%;\n}\n\n.basis-lg {\n  flex-basis: 60%;\n}\n\n.basis-xl {\n  flex-basis: 80%;\n}\n\n.flex-sub {\n  flex: 1;\n}\n\n.flex-twice {\n  flex: 2;\n}\n\n.flex-treble {\n  flex: 3;\n}\n\n.flex-direction {\n  flex-direction: column;\n}\n\n.flex-wrap {\n  flex-wrap: wrap;\n}\n\n.align-start {\n  align-items: flex-start;\n}\n\n.align-end {\n  align-items: flex-end;\n}\n\n.align-center {\n  align-items: center;\n}\n\n.align-stretch {\n  align-items: stretch;\n}\n\n.self-start {\n  align-self: flex-start;\n}\n\n.self-center {\n  align-self: flex-center;\n}\n\n.self-end {\n  align-self: flex-end;\n}\n\n.self-stretch {\n  align-self: stretch;\n}\n\n.align-stretch {\n  align-items: stretch;\n}\n\n.justify-start {\n  justify-content: flex-start;\n}\n\n.justify-end {\n  justify-content: flex-end;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-between {\n  justify-content: space-between;\n}\n\n.justify-around {\n  justify-content: space-around;\n}", ""]);
@@ -8754,7 +8754,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".grid-container .table-page {\n  padding: 8px 0;\n}\n.grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}\n.grid-container .el-tabs__header {\n  padding: 0;\n  margin: 0;\n}\n.grid-container .el-tabs__item {\n  padding: 0 15px;\n  height: 50px;\n  line-height: 50px;\n}\n.grid-container .el-tabs--top .el-tabs__item.is-top:nth-child(2) {\n  padding-left: 15px;\n}\n.grid-container .el-tabs__nav-wrap::after {\n  height: 1px;\n  background-color: #ebeef5;\n}\n.grid-container .filter-form {\n  padding: 10px;\n  background-color: #ffffff;\n}\n.grid-container .filter-form .el-form-item {\n  margin-bottom: 0px;\n}\n.grid-container .filter-form .el-form-item .el-form-item__label {\n  padding: 0;\n}", ""]);
+exports.push([module.i, ".grid-container .grid-top-container {\n  padding: 8px;\n  display: flex;\n  justify-content: space-between;\n}\n.grid-container .grid-top-container .grid-top-container-left {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right {\n  display: flex;\n  align-items: center;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions {\n  display: flex;\n  align-items: center;\n  margin-left: 5px;\n}\n.grid-container .grid-top-container .grid-top-container-right .icon-actions i {\n  font-size: 20px;\n  margin-right: 10px;\n}\n.grid-container .el-tabs__header {\n  padding: 0;\n  margin: 0;\n}\n.grid-container .el-tabs__item {\n  padding: 0 15px;\n  height: 50px;\n  line-height: 50px;\n}\n.grid-container .el-tabs--top .el-tabs__item.is-top:nth-child(2) {\n  padding-left: 15px;\n}\n.grid-container .el-tabs__nav-wrap::after {\n  height: 1px;\n  background-color: #ebeef5;\n}\n.grid-container .filter-form {\n  padding: 10px;\n  background-color: #ffffff;\n}\n.grid-container .filter-form .el-form-item {\n  margin-bottom: 0px;\n}\n.grid-container .filter-form .el-form-item .el-form-item__label {\n  padding: 0;\n}", ""]);
 
 // exports
 
@@ -8850,6 +8850,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".status[data-v-337c669d] {\n  font-size: 20px;\n}\n.el-icon-success[data-v-337c669d] {\n  color: #67c23a;\n}\n.el-icon-error[data-v-337c669d] {\n  color: #f56c6c;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./resources/js/styles/base.scss":
+/*!*****************************************************************!*\
+  !*** ./node_modules/css-loader!./resources/js/styles/base.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/*  -- 内外边距 -- */\r\n\r\n.margin-0 {\r\n\tmargin: 0;\r\n}\r\n\r\n.margin-xs {\r\n\tmargin: 5px;\r\n}\r\n\r\n.margin-sm {\r\n\tmargin: 10px;\r\n}\r\n\r\n.margin {\r\n\tmargin: 15px;\r\n}\r\n\r\n.margin-lg {\r\n\tmargin: 20px;\r\n}\r\n\r\n.margin-xl {\r\n\tmargin: 25px;\r\n}\r\n\r\n.margin-top-xs {\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.margin-top-sm {\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.margin-top {\r\n\tmargin-top: 15px;\r\n}\r\n\r\n.margin-top-lg {\r\n\tmargin-top: 20px;\r\n}\r\n\r\n.margin-top-xl {\r\n\tmargin-top: 25px;\r\n}\r\n\r\n.margin-right-xs {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.margin-right-sm {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.margin-right {\r\n\tmargin-right: 15px;\r\n}\r\n\r\n.margin-right-lg {\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.margin-right-xl {\r\n\tmargin-right: 25px;\r\n}\r\n\r\n.margin-bottom-xs {\r\n\tmargin-bottom: 5px;\r\n}\r\n\r\n.margin-bottom-sm {\r\n\tmargin-bottom: 10px;\r\n}\r\n\r\n.margin-bottom {\r\n\tmargin-bottom: 15px;\r\n}\r\n\r\n.margin-bottom-lg {\r\n\tmargin-bottom: 20px;\r\n}\r\n\r\n.margin-bottom-xl {\r\n\tmargin-bottom: 25px;\r\n}\r\n\r\n.margin-left-xs {\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.margin-left-sm {\r\n\tmargin-left: 10px;\r\n}\r\n\r\n.margin-left {\r\n\tmargin-left: 15px;\r\n}\r\n\r\n.margin-left-lg {\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.margin-left-xl {\r\n\tmargin-left: 25px;\r\n}\r\n\r\n.margin-lr-xs {\r\n\tmargin-left: 5px;\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.margin-lr-sm {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.margin-lr {\r\n\tmargin-left: 15px;\r\n\tmargin-right: 15px;\r\n}\r\n\r\n.margin-lr-lg {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.margin-lr-xl {\r\n\tmargin-left: 25px;\r\n\tmargin-right: 25px;\r\n}\r\n\r\n.margin-tb-xs {\r\n\tmargin-top: 5px;\r\n\tmargin-bottom: 5px;\r\n}\r\n\r\n.margin-tb-sm {\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n\r\n.margin-tb {\r\n\tmargin-top: 15px;\r\n\tmargin-bottom: 15px;\r\n}\r\n\r\n.margin-tb-lg {\r\n\tmargin-top: 20px;\r\n\tmargin-bottom: 20px;\r\n}\r\n\r\n.margin-tb-xl {\r\n\tmargin-top: 25px;\r\n\tmargin-bottom: 25px;\r\n}\r\n\r\n.padding-0 {\r\n\tpadding: 0;\r\n}\r\n\r\n.padding-xs {\r\n\tpadding: 5px;\r\n}\r\n\r\n.padding-sm {\r\n\tpadding: 10px;\r\n}\r\n\r\n.padding {\r\n\tpadding: 15px;\r\n}\r\n\r\n.padding-lg {\r\n\tpadding: 20px;\r\n}\r\n\r\n.padding-xl {\r\n\tpadding: 25px;\r\n}\r\n\r\n.padding-top-xs {\r\n\tpadding-top: 5px;\r\n}\r\n\r\n.padding-top-sm {\r\n\tpadding-top: 10px;\r\n}\r\n\r\n.padding-top {\r\n\tpadding-top: 15px;\r\n}\r\n\r\n.padding-top-lg {\r\n\tpadding-top: 20px;\r\n}\r\n\r\n.padding-top-xl {\r\n\tpadding-top: 25px;\r\n}\r\n\r\n.padding-right-xs {\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.padding-right-sm {\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.padding-right {\r\n\tpadding-right: 15px;\r\n}\r\n\r\n.padding-right-lg {\r\n\tpadding-right: 20px;\r\n}\r\n\r\n.padding-right-xl {\r\n\tpadding-right: 25px;\r\n}\r\n\r\n.padding-bottom-xs {\r\n\tpadding-bottom: 5px;\r\n}\r\n\r\n.padding-bottom-sm {\r\n\tpadding-bottom: 10px;\r\n}\r\n\r\n.padding-bottom {\r\n\tpadding-bottom: 15px;\r\n}\r\n\r\n.padding-bottom-lg {\r\n\tpadding-bottom: 20px;\r\n}\r\n\r\n.padding-bottom-xl {\r\n\tpadding-bottom: 25px;\r\n}\r\n\r\n.padding-left-xs {\r\n\tpadding-left: 5px;\r\n}\r\n\r\n.padding-left-sm {\r\n\tpadding-left: 10px;\r\n}\r\n\r\n.padding-left {\r\n\tpadding-left: 15px;\r\n}\r\n\r\n.padding-left-lg {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.padding-left-xl {\r\n\tpadding-left: 25px;\r\n}\r\n\r\n.padding-lr-xs {\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.padding-lr-sm {\r\n\tpadding-left: 10px;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.padding-lr {\r\n\tpadding-left: 15px;\r\n\tpadding-right: 15px;\r\n}\r\n\r\n.padding-lr-lg {\r\n\tpadding-left: 20px;\r\n\tpadding-right: 20px;\r\n}\r\n\r\n.padding-lr-xl {\r\n\tpadding-left: 25px;\r\n\tpadding-right: 25px;\r\n}\r\n\r\n.padding-tb-xs {\r\n\tpadding-top: 5px;\r\n\tpadding-bottom: 5px;\r\n}\r\n\r\n.padding-tb-sm {\r\n\tpadding-top: 10px;\r\n\tpadding-bottom: 10px;\r\n}\r\n\r\n.padding-tb {\r\n\tpadding-top: 15px;\r\n\tpadding-bottom: 15px;\r\n}\r\n\r\n.padding-tb-lg {\r\n\tpadding-top: 20px;\r\n\tpadding-bottom: 20px;\r\n}\r\n\r\n.padding-tb-xl {\r\n\tpadding-top: 25px;\r\n\tpadding-bottom: 25px;\r\n}", ""]);
 
 // exports
 
@@ -31845,7 +31864,7 @@ var render = function() {
           value: _vm.selfValue,
           attrs: _vm.attrs,
           row: _vm.row,
-          column_value: _vm.column_value
+          "column-value": _vm.columnValue
         }
       })
 }
@@ -31883,9 +31902,9 @@ var render = function() {
                   key: key,
                   attrs: {
                     value: item,
-                    column_attr: _vm.columnAttr,
+                    "column-attr": _vm.columnAttr,
                     row: _vm.row,
-                    column_value: _vm.value
+                    "column-value": _vm.value
                   }
                 })
               ]
@@ -31895,9 +31914,9 @@ var render = function() {
             _c("Value", {
               attrs: {
                 value: _vm.value,
-                column_attr: _vm.columnAttr,
+                "column-attr": _vm.columnAttr,
                 row: _vm.row,
-                column_value: _vm.value
+                "column-value": _vm.value
               }
             })
           ]
@@ -32503,7 +32522,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "table-page" },
+            { staticClass: "table-page padding-sm" },
             [
               _c("el-pagination", {
                 attrs: {
@@ -35728,7 +35747,7 @@ module.exports = "/vendor/laravel-vue-admin/images/404.png?3210e18dbf193f9d42afb
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7f56c0661a28a4a2786";
+module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?56883ad1cf6cc0a234232773dc36b141";
 
 /***/ }),
 
@@ -35739,7 +35758,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-light.svg?3eb5c0603a2fc7
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb897e319feb8e59e1bed96b82";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?4c0c73512c1208e226d8513d2fd1e1f5";
 
 /***/ }),
 
@@ -35750,7 +35769,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini-light.svg?41f4c6cb8
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21dbcab0825c23bbd40b1";
+module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?f088544c92cff88f7b2ab5b17675828f";
 
 /***/ }),
 
@@ -35761,7 +35780,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo-mini.svg?0f69327360a21db
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927eca4146f30c3e";
+module.exports = "/vendor/laravel-vue-admin/images/logo.svg?99edcb36f9285eea841ba52d2f029c1b";
 
 /***/ }),
 
@@ -35772,7 +35791,7 @@ module.exports = "/vendor/laravel-vue-admin/images/logo.svg?eb0435ede9e82d37927e
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5afb380efaf57d8c1d4";
+module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?412ca67ee39f5966ea6f33bb8261b46d";
 
 /***/ }),
 
@@ -35783,7 +35802,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-dark.svg?d0efa02039eff5a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c1d84cd1ec6e6f3b760";
+module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?4183aad0f450979539478f153b816db0";
 
 /***/ }),
 
@@ -35794,7 +35813,7 @@ module.exports = "/vendor/laravel-vue-admin/images/menu-light.svg?ccbb6cbdf8106c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4c76c7c2ad5e1ee6a";
+module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?e796938e6a2e849300f4e6ff74696319";
 
 /***/ }),
 
@@ -35805,7 +35824,7 @@ module.exports = "/vendor/laravel-vue-admin/images/nav-dark.svg?1606ed024af886e4
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?da07f9c2f262ef49b183fd4e882a5935";
+module.exports = "/vendor/laravel-vue-admin/images/nav-light.svg?f6d512ec0129eebd9e64aae12247551e";
 
 /***/ }),
 
@@ -41000,7 +41019,7 @@ function isNull(argument) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Volumes/E/PHPProjects/laravel-vue-admin-main/laravel-vue-admin/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\docker\php\lva\laravel-vue-admin-main\laravel-vue-admin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

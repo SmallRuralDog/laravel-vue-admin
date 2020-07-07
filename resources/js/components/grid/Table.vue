@@ -165,7 +165,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page">
+      <div class="table-page padding-sm">
         <el-pagination
           :layout="attrs.pageLayout"
           :hide-on-single-page="false"
@@ -444,9 +444,6 @@ export default {
 
 <style lang="scss">
 .grid-container {
-  .table-page {
-    padding: 8px 0;
-  }
   .grid-top-container {
     padding: 8px;
     display: flex;

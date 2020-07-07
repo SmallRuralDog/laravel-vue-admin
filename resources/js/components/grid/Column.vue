@@ -6,7 +6,7 @@
     :value="selfValue"
     :attrs="attrs"
     :row="row"
-    :column_value="column_value"
+    :column-value="columnValue"
   />
 </template>
 <script>
@@ -15,24 +15,24 @@ export default {
     value: {
       default: null
     },
-    column_attr: Object,
+    columnAttr: Object,
     row: Object,
-    column_value: {
+    columnValue: {
       default: null
     }
   },
   computed: {
     attrs() {
-      return this.column_attr.displayComponentAttrs;
+      return this.columnAttr.displayComponentAttrs;
     },
     selfValue() {
       let value = this.value;
 
-      if (this.column_attr.itemPrefix) {
-        value = this.column_attr.itemPrefix + "" + this.value;
+      if (this.columnAttr.itemPrefix) {
+        value = this.columnAttr.itemPrefix + "" + this.value;
       }
-      if (this.column_attr.itemSuffix) {
-        value = this.value + "" + this.column_attr.itemSuffix;
+      if (this.columnAttr.itemSuffix) {
+        value = this.value + "" + this.columnAttr.itemSuffix;
       }
 
       return value;
