@@ -62,6 +62,10 @@ php artisan view:clear
 ```
 最后不要忘记清理浏览器缓存
 
+# 感谢
+
+- [ZFont找字体](http://zfont.cn)
+
 
 
 # 交流
