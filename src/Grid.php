@@ -367,7 +367,7 @@ class Grid extends Component
         } else {
             $viewData['componentName'] = $this->componentName;
             $viewData['routers'] = [
-                'resource' => url(request()->getPathInfo())
+                'resource' => admin_api_url(request()->path()),
             ];
             $viewData['keyName'] = $this->keyName;
             $viewData['selection'] = $this->attributes->selection;

@@ -38,7 +38,7 @@ class BaseAction extends Component implements JsonSerializable
      */
     public function __construct()
     {
-        $this->resource = url(request()->getPathInfo());
+        $this->resource = admin_api_url(request()->path());
     }
 
     /**
