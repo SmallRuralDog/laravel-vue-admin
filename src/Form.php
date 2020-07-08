@@ -242,7 +242,7 @@ class Form extends Component
 
     public function resource($slice = -2): string
     {
-        $segments = explode('/', trim(\request()->getUri(), '/'));
+        $segments = explode('/', trim(admin_api_url(request()->path()), '/'));
 
         if ($slice !== 0) {
             $segments = array_slice($segments, 0, $slice);
