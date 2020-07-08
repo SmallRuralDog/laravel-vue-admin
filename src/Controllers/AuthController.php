@@ -28,6 +28,10 @@ class AuthController extends AdminController
             return redirect($this->redirectPath());
         }
 
+        if (config('admin.https')){
+            app('request')->server->set('HTTPS',true);
+        }
+
         $data = $this->vueData();
 
         $data['backgroundImage'] = config('admin.login_background_image');
