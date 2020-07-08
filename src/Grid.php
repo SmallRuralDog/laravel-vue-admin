@@ -87,14 +87,12 @@ class Grid extends Component
     public function __construct(Eloquent $model = null)
     {
         $this->attributes = new Attributes();
-        $this->dataUrl = request()->getUri();
+        $this->dataUrl = admin_api_url(request()->path());
         $this->model = new Model($model, $this);
         if ($model) {
             $this->keyName = $model->getKeyName();
             $this->defaultSort($model->getKeyName(), "asc");
         }
-
-
         $this->isGetData = request('get_data') == "true";
         $this->toolbars = new Toolbars($this);
         $this->batchActions = new BatchActions();

@@ -94,8 +94,7 @@ class Form extends Component
     {
         $this->attrs = new FormAttrs();
         $this->model = $model;
-        $this->dataUrl = request()->getUri();
-
+        $this->dataUrl = admin_api_url(request()->path());
         $this->isGetData = request('get_data') == "true";
     }
 
