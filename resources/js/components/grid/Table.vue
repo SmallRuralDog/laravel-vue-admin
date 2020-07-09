@@ -165,7 +165,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page padding-sm">
+      <div class="table-page padding-xs">
         <el-pagination
           :layout="attrs.pageLayout"
           :hide-on-single-page="false"

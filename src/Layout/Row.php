@@ -16,6 +16,10 @@ class Row extends Component
     protected $columns = [];
 
     protected $gutter = 0;
+    protected $type;
+    protected $justify = "start";
+    protected $align = "top";
+    protected $tag = "div";
 
     public function __construct($content = '')
     {
@@ -31,7 +35,7 @@ class Row extends Component
     {
         if ($item instanceof \Closure) {
             $this->addColumn(call_user_func($item));
-        }else{
+        } else {
             $this->addColumn($item);
         }
 
@@ -61,4 +65,51 @@ class Row extends Component
         $this->gutter = $gutter;
         return $this;
     }
+
+    /**
+     * 布局模式，可选 flex，现代浏览器下有效
+     * @param mixed $type
+     * @return $this
+     */
+    public function type($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * flex 布局下的水平排列方式
+     * start/end/center/space-around/space-between
+     * @param string $justify
+     * @return $this
+     */
+    public function justify(string $justify)
+    {
+        $this->justify = $justify;
+        return $this;
+    }
+
+    /**
+     * flex 布局下的垂直排列方式
+     * @param string $align
+     * @return $this
+     */
+    public function align(string $align)
+    {
+        $this->align = $align;
+        return $this;
+    }
+
+    /**
+     * 自定义元素标签
+     * @param string $tag
+     * @return $this
+     */
+    public function tag(string $tag)
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+
+
 }

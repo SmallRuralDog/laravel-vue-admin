@@ -1,5 +1,18 @@
 <template>
-  <el-col :span="attrs.width" :style="attrs.style" :class="attrs.className">
+  <el-col
+    :span="attrs.width"
+    :offset="attrs.offset"
+    :push='attrs.push'
+    :pull='attrs.pull'
+    :xs='attrs.xs'
+    :sm='attrs.sm'
+    :md='attrs.md'
+    :lg='attrs.lg'
+    :xl='attrs.xl'
+    :tag='attrs.tag'
+    :style="attrs.style"
+    :class="attrs.className"
+  >
     <component
       v-for="(content, index) in attrs.contents"
       :key="index"
@@ -13,8 +26,8 @@
 <script>
 export default {
   props: {
-    attrs: Object
-  }
+    attrs: Object,
+  },
 };
 </script>
 

@@ -60,7 +60,7 @@ php artisan vendor:publish --tag=laravel-vue-admin-lang --force
 // 清理视图缓存
 php artisan view:clear
 ```
-最后不要忘记清理浏览器缓存
+最后不要忘记清理浏览器缓存，如果有CDN也要更新CDN的缓存
 
 # 感谢
 
