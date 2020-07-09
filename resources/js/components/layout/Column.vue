@@ -4,11 +4,6 @@
     :offset="attrs.offset"
     :push='attrs.push'
     :pull='attrs.pull'
-    :xs='attrs.xs'
-    :sm='attrs.sm'
-    :md='attrs.md'
-    :lg='attrs.lg'
-    :xl='attrs.xl'
     :tag='attrs.tag'
     :style="attrs.style"
     :class="attrs.className"
@@ -22,7 +17,6 @@
     />
   </el-col>
 </template>
-
 <script>
 export default {
   props: {
@@ -30,5 +24,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

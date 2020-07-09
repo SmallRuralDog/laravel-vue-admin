@@ -13,15 +13,12 @@ class Column extends Component
 
     protected $width = 24;
 
-    protected $span;
-    protected $offset;
-    protected $push;
-    protected $pull;
-    protected $xs;
-    protected $md;
-    protected $lg;
-    protected $xl;
-    protected $tag;
+    protected $span=24;
+    protected $offset=0;
+    protected $push=0;
+    protected $pull=0;
+
+    protected $tag="div";
 
     protected $contents = [];
 
@@ -90,46 +87,6 @@ class Column extends Component
     public function pull($pull)
     {
         $this->pull = $pull;
-        return $this;
-    }
-
-    /**
-     * @param mixed $xs
-     * @return $this
-     */
-    public function xs($xs)
-    {
-        $this->xs = $xs;
-        return $this;
-    }
-
-    /**
-     * @param mixed $md
-     * @return $this
-     */
-    public function md($md)
-    {
-        $this->md = $md;
-        return $this;
-    }
-
-    /**
-     * @param mixed $lg
-     * @return $this
-     */
-    public function lg($lg)
-    {
-        $this->lg = $lg;
-        return $this;
-    }
-
-    /**
-     * @param mixed $xl
-     * @return $this
-     */
-    public function xl($xl)
-    {
-        $this->xl = $xl;
         return $this;
     }
 

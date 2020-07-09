@@ -16,7 +16,7 @@ class Row extends Component
     protected $columns = [];
 
     protected $gutter = 0;
-    protected $type;
+    protected $rowType;
     protected $justify = "start";
     protected $align = "top";
     protected $tag = "div";
@@ -71,9 +71,9 @@ class Row extends Component
      * @param mixed $type
      * @return $this
      */
-    public function type($type)
+    public function rowType($type)
     {
-        $this->type = $type;
+        $this->rowType = $type;
         return $this;
     }
 
