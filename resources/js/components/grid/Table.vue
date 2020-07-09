@@ -76,7 +76,7 @@
         v-if="attrs.filter.filters.length > 0"
       >
         <div class="filter-form">
-          <el-form :inline="true" label-suffix="：" :model="filterFormData" v-if="filterFormData">
+          <el-form :inline="true"  :model="filterFormData" v-if="filterFormData">
             <el-form-item
               v-for="(item, index) in attrs.filter.filters"
               :key="index"
