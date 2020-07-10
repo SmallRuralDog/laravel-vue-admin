@@ -69,6 +69,7 @@ export default {
         this.loading = false;
         this.reload = false;
       } else {
+        this.$Progress.start();
         this.$store
           .dispatch("getCenten", {
             path: this.pathKey,
@@ -79,8 +80,11 @@ export default {
           })
           .then((data) => {
             this.componentData = data;
+            this.$Progress.finish();
           })
-          .catch(() => {})
+          .catch(() => {
+            this.$Progress.fail();
+          })
           .finally(() => {
             this.loading = false;
             this.reload = false;

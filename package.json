@@ -38,6 +38,7 @@
     },
     "dependencies": {
         "mavon-editor": "^2.9.0",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.0.7"
     }
 }

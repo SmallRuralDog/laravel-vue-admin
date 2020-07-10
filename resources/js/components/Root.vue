@@ -128,9 +128,11 @@
             </div>
           </div>
         </el-header>
-        <el-main :class="{ 'el-main-fixed': fixedHeader }">
+        <el-main :class="{ 'el-main-fixed': fixedHeader }" style="position: relative;">
+          <vue-progress-bar></vue-progress-bar>
           <div class="layout-content-main">
             <router-view></router-view>
+            
           </div>
         </el-main>
         <el-footer class="admin-footer" height="auto">
@@ -260,7 +262,6 @@ export default {
     this.$bus.on("message", ({ type, message }) => {
       this.$message[type](message);
     });
-
     this.$nextTick(() => {
       window.rootFooterHeight = this.$refs.rootFooter.offsetHeight + 60;
     });
