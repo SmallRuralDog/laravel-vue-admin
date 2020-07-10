@@ -16,7 +16,6 @@ const options = {
     color: "#409EFF",
     failedColor:"#F56C6C",
     thickness: '4px',
-    position:"absolute",
     autoFinish:false,
 }
 

@@ -129,7 +129,7 @@
           </div>
         </el-header>
         <el-main :class="{ 'el-main-fixed': fixedHeader }" style="position: relative;">
-          <vue-progress-bar></vue-progress-bar>
+          
           <div class="layout-content-main">
             <router-view></router-view>
             
@@ -204,6 +204,7 @@
         </div>
       </div>
     </el-drawer>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 

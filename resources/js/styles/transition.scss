@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity 0.1s;
+  transition: opacity 0.1s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  -webkit-transform: translateX(-10px);
+  transform: translateX(-10px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
