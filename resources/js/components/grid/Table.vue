@@ -13,7 +13,10 @@
               :actions="attrs.batchActions"
               v-if="attrs.selection"
             />
-            <div class="search-view mr-10" v-if="attrs.quickSearch">
+            <div
+              class="search-view mr-10"
+              v-if="attrs.quickSearch && attrs.filter.filters.length <= 0"
+            >
               <el-input
                 v-model="quickSearch"
                 :placeholder="attrs.quickSearch.placeholder"
@@ -76,7 +79,17 @@
         v-if="attrs.filter.filters.length > 0"
       >
         <div class="filter-form">
-          <el-form :inline="true"  :model="filterFormData" v-if="filterFormData">
+          <el-form :inline="true" :model="filterFormData" v-if="filterFormData">
+            <el-form-item v-if="attrs.quickSearch">
+              <el-input
+                v-model="quickSearch"
+                :placeholder="attrs.quickSearch.placeholder"
+                :clearable="true"
+                @clear="getData"
+                @keyup.enter.native="getData"
+              ></el-input>
+            </el-form-item>
+
             <el-form-item
               v-for="(item, index) in attrs.filter.filters"
               :key="index"
@@ -305,6 +318,7 @@ export default {
     //表单还原
     onFilterReset() {
       this.filterFormData = this._.cloneDeep(this.attrs.filter.filterFormData);
+      this.quickSearch = null;
       this.getData();
     },
     //获取数据

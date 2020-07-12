@@ -4,8 +4,11 @@
 namespace SmallRuralDog\Admin\Controllers;
 
 
+use Illuminate\Database\Eloquent\Model;
 use SmallRuralDog\Admin\Auth\Database\OperationLog;
 
+use SmallRuralDog\Admin\Components\Attrs\SelectOption;
+use SmallRuralDog\Admin\Components\Form\Select;
 use SmallRuralDog\Admin\Components\Grid\Avatar;
 use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
@@ -19,7 +22,6 @@ class LogController extends AdminController
     {
         $grid = new Grid(new OperationLog());
         $grid->perPage(20)
-            ->quickSearch()
             ->selection()
             ->defaultSort('id', 'desc')
             ->stripe()
@@ -41,6 +43,18 @@ class LogController extends AdminController
         })->toolbars(function (Grid\Toolbars $toolbars) {
             $toolbars->hideCreateButton();
         });
+
+        $grid->filter(function (Grid\Filter $filter) {
+            $filter->equal('user_id')->component(Select::make()->placeholder("请选择用户")->options(function () {
+                $user_ids = OperationLog::query()->groupBy("user_id")->get(["user_id"])->pluck("user_id")->toArray();
+                /**@var Model $userModel */
+                $userModel = config('admin.database.users_model');
+                return $userModel::query()->whereIn("id", $user_ids)->get()->map(function ($user) {
+                    return SelectOption::make($user->id, $user->name);
+                })->all();
+            }));
+        });
+
         return $grid;
     }
 

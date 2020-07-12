@@ -24,7 +24,7 @@ abstract class AbstractFilter extends AdminJsonBuilder
     public function __construct($column, $label = '')
     {
         $this->column = $column;
-        $this->label = $this->formatLabel($label);
+        $this->label = $label != null ? $this->formatLabel($label) : null;
         $this->component = Input::make();
 
     }

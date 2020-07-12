@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use SmallRuralDog\Admin\Components\Component;
 use SmallRuralDog\Admin\Components\Form\Upload;
+use SmallRuralDog\Admin\Form\FormActions;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\HasHooks;
@@ -89,6 +90,8 @@ class Form extends Component
     private $top;
     private $bottom;
 
+    protected $actions;
+
 
     public function __construct($model = null)
     {
@@ -96,6 +99,7 @@ class Form extends Component
         $this->model = $model;
         $this->dataUrl = admin_api_url(request()->path());
         $this->isGetData = request('get_data') == "true";
+        $this->actions = new FormActions($this);
     }
 
     /**
@@ -152,6 +156,17 @@ class Form extends Component
             Arr::set($this->formRules, $item->getProp(), $item->getRules());
         }
 
+    }
+
+    /**
+     * 自定义表单动作
+     * @param $closure
+     * @return $this
+     */
+    public function actions($closure)
+    {
+        call_user_func($closure, $this->actions);
+        return $this;
     }
 
     /**
@@ -781,7 +796,7 @@ class Form extends Component
             'formRules' => $this->formRules,
             'ref' => $this->ref,
             'refData' => $this->refData,
-            'formRefData'=>$this->FormRefDataBuild(),
+            'formRefData' => $this->FormRefDataBuild(),
             'top' => $this->top,
             'bottom' => $this->bottom
         ];
