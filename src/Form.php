@@ -163,7 +163,7 @@ class Form extends Component
      * @param $closure
      * @return $this
      */
-    public function actions($closure)
+    public function actions(\Closure $closure)
     {
         call_user_func($closure, $this->actions);
         return $this;
@@ -748,13 +748,11 @@ class Form extends Component
             } else {
                 Arr::set($data, $prop, $formItem->getData(Arr::get($this->editData, $prop), $this->model, $component));
             }
-            //$data[$prop] = $formItem->getData($e_data->{$prop}, $this->model);
         }
         foreach ($this->formItems as $formItem) {
             $prop = $formItem->getProp();
             if ($formItem->getCopyProp()) {
                 Arr::set($data, $prop, Arr::get($data, $formItem->getCopyProp()));
-                //$data[$prop] = $data[$formItem->getCopyProp()];
             }
         }
         $this->editData = $data;
@@ -768,6 +766,17 @@ class Form extends Component
             'data' => $this->editData,
         ];
 
+    }
+
+    /**
+     * 设置是否加载数据
+     * @param bool $isGetData
+     * @return $this
+     */
+    public function isGetData(bool $isGetData)
+    {
+        $this->isGetData = $isGetData;
+        return $this;
     }
 
     /**
@@ -798,7 +807,8 @@ class Form extends Component
             'refData' => $this->refData,
             'formRefData' => $this->FormRefDataBuild(),
             'top' => $this->top,
-            'bottom' => $this->bottom
+            'bottom' => $this->bottom,
+            'actions'=>$this->actions->builderActions()
         ];
 
     }

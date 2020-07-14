@@ -8,6 +8,12 @@ use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
 
+/**
+ * 基础表单，已废弃，直接使用Form组件即可
+ * @deprecated
+ * Class BaseForm
+ * @package SmallRuralDog\Admin\Components\Widgets
+ */
 class BaseForm extends Component
 {
 

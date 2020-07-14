@@ -1,6 +1,10 @@
 <template>
   <div class="form-page">
-    <component v-if="attrs.top" :is="attrs.top.componentName" :attrs="attrs.top" />
+    <component
+      v-if="attrs.top"
+      :is="attrs.top.componentName"
+      :attrs="attrs.top"
+    />
     <component
       :is="attrs.attrs.isDialog ? 'div' : 'el-card'"
       shadow="never"
@@ -56,9 +60,7 @@
                   :size="item.size"
                 >
                   <span slot="label" v-if="!item.hideLabel">
-                    {{
-                    item.label
-                    }}
+                    {{ item.label }}
                   </span>
                   <template>
                     <el-col :span="item.inputWidth">
@@ -81,7 +83,11 @@
                         />
                       </template>
 
-                      <div v-if="item.help" class="form-item-help" v-html="item.help"></div>
+                      <div
+                        v-if="item.help"
+                        class="form-item-help"
+                        v-html="item.help"
+                      ></div>
                     </el-col>
                   </template>
                 </el-form-item>
@@ -94,39 +100,73 @@
             </template>
           </component>
         </component>
-        <div class="form-bottom-actions">
-          <div></div>
-          <div>
-            <el-button
-              v-if="!attrs.attrs.isDialog"
-              class="submit-btn"
-              @click="$router.go(-1)"
-              :style="{ width: attrs.attrs.buttonWidth }"
-            >{{ attrs.attrs.backButtonName }}</el-button>
-            <el-button
-              v-else
-              class="submit-btn"
-              @click="closeDialog"
-              :style="{ width: attrs.attrs.buttonWidth }"
-            >{{ attrs.attrs.backButtonName }}</el-button>
-            <el-button
-              :loading="loading"
-              class="submit-btn"
-              type="primary"
-              :style="{ width: attrs.attrs.buttonWidth }"
-              @click="submitForm(attrs.ref || 'form')"
-            >
-              {{
-              isEdit
-              ? attrs.attrs.updateButtonName
-              : attrs.attrs.createButtonName
-              }}
-            </el-button>
+        <component :is="attrs.actions.fixed?'Affix':'div'" :offset-bottom="2">
+          <div
+            class="form-bottom-actions flex padding-tb"
+            :class="{ 'form-bottom-actions-fixedxxx': attrs.actions.fixed }"
+          >
+            <div>
+              <component
+                v-for="(component, index) in attrs.actions.addLeftActions"
+                :key="component.componentName + index"
+                :is="component.componentName"
+                :attrs="component"
+              />
+            </div>
+            <div class="flex">
+              <component
+                v-for="(component, index) in attrs.actions.addRightActions"
+                :key="component.componentName + index"
+                :is="component.componentName"
+                :attrs="component"
+              />
+              <el-button
+                v-if="attrs.actions.cancelButton"
+                :style="attrs.actions.cancelButton.style"
+                :class="attrs.actions.cancelButton.className"
+                :type="attrs.actions.cancelButton.type"
+                :size="attrs.actions.cancelButton.size"
+                :plain="attrs.actions.cancelButton.plain"
+                :round="attrs.actions.cancelButton.round"
+                :circle="attrs.actions.cancelButton.circle"
+                :disabled="attrs.actions.cancelButton.disabled"
+                :icon="attrs.actions.cancelButton.icon"
+                :autofocus="attrs.actions.cancelButton.autofocus"
+                :loading="loading"
+                @click="attrs.attrs.isDialog ? closeDialog : $router.go(-1)"
+                ><template v-if="attrs.actions.cancelButton.content">{{
+                  attrs.actions.cancelButton.content
+                }}</template>
+              </el-button>
+
+              <el-button
+                v-if="attrs.actions.submitButton"
+                :style="attrs.actions.submitButton.style"
+                :class="attrs.actions.submitButton.className"
+                :type="attrs.actions.submitButton.type"
+                :size="attrs.actions.submitButton.size"
+                :plain="attrs.actions.submitButton.plain"
+                :round="attrs.actions.submitButton.round"
+                :circle="attrs.actions.submitButton.circle"
+                :disabled="attrs.actions.submitButton.disabled"
+                :icon="attrs.actions.submitButton.icon"
+                :autofocus="attrs.actions.submitButton.autofocus"
+                :loading="loading"
+                @click="submitForm(attrs.ref || 'form')"
+                ><template v-if="attrs.actions.submitButton.content">{{
+                  attrs.actions.submitButton.content
+                }}</template>
+              </el-button>
+            </div>
           </div>
-        </div>
+        </component>
       </el-form>
     </component>
-    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs="attrs.bottom" />
+    <component
+      v-if="attrs.bottom"
+      :is="attrs.bottom.componentName"
+      :attrs="attrs.bottom"
+    />
   </div>
 </template>
 <script>
@@ -134,14 +174,16 @@ import { BaseComponent } from "@/mixins.js";
 import ItemDiaplsy from "./ItemDiaplsy";
 import ItemIf from "./ItemIf";
 import { isNull } from "../../utils";
+import Affix from "../widgets/common/affix";
 export default {
   mixins: [BaseComponent],
   components: {
     ItemDiaplsy,
-    ItemIf
+    ItemIf,
+    Affix,
   },
   props: {
-    attrs: Object
+    attrs: Object,
   },
   computed: {
     isEdit() {
@@ -150,17 +192,17 @@ export default {
     ignoreKey() {
       return this._.map(
         this.attrs.formItems.filter(
-          e => !e.ignoreEmpty || !isNull(this.formData[e.prop])
+          (e) => !e.ignoreEmpty || !isNull(this.formData[e.prop])
         ),
         "prop"
       );
-    }
+    },
   },
   data() {
     return {
       loading: false,
       init: false,
-      formData: null
+      formData: null,
     };
   },
   mounted() {
@@ -185,8 +227,8 @@ export default {
       this.$http
         .get(this.attrs.dataUrl, {
           params: {
-            get_data: true
-          }
+            get_data: true,
+          },
         })
         .then(({ data }) => {
           this.formData = data;
@@ -202,7 +244,7 @@ export default {
         });
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
           const formatData = this._.pick(this.formData, this.ignoreKey);
@@ -259,8 +301,8 @@ export default {
     },
     closeDialog() {
       this.$bus.emit("showDialogGridFrom", { isShow: false });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -275,6 +317,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .form-bottom-actions-fixed {
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: #ffffff;
   }
   .form-item-help {
     color: #999;
