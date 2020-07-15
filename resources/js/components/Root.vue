@@ -152,7 +152,7 @@
         </el-footer>
       </el-container>
     </el-container>
-    <el-backtop :bottom="80"></el-backtop>
+    <el-backtop></el-backtop>
     <el-drawer :visible.sync="showAdminSet" size="250px">
       <div style="padding:0 10px;">
         <el-divider>主题风格</el-divider>

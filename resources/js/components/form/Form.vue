@@ -100,7 +100,10 @@
             </template>
           </component>
         </component>
-        <component :is="attrs.actions.fixed?'Affix':'div'" :offset-bottom="2">
+        <component
+          :is="attrs.actions.fixed ? 'Affix' : 'div'"
+          :offset-bottom="20"
+        >
           <div
             class="form-bottom-actions flex padding-tb"
             :class="{ 'form-bottom-actions-fixedxxx': attrs.actions.fixed }"
@@ -133,7 +136,7 @@
                 :icon="attrs.actions.cancelButton.icon"
                 :autofocus="attrs.actions.cancelButton.autofocus"
                 :loading="loading"
-                @click="attrs.attrs.isDialog ? closeDialog : $router.go(-1)"
+                @click="onCancel"
                 ><template v-if="attrs.actions.cancelButton.content">{{
                   attrs.actions.cancelButton.content
                 }}</template>
@@ -299,6 +302,9 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    onCancel() {
+      this.attrs.attrs.isDialog ? this.closeDialog() : this.$router.go(-1);
+    },
     closeDialog() {
       this.$bus.emit("showDialogGridFrom", { isShow: false });
     },
@@ -318,14 +324,15 @@ export default {
     align-items: center;
     justify-content: space-between;
   }
-  .form-bottom-actions-fixed {
-    position: fixed;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-    padding: 15px;
-    background: #ffffff;
+  .admin-affix {
+    .form-bottom-actions {
+      padding: 6px;
+      background: #ffffff;
+      border-radius: 4px;
+      border: 1px solid #EBEEF5;
+    }
   }
+
   .form-item-help {
     color: #999;
   }
