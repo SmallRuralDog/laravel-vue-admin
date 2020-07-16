@@ -128,7 +128,7 @@
             </div>
           </div>
         </el-header>
-        <el-main :class="{ 'el-main-fixed': fixedHeader }" style="position: relative;">
+        <el-main :class="{ 'el-main-fixed': fixedHeader }">
           
           <div class="layout-content-main">
             <router-view></router-view>

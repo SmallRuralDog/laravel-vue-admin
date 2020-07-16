@@ -13,7 +13,6 @@ class DateTimePicker extends DatePicker
 
     static public function make($value = null, $type = "datetime")
     {
-        $value = $value?$value:now()->toDateTimeString();
 
         return (new DateTimePicker($value))->type($type);
     }

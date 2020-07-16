@@ -316,9 +316,6 @@ export default {
   .form-card {
     min-height: 200px;
   }
-  .el-form-item__content {
-    //line-height: unset;
-  }
   .form-bottom-actions {
     display: flex;
     align-items: center;
@@ -329,7 +326,7 @@ export default {
       padding: 6px;
       background: #ffffff;
       border-radius: 4px;
-      border: 1px solid #EBEEF5;
+      border: 1px solid #ebeef5;
     }
   }
 
