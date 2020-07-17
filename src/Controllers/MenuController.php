@@ -70,13 +70,14 @@ class MenuController extends AdminController
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
         $grid->model()->with(['children', 'roles', 'children.roles']);
+        $grid->hidePage();
         $grid
             ->defaultSort('order', 'asc')
             ->tree()
             ->emptyText("暂无菜单")
             ->quickSearch(["title"])
             ->defaultExpandAll(false)
-        ->dialogForm($this->form()->isDialog()->labelWidth('auto')->backButtonName("关闭")->className('p-15'),'50%');
+            ->dialogForm($this->form()->isDialog()->labelWidth('auto')->backButtonName("关闭")->className('p-15'), '50%');
 
         $grid->column('id', "ID")->width(80);
         $grid->column('icon', "图标")->component(Icon::make())->width(80);

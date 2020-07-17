@@ -9,7 +9,7 @@
       <el-card
         shadow="never"
         :body-style="{ padding: 0 }"
-        class="mb-10"
+        class="margin-bottom-sm"
         v-if="attrs.filter.filters.length > 0"
       >
         <div class="filter-form">
@@ -211,7 +211,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page padding-xs">
+      <div class="table-page padding-xs" v-if='!attrs.hidePage'>
         <el-pagination
           :layout="attrs.pageLayout"
           :hide-on-single-page="false"
@@ -375,22 +375,13 @@ export default {
             ...this.tabsSelectdata,
           },
         })
-        .then(
-          ({ data: { data, current_page, per_page, total, last_page } }) => {
-            this.tableData = data;
-
-            this.pageData.pageSize = per_page;
-            this.pageData.currentPage = current_page;
-            this.pageData.total = total;
-            this.pageData.lastPage = last_page;
-
-            //**保存 Grid状态 */
-            if (this.attrs.attributes.dataVuex) {
-              this.$store.commit("setGridData", {
-                key: "tableData",
-                data: this.tableData,
-              });
-            }
+        .then(({ data }) => {
+          if (!this.attrs.hidePage) {
+            this.tableData = data.data;
+            this.pageData.pageSize = data.per_page;
+            this.pageData.currentPage = data.current_page;
+            this.pageData.total = data.total;
+            this.pageData.lastPage = data.last_page;
 
             this.$store.commit("setGridData", { key: "sort", data: this.sort });
             this.$store.commit("setGridData", { key: "page", data: this.page });
@@ -398,18 +389,28 @@ export default {
               key: "pageData",
               data: this.pageData,
             });
-
-            this.$store.commit("setGridData", {
-              key: "quickSearch",
-              data: this.quickSearch,
-            });
-            this.$store.commit("setGridData", {
-              key: "filterFormData",
-              data: this.filterFormData,
-            });
-            /** */
+          } else {
+            this.tableData = data;
           }
-        )
+
+          //**保存 Grid状态 */
+          if (this.attrs.attributes.dataVuex) {
+            this.$store.commit("setGridData", {
+              key: "tableData",
+              data: this.tableData,
+            });
+          }
+
+          this.$store.commit("setGridData", {
+            key: "quickSearch",
+            data: this.quickSearch,
+          });
+          this.$store.commit("setGridData", {
+            key: "filterFormData",
+            data: this.filterFormData,
+          });
+          /** */
+        })
         .finally(() => {
           this.loading = false;
         });
@@ -485,8 +486,8 @@ export default {
           window.innerHeight -
           55 -
           window.rootFooterHeight -
-          this.topViewHeight -
-          40 -
+          (this.topViewHeight > 0 ? this.topViewHeight + 10 : 0) -
+          25 -
           this.toolbarsViewHeight
         );
       }

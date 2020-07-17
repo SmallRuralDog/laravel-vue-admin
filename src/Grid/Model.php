@@ -103,7 +103,7 @@ class Model
     protected $eagerLoads = [];
 
 
-    public function __construct(EloquentModel $model=null, Grid $grid = null)
+    public function __construct(EloquentModel $model = null, Grid $grid = null)
     {
         $this->model = $model;
         $this->sModel = $model;
@@ -122,6 +122,16 @@ class Model
     {
         $this->usePaginate = $use;
     }
+
+    /**
+     * @return bool
+     */
+    public function isUsePaginate(): bool
+    {
+        return $this->usePaginate;
+    }
+
+
 
     public function getModel()
     {

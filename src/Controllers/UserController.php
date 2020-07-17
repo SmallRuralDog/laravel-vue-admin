@@ -26,7 +26,8 @@ class UserController extends AdminController
             ->defaultSort('id', 'asc')
             ->selection()
             ->stripe(true)->emptyText("暂无用户")
-            ->perPage(10);
+            ->perPage(10)
+            ->autoHeight();
 
         $grid->column('id', "ID")->width(80);
         $grid->column('avatar', '头像')->width(80)->align('center')->component(Avatar::make());

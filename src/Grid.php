@@ -33,8 +33,8 @@ class Grid extends Component
      * @var string
      */
     protected $componentName = 'Grid';
+
     /**
-     * 组件模型
      * @var Model
      */
     protected $model;
@@ -318,7 +318,7 @@ class Grid extends Component
      * @param $total
      * @return $this
      */
-    public function customData($data, $current_page, $per_page, $last_page, $total)
+    public function customData($data, $current_page = 0, $per_page = 0, $last_page = 0, $total = 0)
     {
         $this->customData = [
             'current_page' => (int)$current_page,
@@ -376,6 +376,7 @@ class Grid extends Component
             $viewData['columnAttributes'] = $this->columnAttributes;
             $viewData['attributes'] = (array)$this->attributes;
             $viewData['dataUrl'] = $this->dataUrl;
+            $viewData['hidePage'] = $this->isHidePage();
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;
             $viewData['pageLayout'] = $this->pageLayout;

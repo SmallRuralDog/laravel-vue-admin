@@ -48,7 +48,6 @@ class Attributes
     public $rowKey = 'id';
 
 
-    protected $hideCreateButton = false;
 
     public $draggable = false;
     public $draggableUrl;

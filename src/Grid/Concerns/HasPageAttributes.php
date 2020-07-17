@@ -13,6 +13,8 @@ trait HasPageAttributes
 
     protected $pageBackground = true;
 
+    protected $hidePage = false;
+
     /**
      * 设置分页布局，子组件名用逗号分隔
      * prev, pager, next, jumper, ->, total
@@ -68,6 +70,27 @@ trait HasPageAttributes
     public function getPerPage(): int
     {
         return $this->perPage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidePage(): bool
+    {
+        return $this->hidePage;
+    }
+
+    /**
+     * 隐藏分页
+     * @return $this
+     */
+    public function hidePage()
+    {
+        $this->hidePage = true;
+        if ($this->model) {
+            $this->model->usePaginate(false);
+        }
+        return $this;
     }
 
 
