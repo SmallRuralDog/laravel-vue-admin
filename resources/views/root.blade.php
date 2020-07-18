@@ -1,2 +1,2 @@
 @extends('admin::layouts.base')
-@section('content')<root :page_data='@json($data)'></root>@endsection
+@section('content')<root :page-data='@json($data)'></root>@endsection

@@ -54,7 +54,7 @@ export default class VueAdmin {
         let _this = this;
         this.boot();
         this.app = new Vue({
-            el: '#vue-admin',
+            el: '#app',
             store,
             router
         });

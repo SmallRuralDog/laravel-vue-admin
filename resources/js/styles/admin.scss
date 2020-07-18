@@ -1,5 +1,8 @@
-@import "./variables.scss";
-@import "./transition.scss";
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
 @import "./base.scss";
 
 @mixin scrollbar {
@@ -55,7 +58,6 @@ img {
 }
 
 a {
-  color: $base-color-blue;
   text-decoration: none;
   cursor: pointer;
 }
@@ -80,7 +82,6 @@ html {
     padding: 0;
     margin: 0;
     font-family: "PingFang SC", Arial, "Microsoft YaHei", sans-serif;
-    font-size: $base-font-size-default;
     background: #f6f8f9;
 
     @include base-scrollbar;

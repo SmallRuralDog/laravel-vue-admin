@@ -8,11 +8,11 @@
         :width="isCollapsed ? '64px' : '200px'"
       >
         <div class="content-side-logo">
-          <template v-if="page_data.logoShow">
+          <template v-if="pageData.logoShow">
             <template v-if="isDark">
-              <template v-if="page_data.logoLight">
-                <img v-if="isCollapsed" :src="page_data.logoMiniLight" />
-                <img :src="page_data.logoLight" />
+              <template v-if="pageData.logoLight">
+                <img v-if="isCollapsed" :src="pageData.logoMiniLight" />
+                <img :src="pageData.logoLight" />
               </template>
               <template v-else>
                 <img v-if="isCollapsed" src="../assets/logo-mini-light.svg" />
@@ -20,9 +20,9 @@
               </template>
             </template>
             <template v-else>
-              <template v-if="page_data.logo">
-                <img v-if="isCollapsed" :src="page_data.logoMini" />
-                <img :src="page_data.logo" />
+              <template v-if="pageData.logo">
+                <img v-if="isCollapsed" :src="pageData.logoMini" />
+                <img :src="pageData.logo" />
               </template>
               <template v-else>
                 <img v-if="isCollapsed" src="../assets/logo-mini.svg" />
@@ -30,7 +30,7 @@
               </template>
             </template>
           </template>
-          <h1 v-if="!isCollapsed && page_data.name">{{ page_data.name }}</h1>
+          <h1 v-if="!isCollapsed && pageData.name">{{ pageData.name }}</h1>
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-menu
@@ -39,10 +39,10 @@
             :background-color="isDark ? '#1d1e23' : ''"
             :text-color="isDark ? '#ffffff' : ''"
             :collapse-transition="false"
-            :unique-opened="page_data.uniqueOpened"
+            :unique-opened="pageData.uniqueOpened"
             :router="true"
           >
-            <template v-for="menu in page_data.menu">
+            <template v-for="menu in pageData.menu">
               <el-submenu
                 :index="menu.route"
                 :key="menu.id"
@@ -101,7 +101,7 @@
                 <el-breadcrumb-item :to="{ path: '/' }"
                   >首页</el-breadcrumb-item
                 >
-                <template v-for="menu in page_data.menuList">
+                <template v-for="menu in pageData.menuList">
                   <el-breadcrumb-item
                     v-if="menu.route == route"
                     :key="menu.route"
@@ -124,9 +124,9 @@
             <div class="layout-header-trigger layout-header-trigger-min hover">
               <el-dropdown>
                 <div class="layout-header-user">
-                  <el-avatar :src="page_data.user.avatar" :size="25" />
+                  <el-avatar :src="pageData.user.avatar" :size="25" />
                   <span class="layout-header-user-name">{{
-                    page_data.user.name
+                    pageData.user.name
                   }}</span>
                 </div>
                 <el-dropdown-menu slot="dropdown">
@@ -157,7 +157,7 @@
             <div class="footer-links">
               <el-link
                
-                v-for="(item, index) in page_data.footerLinks"
+                v-for="(item, index) in pageData.footerLinks"
                 :key="index"
                 type="text"
                 :href="item.href"
@@ -166,7 +166,7 @@
                 >{{ item.title }}</el-link
               >
             </div>
-            <div v-html="page_data.copyright"></div>
+            <div v-html="pageData.copyright"></div>
           </div>
         </el-footer>
       </el-container>
@@ -240,7 +240,7 @@ import { flattenDeepChild } from "../utils";
 
 export default {
   props: {
-    page_data: Object,
+    pageData: Object,
   },
   data() {
     return {
@@ -303,7 +303,7 @@ export default {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
     },
     menuRoutes() {
-      return flattenDeepChild(this.page_data.menu, "children", "route");
+      return flattenDeepChild(this.pageData.menu, "children", "route");
     },
   },
   methods: {
@@ -315,7 +315,7 @@ export default {
     },
     onLogout() {
       this.$confirm("您确定退出登录当前账户吗？", "退出登陆确认").then(() => {
-        window.location.href = this.page_data.url.logout;
+        window.location.href = this.pageData.url.logout;
       });
     },
   },

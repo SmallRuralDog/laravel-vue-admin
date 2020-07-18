@@ -1,11 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getters'
+import app from './modules/app'
+import settings from './modules/settings'
+
 Vue.use(Vuex);
 
 import http from '@/util/axios'
 
 const store = new Vuex.Store({
     strict: false,
+    modules: {
+        app,
+        settings
+    },
     state: {
         query: "",
         path: null,
@@ -14,6 +22,7 @@ const store = new Vuex.Store({
         grids: {}
     },
     getters: {
+        ...getters,
         thisPage: state => {
             return state.pages[state.path]
         }

@@ -18,7 +18,7 @@
     @yield('head-js')
 </head>
 <body>
-<div id="vue-admin">@yield('content')</div>
+<div id="app">@yield('content')</div>
 <script>
     Admin = {};
     Admin.token = "{{csrf_token()}}";

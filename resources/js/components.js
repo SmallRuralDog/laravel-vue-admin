@@ -1,5 +1,6 @@
 import Vue from "vue";
 
+
 Vue.component("login", require("@/components/Login").default);
 Vue.component("Root", require("@/components/Root").default);
 Vue.component("Content", require("@/components/layout/Content").default);
