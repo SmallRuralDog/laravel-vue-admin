@@ -12,7 +12,7 @@
             <template v-if="isDark">
               <template v-if="pageData.logoLight">
                 <img v-if="isCollapsed" :src="pageData.logoMiniLight" />
-                <img :src="pageData.logoLight" />
+                <img v-else :src="pageData.logoLight" />
               </template>
               <template v-else>
                 <img v-if="isCollapsed" src="../assets/logo-mini-light.svg" />
@@ -22,7 +22,7 @@
             <template v-else>
               <template v-if="pageData.logo">
                 <img v-if="isCollapsed" :src="pageData.logoMini" />
-                <img :src="pageData.logo" />
+                <img v-else :src="pageData.logo" />
               </template>
               <template v-else>
                 <img v-if="isCollapsed" src="../assets/logo-mini.svg" />
