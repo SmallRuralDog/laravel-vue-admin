@@ -18,7 +18,7 @@
         "cross-env": "^5.1",
         "element-ui": "^2.13.2",
         "laravel-mix": "^5.0.4",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
