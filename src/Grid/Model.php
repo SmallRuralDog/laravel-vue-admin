@@ -132,7 +132,6 @@ class Model
     }
 
 
-
     public function getModel()
     {
         return $this->model;
@@ -404,6 +403,10 @@ class Model
 
         foreach ($data as $key => $row) {
             $item = [];
+
+            foreach ($this->grid->getAppendFields() as $field) {
+                data_set($item, $field, data_get($row, $field));
+            }
             foreach ($columns as $column) {
 
                 if (Str::contains($column->getName(), '.')) {

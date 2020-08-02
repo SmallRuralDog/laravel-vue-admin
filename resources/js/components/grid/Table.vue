@@ -211,7 +211,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page padding-xs" v-if='!attrs.hidePage'>
+      <div class="table-page padding-xs" v-if="!attrs.hidePage">
         <el-pagination
           :layout="attrs.pageLayout"
           :hide-on-single-page="false"
@@ -364,7 +364,7 @@ export default {
     getData() {
       this.loading = true;
       this.$http
-        .get(this.attrs.dataUrl, {
+        [this.attrs.method](this.attrs.dataUrl, {
           params: {
             get_data: true,
             page: this.page,
@@ -373,6 +373,7 @@ export default {
             ...this.q_search,
             ...this.filterFormData,
             ...this.tabsSelectdata,
+            ...this.$route.query,
           },
         })
         .then(({ data }) => {

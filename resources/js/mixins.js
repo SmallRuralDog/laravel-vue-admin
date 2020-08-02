@@ -2,7 +2,7 @@ const GridColumnComponent = {
     props: {
         attrs: Object,
         row: Object,
-        column_value: {
+        columnValue: {
             default: null
         },
         value: {

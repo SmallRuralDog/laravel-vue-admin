@@ -72,6 +72,18 @@ class Grid extends Component
     private $top;
     private $bottom;
 
+    /**
+     * 请求方式
+     * @var string
+     */
+    private $method = "get";
+
+    /**
+     * 附加字段
+     * @var array
+     */
+    private $appendFields = [];
+
 
     /**
      * @var Form
@@ -126,6 +138,39 @@ class Grid extends Component
         $this->dataUrl = $dataUrl;
         return $this;
     }
+
+    /**
+     * @param string $method
+     * @return $this
+     */
+    public function method(string $method)
+    {
+        $this->method = $method;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAppendFields(): array
+    {
+        return $this->appendFields;
+    }
+
+    /**
+     * 数据返回附加字段
+     * @param array $appendFields
+     * @return $this
+     */
+    public function appendFields(array $appendFields)
+    {
+        $this->appendFields = $appendFields;
+        return $this;
+    }
+
+
+
+
 
     /**
      * @return bool
@@ -376,6 +421,7 @@ class Grid extends Component
             $viewData['columnAttributes'] = $this->columnAttributes;
             $viewData['attributes'] = (array)$this->attributes;
             $viewData['dataUrl'] = $this->dataUrl;
+            $viewData['method'] = $this->method;
             $viewData['hidePage'] = $this->isHidePage();
             $viewData['pageSizes'] = $this->pageSizes;
             $viewData['perPage'] = $this->perPage;

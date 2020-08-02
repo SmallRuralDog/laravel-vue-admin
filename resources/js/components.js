@@ -82,6 +82,7 @@ Vue.component("Link", require("./components/widgets/Grid/Link").default);
 Vue.component("IImage", require("./components/widgets/Grid/Image").default);
 Vue.component("Icon", require("./components/widgets/Grid/Icon").default);
 Vue.component("Boole", require("./components/widgets/Grid/Boole").default);
+Vue.component("GridRoute", require("./components/widgets/Grid/GridRoute").default);
 
 //Actions
 Vue.component(
