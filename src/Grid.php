@@ -339,6 +339,10 @@ class Grid extends Component
     }
 
 
+    /**
+     * @param $closure
+     * @return $this
+     */
     public function top($closure)
     {
         $this->top = new Content();
@@ -346,6 +350,10 @@ class Grid extends Component
         return $this;
     }
 
+    /**
+     * @param $closure
+     * @return $this
+     */
     public function bottom($closure)
     {
         $this->bottom = new Content();
