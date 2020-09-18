@@ -30,8 +30,8 @@ class Menu extends Model
 
     protected $casts = [
         'permission' => 'array',
-        'created_at' => "Y-m-d H:i:s",
-        'updated_at' => "Y-m-d H:i:s",
+        'created_at' => "timestamp:Y-m-d H:i:s",
+        'updated_at' => "timestamp:Y-m-d H:i:s",
     ];
 
     /**

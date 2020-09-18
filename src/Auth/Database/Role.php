@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Auth\Database;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -10,8 +11,8 @@ class Role extends Model
     protected $fillable = ['name', 'slug'];
 
     protected $casts = [
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
+        'created_at'=>"timestamp:Y-m-d",
+        'updated_at'=>"timestamp:Y-m-d H:i:s",
     ];
     /**
      * Create a new Eloquent model instance.

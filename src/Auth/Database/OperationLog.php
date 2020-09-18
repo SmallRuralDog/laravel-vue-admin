@@ -22,8 +22,8 @@ class OperationLog extends Model
     ];
 
     protected $casts = [
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
+        'created_at'=>"timestamp:Y-m-d H:i:s",
+        'updated_at'=>"timestamp:Y-m-d H:i:s",
     ];
 
     /**

@@ -21,8 +21,8 @@ return [
     'login_background_image' => 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg',
     //登录框默认用户
     'auto_user' => [
-        'username' => 'demo',
-        'password' => 'demo'
+        'username' => '',
+        'password' => ''
     ],
     //底部菜单
     'footerLinks' => [
@@ -109,7 +109,7 @@ return [
     ],
     //操作日志
     'operation_log' => [
-        'enable' => true,
+        'enable' => env('ADMIN_OPERATION_LOG', false),
         /*
          * Only logging allowed methods in the list
          */

@@ -22,8 +22,8 @@ class Permission extends Model
     ];
 
     protected $casts = [
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
+        'created_at'=>"timestamp:Y-m-d H:i:s",
+        'updated_at'=>"timestamp:Y-m-d H:i:s",
     ];
 
     /**
@@ -180,4 +180,6 @@ class Permission extends Model
             $model->roles()->detach();
         });
     }
+
+
 }

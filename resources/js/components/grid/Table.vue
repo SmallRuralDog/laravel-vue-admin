@@ -1,11 +1,7 @@
 <template>
   <div class="grid-container">
     <div ref="topView">
-      <component
-        v-if="attrs.top"
-        :is="attrs.top.componentName"
-        :attrs="attrs.top"
-      />
+      <component v-if="attrs.top" :is="attrs.top.componentName" :attrs="attrs.top" />
       <el-card
         shadow="never"
         :body-style="{ padding: 0 }"
@@ -66,9 +62,7 @@
                 @clear="getData"
                 @keyup.enter.native="getData"
               >
-                <el-button @click="getData" :loading="loading" slot="append"
-                  >搜索</el-button
-                >
+                <el-button @click="getData" :loading="loading" slot="append">搜索</el-button>
               </el-input>
             </div>
             <div class="flex-c">
@@ -87,18 +81,10 @@
               :is="component.componentName"
               :attrs="component"
             />
-            <el-divider
-              direction="vertical"
-              v-if="!attrs.attributes.hideCreateButton"
-            ></el-divider>
+            <el-divider direction="vertical" v-if="!attrs.attributes.hideCreateButton"></el-divider>
             <div class="icon-actions">
               <el-dropdown trigger="click">
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="密度"
-                  placement="top"
-                >
+                <el-tooltip class="item" effect="dark" content="密度" placement="top">
                   <i class="el-icon-rank hover"></i>
                 </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
@@ -117,12 +103,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
 
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="刷新"
-                placement="top"
-              >
+              <el-tooltip class="item" effect="dark" content="刷新" placement="top">
                 <i class="el-icon-refresh hover" @click="getData"></i>
               </el-tooltip>
             </div>
@@ -149,16 +130,8 @@
           @sort-change="onTableSortChange"
           @selection-change="onTableselectionChange"
         >
-          <el-table-column
-            v-if="attrs.attributes.selection"
-            align="center"
-            type="selection"
-          ></el-table-column>
-          <el-table-column
-            v-if="attrs.tree"
-            align="center"
-            width="50"
-          ></el-table-column>
+          <el-table-column v-if="attrs.attributes.selection" align="center" type="selection"></el-table-column>
+          <el-table-column v-if="attrs.tree" align="center" width="50"></el-table-column>
           <template v-for="column in attrs.columnAttributes">
             <el-table-column
               :type="column.type"
@@ -175,19 +148,12 @@
             >
               <template slot="header" slot-scope="scope">
                 <span>{{ scope.column.label }}</span>
-                <el-tooltip
-                  placement="top"
-                  v-if="column.help"
-                  :content="column.help"
-                >
+                <el-tooltip placement="top" v-if="column.help" :content="column.help">
                   <i class="el-icon-question hover"></i>
                 </el-tooltip>
               </template>
               <template slot-scope="scope">
-                <ColumnDisplay
-                  :scope="scope"
-                  :columns="attrs.columnAttributes"
-                />
+                <ColumnDisplay :scope="scope" :columns="attrs.columnAttributes" />
               </template>
             </el-table-column>
           </template>
@@ -211,7 +177,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="table-page padding-xs" v-if="!attrs.hidePage">
+      <div ref="pageView" class="table-page padding-xs" v-if="!attrs.hidePage">
         <el-pagination
           :layout="attrs.pageLayout"
           :hide-on-single-page="false"
@@ -225,11 +191,10 @@
         />
       </div>
     </el-card>
-    <component
-      v-if="attrs.bottom"
-      :is="attrs.bottom.componentName"
-      :attrs="attrs.bottom"
-    />
+    <div ref="bottomComponentView">
+      <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs="attrs.bottom" />
+    </div>
+
     <DialogForm
       ref="DialogGridFrom"
       v-if="attrs.dialogForm"
@@ -279,6 +244,8 @@ export default {
       tabsActiveName: "all",
       topViewHeight: 0,
       toolbarsViewHeight: 0,
+      pageViewHeight: 0,
+      bottomComponentViewHeight: 0,
     };
   },
 
@@ -332,7 +299,11 @@ export default {
 
     this.$nextTick(() => {
       this.topViewHeight = this.$refs.topView.offsetHeight;
+
       this.toolbarsViewHeight = this.$refs.toolbarsView.offsetHeight;
+
+      this.pageViewHeight = this.$refs.pageView.offsetHeight;
+      this.bottomComponentViewHeight = this.$refs.bottomComponentView.offsetHeight;
     });
   },
   destroyed() {
@@ -363,19 +334,18 @@ export default {
     //获取数据
     getData() {
       this.loading = true;
-      this.$http
-        [this.attrs.method](this.attrs.dataUrl, {
-          params: {
-            get_data: true,
-            page: this.page,
-            per_page: this.pageData.pageSize,
-            ...this.sort,
-            ...this.q_search,
-            ...this.filterFormData,
-            ...this.tabsSelectdata,
-            ...this.$route.query,
-          },
-        })
+      this.$http[this.attrs.method](this.attrs.dataUrl, {
+        params: {
+          get_data: true,
+          page: this.page,
+          per_page: this.pageData.pageSize,
+          ...this.sort,
+          ...this.q_search,
+          ...this.filterFormData,
+          ...this.tabsSelectdata,
+          ...this.$route.query,
+        },
+      })
         .then(({ data }) => {
           if (!this.attrs.hidePage) {
             this.tableData = data.data;
@@ -486,10 +456,12 @@ export default {
         return (
           window.innerHeight -
           55 -
+          20 -
           window.rootFooterHeight -
-          (this.topViewHeight > 0 ? this.topViewHeight + 10 : 0) -
-          25 -
-          this.toolbarsViewHeight
+          this.topViewHeight -
+          (this.toolbarsViewHeight > 0 ? this.toolbarsViewHeight + 12 : 0) -
+          this.pageViewHeight -
+          this.bottomComponentViewHeight
         );
       }
       return this.attrs.attributes.height;

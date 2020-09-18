@@ -70,8 +70,8 @@ class MenuController extends AdminController
         $grid = new Grid(new $userModel());
         $grid->model()->where('parent_id', 0);
         $grid->model()->with(['children', 'roles', 'children.roles']);
-        $grid->hidePage();
         $grid
+            ->hidePage()
             ->defaultSort('order', 'asc')
             ->tree()
             ->emptyText("暂无菜单")
