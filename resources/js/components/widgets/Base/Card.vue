@@ -11,12 +11,14 @@
         v-if="attrs.header"
         :is="attrs.header.componentName"
         :attrs="attrs.header"
+        v-bind="$attrs"
       />
     </div>
     <component
       v-if="attrs.content"
       :is="attrs.content.componentName"
       :attrs="attrs.content"
+      v-bind="$attrs"
     />
   </el-card>
 </template>

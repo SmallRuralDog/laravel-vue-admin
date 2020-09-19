@@ -14,7 +14,7 @@ trait HasRef
      * @param $refData
      * @return $this
      */
-    public function successRefData($ref, $refData)
+    public function successRefData($ref = "", $refData = "")
     {
         if ($refData instanceof \Closure) {
             $data = call_user_func($refData);

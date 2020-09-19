@@ -5,53 +5,7 @@
 @import './sidebar.scss';
 @import "./base.scss";
 
-@mixin scrollbar {
-  max-height: 88vh;
-  margin-bottom: 0.5vh;
-  overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(144, 147, 153, 0.3);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(144, 147, 153, 0.3);
-  }
-}
-
-@mixin base-scrollbar {
-  &::-webkit-scrollbar {
-    width: 13px;
-    height: 13px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    background-clip: padding-box;
-    border: 3px solid transparent;
-    border-radius: 7px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-track:hover {
-    background-color: #f8fafc;
-  }
-}
 
 img {
   object-fit: cover;
@@ -83,12 +37,6 @@ html {
     margin: 0;
     font-family: "PingFang SC", Arial, "Microsoft YaHei", sans-serif;
     background: #f6f8f9;
-
-    @include base-scrollbar;
-
-    div {
-      @include base-scrollbar;
-    }
   }
 }
 .hover {

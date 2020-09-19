@@ -515,10 +515,10 @@ export default {
     background-color: #ebeef5;
   }
   .filter-form {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     background-color: #ffffff;
     .el-form-item {
-      margin-bottom: 0px;
+      margin-bottom: 10px;
       .el-form-item__label {
         padding: 0;
       }

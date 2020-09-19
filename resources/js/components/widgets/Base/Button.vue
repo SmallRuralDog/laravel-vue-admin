@@ -85,6 +85,7 @@
         v-if="attrs.dialog.slot"
         :is="attrs.dialog.slot.componentName"
         :attrs="attrs.dialog.slot"
+        v-bind="$attrs"
       />
     </el-dialog>
   </span>

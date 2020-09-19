@@ -1,10 +1,6 @@
 <template>
   <div class="form-page">
-    <component
-      v-if="attrs.top"
-      :is="attrs.top.componentName"
-      :attrs="attrs.top"
-    />
+    <component v-if="attrs.top" :is="attrs.top.componentName" :attrs="attrs.top" />
     <component
       :is="attrs.attrs.isDialog ? 'div' : 'el-card'"
       shadow="never"
@@ -37,73 +33,18 @@
             v-for="tab in attrs.tabs"
             :key="tab"
           >
-            <template v-for="(item, index) in attrs.formItems">
-              <ItemIf
-                v-if="tab == item.tab"
-                :key="index"
-                :form_item="item"
-                :form_items="attrs.formItems"
-                :form_data="formData"
-              >
-                <component
-                  v-if="item.topComponent"
-                  :is="item.topComponent.componentName"
-                  :attrs="item.topComponent"
-                />
-
-                <el-form-item
-                  :prop="item.prop"
-                  :label-width="item.labelWidth"
-                  :error="item.error"
-                  :show-message="item.showMessage"
-                  :inline-message="item.inlineMessage"
-                  :size="item.size"
-                >
-                  <span slot="label" v-if="!item.hideLabel">
-                    {{ item.label }}
-                  </span>
-                  <template>
-                    <el-col :span="item.inputWidth">
-                      <template v-if="item.relationName">
-                        <ItemDiaplsy
-                          v-model="
-                            formData[item.relationName][item.relationValueKey]
-                          "
-                          :form-item="item"
-                          :form-items="attrs.formItems"
-                          :form-data="formData"
-                        />
-                      </template>
-                      <template v-else>
-                        <ItemDiaplsy
-                          v-model="formData[item.prop]"
-                          :form-item="item"
-                          :form-items="attrs.formItems"
-                          :form-data="formData"
-                        />
-                      </template>
-
-                      <div
-                        v-if="item.help"
-                        class="form-item-help"
-                        v-html="item.help"
-                      ></div>
-                    </el-col>
-                  </template>
-                </el-form-item>
-                <component
-                  v-if="item.footerComponent"
-                  :is="item.footerComponent.componentName"
-                  :attrs="item.footerComponent"
-                />
-              </ItemIf>
-            </template>
+            <component
+              v-for="(row, index) in attrs.formItemLayout"
+              :key="index"
+              :is="row.componentName"
+              :attrs="row"
+              :formData="formData"
+              :formItems="attrs.formItems"
+              :tab="tab"
+            />
           </component>
         </component>
-        <component
-          :is="attrs.actions.fixed ? 'Affix' : 'div'"
-          :offset-bottom="20"
-        >
+        <component :is="attrs.actions.fixed ? 'Affix' : 'div'" :offset-bottom="20">
           <div
             class="form-bottom-actions flex padding-tb"
             :class="{ 'form-bottom-actions-fixedxxx': attrs.actions.fixed }"
@@ -137,9 +78,12 @@
                 :autofocus="attrs.actions.cancelButton.autofocus"
                 :loading="loading"
                 @click="onCancel"
-                ><template v-if="attrs.actions.cancelButton.content">{{
+              >
+                <template v-if="attrs.actions.cancelButton.content">
+                  {{
                   attrs.actions.cancelButton.content
-                }}</template>
+                  }}
+                </template>
               </el-button>
 
               <el-button
@@ -156,33 +100,29 @@
                 :autofocus="attrs.actions.submitButton.autofocus"
                 :loading="loading"
                 @click="submitForm(attrs.ref || 'form')"
-                ><template v-if="attrs.actions.submitButton.content">{{
+              >
+                <template v-if="attrs.actions.submitButton.content">
+                  {{
                   attrs.actions.submitButton.content
-                }}</template>
+                  }}
+                </template>
               </el-button>
             </div>
           </div>
         </component>
       </el-form>
     </component>
-    <component
-      v-if="attrs.bottom"
-      :is="attrs.bottom.componentName"
-      :attrs="attrs.bottom"
-    />
+    <component v-if="attrs.bottom" :is="attrs.bottom.componentName" :attrs="attrs.bottom" />
   </div>
 </template>
 <script>
 import { BaseComponent } from "@/mixins.js";
-import ItemDiaplsy from "./ItemDiaplsy";
-import ItemIf from "./ItemIf";
+
 import { isNull } from "../../utils";
 import Affix from "../widgets/common/affix";
 export default {
   mixins: [BaseComponent],
   components: {
-    ItemDiaplsy,
-    ItemIf,
     Affix,
   },
   props: {
@@ -191,14 +131,6 @@ export default {
   computed: {
     isEdit() {
       return this.attrs.mode == "edit";
-    },
-    ignoreKey() {
-      return this._.map(
-        this.attrs.formItems.filter(
-          (e) => !e.ignoreEmpty || !isNull(this.formData[e.prop])
-        ),
-        "prop"
-      );
     },
   },
   data() {
@@ -250,7 +182,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          const formatData = this._.pick(this.formData, this.ignoreKey);
+          console.log(this.ignoreKey);
+          const formatData = this._.omit(this.formData, this.attrs.ignoreEmptyProps);
           if (this.isEdit) {
             this.$http
               .put(this.attrs.action, formatData)

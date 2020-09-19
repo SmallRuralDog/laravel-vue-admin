@@ -10,6 +10,8 @@ use SmallRuralDog\Admin\Components\Grid\Avatar;
 use SmallRuralDog\Admin\Components\Grid\Tag;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
+use SmallRuralDog\Admin\Layout\Column;
+use SmallRuralDog\Admin\Layout\Row;
 
 class UserController extends AdminController
 {
@@ -51,21 +53,28 @@ class UserController extends AdminController
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');
 
-        $form->item('username', '用户名')
-            ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])
-            ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])
-            ->component(Input::make());
-        $form->item('name', '名称')->component(Input::make()->showWordLimit()->maxlength(20));
+
         $form->item('avatar', '头像')->component(Upload::make()->avatar()->path('avatar')->uniqueName());
-        $form->item('password', '密码')->serveCreationRules(['required', 'string', 'confirmed'])->serveUpdateRules(['confirmed'])->ignoreEmpty()
-            ->component(function () {
-                return Input::make()->password()->showPassword();
-            });
-        $form->item('password_confirmation', '确认密码')
-            ->copyValue('password')->ignoreEmpty()
-            ->component(function () {
-                return Input::make()->password()->showPassword();
-            });
+        $form->row(function (Row $row, Form $form) use ($userTable, $connection) {
+            $row->column(8, $form->rowItem('username', '用户名')
+                ->serveCreationRules(['required', "unique:{$connection}.{$userTable}"])
+                ->serveUpdateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"])
+                ->component(Input::make())->required());
+            $row->column(8, $form->rowItem('name', '名称')->component(Input::make()->showWordLimit()->maxlength(20))->required());
+        });
+
+        $form->row(function (Row $row, Form $form) {
+            $row->column(8, $form->rowItem('password', '密码')->serveCreationRules(['required', 'string', 'confirmed'])->serveUpdateRules(['confirmed'])->ignoreEmpty()
+                ->component(function () {
+                    return Input::make()->password()->showPassword();
+                }));
+
+            $row->column(8, $form->rowItem('password_confirmation', '确认密码')
+                ->copyValue('password')->ignoreEmpty()
+                ->component(function () {
+                    return Input::make()->password()->showPassword();
+                }));
+        });
         $form->item('roles', '角色')->component(Select::make()->block()->multiple()->options($roleModel::all()->map(function ($role) {
             return SelectOption::make($role->id, $role->name);
         })->toArray()));

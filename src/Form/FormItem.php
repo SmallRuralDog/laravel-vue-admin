@@ -11,6 +11,9 @@ use SmallRuralDog\Admin\Form;
 
 class FormItem extends Component
 {
+
+    protected $componentName = "FormItem";
+
     protected $prop;
     protected $label;
     protected $hideLabel = false;
@@ -592,6 +595,7 @@ class FormItem extends Component
 
 
     /**
+     * @deprecated 已抛弃，设置无效
      * 设置字段所属tab名称
      * @param string $tab
      * @return FormItem
@@ -619,6 +623,16 @@ class FormItem extends Component
         $this->ignoreEmpty = true;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isIgnoreEmpty(): bool
+    {
+        return $this->ignoreEmpty;
+    }
+
+
 
     /**
      * 传递当前组件所在模式
@@ -660,6 +674,7 @@ class FormItem extends Component
     public function getAttrs()
     {
         return [
+            'componentName'=>$this->componentName,
             'prop' => $this->prop,
             'label' => $this->label,
             'field' => $this->field,
@@ -690,6 +705,11 @@ class FormItem extends Component
             'ref' => $this->ref,
             'refData' => $this->refData
         ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->getAttrs();
     }
 
 }

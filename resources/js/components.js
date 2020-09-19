@@ -9,10 +9,15 @@ Vue.component("Column", require("@/components/layout/Column").default);
 Vue.component("Grid", require("@/components/grid/Table").default);
 Vue.component("Tree", require("@/components/grid/Tree").default);
 Vue.component("Form", require("@/components/form/Form").default);
+Vue.component("FormItem", require("@/components/form/FormItem").default);
+
 Vue.component("BaseForm", require("@/components/form/BaseForm").default);
 Vue.component("MenuItem", require("@/components/layout/MenuItem").default);
 
 //Form
+
+
+
 Vue.component("Input", require("@/components/widgets/Form/Input").default);
 Vue.component(
     "RadioGroup",

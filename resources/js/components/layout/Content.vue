@@ -13,7 +13,7 @@
         :key="index"
         :is="row.componentName"
         :attrs="row"
-        v-bind="$props"
+        v-bind="$attrs"
       />
     </div>
   </div>
