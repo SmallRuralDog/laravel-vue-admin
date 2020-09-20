@@ -31,7 +31,7 @@ return [
             'title' => '官网'
         ],
         [
-            'href' => 'https://smallruraldog.github.io/laravel-vue-admin/',
+            'href' => 'https://www.yuque.com/smallruraldog/laravel-vue-admin/overview',
             'title' => '文档'
         ]
     ],

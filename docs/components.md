@@ -388,7 +388,7 @@ Input::make()
 
 更多属性请查看element-ui文档
 
-```
+```php
 InputNumber::make()
 ```
 
