@@ -302,7 +302,8 @@ export default {
 
       this.toolbarsViewHeight = this.$refs.toolbarsView.offsetHeight;
 
-      this.pageViewHeight = this.$refs.pageView.offsetHeight;
+      this.pageViewHeight = this.$refs.pageView?this.$refs.pageView.offsetHeight:0;
+      
       this.bottomComponentViewHeight = this.$refs.bottomComponentView.offsetHeight;
     });
   },
