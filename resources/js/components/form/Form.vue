@@ -182,8 +182,15 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loading = true;
-          console.log(this.ignoreKey);
-          const formatData = this._.omit(this.formData, this.attrs.ignoreEmptyProps);
+
+          const formatData = this._.pickBy(this.formData, (value, key) => {
+            return (
+              !isNull(value) ||
+              this._.indexOf(this.attrs.ignoreEmptyProps, key) < 0
+            );
+          });
+
+
           if (this.isEdit) {
             this.$http
               .put(this.attrs.action, formatData)
