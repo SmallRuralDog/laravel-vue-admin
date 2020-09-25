@@ -2,15 +2,11 @@
 
 Laravel-Vue-Admin 是一个开箱即用的Laravel后台扩展
 
-前后端分离，后端控制前端组件，无需编写vue即可创建一个`vue`+`vuex`+`vue-route`+`elment-ui`+`laravel`的项目
+前后端分离，简单的几行代码即可创建一个`vue`+`vuex`+`vue-route`+`elment-ui`+`laravel`的项目
 
-丰富的`表单` `表格`组件，强大的自定义组件功能。
+内置了丰富的`表单` `表格`组件
 
-如果你用过 `laravel-admin`、`nova`、`dcat-admin` ，那么你一定会喜欢上这款扩展的。
-
-如果你熟悉`vue`，那么你可以说一声WOCAONIUB
-
-放弃jQuery，拥抱vue，是Laravel-Vue-Admin对`自定义`与`vue生态`的追求，使用Laravel-Vue-Admin一定要领会到精髓
+最核心的是强大的自定义组件功能
 
 
 
