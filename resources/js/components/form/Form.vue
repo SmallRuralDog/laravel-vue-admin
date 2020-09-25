@@ -26,21 +26,20 @@
         :size="attrs.attrs.size"
         :disabled="attrs.attrs.disabled"
       >
-        <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'">
+        <component :is="attrs.attrs.hideTab ? 'div' : 'el-tabs'" :tab-position="attrs.tabPosition">
           <component
             :is="attrs.attrs.hideTab ? 'div' : 'el-tab-pane'"
-            :label="tab"
-            v-for="tab in attrs.tabs"
-            :key="tab"
+            :label="tab.name"
+            v-for="tab in attrs.formItemLayout"
+            :key="tab.name"
           >
             <component
-              v-for="(row, index) in attrs.formItemLayout"
+              v-for="(row, index) in tab.rows"
               :key="index"
               :is="row.componentName"
               :attrs="row"
               :formData="formData"
               :formItems="attrs.formItems"
-              :tab="tab"
             />
           </component>
         </component>

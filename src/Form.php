@@ -14,6 +14,7 @@ use SmallRuralDog\Admin\Components\Form\Upload;
 use SmallRuralDog\Admin\Form\FormActions;
 use SmallRuralDog\Admin\Form\FormAttrs;
 use SmallRuralDog\Admin\Form\FormItem;
+use SmallRuralDog\Admin\Form\FormTab;
 use SmallRuralDog\Admin\Form\HasHooks;
 use SmallRuralDog\Admin\Form\HasRef;
 use SmallRuralDog\Admin\Form\TraitFormAttrs;
@@ -43,8 +44,8 @@ class Form extends Component
     protected $formItems = [];
     protected $formItemLayout = [];
     protected $ignoreEmptyProps = [];
+    protected $tabPosition = "top";
 
-    protected $tabs = [];
 
     const MODE_EDIT = 'edit';
     const MODE_CREATE = 'create';
@@ -143,11 +144,45 @@ class Form extends Component
     {
 
         $row = new Row();
-
         call_user_func($closure, $row, $this);
 
-        $this->formItemLayout[] = $row;
+        $this->tab("default", function (FormTab $formTab) use ($row) {
+            $formTab->row($row);
+        });
 
+        return $this;
+    }
+
+    /**
+     * 自定义tab布局
+     * @param $tabName
+     * @param \Closure $closure
+     * @return $this
+     */
+    public function tab($tabName, \Closure $closure)
+    {
+
+        $tab = collect($this->formItemLayout)->filter(function (FormTab $formTab) use ($tabName) {
+            return $formTab->getName() == $tabName;
+        })->first();
+        if (empty($tab)) {
+            $tab = new FormTab($tabName, $this);
+            call_user_func($closure, $tab, $this);
+            $this->formItemLayout[] = $tab;
+        } else {
+            call_user_func($closure, $tab, $this);
+        }
+        return $this;
+    }
+
+    /**
+     * tab位置
+     * @param $tabPosition
+     * @return $this
+     */
+    public function tabPosition($tabPosition)
+    {
+        $this->tabPosition = $tabPosition;
         return $this;
     }
 
@@ -170,10 +205,6 @@ class Form extends Component
      */
     protected function items($items = [])
     {
-
-        $this->tabs = collect($items)->map(function (FormItem $item) {
-            return $item->getTab();
-        })->unique()->all();
 
         $this->ignoreEmptyProps = collect($items)->filter(function (FormItem $item) {
             return $item->isIgnoreEmpty();
@@ -837,10 +868,9 @@ class Form extends Component
             'dataUrl' => $this->dataUrl,
             'mode' => $this->getMode(),
             'attrs' => $this->attrs,
-            //'formItems' => $this->formItemsAttr,
             'ignoreEmptyProps' => $this->ignoreEmptyProps,
             'formItemLayout' => $this->formItemLayout,
-            'tabs' => $this->tabs,
+            'tabPosition' => $this->tabPosition,
             'defaultValues' => (object)$this->formItemsValue,
             'formRules' => (object)$this->formRules,
             'ref' => $this->ref,

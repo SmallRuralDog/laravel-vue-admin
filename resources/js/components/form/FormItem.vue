@@ -1,5 +1,5 @@
 <template>
-  <ItemIf v-if="tab == item.tab" :form_item="item" :form_items="formItems" :form_data="formData">
+  <div>
     <component
       v-if="item.topComponent"
       :is="item.topComponent.componentName"
@@ -19,9 +19,7 @@
         <el-col :span="item.inputWidth">
           <template v-if="item.relationName">
             <ItemDiaplsy
-              v-model="
-                            formData[item.relationName][item.relationValueKey]
-                          "
+              v-model="formData[item.relationName][item.relationValueKey]"
               :form-item="item"
               :form-items="formItems"
               :form-data="formData"
@@ -47,7 +45,7 @@
       :is="item.footerComponent.componentName"
       :attrs="item.footerComponent"
     />
-  </ItemIf>
+  </div>
 </template>
 <script>
 import ItemDiaplsy from "./ItemDiaplsy";
