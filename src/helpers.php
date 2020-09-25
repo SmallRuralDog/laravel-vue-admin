@@ -103,7 +103,7 @@ if (!function_exists('admin_api_url')) {
             return $path;
         }
         $secure = $secure ?: (config('admin.https') || config('admin.secure'));
-        return url(admin_api_base_path($path), $parameters, $secure);
+        return url($path, $parameters, $secure);
     }
 }
 

@@ -294,6 +294,7 @@ class Form extends Component
 
     public function resource($slice = -2): string
     {
+
         $segments = explode('/', trim(admin_api_url(request()->path()), '/'));
 
         if ($slice !== 0) {
