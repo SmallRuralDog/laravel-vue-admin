@@ -21,8 +21,8 @@ return [
     'login_background_image' => 'https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg',
     //登录框默认用户
     'auto_user' => [
-        'username' => '',
-        'password' => ''
+        'username' => env('ADMIN_AUTO_USERNAME',''),
+        'password' => env('ADMIN_AUTO_PASSWORD',''),
     ],
     //底部菜单
     'footerLinks' => [
@@ -41,7 +41,7 @@ return [
     'route' => [
         'domain' => null,
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
-        'api_prefix' => env('ADMIN_ROUTE_PREFIX', 'admin-api'),
+        'api_prefix' => env('ADMIN_API_ROUTE_PREFIX', 'admin-api'),
         'namespace' => 'App\\Admin\\Controllers',
         'middleware' => ['web', 'admin'],
     ],
