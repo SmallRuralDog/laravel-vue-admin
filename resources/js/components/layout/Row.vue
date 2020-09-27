@@ -7,6 +7,7 @@
     :tag="attrs.tag"
     :style="attrs.style"
     :class="attrs.className"
+    v-bind="$attrs"
   >
     <component
       v-for="(column, index) in attrs.columns"

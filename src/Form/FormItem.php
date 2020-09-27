@@ -113,7 +113,7 @@ class FormItem extends Component
      */
     public function hideLabel()
     {
-        $this->labelWidth("auto");
+        $this->labelWidth("0px");
         $this->hideLabel = true;
         return $this;
     }
@@ -423,6 +423,8 @@ class FormItem extends Component
      */
     public function labelWidth($labelWidth)
     {
+        if ($labelWidth == "auto") return $this;
+
         $this->labelWidth = $labelWidth;
         return $this;
     }
@@ -595,10 +597,10 @@ class FormItem extends Component
 
 
     /**
-     * @deprecated 已抛弃，设置无效
-     * 设置字段所属tab名称
      * @param string $tab
      * @return FormItem
+     * @deprecated 已抛弃，设置无效
+     * 设置字段所属tab名称
      */
     public function tab(string $tab)
     {
@@ -631,7 +633,6 @@ class FormItem extends Component
     {
         return $this->ignoreEmpty;
     }
-
 
 
     /**
@@ -674,7 +675,7 @@ class FormItem extends Component
     public function getAttrs()
     {
         return [
-            'componentName'=>$this->componentName,
+            'componentName' => $this->componentName,
             'prop' => $this->prop,
             'label' => $this->label,
             'field' => $this->field,
