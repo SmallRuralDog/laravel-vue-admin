@@ -146,6 +146,7 @@
                             :align="column.align"
                             :fixed="column.fixed"
                             :header-align="column.headerAlign"
+                            :show-overflow-tooltip="column.showOverflowTooltip"
                         >
                             <template slot="header" slot-scope="scope">
                                 <span>{{ scope.column.label }}</span>
@@ -539,5 +540,11 @@ export default {
             }
         }
     }
+}
+
+// showOverflowTooltip
+.el-tooltip__popper.is-null {
+    background: #303133;
+    color: #fff;
 }
 </style>
