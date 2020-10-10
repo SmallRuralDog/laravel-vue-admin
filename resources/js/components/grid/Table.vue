@@ -302,7 +302,7 @@ export default {
         this.$nextTick(() => {
             this.topViewHeight = this.$refs.topView.offsetHeight;
 
-            this.toolbarsViewHeight = this.$refs.toolbarsView.offsetHeight;
+            this.toolbarsViewHeight = this.$refs.toolbarsView? this.$refs.toolbarsView.offsetHeight:0;
 
             this.pageViewHeight = this.$refs.pageView ? this.$refs.pageView.offsetHeight : 0;
 
