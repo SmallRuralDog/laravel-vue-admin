@@ -394,7 +394,7 @@ class Grid extends Component
             $this->customData['data'] = $this->model()->displayData($this->customData['data']);
             return [
                 'code' => 200,
-                'data' => $this->customData
+                'data' => $this->isHidePage() ? $this->customData['data'] : $this->customData
             ];
         }
 
