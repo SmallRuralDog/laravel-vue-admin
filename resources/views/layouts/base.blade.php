@@ -11,7 +11,7 @@
         @if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://']))
             <link rel="stylesheet" href="{{ $path }}">
         @else
-            <link rel="stylesheet" href="{{route('admin.styles',['style'=>$name])}}">
+            <link rel="stylesheet" href="{{route('admin.styles',['style'=>$name],false)}}">
         @endif
 
     @endforeach
@@ -38,7 +38,7 @@
     @if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://']))
         <script src="{!! $path !!}"></script>
     @else
-        <script src="{{route('admin.scripts',['script'=>$name])}}"></script>
+        <script src="{{route('admin.scripts',['script'=>$name],false)}}"></script>
     @endif
 @endforeach
 <script>
