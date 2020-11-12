@@ -57,6 +57,20 @@ axios.interceptors.response.use(
                 });
                 router.replace('/404')
                 break;
+            case 401:
+                Notification.error({
+                    title: "登录信息已过期",
+                    message: response.data.message
+                });
+                location.reload();
+                break;
+            case 419:
+                Notification.error({
+                    title: "页面已过期",
+                    message: response.data.message
+                });
+                location.reload();
+                break;
             default:
                 Notification.error({
                     title: "请求错误",

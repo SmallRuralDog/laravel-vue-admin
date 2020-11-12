@@ -6,19 +6,18 @@
 <script>
 export default {
   props: {
-    form_item: Object,
-    form_items: Array,
-    form_data: Object,
+    formItem: Object,
+    formData: Object,
   },
   mounted() {},
   computed: {
     ifVif() {
-      let key = this.form_item.vif.key;
-      let value = this.form_item.vif.value;
-      let anyValue = this.form_item.vif.anyValue;
+      let key = this.formItem.vif.key;
+      let value = this.formItem.vif.value;
+      let anyValue = this.formItem.vif.anyValue;
 
       if (key) {
-        let cValue = window._.get(this.form_data, key);
+        let cValue = window._.get(this.formData, key);
         if (cValue == value || (cValue && anyValue)) {
           return true;
         } else {
@@ -30,13 +29,13 @@ export default {
     },
     ivEval() {
       try {
-        if (!this.form_item.vifEval) {
+        if (!this.formItem.vifEval) {
           return true;
         }
-        let expression = this.form_item.vifEval.expression;
-        let props = this.form_item.vifEval.props;
+        let expression = this.formItem.vifEval.expression;
+        let props = this.formItem.vifEval.props;
         props.map((prop) => {
-          window._.get(this.form_data, prop);
+          window._.get(this.formData, prop);
         });
         if (expression) {
           return eval(expression);
