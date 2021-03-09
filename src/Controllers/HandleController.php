@@ -27,7 +27,7 @@ class HandleController extends Controller
     {
         try {
             \Admin::validatorData($request->all(), [
-                'file' => 'image'
+                'file' => 'mimes:' . config('admin.upload.mimes', 'jpeg,bmp,png,gif,jpg')
             ]);
 
             return $this->upload($request);
