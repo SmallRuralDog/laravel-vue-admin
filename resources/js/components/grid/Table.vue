@@ -537,7 +537,7 @@ export default {
             margin-bottom: 10px;
 
             .el-form-item__label {
-                padding: 0;
+                padding: 0 5px;
             }
         }
     }

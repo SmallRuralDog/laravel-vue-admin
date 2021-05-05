@@ -131,6 +131,10 @@ export default {
         isEdit() {
             return this.attrs.mode === "edit";
         },
+        actionUrl() {
+            const keys = this.$store.getters.thisPage.grids.selectionKeys;
+            return this._.replace(this.attrs.action, "selectionKeys", keys);
+        },
     },
     data() {
         return {
@@ -193,7 +197,7 @@ export default {
 
                     if (this.isEdit) {
                         this.$http
-                            .put(this.attrs.action, formatData)
+                            .put(this.actionUrl, formatData)
                             .then(({data, code, message}) => {
                                 if (code === 200) {
                                     if (this.attrs.attrs.isDialog) {
@@ -209,7 +213,7 @@ export default {
                             });
                     } else {
                         this.$http
-                            .post(this.attrs.action, formatData)
+                            .post(this.actionUrl, formatData)
                             .then(({data, code, message}) => {
                                 if (code === 200) {
                                     if (this.attrs.attrs.isDialog) {
